@@ -1,1125 +1,1170 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-  
-  <title>Still Waters</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
   <meta property="og:type" content="website">
 <meta property="og:title" content="Still Waters">
 <meta property="og:url" content="http://yoursite.com/index.html">
 <meta property="og:site_name" content="Still Waters">
-<meta property="og:locale" content="zh">
-<meta property="article:author" content="LiAng">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Hackerleon">
 <meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="Still Waters" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  
-<link rel="stylesheet" href="/css/style.css">
 
-<meta name="generator" content="Hexo 4.2.0"></head>
+<link rel="canonical" href="http://yoursite.com/">
 
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Still Waters</a>
-      </h1>
-      
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: true,
+    isPost: false
+  };
+</script>
+
+  <title>Still Waters</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Still Waters</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
     </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
-      </div>
+        <p class="site-subtitle">Blog site of Hackerleon</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
-</header>
-      <div class="outer">
-        <section id="main">
+</div>
+
+
+<nav class="site-nav">
   
-    <article id="post-2019-12-29-stay-serious" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/02/01/2019-12-29-stay-serious/" class="article-date">
-  <time datetime="2020-02-01T02:50:13.936Z" itemprop="datePublished">2020-02-01</time>
-</a>
-    
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
   </div>
-  <div class="article-inner">
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
     
-    
-      <header class="article-header">
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/anchem" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/01/2019-12-29-stay-serious/">保持敬畏，保持严谨</a>
-    </h1>
   
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/23/cyclomatic-complexity-in-c/">
 
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hackerleon">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Still Waters">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/23/cyclomatic-complexity-in-c/" class="post-title-link" itemprop="url">圈复杂度重构技术（C语言篇）</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-23 00:00:00" itemprop="dateCreated datePublished" datetime="2020-01-23T00:00:00+08:00">2020-01-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%B3%BB%E5%88%97/" itemprop="url" rel="index">
+                    <span itemprop="name">软件工程师系列</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
       </header>
+
     
-    <div class="article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <blockquote>
+          <h2 id="圈复杂度"><a href="#圈复杂度" class="headerlink" title="圈复杂度"></a>圈复杂度</h2><h3 id="什么是圈复杂度"><a href="#什么是圈复杂度" class="headerlink" title="什么是圈复杂度"></a>什么是圈复杂度</h3><p><strong>圈复杂度（CC，Cyclomatic complexity）</strong>是一种代码复杂度的衡量标准，由托马斯·J·麦凯布（Thomas J. McCabe, Sr.）于1976年提出，目的是为了度量代码的复杂程度。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/01/23/cyclomatic-complexity-in-c/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/29/stay-serious/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hackerleon">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Still Waters">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/29/stay-serious/" class="post-title-link" itemprop="url">保持敬畏，保持严谨</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-12-29 00:00:00" itemprop="dateCreated datePublished" datetime="2019-12-29T00:00:00+08:00">2019-12-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%B3%BB%E5%88%97/" itemprop="url" rel="index">
+                    <span itemprop="name">软件工程师系列</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
 <p>码者，国之大事，死生之地，存亡之道，不可不察也。</p>
 </blockquote>
 <p>程序这东西，是极其严谨和死板的，一丝一毫的松懈都有可能为以后埋下祸患，本周遇到了2件事情，让我觉得特别羞愧，值得一记。</p>
-<h2 id="专业人员不能不严谨"><a href="#专业人员不能不严谨" class="headerlink" title="专业人员不能不严谨"></a>专业人员不能不严谨</h2><p>第一件事是这样的，有一个技术指导要上网刷新老版本，而就在前一天晚上，一线在使用老版本的时候发现了一个新问题，于是我和另一名开发同事迅速定位修改了这个问题，也做了初步的自验证，确保正常流程是OK的。由于服务要求的时间很紧迫，我不建议再转一轮测试，担心交付时间延期影响一线的进度。而同事建议我和版本经理说一下，让他来决策，于是我们最后还是紧急转了一轮测试。这不转不要紧，一转吓一跳，测试测出来了3个问题，1处是指导书的问题，2处是代码的问题。虽然问题都很简单也很好修复，但是一旦上网大规模铺开使用，到时候再出问题后果就严重了。想到这里我觉得特别惭愧和后悔，身为一名专业的开发人员，怎么能抱有如此的随意的想法。质量是我们的生命线，也是我们的尊严，如果仅仅是因为担心时间紧而忽视了质量，那么谁还敢相信我们的代码？</p>
-<p>事后来看，我觉得有以下几点非常关键：</p>
-<ol>
-<li><strong>开发人员必须做好充分的自验证。</strong>软件质量维护的成本是前期低后期高，而开发的阶段是整个阶段中最低的也是最值得投入的。如果在开发阶段就没有摆正好态度，没有进行充分的验证，那么一方面会增加后期反复测试的工作量，另一方面也容易把一些难以测试的问题放跑到发布之后，到时候再修正的代价就更高了。开发人员对程序拥有绝对的掌控，他知道代码流程是什么样的，知道每一个场景的处理逻辑，知道每一处细节的差异，那他自然也就知道几乎所有的使用场景，知道怎么做才能充分验证。而当软件走到测试那里时，他面对的则是一个灰盒甚至是黑盒了。虽然测试人员拥有更加专业的测试方法，也可能考虑到开发人员考虑不到的场景，但他对代码细节是不清楚的，一些在开发那里很容易发现的bug到了测试这里可能就要费一番周折甚至会被漏掉了。所以，当代码还在开发手里时，请一定要好好蹂躏它，不要给测试留下一滴水分。</li>
-<li><strong>在权衡时间和质量时，优先考虑质量。</strong>很多时候，我们都会在交付时间和质量上做权衡，尤其是交付时间紧张，外部压力较大的情况下。我们为了按时交付功能，往往会在其他地方做一些短时的舍弃，比如缩短自验证的时间，仅测试最基本和有限的用例，过度简化流程以节约时间。所有这些省下来的时间，起初可能看上去完成了我们交付的计划，但是很容易在后期为我们制造大量的债务，吞噬我们更多的时间和精力。程序是很严谨的一个东西，它没有感情， 没有妥协，说一不二，如果你不严谨，那它必定会找你麻烦。不管时间有多紧张，也要保持敬畏的心态，保持理性的思考，拉通开发、测试、版本经理一起为质量护航，争取尽可能多的资源和时间在保证质量的活动上，不管是自验证也好，覆盖更多的测试用例也好，顶住周边的压力争取时间也好，只有我们的产品是高质量的，发出去的东西才有价值。</li>
-<li><strong>一定要尊重流程。</strong>在软件开发的初期，没有流程，没有规范，一切都是手工作坊式的开发。随着经验的积累，才慢慢出现了流程，出现了规范，出现了checklist，把大家遇到的共性问题通过固定的方式给阻截掉，使得每个人可以聚焦自己擅长的活动。所以在我们日常的开发活动中，一定要尊重这些前人留下的宝贵财富，尊重流程，站在巨人的肩膀上往前走。不要想当然地跳过某个步骤，等到bug在上网后爆发了或者收到投诉了再扼腕叹息那就晚了。</li>
-</ol>
-<h2 id="修改代码时刻保持敬畏"><a href="#修改代码时刻保持敬畏" class="headerlink" title="修改代码时刻保持敬畏"></a>修改代码时刻保持敬畏</h2><p>第二件事则是踩到了一个已经埋下的地雷。</p>
-<p>一个月前在做安全整改时，曾经因为一条告警动了一行代码，当时大致看了下流程，觉得应该不会有问题，修改后没有构造出合适的场景验证，代码检视阶段大家也没发现问题，就这么合入了主干，结果在产品的测试那里爆了雷。</p>
-<p>修改代码容易引入问题，这是大家都心知肚明的事情，因此也想了一些办法，比如代码检视，实时修改实时验证等。但是问题还是不止一次地在不止一个人修改的代码里发生了，这是关键的地方。我们或许可以参考飞行员在起飞前对照飞行员手册和checklist做检查一样认真审阅代码、充分进行测试，我们或许也可以像外科医生一样在对代码进行手术前认真梳理、考虑修改的影响范围。这样的方法我们可以想出来很多，而且总会探索出来适用于整个团队的好方法，但比方法更重要的，是我们面对代码的态度。</p>
-<p>或许有人会说，不就是几行代码吗，很容易改的。可现实经验可以充分告诉我们，很多问题往往就是一两行代码引起的。通过日志、堆栈等信息，推断、还原犯罪现场，往往大部分的代码都很正常，而恰恰是某个字段或者某个只有一行的处理逻辑导致了“血案”的发生。</p>
-<p>再者，当我们以为简单的一两行的修改好像就解决了一个严重问题的时候，新的问题很可能就在此时埋下了祸根。毕竟，水可载舟亦可覆舟，修改代码可以解决问题，同样也可以引入问题。</p>
-<p>不管怎样，面对代码，我们都要保持一颗敬畏之心，保持严谨的态度，甚至要像教徒一样虔诚。要知道手下的代码会影响成百上千人的生活，甚至有可能会影响某个人的生命，<a href="https://zh.wikipedia.org/wiki/Therac-25%E6%A1%88%E4%BE%8B" target="_blank" rel="noopener">Therac-25事件</a>和<a href="https://zh.wikipedia.org/wiki/%E4%BA%9E%E5%88%A9%E5%AE%895%E8%99%9F%E9%81%8B%E8%BC%89%E7%81%AB%E7%AE%AD" target="_blank" rel="noopener">亚利安五号原型爆炸</a>事件已经足以为我们警钟长鸣了，希望在你我的手下不要出现下一个。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/12/29/stay-serious/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/02/01/2019-12-29-stay-serious/" data-id="ck630baty000dvchl8nashfzu" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
 
-
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
   
-    <article id="post-2019-12-01-c-understanding-value-passing" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/02/01/2019-12-01-c-understanding-value-passing/" class="article-date">
-  <time datetime="2020-02-01T02:50:13.929Z" itemprop="datePublished">2020-02-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+  
+  
+
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/01/2019-12-01-c-understanding-value-passing/">深入理解C语言的值传递</a>
-    </h1>
   
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/01/understanding-value-passing/">
 
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hackerleon">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Still Waters">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/01/understanding-value-passing/" class="post-title-link" itemprop="url">深入理解C语言的值传递</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-12-01 00:00:00" itemprop="dateCreated datePublished" datetime="2019-12-01T00:00:00+08:00">2019-12-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%B3%BB%E5%88%97/" itemprop="url" rel="index">
+                    <span itemprop="name">软件工程师系列</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
       </header>
+
     
-    <div class="article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <h2 id="一、函数调用与参数传递"><a href="#一、函数调用与参数传递" class="headerlink" title="一、函数调用与参数传递"></a>一、函数调用与参数传递</h2><p>C语言的函数提供了一种过程的抽象，函数的调用离不开参数的传递与返回值接收，而你真的理解这个过程吗？</p>
+          <h2 id="一、函数调用与参数传递"><a href="#一、函数调用与参数传递" class="headerlink" title="一、函数调用与参数传递"></a>一、函数调用与参数传递</h2><p>C语言的函数提供了一种过程的抽象，函数的调用离不开参数的传递与返回值接收，而你真的理解这个过程吗？</p>
 <p>为了说明这个问题，让我们先来统一一下几个概念。</p>
-<h3 id="实际参数-argument"><a href="#实际参数-argument" class="headerlink" title="实际参数 (argument)"></a>实际参数 (argument)</h3><p>实际参数指的是出现在函数调用中参数，比如有以下函数定义：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">int max(int x, int y)  &#x2F;&#x2F; x和y为形式参数</span><br><span class="line">&#123;</span><br><span class="line">    return x &gt; y ? x : y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int a &#x3D; 1;  &#x2F;&#x2F; a和b为实际参数</span><br><span class="line">    int b &#x3D; 2;</span><br><span class="line">    printf(&quot;max is %d\n&quot;, max(a, b));</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在main函数里调用了max函数，其中传入的2个参数a和b就是实际参数。</p>
-<h3 id="形式参数-parameter"><a href="#形式参数-parameter" class="headerlink" title="形式参数 (parameter)"></a>形式参数 (parameter)</h3><p>相对的，形式参数就是出现在函数定义中参数列表上的值，比如上例中max函数里的x和y。</p>
-<h3 id="值传递"><a href="#值传递" class="headerlink" title="值传递"></a>值传递</h3><p>在C语言中，实际参数是通过值传递的方式传给被调用的函数的。换句话说，形式参数会拿到实际参数的一个拷贝的副本，而不是实际参数本身。</p>
-<p>在上例中，在main函数里通过表达式max(a,b)进行函数调用时，会将a和b的值拷贝给x和y。在max函数里对x和y做任何操作都不会影响a和b的值，因为他们标识的值保存在内存上不同的位置。</p>
-<p>我们通过gdb的<code>disassemble main</code>来看下汇编的代码也能够确认这一点：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">0x0000000000400546 &lt;+0&gt;:     push   %rbp</span><br><span class="line">0x0000000000400547 &lt;+1&gt;:     mov    %rsp,%rbp</span><br><span class="line">0x000000000040054a &lt;+4&gt;:     sub    $0x10,%rsp</span><br><span class="line">0x000000000040054e &lt;+8&gt;:     movl   $0x1,-0x4(%rbp)  &#x2F;&#x2F; int a &#x3D; 1;</span><br><span class="line">0x0000000000400555 &lt;+15&gt;:    movl   $0x2,-0x8(%rbp)  &#x2F;&#x2F; int b &#x3D; 2;</span><br><span class="line">0x000000000040055c &lt;+22&gt;:    mov    -0x8(%rbp),%edx</span><br><span class="line">0x000000000040055f &lt;+25&gt;:    mov    -0x4(%rbp),%eax</span><br><span class="line">0x0000000000400562 &lt;+28&gt;:    mov    %edx,%esi        &#x2F;&#x2F; 将b的值复制给y（%esi保存被调函数的第2个参数）</span><br><span class="line">0x0000000000400564 &lt;+30&gt;:    mov    %eax,%edi        &#x2F;&#x2F; 将a的值复制给x（%edi保存被调函数的第1个参数）</span><br><span class="line">0x0000000000400566 &lt;+32&gt;:    callq  0x400530 &lt;max&gt;   &#x2F;&#x2F; 调用max(a, b)</span><br><span class="line">0x000000000040056b &lt;+37&gt;:    mov    %eax,%esi</span><br><span class="line">0x000000000040056d &lt;+39&gt;:    mov    $0x400620,%edi</span><br><span class="line">0x0000000000400572 &lt;+44&gt;:    mov    $0x0,%eax</span><br><span class="line">0x0000000000400577 &lt;+49&gt;:    callq  0x400410 &lt;printf@plt&gt;</span><br><span class="line">0x000000000040057c &lt;+54&gt;:    mov    $0x0,%eax</span><br><span class="line">0x0000000000400581 &lt;+59&gt;:    leaveq</span><br><span class="line">0x0000000000400582 &lt;+60&gt;:    retq</span><br></pre></td></tr></table></figure>
-
-<p>其中汇编代码和原始代码的对应关系已标注，我们可以看到，在调用max函数时，是a和b的值是通过拷贝的方式给到x和y的，而他们的值都保存在不同的寄存器里。</p>
-<h2 id="二、例子"><a href="#二、例子" class="headerlink" title="二、例子"></a>二、例子</h2><p>概念明确了之后，下面我们以几个典型的例子来深入理解一下。</p>
-<h3 id="1-整型指针"><a href="#1-整型指针" class="headerlink" title="1. 整型指针"></a>1. 整型指针</h3><p>了解了值传递，你可能会想到一个问题，既然形参不会影响实参的值，那么如果我想在被调函数里修改实参的值怎么办呢？</p>
-<p>我们以一个经典的数字交换的例子来看这个问题：</p>
-<p>【源码1-1】</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">void Swap(int x, int y)  </span><br><span class="line">&#123;</span><br><span class="line">    int tmp &#x3D; y;</span><br><span class="line">    y &#x3D; x;</span><br><span class="line">    x &#x3D; tmp;</span><br><span class="line">    printf(&quot;x &#x3D; %d, y &#x3D; %d\n&quot;, x, y);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int a &#x3D; 1;</span><br><span class="line">    int b &#x3D; 2;</span><br><span class="line">    Swap(a, b);</span><br><span class="line">    printf(&quot;a &#x3D; %d, b &#x3D; %d\n&quot;, a, b);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>【输出】</p>
-<blockquote>
-<p>x = 2, y = 1<br>a = 1, b = 2</p>
-</blockquote>
-<p>我们希望通过调用Swap(a, b)来交换a和b的值，但是失败了。因为在Swap函数里，x、y和a、b实际都指向不同的内存块，x和y只是将自己的值从a和b那里拷贝了一份，对x和y的修改不会影响到a和b。<br>那么我们怎么改变a和b的值呢？用指针。</p>
-<p>指针表示一块内存的地址，地址也是一个值。通过<code>&amp;a</code>可以获取到变量a的地址，而通过<code>*x</code>则可以拿到指针x所指向的那块内存的值。因此，我们可以通过传递地址来达到修改该地址所标识的值的目的。</p>
-<p>【源码1-2】</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">void Swap(int *x, int *y)  </span><br><span class="line">&#123;</span><br><span class="line">    int tmp &#x3D; *y;</span><br><span class="line">    *y &#x3D; *x;</span><br><span class="line">    *x &#x3D; tmp;</span><br><span class="line">    printf(&quot;x &#x3D; %d, y &#x3D; %d\n&quot;, *x, *y);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int a &#x3D; 1;</span><br><span class="line">    int b &#x3D; 2;</span><br><span class="line">    Swap(&amp;a, &amp;b);</span><br><span class="line">    printf(&quot;a &#x3D; %d, b &#x3D; %d\n&quot;, a, b);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>【输出】</p>
-<blockquote>
-<p>x = 2, y = 1<br>a = 2, b = 1</p>
-</blockquote>
-<p>这样才能成功地交换a和b的值，这是因为，我们在调用Swap函数时，将a和b的地址，也就是门牌号给传了进去，而Swap里的x和y就可以根据门牌号来找到保存a和b的值的地方，进而对他们进行修改。</p>
-<h3 id="2-字符指针"><a href="#2-字符指针" class="headerlink" title="2. 字符指针"></a>2. 字符指针</h3><p>字符指针常用来表示字符串，比如</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">char *str &#x3D; &quot;abc&quot;;</span><br></pre></td></tr></table></figure>
-
-<p>那么str实际指向了一个长度为4个char型的内存块的第一个元素，该内存块依次保存了’a’,’b’,’c’,’\0’。<br>如果我想在另一个函数中改变str里的值，那么我就需要把字符指针str传递给那个函数：</p>
-<p>【源码2-1】</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">void ChangeStr(char *strc)</span><br><span class="line">&#123;</span><br><span class="line">    strcat(strc, &quot;dc&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    char *str &#x3D; (char*)malloc(sizeof(char) * 10);</span><br><span class="line">    memset(str, 0, sizeof(char)*10);</span><br><span class="line">    strncpy(str, &quot;abc&quot;, 2);</span><br><span class="line">    printf(&quot;str 1 &#x3D; %s\n&quot;, str);</span><br><span class="line">    ChangeStr(str);</span><br><span class="line">    printf(&quot;str 2 &#x3D; %s\n&quot;, str);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>【输出】</p>
-<blockquote>
-<p>str 1 = ab<br>str 2 = abdc</p>
-</blockquote>
-<p>如果你理解了上面的整型指针，那么这段代码就很好理解了。在调用ChangeStr函数时，传递的就是指针str，这时在ChangeStr内部就可以通过strc找到str所指向的内存块了，自然就能够修改实参str所指向的字符串了。</p>
-<p>但是这种场景也可能会出现问题，比如下面这样：</p>
-<p>【源码2-2】</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">void ChangeStr(char *strc)</span><br><span class="line">&#123;</span><br><span class="line">    if (strc &#x3D;&#x3D; NULL) &#123;</span><br><span class="line">        strc &#x3D; (char*)malloc(sizeof(char) * 10);</span><br><span class="line">        memset(strc, 0, sizeof(char)*10);</span><br><span class="line">    &#125;</span><br><span class="line">    strncpy(strc, &quot;abc&quot;, 2);</span><br><span class="line">    strcat(strc, &quot;dc&quot;);</span><br><span class="line">    printf(&quot;str 1 &#x3D; %s\n&quot;, strc);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    char *str &#x3D; NULL;</span><br><span class="line">    ChangeStr(str);</span><br><span class="line">    if (str &#x3D;&#x3D; NULL) &#123;</span><br><span class="line">        printf(&quot;str is null\n&quot;);</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;str 2 &#x3D; %s\n&quot;, str);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>【输出】</p>
-<blockquote>
-<p>str 1 = abdc<br>str is null</p>
-</blockquote>
-<p>虽然我给ChangeStr传递的也是char类型的指针，在ChangeStr里的确也分配了内存，成功地修改了形参strc指向的字符串的值，为什么在main函数里，实参str指向的还是空的呢？</p>
-<p>让我们回到值传递这个概念，在main函数里调用ChangeStr的时候，str的值是空值，而在ChangeStr函数里，形参strc刚开始拿到的是实参str的一份拷贝，也就是一个空值。之后通过malloc函数所在的那一行修改了strc的值，这时strc指向了另一块内存，和实参str所指向的地方已经不同了。当ChangeStr函数返回时，strc是strc，str是str，两个变量的值已经不一样了，所以str还是一个空值。</p>
-<p>同时，在ChangeStr函数返回后，形参strc就失效了，而它所指向的那块内存因为没有指针可以索引到，既用不了，也不能分配给别人，所以自然就内存泄露了。</p>
-<p>这个问题修改起来也简单，只需要把ChangeStr的形参作为返回值再传递给实参str就可以了，像下面这样：</p>
-<p>【源码2-3】</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">char *ChangeStr(char *strc)</span><br><span class="line">&#123;</span><br><span class="line">    if (strc &#x3D;&#x3D; NULL) &#123;</span><br><span class="line">        strc &#x3D; (char*)malloc(sizeof(char) * 10);</span><br><span class="line">        memset(strc, 0, sizeof(char)*10);</span><br><span class="line">    &#125;</span><br><span class="line">    strncpy(strc, &quot;abc&quot;, 2);</span><br><span class="line">    strcat(strc, &quot;dc&quot;);</span><br><span class="line">    printf(&quot;str 1 &#x3D; %s\n&quot;, strc);</span><br><span class="line">    return strc;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    char *str &#x3D; NULL;</span><br><span class="line">    str &#x3D; ChangeStr(str);</span><br><span class="line">    if (str &#x3D;&#x3D; NULL) &#123;</span><br><span class="line">        printf(&quot;str is null\n&quot;);</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;str 2 &#x3D; %s\n&quot;, str);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>【输出】</p>
-<blockquote>
-<p>str 1 = abdc<br>str 2 = abdc</p>
-</blockquote>
-<p>我们通过<code>str = ChangeStr(str);</code>表达式，将形参strc的值赋值给了实参str，这样str就能够索引到strc所指向的那个字符串了。</p>
-<p>当然，如果你对指针有足够的理解的话，也可以通过传递二级指针的方式解决这个问题，像下面这样：</p>
-<p>【源码2-4】</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">char *ChangeStr(char **strc)</span><br><span class="line">&#123;</span><br><span class="line">    if (*strc &#x3D;&#x3D; NULL) &#123;</span><br><span class="line">        *strc &#x3D; (char*)malloc(sizeof(char) * 10);</span><br><span class="line">        memset(*strc, 0, sizeof(char)*10);</span><br><span class="line">    &#125;</span><br><span class="line">    strncpy(*strc, &quot;abc&quot;, 2);</span><br><span class="line">    strcat(*strc, &quot;dc&quot;);</span><br><span class="line">    printf(&quot;str 1 &#x3D; %s\n&quot;, *strc);</span><br><span class="line">    return *strc;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    char *str &#x3D; NULL;</span><br><span class="line">    ChangeStr(&amp;str);</span><br><span class="line">    if (str &#x3D;&#x3D; NULL) &#123;</span><br><span class="line">        printf(&quot;str is null\n&quot;);</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;str 2 &#x3D; %s\n&quot;, str);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>【输出】</p>
-<blockquote>
-<p>str 1 = abdc<br>str 2 = abdc</p>
-</blockquote>
-<p>指针就是变量的地址，那么指针自己本身也有地址，通过传递指针的指针，我们就可以在其他函数里修改指针的值了。</p>
-<p>当然，我个人比较建议用2-3的方式来解决这个问题，毕竟返回值一读即懂，而通过形参来修改实参的方式读起来稍微费劲儿一些。</p>
-<h3 id="3-free-函数"><a href="#3-free-函数" class="headerlink" title="3. free()函数"></a>3. free()函数</h3><p>在上面的例子里我们用到了<code>malloc</code>函数，下面我们再来看一个由<code>free</code>函数引发的血案：</p>
-<p>【源码3-1】</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">void SafeFree(void *p)</span><br><span class="line">&#123;</span><br><span class="line">    if(p !&#x3D; NULL)&#123;</span><br><span class="line">        free(p);</span><br><span class="line">        p &#x3D; NULL;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">char *InitStr()</span><br><span class="line">&#123;</span><br><span class="line">    char *str &#x3D; (char*)malloc(sizeof(char)*10);</span><br><span class="line">    memset(str, 0, sizeof(char)*10);</span><br><span class="line">    strncpy(str, &quot;abc&quot;, 3);</span><br><span class="line">    return str;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    char *str;</span><br><span class="line">    str &#x3D; InitStr();</span><br><span class="line">    printf(&quot;str &#x3D; %s\n&quot;, str);</span><br><span class="line">    SafeFree(str);</span><br><span class="line">    if(str !&#x3D; NULL)&#123;</span><br><span class="line">        printf(&quot;str is %s&quot;, str);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>【输出】</p>
-<blockquote>
-<p>str = abc<br>str is h?y</p>
-</blockquote>
-<p>通过上面的例子，很容易理解<code>InitStr()</code>初始化str没有问题。在这之后，调用了<code>SafeFree(str)</code>来释放这块内存，在该函数里，free函数把str指向的内存块释放掉了，而形参p拿到的是实参str的拷贝，把p修改成NULL并不会影响实参str的值，str指向的还是这块内存。这时我们再打印str，就会把str当前指向的这块内存的内容给打印出来了。如果这段代码出现在了一个复杂的大型程序中，很容易引发进程复位。</p>
-<p>要修复这个问题，我们需要在SafeFree函数之后，把NULL再赋值给str，让它不要再指向一块已不属于它的内存了。</p>
-<p>这也提醒了我们，在使用free函数之后，要注意所有指向这块内存的指针，一定要赋空，否则不管是再次使用还是二次free，都会引发血案</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SafeFree(str);</span><br><span class="line">str &#x3D; NULL;</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-局部变量的指针"><a href="#4-局部变量的指针" class="headerlink" title="4. 局部变量的指针"></a>4. 局部变量的指针</h3><p>由上面的几个例子我们可以看到，函数可以返回指向外部变量的指针，也可以返回局部指针变量，那么如果我们返回了指向局部变量的指针会发生什么情况呢？</p>
-<p>【源码4-1】</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">int *TempTest()</span><br><span class="line">&#123;</span><br><span class="line">    int temp &#x3D; 100;</span><br><span class="line">    return &amp;temp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int *num;</span><br><span class="line">    num &#x3D; TempTest();</span><br><span class="line">    printf(&quot;num &#x3D; %d&quot;, *num);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>【输出】</p>
-<blockquote>
-<p>警告：函数返回局部变量的地址 [-Wreturn-local-addr]<br>     return &temp;</p>
-</blockquote>
-<p>在TempTest函数里定义了一个局部变量temp，一旦TempTest函数返回了，变量temp的生命周期就结束了，而指向temp的指针将指向一块无效的内存，也许这个指针就成NULL的了。这段代码在编译的时候会触发编译告警，提示函数返回了局部变量的地址，运行时很可能就会触发段错误。</p>
-<p>如果把temp修改成全局变量或者局部静态变量<code>static</code>，由于其生命周期不再局限于TempTest函数，而是整个程序级别的，这样就不会出现其内存无效的情况了。</p>
-<h2 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h2><p>C语言的函数调用和参数传递是初学者常常容易轻视而栽跟头的地方，其实只要记住C语言的参数传递是值传递，是拷贝传递，同时注意参数的生命周期，就能够掌握它了。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/12/01/understanding-value-passing/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/02/01/2019-12-01-c-understanding-value-passing/" data-id="ck630batx000cvchl5cb66scb" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
 
-
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
   
-    <article id="post-2018-08-19-internet-of-value" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/02/01/2018-08-19-internet-of-value/" class="article-date">
-  <time datetime="2020-02-01T02:50:13.921Z" itemprop="datePublished">2020-02-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+  
+  
+
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/01/2018-08-19-internet-of-value/">Internet of Value</a>
-    </h1>
   
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/19/internet-of-value/">
 
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hackerleon">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Still Waters">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/08/19/internet-of-value/" class="post-title-link" itemprop="url">Internet of Value</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-08-19 00:00:00" itemprop="dateCreated datePublished" datetime="2018-08-19T00:00:00+08:00">2018-08-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF/" itemprop="url" rel="index">
+                    <span itemprop="name">个人成长</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
       </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>小的时候我们上学，毕业了我们会寻找一份工作，一方面是为了赚钱生活，更重要的一方面是用自己知识或者能力去创造价值。公司不会聘请一个不能给公司带来收益的员工，如果他愿意请你来工作，并付给你每年10万的年薪，是因为他认为你每年至少能为公司带来100万的收益，否则谁都不会做亏本买卖。</p>
-<p>给别人工作，或者说其实就是打工，这只是一种常见的工作方式。如果透过现象看本质，实际上，这种行为说白了就是一种价值交换，用自己的知识价值来换取金钱，当然也会有一部分成就感和社交需求的满足。试想，如果一份工作只能给你带来金钱的回报，却没有让你觉得有成就感或者满足你其他的心理需求，你也干不久的，除非你有其他更重要的需求让你能够继续忍受下去。</p>
-<p>价值交换这件事情自古以来就一直存在。在农业社会，老王种玉米，老李养牛，老王想吃牛肉如果自己养牛，成本会很高，不如去老李那儿换，老李想吃玉米也一样。比如10个玉米换一斤牛肉，这就是一种价值交换。而随着社会的发展，可以交换的物品越来越多，谁能知道多少东西换多少东西才合适呢？所以就有了货币，我们也管它叫做价值的一般等价物。比如10块钱可以买5个玉米，也可以买二两牛肉，也可以坐10趟公交，说明这几个东西是价值等价的。而我们社会的经济就构建在这种等价交换的基础之上。</p>
-<p>现代经济学原理告诉我们，如果每个人都只做自己擅长的事情，然后通过交换来满足各自的需求，那么不仅整个社会的财富会增加，每个人的财富也会增长得更多。</p>
-<p>前面说了这么多价值交换的东西，那么到底什么是价值？如果我们对价值没有概念，是不可能创造价值的，也就难以实现财富的稳健增长。我认为，价值来源于人的需求。没有人会买路边的一块石头，因为没有人需要它；大家每天都会为了吃饭而付钱，是因为每个人都有吃的生理需求。衣食住行，这四大开销都来自于我们生活的基本需求。上学满足了我们受教育的需要，送礼物满足了我们社交的需要，旅游满足了我们自由与新鲜感的需要，工作满足了我们自我实现的需要等等。有需要，就有了价值，于是我们会看到市场上各种各样的商品，好吃的蛋糕，好看的衣服，打折的机票，特价的旅行团，节日的鲜花，暑期的兴趣班，浪漫的高档餐厅，劲爆的演唱会门票，等等。当然，你也许会问，空气，水，阳光，我们也需要，他们有价值吗？当然有。那为什么我们不会掏钱买呢？因为这些都是自然资源，不需要我们创造就存在的，是我们生存的环境基础；当然现在也有相关的商品了，比如来着西藏水源地的瓶装水，老贵了。</p>
-<p>有需要就有价值，谁了解的需求多，谁就有更多的机会来创造价值，创造财富。通信设备制造商为什么这么赚钱，是因为每个人都有通讯的需要，那么它就造通讯设备，不管是卖给运营商的基站天线，还是卖个消费者的手机终端。房地产公司为什么这么赚钱，因为每个人都有住房的需要。这里我先不谈炒房和政府的调控，虽然房价的高涨跟他们脱不开干系。还有些聪明人发现光是倒卖信息都可以赚钱，那是因为信息差的存在以及有人对这些信息的需求。</p>
-<p>价值的交换速度随着互联网的出现发生了前所未有的爆炸，互联网同时还降低了价值交换的成本，让这一经济行为更加繁荣了起来。</p>
-<p>以往我想买件衣服，我会去本地的商场，而现在，我可以从电商平台挑选更多的衣服。对于卖家来说，我的产品不仅可以卖给本地人，还能卖给远在一千公里之外的买家。不管对买家还是卖家来说，生活都变得更好了。同时，互联网的出现还加速了知识经济的发展。一方面因为人们越来越渴望知道的更多，不管是为了精进工作还是为了广泛涉猎；另一方面，掌握更多知识的人也有了更便捷的向外传播的途径，比如微博、公众号、在线课程等等。此外，互联网也催生了比如网红经济等一些以往没有的东西。不过，不管是什么，它们的本质都是一样的，有人有需求，有人能满足这个需求，他就能创造价值，再加上价值传播和交换的成本越来越低，财富的交换速度和增长速度也越来越快。<br>我们就生活在这样一个被互联网引擎驱动的价值交换的时代里。互联网构成了一张大网，把每个人连接了起来。每个人都有需求，也就有了价值，那么这张网络连接的，也就是价值，我管它叫做价值网络，internet of value。网络中的节点可以是我们每个人，也可以是一座城市，一家公司，甚至一个国家。财富随同着价值在这张网络中流动，谁能创造更多的价值，谁就能够拥有更多的财富。在这个网络里，每个人都有机会，同时，谁能抓住的机会越多，谁的价值和财富也就越多，强者愈强，富者愈富。</p>
-<p>想想我们每天都会做的事情，除了吃饭睡觉，我们会用手机刷各种各样的资讯，我们会到视频网站上看电视剧，我们会去电商平台淘淘宝贝，我们也会玩各种各样的付费游戏。从价值网络的角度来看，我们都是价值的消费者，因为我们都是在获取各种各样的价值来满足自己的需求，我们的财富也随着这个网络流向了网络中的另一个角色—-价值的生产者。</p>
-<p>高人气的微博或微信公众号，抖音网红，小红书博主，知乎大V，新闻头条，热门电视剧，畅销书籍，新款手机等等，这些东西的背后，都蕴含着众多价值生产者的努力。也正是有了他们，我们的生活才会如此丰富多彩，当然他们的财富回报也非常丰厚。这一群人是真正在享受价值网络红利的一群人，他们创造的东西，搭乘着互联网的高速列车，快速地传达到了成千上万的消费者那里；而价值的财富，也随着这个网络，流向了这群生产者手里。这已经成为了我们这个时代最稀松平常却少有人注意的一件事了。</p>
-<p>那么认清了我们这个时代之后，我们应该如何在这样的环境下创造更好的生活呢？我认为最好的方式就是，挖掘需求，创造价值，并且加入到这张网络中，充分享受它的红利。具体怎么做呢，我举个例子：</p>
-<p>首先，我们要充分挖掘自己的价值，不要给自己设置任何限制。拿出一张纸，写下自己知道的任何东西，不管它是什么。专业知识、生活经验、信息差、旅游体验、艺术技能等等。在这个多元化的社会里，某个信息对这个人没用但是对于另一个人来说可能就是宝贝。所以我们要敢想，敢挖掘，一直写到什么都写不出来为止。这个过程可能需要一个小时，也可能需要一周，时间不是问题，关键在于我们能挖掘出来多少价值。</p>
-<p>第二步，是筛选和过滤。我们大多数人知道的东西，有很多都会是相同的，这些东西就属于低价值的信息，因为大家都知道，所以对它的需求也就很少。而我们要筛选的就是那些我们知道的多，别人知道的少的东西，这些东西才有可能成为我们的核心价值。这一步筛选出来的东西，要少而精，这样我们才能高质量地聚焦而不是又捡西瓜又捡芝麻。</p>
-<p>第三步，就是针对第二步筛选出来的东西，做一个系统化的梳理，如果发现有自己不懂的，那就去学，去构建，不断完善自己对这个事物的认识。这一步也叫做价值的再造过程。善于学习和掌握系统思维的人在这一步会更占优势一些，因为他们能够将有价值的信息组织成结构化的知识体系，并且不断完善和扩大自己的价值疆域，成为一个高效率的价值生产者。</p>
-<p>第四步，也是最关键的一步，就是选择一种合适的方式，分享出去。前面三步都是在构建自己的价值，而这一步才是价值流动的开始。这一步可能需要掌握一些表达技巧或者营销学的东西，因为分享的目的在于更好和更多地让别人了解自己，让价值能够回应需求，而不是传递给别人一对垃圾信息。在我们这个时代里，价值的传播渠道简直不能更多了。我们有微博、微信公众号、各种具有社交性质的APP账号、写博客、开专栏，等等，我们自己就可以成为一个媒体，也叫作自媒体。我们自己也可以树立自己的品牌和影响力，而不再需要依靠公司或其他团体组织。价值的传播更加扁平化，人与人相互之间的联系会更加多样化，更多的需求将会被满足，更多的财富将会被创造，而享受这波红利的，可以是你，可以是我，也可以是他。</p>
-<p>写到这里，我突然想到了两句话，一句是“认清这个时代”，一句是“认识你自己”。我们正处于一个前所未有的和平发展的黄金时代，我们的社会充满了各种各样的矛盾与诉求，同时也创造了多种多样的机会和与日增长的财富。我想，我们要做的，就是在这样一个世界里，找到自己的价值，然后通过先进便捷的工具传播出去，满足了别人的同时，也实现了自我，在双赢的结果中创造我们越来越好的生活。</p>
 
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>小的时候我们上学，毕业了我们会寻找一份工作，一方面是为了赚钱生活，更重要的一方面是用自己知识或者能力去创造价值。公司不会聘请一个不能给公司带来收益的员工，如果他愿意请你来工作，并付给你每年10万的年薪，是因为他认为你每年至少能为公司带来100万的收益，否则谁都不会做亏本买卖。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/08/19/internet-of-value/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/02/01/2018-08-19-internet-of-value/" data-id="ck630batu000bvchlaxxs40ei" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
 
-
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
   
-    <article id="post-2018-07-08-about-working-overtime" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/02/01/2018-07-08-about-working-overtime/" class="article-date">
-  <time datetime="2020-02-01T02:50:13.914Z" itemprop="datePublished">2020-02-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+  
+  
+
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/01/2018-07-08-about-working-overtime/">过度加班百害而无一利</a>
-    </h1>
   
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/08/about-working-overtime/">
 
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hackerleon">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Still Waters">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/07/08/about-working-overtime/" class="post-title-link" itemprop="url">过度加班百害而无一利</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-07-08 00:00:00" itemprop="dateCreated datePublished" datetime="2018-07-08T00:00:00+08:00">2018-07-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%B3%BB%E5%88%97/" itemprop="url" rel="index">
+                    <span itemprop="name">软件工程师系列</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
       </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>“不是在加班，就是在加班的路上”</p>
-<p><strong>加班</strong>，已经成为了职场人生活的常态。自从我去年毕业6月份加入菊厂之后，加班就成为了我生活中重要的一部分。刚开始还能做到周一二四晚上加班到21点，周三周五18点下班；随后慢慢地就变成了周内晚上22点前没下过班，周六还要再来加一天班的情况；遇到紧急或者重要的问题时，凌晨3,4点的夜空我也是见过的。</p>
-<p>如果正常工作时间能够完成任务，我当然不想选择加班。之所以加班，主要有以下几个原因：</p>
-<ol>
-<li>项目版本过点或者即将发布；</li>
-<li>有重要紧急的网上问题要及时处理；</li>
-<li>任务量太多，人手不够，活多人少；</li>
-<li>有想学习的东西，需要在工作之余的时间充电。</li>
-</ol>
-<p>对于第一个原因，由于版本即将过点，所有需求必须交付，所有问题单都要解决掉，工作量会非常大，所以加班不可避免。</p>
-<p>第二个原因呢，自然不必说了，网上问题在所有问题里面都是优先级最高的，哪怕版本停掉都要第一时间把线上问题处理掉，尽量减少问题给客户带来的损失。</p>
-<p>至于第三个原因，在我看来就是管理上的问题了。活多人少，要么减活，要么加人。不管一个技术人员能力再牛逼，他的处理能力都是有限的，为了尽可能多地处理掉更多的问题，投入更多的时间往往成了唯一的办法。但是，长时间地处于这种状态对一名研发人员来说是致命的。这个时候，管理层的各个经理就需要好好想想办法了。减少不必要的工作量，合理安排多版本交付时间点，减少并行版本开发数量，投入更多的人力，等等，这些都是办法。</p>
-<p>第四个原因我也不用多说了，对于我们这些初入职场的新人来说，多花时间学习，为自己充电是必不可少的。</p>
-<p>除了以上几点原因之外，我想有些人也遇到过这样的情况：工作干完了，但是老板不走，我也不敢走；或者是，老板要求大家某个时间段必须加班，没有事情也要加班。像这种情况，我的建议是：“Do the right thing, wait to go get fired.”你的时间是宝贵的，不要浪费在无谓的事情上。</p>
-<p>说完了加班常见的原因之外，我想重点说说加班的影响。</p>
-<p>任何事情都有一个度，加班也不例外。</p>
-<p>适度的加班一方面有利于公司业务快速增长，另一方面也能提高员工的业务与技能水平。毕竟在这个以奋斗和发展为主题的时代里，成长是需要花费大量精力和时间的，不管是公司还是个人。</p>
-<p>但是，加班过了度，它就会变成一颗定时炸弹，危害巨大而深远。为什么我这么说，因为过度的加班有以下几点影响：</p>
-<p><strong>过度的加班有害健康</strong>。我曾经有一段时间天天晚上24点之后到家，洗洗上床睡觉就已经第二天1点左右了，早上6点半又要起床赶班车。那段时间感觉记忆力特别差，刚想说一个事情，转眼就忘，而且处理过的事情很难快速回忆起来。而且有时候坐那儿就觉得好像谁在晃我的凳子，时不时会觉得晕那么一下。同时，长时间坐着对着电脑屏幕也让我的眼睛干涩酸痛，脖子僵硬难受，浑身肌肉无力，感觉特别不好。我想，健康的重要性怎么强调都不为过吧，毕竟它是任何事情的根基，我不赘述了。谁都不想前几年用生命换金钱，后几年用金钱换生命吧。</p>
-<p><strong>过度的加班会使工作陷入恶性循环</strong>。很多时候，需要加班是因为白天被大量琐事占用了时间，没有一段安静不受打扰的时间来思考业务逻辑代码怎么写。而加班的时间往往并不如正常工作时间那么高效，写出来的业务代码往往质量也不高，这就为后面改bug埋下了地雷。加班写bug，加班改bug成为了工作的常态。同时，过度的加班也会损害工作的积极性。我曾有段时间对工作有一些想法，想要努力改善目前的工作现状，并且工作的态度非常积极主动。但是，在一段望不到头的加班中，我的积极性慢慢地被消耗殆尽，甚至到了每天早上根本不想上班的状态。我知道，长期下来的话，这样的状态，我是不可能有什么高效高质量的产出的，我在这里呆下去的意愿也会越来越低。</p>
-<p><strong>过度的加班会损害家庭关系</strong>。一个人的时间花在哪里，哪里就会有回报。如果天天除了上班，回家只有倒头睡觉的精力，没时间跟老婆孩子说说话吃吃饭，时间久了，这份爱情和亲情也会渐渐淡化，不仅夫妻感情会受到影响，也会给孩子性格的形成带来不利的影响。我小的时候就因为父母经常加班回不了家而经常生气，感觉跟父母之间的联结也越来越淡，甚至有些低自尊的行为和内向的性格也是受到了这方面的影响。而最近的长时间不间断的加班也让我的老婆对我充满了不满，谁都不想看到自己最亲的人每天回家这几个小时的时间里，除了洗漱就是睡觉，连说话的时间都挤不出来几分钟吧。换句话说，对于公司来说，你只是一名员工，对于你的家庭来说，你就是全部。</p>
-<p><strong>过度的加班不利于个人成长</strong>。公司的进步在于员工个人的进步，而个人的进步是需要时间去沉淀、总结、思考的。如果员工个人的时间都被大量的加班所占据，抽不出来时间去反思、去总结，那么他迟早会废掉，或者公司废掉他。比如我今天看到哪篇技术文章写得非常好，和项目中遇到的问题有所关联，我想去深入了解一下背后的原理和机制，以后遇到同样的坑能够举一反三，提高解决问题的效率，但是我从一大早开始就在处理工作上的事情，开会、处理问题、做需求、改bug，一直到晚上12点多了也没时间整理，第二天又要早起上班，回家赶紧洗洗睡觉，免得第二天没有精神。这样的状态长期下来，个人往往会疲于应付工作中遇到的各种各样的事情，没时间来做这些不紧急但重要的事情，这便是恶性循环的开始。聪明的你也许会想到时间管理、工作方法，可当你真的穿上这双红舞鞋之后，你会发现根本没有什么喘息的时间，只有不停地跳下去，让你这颗螺丝保持运转，或者离开这里。等到你想要离开的时候，你会发现，除了平台给你的，你没有成长多少。</p>
-<p>过度加班危害多，那么我们怎么样避免掉入过度加班的陷阱中呢？对于这个问题，我想每个人都有自己的想法，我只分享下我的想法，也是我最近在实践的方法，希望能够摆脱这种状态，让工作回到良性循环的轨道上。</p>
-<p><strong>提高自我意识</strong>。任何事情的改善都是从意识到它需要改善开始。不管工作有多繁忙，都要保持清醒的自我意识，知道自己在做什么事情，知道这是一件什么样的事情，知道完成它需要多久的时间，知道哪些事情优先级高、哪些事情风险不可控需要及时上报等等。意识是思考的前提，当我意识到自己马上就要陷入疲忙的陷阱中时，我才可能去思考如何避免这种事情的发生以及发生后的对策。同时，意识到工作中哪些事情让自己疲于奔命，哪些事情能够提高效率减少无用功，这些也是改善的前提，至少要清楚，需要做什么事情才能摆脱这个怪圈。</p>
-<p><strong>化被动为主动</strong>。与其天天被领导问，天天被周边同事催，不如把这些事情都掌控在自己的手里，及时主动知会进展，识别风险并求助讨论，让别人知道自己在做什么、进展如何，同时对于自己搞不定的问题，及时集思广益，快速闭环，不要在自己这里卡了好久临近过点了才暴露出来。只有自己掌控了这一切，才会主动负责，才能想办法跳出不良陷阱。</p>
-<p><strong>学会拒绝</strong>。明确自己的职责范围，对于非重要且非紧急的事情，学会说不，或者排到第二天再解决，不要什么活都揽，那样只会让自己越来越疲惫。</p>
-<p><strong>做重要的事情</strong>。说了这么多，这一点才是关键。不要因为处理紧急的事情而占用了重要事情的时间，正是这些重要的事情才能够让你成长，让工作更高效，让合作更加便捷，让家庭更加幸福，让健康得以支撑一切。这些包括但不限于运动、按时作息、每日复盘、输出思考总结的结果、修复破窗户、践行TDD、整理知识网络、写一篇文章、与朋友同事交流分享、高质量陪伴家人、在生活中创造仪式感等等。</p>
-<p>其实在我国的劳动法里，已经明确写明了用人单位应该如何安排工作时间和休息休假。劳动法第四章规定劳动者每日工作时间不超过8小时，平均每周工作时间不超过44小时；用人单位保证劳动者每周至少休息1日；如因生产经营需要，在保障劳动者身体健康的条件下延长工作时间，每日不得超过3小时，每月不得超过36小时；同时对延长工作时间的，还需要支付额外的工资报酬等等。当然，法律如何规定和实际如何执行往往是两码事，并且劳动者作为弱势群体，有时候很难维护自己的利益。看看发达国家，再看看我们国家，在这一点上，我们还有很多路要走。我希望终有一天会看到更好的结果。</p>
-<p>总之，不管是在加班，还是在加班的路上，有一点我们一定要清楚，那就是我们到底想要的是什么？加这个班能不能帮助我们争取到我们想要的东西？如果不能，我们应该做什么？</p>
 
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>“不是在加班，就是在加班的路上”</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/07/08/about-working-overtime/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/02/01/2018-07-08-about-working-overtime/" data-id="ck630bats000avchla8j74zba" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
 
-
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
   
-    <article id="post-2017-05-03-understandable-computer-science" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/02/01/2017-05-03-understandable-computer-science/" class="article-date">
-  <time datetime="2020-02-01T02:50:13.906Z" itemprop="datePublished">2020-02-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+  
+  
+
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/01/2017-05-03-understandable-computer-science/">白话计算机科学</a>
-    </h1>
   
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/03/understandable-computer-science/">
 
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hackerleon">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Still Waters">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/05/03/understandable-computer-science/" class="post-title-link" itemprop="url">白话计算机科学</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-05-03 00:00:00" itemprop="dateCreated datePublished" datetime="2017-05-03T00:00:00+08:00">2017-05-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%B3%BB%E5%88%97/" itemprop="url" rel="index">
+                    <span itemprop="name">软件工程师系列</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
       </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>学了这么多年的计算机，我在想，要是有个不懂计算机的人想了解计算机科学的内幕，我该怎么回答呢？我简单整理了一下，于是，就有了这篇文章。</p>
-<p><strong>计算机</strong>的出现源于战争的需要，因为在研制先进武器的过程中，需要大量的科学计算。为了帮助人们计算大量复杂且繁琐的科学计算工作，人们发明并改进了计算机。</p>
-<p>计算机的工作原理简单的说，就是从输入中取得数据，计算之后再输出。最常见的输入设备是键盘，最常见的输出设备是显示器，你看计算器就是这样的。如果你想长久地保存一些数据，那就得放到磁盘之类的存储设备上了。现代计算机的硬件架构都是基于<strong>冯·诺依曼体系结构</strong>的（这货很牛逼，但总有一天会过时的），包括运算器、控制器、存储器、输入设备和输出设备这五类。</p>
-<p>可是使用这样一个裸机会带来很多问题。首先，一次只能运行一批处理程序，如果有程序正在用（哪怕它目前没有任何计算任务），其他程序就必须等，效率低下；其次，这些硬件资源的管理成本很高，写程序的人只关心计算结果，并不想陷入到硬件细节中去，否则会消耗大量的精力。</p>
-<p>于是，（现代）<strong>操作系统</strong>就诞生了。它是硬件层面上的第一层软件，它把计算机的所有硬件资源都管理了起来，屏蔽掉了底层的使用细节，并且给使用计算机的人以简洁的接口，同时，它还支持同时运行多个程序且互不影响，大大提高了计算机的利用率。</p>
-<p>虽然有了操作系统，计算机更方便使用了，但是，人们写程序还是很不舒服的。因为计算机只认识二进制的数据，而这种由0和1组合起来的代码并不适合人类阅读和使用（就像这样0101000101010101101010001010），人类更喜欢使用自己的语言（if 明天是个好天气 then 我就晒被子）。</p>
-<p>于是，<strong>编程语言</strong>就出现了。什么汇编、C、Java，乱七八糟的编程语言一箩筐。每种语言都有它擅长的地方和不擅长的地方，比如C语言就非常适合系统级编程，而Javascript则是Web页面的不二之选。有了编程语言，人们写起程序就溜的飞起了。</p>
-<p>这下，人们写程序方便了，但是计算机可懵逼了。它不认识乱七八糟的字母，它只认识数字。于是，<strong>编译器</strong>闪亮登场。它能够将人类可读的高级编程语言翻译成机器可执行的代码。简而言之，它就是个翻译，从一种语言翻译成另一种语言。</p>
-<p>这下终于好了，我写一个{if 到早上7点了 then 打开窗帘}，计算机就能读懂我的代码，并且自动执行了。当然这个程序很简单，但假如我想统计学校里所有学生的成绩并排序，该怎么办呢？</p>
-<p>在解决这个问题之前，我们需要稍微深入地理解一下计算机。我们写软件，写程序，实际上就是通过计算机这么一个工具帮助我们解决问题。计算机擅长处理数据，而如何高效地让计算机处理这些数据，则是我们的问题。于是，<strong>算法</strong>来了，它实际上就是一些适合用计算机来实现的解决问题的办法。不同的算法的性能差别很大，比如同样给1万个学生的成绩排序，有的排序算法1秒之内就能给出结果，有的可能需要好几分钟。同时，算法的特性极大地受到<strong>数据结构</strong>的影响，如何选择数据结构有时候直接能决定一个问题是否能够解决。</p>
-<p>除了数据的处理之外，计算机的另一个重要的问题就是数据的存储。结构化的存储能够帮助我们快速准确地找到想要的数据，而<strong>数据库</strong>和<strong>数据仓库</strong>是解决这个问题的利刃。相对于文件存储来说，数据库提供了更强大的数据存储和检索功能；而数据仓库则更适合对大量数据进行分析，提取一些更有价值的信息。</p>
-<p>有了数据，我们能做很多事情，基于海量的数据和先进的处理方式，我们迎来了<strong>大数据</strong>和<strong>人工智能</strong>的时代。这些都是现下的热门，也是未来的发展趋势之一。</p>
-<p>为了搞定这些数据，软件的设计也相应地要解决很多很复杂的问题，要考虑功能、性能、扩展性、可维护性、安全性等等。所以，人们总结并发明了不少编程的设计方法，比如<strong>面向对象编程</strong>（以及使用该方式总结出来的经验<strong>设计模式</strong>），<strong>软件系统架构</strong>等等。</p>
-<p>以上说的都还是单机的软件，如果把多台计算机连接起来，会发生什么呢？boom！这就是我们今天的<strong>互联网</strong>和<strong>移动互联网</strong>。它们的出现得益于<strong>计算机网络</strong>的研究和发展。计算机网络解决的问题就是计算机与计算机之间如何通讯的问题，它的重要性相当于人类赖以交流沟通的语言。</p>
-<p>当计算机和计算机借由网络连接起来协同工作时，就像几个人组成一个小组一样，可以做更多更强大的事情。而<strong>分布式系统</strong>解决的就是多台计算机协同工作时要面临的问题，比如数据一致性、安全性、容错机制等等。我们所说的<strong>云计算</strong>，很多实际上背后就是分布式系统。云计算的一个重要的用途是资源整合，它可以把多台计算机的资源整合成一个资源池，你可以把它看成一个超级计算机，拥有N多的CPU和N多的内存，你需要多少，它就给你分配多少。这样，当你想发布一个软件的时候，不需要再自己买服务器，直接管云计算服务提供商买就行了，不仅成本更低（租用办公室的钱都省了），而且扩容更加方便。可能未来某天，我们的终端仅仅需要输入和输出设备就够了，所有的数据和计算任务都交给“云”来搞定。</p>
-<p>以上就是计算机科学的一个简单的概览。其实还有一些内容我没有说，比如<strong>计算机图形图像</strong>、<strong>语音识别</strong>等等，它们同样为我们的生活带来了许许多多的便利。</p>
-<p>我想，生活在这个时代是幸运的，能从事IT方面的工作也是令人兴奋的一件事。</p>
 
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>学了这么多年的计算机，我在想，要是有个不懂计算机的人想了解计算机科学的内幕，我该怎么回答呢？我简单整理了一下，于是，就有了这篇文章。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2017/05/03/understandable-computer-science/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/02/01/2017-05-03-understandable-computer-science/" data-id="ck630batq0009vchl56dy2qyy" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
 
-
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
   
-    <article id="post-2017-04-21-meta-ability" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/02/01/2017-04-21-meta-ability/" class="article-date">
-  <time datetime="2020-02-01T02:50:13.899Z" itemprop="datePublished">2020-02-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+  
+  
+
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/01/2017-04-21-meta-ability/">元能力</a>
-    </h1>
   
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/21/meta-ability/">
 
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hackerleon">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Still Waters">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/04/21/meta-ability/" class="post-title-link" itemprop="url">元能力</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-04-21 00:00:00" itemprop="dateCreated datePublished" datetime="2017-04-21T00:00:00+08:00">2017-04-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF/" itemprop="url" rel="index">
+                    <span itemprop="name">个人成长</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
       </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>离毕业已经过去半个多月了，距入职还有1个多月，我没有急于入职是因为想要留点空闲的时间，做一些闲事，给生命一些间隙，用来成长。</p>
-<p>这些天反思研究生生活，我在想，在这将近3年的学习生活中，我最大的收获是什么呢？我想，可能就是我掌握了元能力，一种习得能力的能力。</p>
-<p>人的能力大部分来源于后天的学习。尤其是在幼儿和儿童时期，我们不仅会学习说话，学习走路，还在学习认识周围的事物，学习和别人交流。上学之后，我们学习语文、数学、物理、历史等科目，在大学里学习专业基础知识，等等。</p>
-<p>我们雕刻了自己的身体，不管是健康的还是乏力的；我们形成了自己的知识体系，不管是结构化的还是碎片化的；我们有了自己的情绪反应方式，不管是建设性的还是破坏性的；我们有了自己的信念和意志，不管是积极的还是消极的；我们有了自己的人生观、世界观和价值观，不管是动态的还是静态的。如此，等等等等。</p>
-<p>我们拥有的上述这些东西，构成了我们的自身。</p>
-<p>但是，随着我们习得的知识和能力越来越多，随着我们对生活的应对越来越游刃有余，大部分人的成长速度在逐渐放缓。我们已有的能力和知识足以应对现阶段的工作，我们的生活越来越趋向于稳定，我们不再有那么多的动机去学习新的东西，培养新的能力了。</p>
-<p>于是，很多人就这样过着日复一日的生活，重复着以往的工作和生活的经验，借由一些低价值、快速、方便的娱乐方式消遣无聊的时光。他们的人生在这个年龄段已经定型，停止了生长，一直到暮年才得以埋葬。</p>
-<p>而我害怕这样的生活，害怕自己会成为这样的人。我想要保持成长。</p>
-<p>我希望身体越来越健康，头脑越来越灵活，眼界越来越宽广，伴侣越来越相爱，有趣的朋友越来越多，做的事情越来越有价值，自身的能力越来越强大，等等。</p>
-<p>就好比我们的手机，每隔一段时间就会升级换代一次。而每一次的换代都会让它的外观更漂亮，性能更强大，功能更丰富，竞争力更强，更受人欢迎。</p>
-<p>而元能力对于人来说，正是我们升级换代的最重要的必要条件之一。</p>
-<p>我所理解的元能力是这样的一种能力：它能够使我们意识到自身的能力范围，给予足够的动机去改善已有能力或培养新的能力，提供多样化的方法去习得新的能力，并且监控、反馈和适时调整习得的方法。</p>
-<p>拥有元能力的人应该具备以下几个素质</p>
-<ol>
-<li>自我意识足够强。能够意识到自己正在做什么，自己的状态如何，并且有一个较为准确的评估。</li>
-<li>拥有强烈的保持成长的愿望。不自满，不自甘堕落，不愿平庸，有理想，愿意付出时间和精力。</li>
-<li>开放的心态。悦纳自己，对自己坦诚，敢于承认和接纳自己的缺点，勇于接受新事物。</li>
-<li>灵活的头脑。不执拗于单一的途径，善于探索未尝试过的方法，或者说，会想办法。</li>
-<li>足够自律。不容易被诱惑和干扰，能够按照自己的想法和计划去践行，并坚持下去。</li>
-</ol>
-<p>元能力并不是什么新奇的概念，也并不是什么难以掌握的能力。总结、反思、调整、做计划、坚持执行、不自欺欺人、懂得变通等等，这些都在元能力的范畴之内。借用古人的话来说，就是“活到老，学到老”，也是“流水不腐，户枢不蠹”等等。</p>
-<p>我想，每个人都有自己的理想的生活，而元能力，就是我们奔向理想生活的快车骏马。</p>
 
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>离毕业已经过去半个多月了，距入职还有1个多月，我没有急于入职是因为想要留点空闲的时间，做一些闲事，给生命一些间隙，用来成长。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2017/04/21/meta-ability/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/02/01/2017-04-21-meta-ability/" data-id="ck630batp0008vchlfsmqfulw" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
 
-
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
   
-    <article id="post-2016-11-25-about-food" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/02/01/2016-11-25-about-food/" class="article-date">
-  <time datetime="2020-02-01T02:50:13.884Z" itemprop="datePublished">2020-02-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+  
+  
+
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/01/2016-11-25-about-food/">生活之美——对食物用心</a>
-    </h1>
   
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/25/about-food/">
 
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hackerleon">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Still Waters">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/11/25/about-food/" class="post-title-link" itemprop="url">生活之美——对食物用心</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-11-25 00:00:00" itemprop="dateCreated datePublished" datetime="2016-11-25T00:00:00+08:00">2016-11-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%94%9F%E6%B4%BB%E9%9A%8F%E6%84%9F/" itemprop="url" rel="index">
+                    <span itemprop="name">生活随感</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
       </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这几天早晨走在去实验室的路上听着蒋勋的《美的沉思.生活美学》，颇有感触，是为一记。</p>
-<p>吃是我们每天都要面对的事情，可是处在繁忙生活中的我们又有几个人认认真真地对待过它们呢？生活节奏越来越快，生活压力也随着年岁的增加越来越大，处在信息碎片海洋和各种媒体洪流中的我们，是否可曾静下心来，想过这样一个问题，我要吃什么，我该怎么吃？</p>
-<p>相信每个人对于食物都有自己独特的回忆，不管是小时候父母做的某一道菜、某一碗面，还是街边香气扑鼻的小吃，都会让我们想起曾经吃过的美味，同时想起的可能还有一段回忆，一些人。食物留下的味道可能早已不在，可是这份回忆和感动却保留了下来。</p>
-<p>蒋勋在节目里回想他曾经吃过的一道云南菜让我印象深刻，这道菜叫做“蝴蝶扑泉”，名字非常美，我就很好奇这是一道什么样的菜？他说，这是当地人结合那里的山水想出来的，这道菜有点像火锅，用陶锅做底，待水开了之后放入同样温度的小石头，它们就像那里的溪谷一样。石头的作用是可以保证水的温度比较高，保持沸腾冒泡的状态。而蝴蝶呢，其实就是用那里的鱼肉片成的薄片，当鱼片下入锅的时候，卷起来的鱼肉就好像蝴蝶的翅膀一样。这样一道简单的菜肴，却蕴含着那里的山山水水，如此意境，如果是一个对生活不加用心的人，是无法体会到的。</p>
-<p>这让我也回想起许许多多关于食物的片段。</p>
-<p>记得小学有一次放学，跟着小伙伴王胖子一起回家，路过一家新开的炸鸡店，特别想吃鸡腿，于是我就买了一个炸鸡腿。小伙伴看着我吃着炸鸡腿，嘴里说不吃，身体却很诚实。可是咬了没几口我却发现，靠近鸡腿骨附近的肉还有点血水，这让我甚是扫兴。这时热心的小伙伴对我说，这都是血水没法吃，我给你冲一冲吧。于是他把他水瓶里仅有的最后一点水拿了出来，帮我把鸡腿上的血水冲洗干净又交给了我。这个片段让我每次想起都觉得心里很温暖，并不是因为鸡腿好吃，说实话，实在是不咋样，但是它让我想起了那个对我很好的小伙伴。虽然现在我和他已经很少再联系了，也各奔东西，但是心里还是记得他对我的好。</p>
-<p>16年元旦的时候，我和老婆带着两个韩国友人一起去了一趟云南，在欣赏美景的同时，自然少不了尝尝当地的美食。记得印象最深的，一个是在泸沽湖畔吃的烤肉，这是两个韩国友人最喜欢吃的，我们连着两天都在这家店里聊天吃肉；一个是和老婆在丽江的束河古镇吃的牦牛肉火锅，那是我们饿着肚子足足等了两个小时的飨宴，飘着奶香的乳白色火锅汤飘着厚厚的鲜美多汁的牦牛肉，让我们最后吃了个底朝天，干干净净。那几天的美食，总能让我们一扫旅途的疲惫，浑身充满了温暖和能量。</p>
-<p>我的老家在陕西，一个喜欢吃面食的地方。说实话我更喜欢吃米饭，但是老家的面，总让我觉得特别温暖。我最喜欢的有两个，一个是我三妈做的麻食，一个是我姑姑做的茄花面。麻食是这里的特色，小时候我和奶奶也一起做过。奶奶把面擀成细棍，再切成拇指头一样大小的面疙瘩，我呢，用大拇指搭在面疙瘩上，然后用力向下按的同时向前搓，于是它就变成了一个卷起来的小面片。麻食要做的好吃，熬汤最关键，每次我三妈做麻食的时候，都会用小火慢慢地煮，里面会放很多的菜，最出味的就是西红柿和鸡蛋了。熬出来的汤汁浓稠又鲜香，每次我都能吃好几碗。而我姑姑做的茄花面，常常是一大家子人过年坐在一起吃的最舒服的一顿饭了。姑姑会用那种大铁锅来做面，姑父在边上烧着柴火，弟弟在一边拉着风箱，滴答滴答的特别有节奏。茄花面里除了面只有三种东西，鸡蛋、番茄和青菜，面是那种菱形的薄薄的面片，做出来的面非常的鲜嫩，面汤温暖浓厚，就好像寒冷的冬天那里的暖炕一样让人舒服。</p>
-<p>还有一个印象深刻的是我在大二的时候一个人去桂林阳朔玩，听说有很多老外在那里生活，他们做的料理也非常正宗，于是我就想尝尝正宗的披萨是什么样的。在某网站上找到了一家评价不错的西餐店，我决定尝尝吞拿鱼披萨。进店的时候服务员听到我说是一个人来吃饭的时候，还非常的诧异，可能来这种店吃饭的大多都是成双成对的吧。我挑了顶层的一个露天的餐桌，旁边的栏杆上是蔓延的郁郁葱葱的枝条，桌子上还能看到蚂蚁在摇头摆脑地散步。我点了一个披萨和一杯自酿的酸奶，坐在那里一边欣赏着阳朔的美景，一边静静地享用。由于我吃饭的时间不在高峰期，顶层除了我没有别人，很安静，与街下的熙吵不一样，这里让我很舒服。我能感受到丘陵的呼吸，漓江的清唱，再伴着盘中的美味和一个人的悠闲自得，那种感觉让我忘却了时间的存在，非常美妙。</p>
-<p>这些片段都留在了我的回忆里，每次回想起来还都会觉得很感动和幸福。现在，我也有了自己的小家，我和她都想一起创造理想的幸福生活。我想，对一日三餐的食物的用心，正是这份幸福感的来源所在吧。每天早晨早早地起来锻炼锻炼身体，留下来充足的时间准备早饭，搭配好合理的营养，每隔一段时间都变换一下不同的风味，每天都记录着有待优化的细节。我想这就是爱，这就是用心，用心准备每一顿饭，用心照顾好我们的身体，用心过好我们的生活。</p>
-<p>我深深感觉到，在这样一个有些浮躁和急于求成的时代里，在这样一个充斥着诱惑和快餐的信息世界里，回归一份安静的心更重要。把这份心用在生活方方面面的细节里，不着急，不比较，像小火慢煮一样静静地熬出幸福的滋味，我想这才是生活该有的模样。</p>
 
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>这几天早晨走在去实验室的路上听着蒋勋的《美的沉思.生活美学》，颇有感触，是为一记。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2016/11/25/about-food/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/02/01/2016-11-25-about-food/" data-id="ck630batn0007vchlhyfmhgzs" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
 
-
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
   
-    <article id="post-2016-10-22-what-is-mesos" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/02/01/2016-10-22-what-is-mesos/" class="article-date">
-  <time datetime="2020-02-01T02:50:13.877Z" itemprop="datePublished">2020-02-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+  
+  
+
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/01/2016-10-22-what-is-mesos/">Mesos</a>
-    </h1>
   
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/22/what-is-mesos/">
 
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hackerleon">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Still Waters">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/10/22/what-is-mesos/" class="post-title-link" itemprop="url">Mesos</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-10-22 00:00:00" itemprop="dateCreated datePublished" datetime="2016-10-22T00:00:00+08:00">2016-10-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%B3%BB%E5%88%97/" itemprop="url" rel="index">
+                    <span itemprop="name">软件工程师系列</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
       </header>
+
     
-    <div class="article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>近期由于项目需要，我在研究Apache Mesos，它是一个分布式操作系统的内核。下面我将分几个部分来介绍Mesos：</p>
+          <p>近期由于项目需要，我在研究Apache Mesos，它是一个分布式操作系统的内核。下面我将分几个部分来介绍Mesos：</p>
 <ul>
 <li><strong>背景</strong></li>
 <li><strong>什么是Mesos</strong></li>
 <li><strong>Mesos是如何运作的</strong></li>
-<li><strong>如何使用Mesos</strong></li>
-</ul>
-<h3 id="1-背景"><a href="#1-背景" class="headerlink" title="1 背景"></a>1 背景</h3><h4 id="1-1-资源划分"><a href="#1-1-资源划分" class="headerlink" title="1.1 资源划分"></a>1.1 资源划分</h4><p>现代大部分应用程序最根本的基础在于<strong>存储和处理数据</strong>，当数据量和计算量不断上升时，传统的方式是通过购买硬件来扩容，但是渐渐地，企业发现，这种方式也不能满足需求了。</p>
-<p>一些大型企业开始向分布式应用转型，他们把大量计算机当成单个巨型机器使用，在这些计算机中划分资源给不同的分布式应用程序。</p>
-<p>比如有这么一个场景，我现在有9台计算机，有三个分布式应用要运行，分别是Hadoop，Spark和Ruby on Rails。为了公平起见，我给每个应用分配3台机器，如下图所示：</p>
-<p><img src="/img/mesos/example1.png" alt="静态资源划分"></p>
-<p>假设在某一个时间段内，它们运行时的负载是这样的：</p>
-<p><img src="/img/mesos/example2.png" alt="负载"></p>
-<p>从这里面，我们能看到，每个分布式应用在同一时刻对资源的使用率是不同的，有的高，有的低。这就导致了计算机集群的资源使用效率非常低。</p>
-<p>那么有没有一种更好的方式来提高资源利用率呢？试想这样一种场景，我们把这些计算机集群看成一个超级计算机，每个分布式应用都在它上面运行，这个超级计算机会动态地给它们分配资源。如下图所示：</p>
-<p><img src="/img/mesos/example3.png" alt="动态资源划分"></p>
-<p><img src="/img/mesos/mesos-elastic-sharing.png" alt="动态资源划分2"></p>
-<p>这样，我们就可以在同一个集群上，运行多个分布式应用，它们共享集群资源。这种方式可以明显地提高资源利用率。</p>
-<h3 id="1-2-集群计算框架"><a href="#1-2-集群计算框架" class="headerlink" title="1.2 集群计算框架"></a>1.2 集群计算框架</h3><p>那么，我们把这种解决方案就叫做，集群计算框架。这种集群计算框架的一个很重要的功能，就是资源管理功能，这项功能会交给集群管理器去完成，它应该能满足以下的目标：</p>
-<ol>
-<li><strong>高效性</strong>。高效共享资源，提高资源利用效率。</li>
-<li><strong>隔离性</strong>。当多个任务共享资源时，系统要确保资源的隔离性，也就是任务和任务之间不能互相影响，这其中包括计算、存储等资源。</li>
-<li><strong>可伸缩性</strong>。集群计算框架作为一种基础架构，它是会持续增长的，所以集群的管理程序应该可以线性伸缩。</li>
-<li><strong>健壮性</strong>。持续的业务运营要求健壮的集群管理，比如良好的测试代码，容错性等。</li>
-<li><strong>可扩展性</strong>。可维护性很重要，集群管理软件必须是可配置的，同时可以考虑到很多约束条件，还能支持多种不同的框架。</li>
-</ol>
-<p>为了满足这个需求，Mesos出现了。</p>
-<p><img src="/img/mesos/mesos1.png" alt="Mesos1"></p>
-<h3 id="2-什么是Mesos？"><a href="#2-什么是Mesos？" class="headerlink" title="2 什么是Mesos？"></a>2 什么是Mesos？</h3><h3 id="2-1-Mesos的定义"><a href="#2-1-Mesos的定义" class="headerlink" title="2.1 Mesos的定义"></a>2.1 Mesos的定义</h3><p>Apache Mesos 官方给出的定义是：</p>
-<blockquote>
-<p>A distributed systems kernel 分布式系统内核<br>Mesos is built using the same principles as the Linux kernel, only at a different level of abstraction. The Mesos<br>kernel runs on every machine and provides applications (e.g., Hadoop, Spark, Kafka, Elasticsearch) with API’s for<br>resource management and scheduling across entire datacenter and cloud environments.<br>Apache Mesos abstracts CPU, memory, storage, and other compute resources away from machines (physical or virtual), enabling fault-tolerant and elastic distributed systems to easily be built and run effectively.</p>
-</blockquote>
-<p>Mesos将一个计算机集群抽象成了一个拥有巨量资源的单台超级计算机。它将物理机器抽象成资源，通过消费它的抽象资源来构建分布式系统。可以将Mesos看成是为构建和运行其他分布式系统提供服务的分布式系统。你可以在Mesos之上构建不同的分布式系统，Spark、Storm、Hadoop，甚至你自己编写的分布式系统，它们可以共享一个计算机集群，在一个统一的基础架构上（Mesos）运行。  </p>
-<h4 id="2-2-Mesos-vs-Linux"><a href="#2-2-Mesos-vs-Linux" class="headerlink" title="2.2 Mesos vs. Linux"></a>2.2 Mesos vs. Linux</h4><p><img src="/img/mesos/mesos_linux.png" alt="Mesos vs Linux"></p>
-<p>用Linux和Mesos做类比：</p>
-<ul>
-<li>它们都是操作系统内核，一个构建在单台机器上，一个构建在多台机器上；</li>
-<li>它们都提供了程序的隔离性，Linux是Process，Mesos是Linux Container；</li>
-<li>它们都提供了资源共享的功能，Linux是Process Scheduler，Mesos是Scheduler；</li>
-<li>它们都提供了公共的基础架构，Linux提供了read()、write()、bind()、connect()等，Mesos提供了LaunchTask()、KillTask()、statusUpdate()等；</li>
-<li>它们都提供了包管理功能，Linux是wget、yum等，Mesos提供了Docker。  </li>
-</ul>
-<p><img src="/img/mesos/mesosphere-logo-370x290.png" alt="Mesos Logo"></p>
-<h3 id="2-3-Mesos有哪些特性？"><a href="#2-3-Mesos有哪些特性？" class="headerlink" title="2.3 Mesos有哪些特性？"></a>2.3 Mesos有哪些特性？</h3><ul>
-<li><strong>线性扩展</strong> - 在生产环境已经可以很轻易地扩展到10000多个节点。</li>
-<li><strong>高可用</strong> - 基于Zookeeper的容错机制使得Master和运行在Slave之上的agent高可用，并且支持无缝升级。</li>
-<li><strong>容器支持</strong> - 天生支持容器，包括内建的、Docker以及外部容器机。</li>
-<li><strong>可插拔的资源隔离</strong> - 支持CPU、内存、磁盘、端口、GPU的资源隔离，也支持定制化的资源隔离。</li>
-<li><strong>两级调度</strong> - 对于运行在同一个集群上的各种分布式应用，提供可插拔的调度策略。</li>
-<li><strong>API丰富</strong> - 提供HTTP APIs，可以开发新的分布式应用，操控集群以及对集群进行监控管理。</li>
-<li><strong>WEB UI</strong> - 内建的WEB UI提供了集群状态视图等功能。</li>
-<li><strong>跨平台</strong> - 可以运行在Linux、OSX、Windows，或各种云平台上。</li>
-</ul>
-<h3 id="2-4-Mesos的关键概念"><a href="#2-4-Mesos的关键概念" class="headerlink" title="2.4 Mesos的关键概念"></a>2.4 Mesos的关键概念</h3><ul>
-<li><strong>master</strong> 负责在slave资源和framework之间进行调度。它以资源offer的形式将slave的资源提供给framework，并且根据已接受的offer在slave上启动任务。同时它还负责task和framework之间的通信。</li>
-<li><strong>slave（agent）</strong> 是Mesos集群里的工作节点。管理单个节点上的资源，比如cpu、内存、端口、GPU等，同时执行framework提交的task。</li>
-<li><strong>framework</strong> 运行在Mesos之上的分布式应用。每一种framework都包含调度程序和执行程序。调度程序决定是否接受资源offer。执行程序是资源消费者，运行在slave上，负责运行任务。</li>
-</ul>
-<h3 id="3-Mesos是如何运作的"><a href="#3-Mesos是如何运作的" class="headerlink" title="3 Mesos是如何运作的"></a>3 Mesos是如何运作的</h3><h4 id="3-1-Mesos架构"><a href="#3-1-Mesos架构" class="headerlink" title="3.1 Mesos架构"></a>3.1 Mesos架构</h4><p><img src="/img/mesos/mesos_architecture.png" alt="Mesos架构"></p>
-<p>Mesos的结构：一个master守护进程，它负责管理在集群节点上运行的agent守护进程（也就是slave），然后每个framework会在这些agent上运行task。</p>
-<p>Mesos建立在硬件设施之上（包括物理主机、公有云、私有云等），面向framework提供服务。Mesos只提供资源共享和资源隔离能力，它将task的真正调度和执行交给framework来负责，因此framework可以按需实现自己的调度和容错机制。Mesos由5个核心部分组成：</p>
-<ol>
-<li>Mesos master</li>
-<li>Mesos slave</li>
-<li>framework</li>
-<li>通信</li>
-<li>附属服务</li>
-</ol>
-<p><strong>Mesos slave（agent</strong>  </p>
-<p>利用已有资源执行framework下发的任务，同时对运行中的任务进行合适的隔离。  </p>
-<p>slave上的资源由资源描述符来描述：【slave资源】描述任务运行中所要消耗的元素，【slave属性】描述slave的相关信息。例如：</p>
-<blockquote>
-<p>–resources=’cpus:30;mem:122880;disk:921600;ports:[21000-29000];bugs:{a,b,c}’<br>–attributes=’rack:rack-2;datacenter:europe;os:ubuntuv14.4’</p>
-</blockquote>
-<p><strong>Mesos master</strong></p>
-<p>负责给各个不同的framework分配资源并管理任务的生命周期。它通过资源offer的形式完成细粒度的资源分配。每一个资源offer包含一个资源列表<code>&lt;agent ID, resource1: amount1, resource2: amount2, ...&gt;</code>。master根据组织策略（公平共享或优先级）决定给每个framework多少资源。为了可以添加多种不同的策略，Mesos提供了一种可插拔的模块架构来支持。</p>
-<p><strong>Framework</strong></p>
-<p>在Mesos之上运行的分布式应用。它通过Mesos提供的通用资源API来实现需求。通常framework会运行很多任务，任务是资源的最终消费者，且任务之间可以不同。  </p>
-<p>framework由两部分组成：框架调度器，执行器。调度器协调任务的执行。执行器提供任务执行控制的功能。可以在一个执行器内运行一个任务，也可以在一个执行器中使用多进程来完成多个任务。除此之外，framework API提供了和调度器及执行器通信的功能。</p>
-<p><img src="/img/mesos/mesos_arch.png" alt="Mesos架构2"></p>
-<p><strong>通信</strong></p>
-<p>Mesos利用一个和HTTP类似的协议在各个组件之间进行通信。利用libprocess库。如：</p>
-<ol>
-<li>framework调度器和Mesos master。</li>
-<li>framework执行器和Mesos slave。</li>
-<li>Mesos master和slave。</li>
-<li>运维API。</li>
-</ol>
-<p><strong>附属服务</strong></p>
-<p>本身不是Mesos的一部分，也不是运行Mesos所必需，但是可以帮助我们更好的管理生产环境的Mesos集群。</p>
-<ul>
-<li>共享文件系统。比如HDFS。</li>
-<li>一致性服务。Zookeeper，etcd。</li>
-<li>服务编排。让在Mesos上运行的服务和应用，能够实现无缝连接。</li>
-<li>运维服务。</li>
-</ul>
-<h4 id="3-2-Mesos的资源分配"><a href="#3-2-Mesos的资源分配" class="headerlink" title="3.2 Mesos的资源分配"></a>3.2 Mesos的资源分配</h4><p>因为各个framework所需要的调度不一样，所以Mesos提供了两级调度，也就是资源分配和任务调度的隔离。Mesos master负责决定分配给每个framework多少资源，任务调度器负责决定如何使用这些资源，这取决于每个框架的调度器如何根据自身的需求去实现。Mesos在各个framework之间进行粗粒度的资源分配，每个framework根据自身任务的特点进行细粒度的任务调度。</p>
-<p><img src="/img/mesos/scheduling.jpg" alt="调度"></p>
-<p>过程：</p>
-<ol>
-<li>framework调度器在Mesos master中进行注册。</li>
-<li>Mesos master从slave获取资源offer，调用分配模块的函数决定将这些资源分配给哪个framework。</li>
-<li>framework调度器从Mesos master接收资源offer。</li>
-<li>调度器检查offer是否合适。如果合适，调度器接受offer，并向master返回一个需要在slave上利用这些资源运行的执行器列表。如果不合适，则拒绝offer，等待合适的offer。</li>
-<li>slave分配所请求的资源并运行任务执行器。任务执行器在slave节点上运行框架下的任务。此时会将执行器全部打包，在对应的slave机器上启动。当任务执行完毕后，资源会被释放，以便可以执行其他任务。  </li>
-<li>framework调度器接收任务运行成功或失败的通知。同时framework调度器继续接收资源offer和任务报告，并在合适的时机启动任务。  </li>
-<li>framework从Mesos master注销。一些需要长时间运行的服务和元框架（如Marathon）在正常操作流程中并不会注销。</li>
-</ol>
-<p>这样的设计会使得调度器并不了解全局的资源利用率，因此资源的分配可能并不是最优的。在Mesos中，framework并不会将自己的特殊资源需求显式告知给Mesos master，而是拒绝master发送的所有不符合需求的资源offer。</p>
-<p>Mesos使用DRF算法进行资源分配。而且可以通过加权来分配比例。同时还提供了资源预留功能，以避免某些应用无法获得资源offer，进而导致服务无法使用。</p>
-<h4 id="3-3-Mesos的资源隔离"><a href="#3-3-Mesos的资源隔离" class="headerlink" title="3.3 Mesos的资源隔离"></a>3.3 Mesos的资源隔离</h4><p><img src="/img/mesos/mesos_container.png" alt="资源隔离"></p>
-<p>Mesos在slave上提供多种隔离机制，以便为不同的任务提供沙箱环境。Mesos提供容器级别的资源隔离功能。  </p>
-<p>在slave操作系统之上有一个容器层，这一层运行着一个个容器，容器里包含了执行器和任务。在容器层之上有一个容器机API，它支持不同的容器机实现。slave启动的时候，我们可以指定使用的容器机和隔离器的类型，来对资源进行隔离。</p>
-<p><strong>Mesos容器机</strong>  </p>
-<p>内部容器机实现，提供两种隔离器：基于POSIX系统的进程级别的基础隔离，基于Linux内核特性的cgroups的cgroups隔离。</p>
-<p><strong>Docker容器机</strong>  </p>
-<p>Docker是一个构建、分发和运行应用的开放平台。通过它可以轻松地将应用进行组合，并利用上层API以可移植的方式运行轻量级的Docker容器。它可以利用cgroups、LXC、OpenVZ和内核级别的namespaces进行隔离。Mesos原生支持Docker。</p>
-<p><strong>外部容器机</strong>  </p>
-<p>容器中执行器的隔离需要外部容器机自己去实现和管理。</p>
-<h4 id="3-4-容错"><a href="#3-4-容错" class="headerlink" title="3.4 容错"></a>3.4 容错</h4><p>考虑三种错误情况：机器宕机、Mesos进程bug和升级。</p>
-<p>若Mesos slave宕机，master会发现情况，并给framework发送该slave宕机事件，由framework将任务重新调度到别的slave上。slave恢复正常之后，会重新向master注册。若slave进程错误或升级，slave进程暂时不可用，但是在slave上的执行器不受影响，slave进程会在重启后恢复这些任务。  </p>
-<p>若framework调度器出现错误，framework下的任务会继续执行，当恢复了之后，它会向master重新注册并获取所有任务的状态信息。</p>
-<p>Mesos利用Zookeeper选主保证master高可用。</p>
-<h4 id="3-5-持久化"><a href="#3-5-持久化" class="headerlink" title="3.5 持久化"></a>3.5 持久化</h4><p>Mesos如何确保当任务被调度的时候，分配的节点可以访问其所需的数据？Mesos提供多种选择来处理：</p>
-<ol>
-<li>分布式文件系统。比如HDFS。缺点是会有网络延迟。</li>
-<li>使用数据存储复制的本地文件系统。程序级别的复制，比如NoSQL，Cassandra或MongoDB。优点是不用考虑网络延迟，缺点是必须配置Mesos，使特定的任务只运行在持有复制数据的节点上。</li>
-<li>不使用复制的本地文件系统。可以将持久化数据存储在指定节点的文件系统上，并且将该节点预留给指定的应用程序。在不允许延迟或者应用程序不能复制它的数据存储等特殊情况下才会这样选择。</li>
-</ol>
-<h4 id="3-6-扩展Mesos"><a href="#3-6-扩展Mesos" class="headerlink" title="3.6 扩展Mesos"></a>3.6 扩展Mesos</h4><p>Mesos一直试图将其核心最小化，将不是所有用户都需要的功能从核心一出。它提供了集成接口，各种不同的外部系统实现都可以通过它与Mesos进行集成。几乎所有的Mesos组件都可以被不同的实现所替换。</p>
-<h3 id="4-如何使用Mesos"><a href="#4-如何使用Mesos" class="headerlink" title="4 如何使用Mesos"></a>4 如何使用Mesos</h3><h4 id="4-1-安装和配置"><a href="#4-1-安装和配置" class="headerlink" title="4.1 安装和配置"></a>4.1 安装和配置</h4><ol>
-<li>遵循Apache Mesos官网上的步骤，一步一步构建Mesos。首先要确保系统拥有Mesos运行的依赖软件包。然后再下载Mesos，构建并运行。</li>
-<li>可以先运行单机的Mesos集群，包含一个master和一个slave，均在一台机器上运行。同时可以运行测试框架查看集群配置是否正确。Mesos提供了一个Web UI来展示集群信息。</li>
-<li>多节点集群。重复上述步骤，在每个slave上启动mesos-slave，也可以启动整个集群，但是这样很麻烦。可以使用SSH和Mesos的deploy目录来部署。</li>
-</ol>
-<h4 id="4-2-运行示例"><a href="#4-2-运行示例" class="headerlink" title="4.2 运行示例"></a>4.2 运行示例</h4><p><img src="/img/mesos/mesos-12.jpg" alt="示例"></p>
-<h4 id="4-3-运行服务"><a href="#4-3-运行服务" class="headerlink" title="4.3 运行服务"></a>4.3 运行服务</h4><p>以上所介绍的在Mesos之上运行的framework都是运行短暂任务的，而实际应用中有很多需要长期运行的应用，或者成为服务。基于Mesos，还有一些服务框架，可以提供更强大的能力。</p>
-<ul>
-<li>Marathon/Aurora – 服务调度器框架，可以在Mesos上运行长期服务。它能够保证某台机器发生故障时自动在其他机器上启动服务实例，还能够弹性扩展。它可以确保在其上运行的服务一直运行着。</li>
-<li>Chronos – 可容错的作业调度器。替代cron，可以自动化配置循环作业。</li>
-<li>Mesos-DNS – 基于域名服务的服务发现。当同时运行应用程序的多个副本时，必须能发现它们在哪里运行，并且能够连接它们。这在出现故障时尤为重要。</li>
-</ul>
-<h4 id="4-4-开发framework"><a href="#4-4-开发framework" class="headerlink" title="4.4 开发framework"></a>4.4 开发framework</h4><p>Mesos framework API：</p>
-<ul>
-<li><strong>Mesos 消息</strong> – 使用Protocol buffer来定义可跨平台和编程语言的消息格式。</li>
-<li><strong>Scheduler API</strong> – 负责管理框架所获得的资源。</li>
-<li><strong>Scheduler Driver API</strong> – 定义了调度器生命周期及其与Mesos交互的方法。它负责调用Scheduler的回调函数。</li>
-<li><strong>Executor API</strong> – 负责启动任务并执行Scheduler所分配的任务。每次只能执行一次回调，所以不能被阻塞。</li>
-<li><strong>Executor Driver API</strong> – 连接Executor和Mesos的接口。包含了Executor在生命周期各阶段的方法，以及向Mesos发送消息的方法。</li>
-</ul>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>本文从以下几个方面简要介绍了Apache Mesos：</p>
-<ul>
-<li>背景</li>
-<li>什么是Mesos</li>
-<li>Mesos是如何运作的</li>
-<li>如何使用Mesos</li>
-</ul>
-<p>附件：[Apache Mesos](/res/pdf/Apache Mesos.pdf)</p>
-
+<li><strong>如何使用Mesos</strong>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2016/10/22/what-is-mesos/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/02/01/2016-10-22-what-is-mesos/" data-id="ck630batm0006vchl0bu13e5m" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
 
-
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
   
-    <article id="post-2016-08-13-good-idea-but-cannot-do" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/02/01/2016-08-13-good-idea-but-cannot-do/" class="article-date">
-  <time datetime="2020-02-01T02:50:13.870Z" itemprop="datePublished">2020-02-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+  
+  
+
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/01/2016-08-13-good-idea-but-cannot-do/">想法很好，却无法执行？</a>
-    </h1>
   
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/13/good-idea-but-cannot-do/">
 
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hackerleon">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Still Waters">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/08/13/good-idea-but-cannot-do/" class="post-title-link" itemprop="url">想法很好，却无法执行？</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-08-13 00:00:00" itemprop="dateCreated datePublished" datetime="2016-08-13T00:00:00+08:00">2016-08-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF/" itemprop="url" rel="index">
+                    <span itemprop="name">个人成长</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
       </header>
+
     
-    <div class="article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>昨天早上整理思绪的时候，我想到了这么一个问题：</p>
+          <p>昨天早上整理思绪的时候，我想到了这么一个问题：</p>
 <p><strong>我们经常有很多想法很好，但是为什么我们做不到呢？</strong></p>
-<p>一切从我们的另一个想法开始：</p>
-<p><em>我们是有理想的人，我们不甘于满足现状，我们想要的东西、我们想要过的生活，也是现状满足不了的。所以我们想要变得更好，想要过上更好的生活，过上我们想要的生活。</em></p>
-<p>如果你不是这么想的，那么下面内容就都不用看了，昨天怎么过的，今天就还怎么过吧，今天怎么过的，明天就还怎么过吧，今年怎么过的，明年就还怎么过吧，就这么过下去吧……</p>
-<p>—- 我是分割线o(<em>￣▽￣</em>) —-</p>
-<p>但是如果你的确是这么想的，想要变得更好，想要过得更好，那么，你有没有想过，要怎么办才能更好呢？</p>
-<p>不妨先思考一下~只有你思考了，下面的内容才会与你产生共鸣，否则只是被动地接受别人的想法，我相信不超过一天你就会忘记得无影无踪。</p>
-<p>—- 想一想 (<em>￣∇￣</em>)ブ —-</p>
-<p>好啦，现在我假设你已经思考过了，你有了你的一些想法，下面我就说一下我的想法，看看我们之间能不能碰撞出些许的火花，照亮你的生活。</p>
-<p>—- 正文的分割线(`･ω･´) —-</p>
-<p>我们目前的生活现状，来源于我们的选择和行为，不管是几年前的、几个月前的，还是日常每一天的。不管我们想了多少东西，说了多少话，如果没有行动，那些东西是不会对我们的生活产生多大影响的。</p>
-<p><em>（比如我想要更加健康，但是每天的生活还是跟以前一样过，那么我的健康是不会得到任何改善的。除非我真的把睡觉时间从晚上12点调整到了11点，早上起来活动锻炼了，饮食注意营养搭配了，否则我不会有任何的改变，我的生活不会有任何的改变，我跟理想之间的差距不会有任何的改变。再比如我说要考研，只有我真的坐到考场上，把我几个月的努力发挥出来，并且最终获得录取通知书的时候，我的生活才发生了质变。而如果我只是说说，“我要考研”，然后平常还是该干啥干啥，不去复习，不去准备，考研对我来说就是一纸空文，没有任何变化。）</em></p>
-<p>所以说，我们的行为，直接造就了我们的生活。</p>
-<p><em>（我们的日常行为，造就了我们的日常生活。我们的一个选择，造就了我们的一次转折。我们的饮食、运动、睡眠习惯，造就了我们的身体健康。）</em></p>
-<p>如果想要改变我们的生活现状，那就必须改变我们的行为。因为相同的行为，只会产生相同的结果。只有行为发生了改变，结果才有可能发生变化。注意我说的是有可能，而不是一定。但是如果不改变我们的行为，那么结果就不会发生任何变化，也就是，昨天怎么过的，今天还怎么过，今年怎么过的，明年还会怎么过。</p>
-<p>到此，第一个重要发现就浮出水面了：<strong>我们的行为是关键。</strong></p>
-<p>于是乎，我们的问题就转变成了：怎样才能在行为上做出改变呢？</p>
-<p>在回答这个问题之前，我再抛出一个问题：你是否尝试过做出一些行为上的改变？这些方法是否真的有效？如果有效，我想剩下的你也可以跳过了，继续你的方法就行；如果你尝试过的方法没有太大效果，那么你思考过为什么吗？</p>
-<p>先想一想~</p>
-<p>—- 再想想 (<em>￣∇￣</em>)ブ —-</p>
-<p>我认为，跟我们的意识有关系，跟我们的态度有关系。</p>
-<p>有没有过这样的情景：当你在做出行为上的改变的时候，你会觉得很别扭，会觉得好烦好累，会觉得懒，不想做？你很想回到原来的状态里去，而且是无意识的，虽然你觉得应该做出改变，但是你并不想，你甚至会发现自己其实很懒。</p>
-<p>那是因为，你觉得你应该做出改变，你也想做出改变，但是你并不是真的想要做出改变，因为你并没有改变你的意识，改变你的态度。</p>
-<p>因为行为，是靠你的意识和态度驱动的。</p>
-<p><em>（比如说到好吃的，谁都想吃啊，你能意识到美味的食物能给你带来快乐，会让你觉得很爽，所以你对它的态度也相当的积极。比如说到旅游，谁都想出去看看啊，因为你能意识到这会给你带来新的感受和见识，会让你感到愉悦。再比如下班回到家，很多人选择看电视或者影视节目来消遣，因为忙碌了一天，你想要休息，想要找个乐子放松一下。）</em></p>
-<p>所以，单纯靠改变行为是不够的，因为没有触碰到深层次的意识和态度。</p>
-<p><em>（就像你把汽车的外形改造成飞机，它也飞不起来，因为它的内在结构和传动方式并没有变。）</em></p>
-<p>只有改变了意识，改变了态度，才能有效地改善行动。</p>
-<p>这是我们第二个重要的发现：<strong>我们的意识和态度是关键。</strong></p>
-<p>可是，怎么改变我们的意识和态度呢？</p>
-<p>我说的改变，是主动的改变。实际上，我们已经体验过被动的改变了。</p>
-<p><em>（当你因为感冒发烧而浑身无力时，你意识到了身体健康的重要性；当你腿脚受伤无法行走时，你意识到了身体健全的重要性；当你找工作时发现用人单位的要求自己都不满足时，你意识到了学习的重要性；当你因为身材不好而与心目中的男神失之交臂时，你意识到了美丽与健康的重要性；当你早上醒来浑身乏力眼皮困顿时，你意识到了早睡的重要性……如此例子太多太多，都是我们被动地意识到了一些事情，我们对它的重要性有了更加深刻的理解。）</em></p>
-<p>但是有多少人，能将这些被动的改变，转化为行为上的改变呢？又有多少人意识到了之后，又回到了原来的生活里呢？为什么改变这么困难呢？</p>
-<p>再想一想~</p>
-<p>—- 嗯哼 (´・ω・`)  —-</p>
-<p>关键词：<strong>主动</strong>。</p>
-<p>不是你自己想干的事儿，别人怎么影响你都不管用。</p>
-<p>只有<strong>主动思考</strong>，<strong>主动探索</strong>，<strong>主动憧憬</strong>得来的意识，才能转化为相应的行为。</p>
-<p><strong>思考</strong>，<strong>探索</strong>，<strong>憧憬</strong>，三者缺一不可。</p>
-<p>我以我们想要健康来举例。</p>
-<p>健康的好处不言而喻，可是我们认认真真花在思考上的时间，到底有多少？加起来能有10个小时吗？</p>
-<p>对健康思考的越多，对它的理解才能越深刻，才能对我们产生质变的影响。</p>
-<p><em>（玩游戏的时候我们是思考的，我们会想怎么才能玩得更好。打麻将的时候我们是思考的，我们会想怎么才能尽快的赢。追异性的时候我们是思考的，我们会想怎么才能追到对方。）</em></p>
-<p>所以，首先，我们得主动地让自己的脑子转起来，去思考，健康。</p>
-<p>健康是什么？健康包括什么？为什么要健康？怎样才能保持健康？什么样的行为是不健康的？为什么？……</p>
-<p>思考是万事之始。</p>
-<p>接下来便是对你思考的每一个问题，进行深入的探索。</p>
-<p>探索意味着你要向未知的领域进发，你不知道你会遇到什么，可能有收获，可能暂时什么都没有。</p>
-<p>条条大路通罗马。不管你用什么样的探索方式，是自己挖掘也好，是从别人那里请教也好，还是上网搜集资料也好，你都能多少得到一些你想要的答案。</p>
-<p>同时，并不是每一条路都好走。有时候你可能暂时什么也发现不了，或者发现的东西并不是你想要的，但这并不代表就没有答案。或者因为这种方式比较低效，或者你可以换一条路走。不管怎样，只要我们探索的目标是明确的就行。</p>
-<p>在进行完几轮深入的探索之后，你会找到问题的绝大多数的答案。</p>
-<p><em>（比如你知道健康包括了饮食、运动和休息，甚至还有心理健康；你知道健康对你能够带来的好处，你可以活的更长寿，你可以更长久地保持年轻和活力，你可以更加愉快地享受生活而不用担心病痛的折磨；你知道要合理搭配饮食结构，并且知道具体怎么在一天三餐中分配；你知道生命在于运动，它不仅可以带来美好的身材，更能给你带来自信和自尊；你知道休息同样很重要，知道睡前一个小时应该怎么做才能提高一晚上的睡眠质量。等等等等~）</em></p>
-<p>是不是感觉已经拥有了很多收获了，可以去做了？可是且慢，还有一件很重要的事情没做呢，那就是，憧憬。</p>
-<p>思考和探索过后，你已经掌握了足够多的信息了，你知道该做什么了，可是这并不能让你真正地去做，去改变。因为作为人类，只有我们的情感因素被调动起来的时候，我们才能彻底改变态度，有意识地做出一些行为。</p>
-<p>没错，我们需要进行一下憧憬。</p>
-<p>千万不要忽视这一步，它是改变的关键。</p>
-<p>憧憬就是想象，自由地发挥你的想象力，想象当你拥有了你想要的健康之后，你的生活，会发生多少变化？</p>
-<p><em>你可以精力充沛的从睡梦中醒来，头脑清晰，四肢有力。你会拥有更加迷人的身材，在和别人交往中，充满自信，赢得别人的尊重和喜爱。你会拥有更加光滑和紧致的皮肤，更加饱满和有力的肌肉，更加明亮眼眸。你会拥有更好的心肺能力，更多的精力去应付生活中各种各样的事情。你会比同龄人显得更加年轻有活力，从而会让你的心态更加积极，看到生活更加美好的一面。</em></p>
-<p>……</p>
-<p>请自行想象，想象力越丰富，想象得越具体，你能获得的改变就越多，你想要的就越容易实现。对，你没看错，你想象的越多，想象的越具体，你就越容易获得它们。</p>
-<p>—- 留给你想象一会儿~๑乛◡乛๑  —-</p>
-<p>现在，你是不是已经充满干劲儿，迫不及待地想要去改变了？</p>
-<p>那我最后再送你一句话：</p>
-<blockquote>
-<p>不积跬步，无以至千里；不积小流，无以成江海。</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/02/01/2016-08-13-good-idea-but-cannot-do/" data-id="ck630batk0005vchldij21380" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2016-07-05-big-data" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/02/01/2016-07-05-big-data/" class="article-date">
-  <time datetime="2020-02-01T02:50:13.855Z" itemprop="datePublished">2020-02-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2016/08/13/good-idea-but-cannot-do/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/01/2016-07-05-big-data/">大数据初探</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>由于工作的需要，最近一周在研究大数据的相关技术。下来就聊一聊我对大数据的粗浅认识吧。</p>
-<h2 id="什么是大数据？"><a href="#什么是大数据？" class="headerlink" title="什么是大数据？"></a>什么是大数据？</h2><p>大数据的定义有很多，网上能搜出来一堆。每个定义都从某个角度描述了大数据某些方面的特性，业界目前也没有形成一个统一的定义。</p>
-<p>我对大数据的理解是：面对海量的多样化的数据，大数据技术提供高速的处理能力，它能从这些数据中可靠地提取出可以为我们带来富有洞见的有价值的信息。</p>
-<p>从这里我们可以提取大数据的几个特征，也就是5V：</p>
-<ol>
-<li><strong>海量数据 Volume</strong></li>
-</ol>
-<p>TB, PB, EB, ZB, YB, BB</p>
-<ol start="2">
-<li><strong>多样化 Variety</strong></li>
-</ol>
-<p>结构化的，非结构化的，日志，电子邮件，图片，视频，音频，地理位置信息，传感器数据等等。</p>
-<ol start="3">
-<li><strong>高速 Velocity</strong></li>
-</ol>
-<p>数据产生得快，数据处理得快。要在秒级给出分析结果。</p>
-<ol start="4">
-<li><p><strong>真实性 Veracity</strong></p>
-</li>
-<li><p><strong>有价值 Value</strong></p>
-</li>
-</ol>
-<h2 id="大数据技术有哪些？"><a href="#大数据技术有哪些？" class="headerlink" title="大数据技术有哪些？"></a>大数据技术有哪些？</h2><p>和大数据有关的技术，有这些：</p>
-<ol>
-<li><p>Database</p>
-</li>
-<li><p>Data Warehouse</p>
-</li>
-<li><p>Business Intelligence</p>
-</li>
-<li><p>Cloud Computing</p>
-</li>
-<li><p>Statistic Analysis</p>
-</li>
-<li><p>Data Mining</p>
-</li>
-<li><p>Big Data and Data Science</p>
-</li>
-<li><p>Big Data and Machine Learning</p>
-</li>
-<li><p>Big Data and Internet of Things</p>
-</li>
-<li><p>Big Data and Mobile Computing</p>
-</li>
-<li><p>Big Data and Web Technology</p>
-</li>
-</ol>
-<h2 id="Google-三驾马车-——-Google-File-System，MapReduce，BigTable"><a href="#Google-三驾马车-——-Google-File-System，MapReduce，BigTable" class="headerlink" title="Google 三驾马车 —— Google File System，MapReduce，BigTable"></a>Google 三驾马车 —— Google File System，MapReduce，BigTable</h2><p>谷歌发布的三篇大数据论文，分别讲述<a href="https://static.googleusercontent.com/media/research.google.com/zh-CN//archive/gfs-sosp2003.pdf" target="_blank" rel="noopener">GFS</a>，<a href="https://static.googleusercontent.com/media/research.google.com/zh-CN//archive/mapreduce-osdi04.pdf" target="_blank" rel="noopener">MapReduce</a>，<a href="https://static.googleusercontent.com/media/research.google.com/zh-CN//archive/bigtable-osdi06.pdf" target="_blank" rel="noopener">BigTable</a>，奠定了大数据和分布式搜索的基石。</p>
-<h2 id="Google-新三驾马车-——-Caffeine，Pregel，Dremel"><a href="#Google-新三驾马车-——-Caffeine，Pregel，Dremel" class="headerlink" title="Google 新三驾马车 —— Caffeine，Pregel，Dremel"></a>Google 新三驾马车 —— Caffeine，Pregel，Dremel</h2><p>Caffeine主要为Google网络搜索引擎提供支持。</p>
-<p>Pregel主要绘制大量网上信息之间关系的“图形数据库”。</p>
-<p>Dremel是一种分析信息的方式，其可以跨越数千台服务器运行，允许“查询”大量数据。</p>
-<h2 id="大数据生态圈"><a href="#大数据生态圈" class="headerlink" title="大数据生态圈"></a>大数据生态圈</h2><p>大数据出现之后，相关的工具也开始大量涌现。根据这些工具的种类以及它们在大数据中的功能，我把大数据的技术分为以下几个部分：</p>
-<h3 id="1-数据采集"><a href="#1-数据采集" class="headerlink" title="1. 数据采集"></a>1. 数据采集</h3><p>数据采集负责将不同来源的数据收集起来，以便进行分析。比较优秀的工具有：</p>
-<ul>
-<li><a href="http://kafka.apache.org/" target="_blank" rel="noopener">Kafka</a> 分布式发布订阅系统 - TB消息存储也能保持长时间的稳定性能；高吞吐量，每秒数十万；支持通过kafka服务器和消费机集群来分区消息；支持Hadoop并行数据加载 - 处理日志，日志聚合。</li>
-<li><a href="http://flume.apache.org/" target="_blank" rel="noopener">Flume</a> 日志服务器 - 分布式、可靠和高可用的服务，用于收集、聚合以及移动大量日志数据，使用一个简单灵活的架构，就流数据模型。这是一个可靠、容错的服务。</li>
-<li><a href="https://www.elastic.co/products/logstash" target="_blank" rel="noopener">Logstash</a> 开源日志管理 - 一个应用程序日志、事件的传输、处理、管理和搜索的平台。你可以用它来统一对应用程序日志进行收集管理，提供 Web 接口用于查询和统计。是ElasticSearch家族之一。</li>
-<li><a href="http://code.taobao.org/p/datax/src/" target="_blank" rel="noopener">DataX</a> 异构数据源交换工具 - DataX是一个让你方便的在异构数据源之间交换数据的离线同步框架/工具，实现了在任意的数据处理系统之间的数据交换，目前DataX在淘宝内部每天约有5000道同步任务分布在全天各个时段，平均每天同步数据量在2-3TB。</li>
-<li><a href="http://www.rabbitmq.com/" target="_blank" rel="noopener">RabbitMQ</a> AMQP消息服务器</li>
-<li><a href="https://github.com/facebookarchive/scribe" target="_blank" rel="noopener">Scribe</a> Facebook大量数据处理 - Scribe旨在帮助Facebook处理服务器上的大量数据，正像Scribe网页所述“如经常访问Facebook，请使用Scribe。”具体而言，Scribe就是一台服务器，实时收集用网站日志信息。</li>
-</ul>
-<h3 id="2-数据存储"><a href="#2-数据存储" class="headerlink" title="2. 数据存储"></a>2. 数据存储</h3><p>存储采集到的数据，以及分析处理后的数据。</p>
-<h4 id="分布式文件存储"><a href="#分布式文件存储" class="headerlink" title="分布式文件存储"></a>分布式文件存储</h4><ul>
-<li><a href="http://hadoop.apache.org/" target="_blank" rel="noopener">Hadoop HDFS</a> 分布式文件系统 - HDFS有着高容错性（fault-tolerent）的特点，并且设计用来部署在低廉的（low-cost）硬件上。而且它提供高吞吐量（high throughput）来访问应用程序的数据，适合那些有着超大数据集（large data set）的应用程序。分布式存储，磁盘存储，分布式存储的主要技术。HDFS集群包括了一个主节点，负责管理所有文件系统的元数据以及存储了真实数据的数据节点。但是缺少随机读写的能力，可以由HBase来弥补。</li>
-<li><a href="http://www.alluxio.org/" target="_blank" rel="noopener">Alluxio</a> 分布式存储系统 - Alluxio 是一个高容错的分布式文件系统，允许文件以内存的速度在集群框架中进行可靠的共享，类似Spark和 MapReduce。通过利用lineage信息，积极地使用内存，Alluxio的吞吐量要比HDFS高300多倍。Alluxio都是在内存中处理缓存文件，并且让不同的 Jobs/Queries以及框架都能内存的速度来访问缓存文件。它兼容Hadoop。</li>
-</ul>
-<h4 id="数据库存储"><a href="#数据库存储" class="headerlink" title="数据库存储"></a>数据库存储</h4><ul>
-<li><a href="https://www.mysql.com/" target="_blank" rel="noopener">MySQL</a></li>
-<li><a href="https://www.oracle.com/index.html" target="_blank" rel="noopener">Oracle</a></li>
-<li><a href="https://www.postgresql.org/" target="_blank" rel="noopener">PostgreSQL</a></li>
-<li><a href="http://hbase.apache.org/" target="_blank" rel="noopener">HBase</a> 分布式数据库 - BigTable风格，分布式列式存储。提供了大数据集上的随机和实时的读写访问，并对大型表格做了优化-上百亿行，上千万列。以键值对的方式存储。是一个NoSQL的数据库，具有随机读写能力，可无缝和MapReduce集成。可以用HDFS存储静态数据，HBase存储处理后的数据。<br>HBase是Google Bigtable的开源实现，类似Google Bigtable利用GFS作为其文件存储系统，HBase利用Hadoop HDFS作为其文件存储系统；Google运行MapReduce来处理Bigtable中的海量数据，HBase同样利用Hadoop MapReduce来处理HBase中的海量数据；Google Bigtable利用 Chubby作为协同服务，HBase利用Zookeeper作为对应。<br>HBase位于结构化存储层，Hadoop HDFS为HBase提供了高可靠性的底层存储支持，Hadoop MapReduce为HBase提供了高性能的计算能力，Zookeeper为HBase提供了稳定服务和failover机制。<br>此外，Pig和Hive还为HBase提供了高层语言支持，使得在HBase上进行数据统计处理变的非常简单。 Sqoop则为HBase提供了方便的RDBMS数据导入功能，使得传统数据库数据向HBase中迁移变的非常方便。</li>
-<li><a href="http://www8.hp.com/us/en/software-solutions/advanced-sql-big-data-analytics/index.html" target="_blank" rel="noopener">Vertica</a> 实时分析平台 - 有商业版，有免费版。基于列式存储。支持MPP。每个节点独立运作。使用标准SQL查询。可以和Hadoop/MapReduce集成。</li>
-<li><a href="http://cassandra.apache.org/" target="_blank" rel="noopener">Cassandra</a> 分布式K/V存储方案 - 由Facebook开源。特性：分布式，基于列的结构化，高伸展性。<br>Cassandra的主要特点就是它不是一个数据库，而是由一堆数据库节点共同构成的一个分布式网络服务，对Cassandra 的一个写操作，会被复制到其他节点上去，对Cassandra的读操作，也会被路由到某个节点上面去读取。对于一个Cassandra群集来说，扩展性能 是比较简单的事情，只管在群集里面添加节点就可以了。  </li>
-<li><a href="http://riak.basho.com/" target="_blank" rel="noopener">Riak</a> k/v存储服务器 - Riak是以 Erlang 编写的一个高度可扩展的分布式数据存储。Riak支持多节点构建的系统，每次读写请求不需要集群内所有节点参与也能胜任。提供一个灵活的 map/reduce 引擎，一个友好的 HTTP/JSON 查询接口。目前有三种方式可以访问 Riak：HTTP API（RESTful 界面）、Protocol Buffers 和一个原生 Erlang 界面。</li>
-<li><a href="http://www.elasticsearch.org/" target="_blank" rel="noopener">ElasticSearch</a> 分布式搜索引擎 - Elastic Search 是一个基于Lucene构建的开源，分布式，RESTful搜索引擎。设计用于云计算中，能够达到实时搜索，稳定，可靠，快速，安装使用方便。支持通过HTTP使用JSON进行数据索引。</li>
-<li><a href="http://lucene.apache.org/solr/" target="_blank" rel="noopener">Solr</a> 全文搜索服务器 - Apache Solr (读音: SOLer) 是一个开源的搜索服务器。Solr 使用 Java 语言开发，主要基于 HTTP 和 Apache Lucene 实现。Apache Solr 中存储的资源是以 Document 为对象进行存储的。每个文档由一系列的 Field 构成，每个 Field 表示资源的一个属性。Solr 中的每个 Document 需要有能唯一标识其自身的属性，默认情况下这个属性的名字是 id，在 Schema 配置文件中使用：id进行描述。<br>Solr是一个高性能，采用Java开发，基于Lucene的全文搜索服务器。文档通过Http利用XML加到一个搜索集合中。查询该集合也是通过 http收到一个XML/JSON响应来实现。它的主要特性包括：高效、灵活的缓存功能，垂直搜索功能，高亮显示搜索结果，通过索引复制来提高可用性，提 供一套强大Data Schema来定义字段，类型和设置文本分析，提供基于Web的管理界面等。知名用户包括eHarmony、西尔斯、StubHub、Zappos、百思买、AT&amp;T、Instagram、Netflix、彭博社和Travelocity。</li>
-<li><a href="http://lucene.apache.org/" target="_blank" rel="noopener">Lucene</a> Java全文搜索框架 - Lucene 是apache软件基金会一个开放源代码的全文检索引擎工具包，是一个全文检索引擎的架构，提供了完整的查询引擎和索引引擎，部分文本分析引擎。Lucene的目的是为软件开发人员提供一个简单易用的工具包，以方便的在目标系统中实现全文检索的功能，或者是以此为基础建立起完整的全文检索引擎。据官方网站声称，它在现代硬件上每小时能够检索超过150GB的数据，它含有强大而高效的搜索算法。</li>
-<li><a href="http://www.mongodb.org/" target="_blank" rel="noopener">MongoDB</a> 分布式文档数据库 - MongoDB是一个介于关系数据库和非关系数据库之间的产品，是非关系数据库当中功能最丰富，最像关系数据库的。他支持的数据结构非常松散，是类似json的bjson格式，因此可以存储比较复杂的数据类型。Mongo最大的特点是他支持的查询语言非常强大，其语法有点类似于面向对象的查询语言，几乎可以实现类似关系数据库单表查询的绝大部分功能，而且还支持对数据建立索引。</li>
-<li><a href="http://neo4j.org/" target="_blank" rel="noopener">Neo4j</a> 面向网络的数据库 - Neo是一个网络——面向网络的数据库——也就是说，它是一个嵌入式的、基于磁盘的、具备完全的事务特性的Java持久化引擎，但是它将结构化数据存储在网络上而不是表中。网络（从数学角度叫做图）是一个灵活的数据结构，可以应用更加敏捷和快速的开发模式。<br>你可以把Neo看作是一个高性能的图引擎，该引擎具有成熟和健壮的数据库的所有特性。程序员工作在一个面向对象的、灵活的网络结构下而不是严格、静态的表中——但是他们可以享受到具备完全的事务特性、企业级的数据库的所有好处。</li>
-<li><a href="http://www.orientdb.org/" target="_blank" rel="noopener">OrientDB</a> 文档数据库 - Orient DB 是一个可伸缩的文档数据库，支持 ACID 事务处理。使用 Java 5 实现。</li>
-<li><a href="http://www.arangodb.org/" target="_blank" rel="noopener">ArangoDB</a> 高性能NoSQL数据库 - Arangodb是一个开源数据库，具有灵活的数据模型,如document,graph以及key-value.同时也是一个高性能数据库,支持类似SQL的查询以及JavaScript活Ruby扩展。</li>
-<li><a href="http://couchdb.apache.org/" target="_blank" rel="noopener">CouchDB</a> 面向文档的数据库 - Apache CouchDB 是一个面向文档的数据库管理系统。它提供以 JSON 作为数据格式的 REST 接口来对其进行操作，并可以通过视图来操纵文档的组织和呈现。CouchDB号称是“一款完全拥抱互联网的数据库”，它将数据存储在JSON文档中，这种文档可以通过Web浏览器来查询，并且用JavaScript来处理。它易于使用，在分布式上网络上具有高可用性和高扩展性。</li>
-<li><a href="https://github.com/twitter/flockdb" target="_blank" rel="noopener">FlockDB</a> 存储图数据的数据库 - FlockDB是一个存储图数据的数据库，但是它并没有优化遍历图的操作。它优化的操作包括：超大规模邻接矩阵查询，快速读写和可分页查询。</li>
-<li><a href="http://influxdb.org/" target="_blank" rel="noopener">InfluxDB</a> 时序、事件和指标数据库 - InfluxDB 是一个开源分布式时序、事件和指标数据库。使用 Go 语言编写，无需外部依赖。其设计目标是实现分布式和水平伸缩扩展。</li>
-<li><a href="https://github.com/alibaba/druid" target="_blank" rel="noopener">Druid</a> JDBC连接池、监控组件 - 是一个JDBC组件，可以监控数据库访问性能，替换DBCP和C3P0，数据库密码加密，SQL执行日志。</li>
-<li><a href="http://redis.io/" target="_blank" rel="noopener">Redis</a> 高性能Key-Value数据库 - 速度极快，适合作为缓存服务器。</li>
-<li><a href="http://www.hazelcast.com/" target="_blank" rel="noopener">Hazelcast</a> 数据分发和集群平台 - 可用于实现分布式数据存储、数据缓存。提供java集合的分布式实现，提供用于发布/订阅的分布式topic，支持同步异步持久化等。</li>
-<li><a href="http://kafka.apache.org/" target="_blank" rel="noopener">Kafka</a></li>
-<li><a href="http://www.rabbitmq.com/" target="_blank" rel="noopener">RabbitMQ</a></li>
-<li><a href="https://github.com/alibaba/RocketMQ" target="_blank" rel="noopener">RocketMQ</a> 消息中间件 - 分布式、队列模型的消息中间件，能够保证严格的消息顺序，提供丰富的消息拉取模式，高效的订阅者水平扩展能力，实时的消息订阅机制，亿级消息堆积能力。</li>
-<li><a href="http://www.zeromq.org/" target="_blank" rel="noopener">ZeroMQ</a> 轻量级消息内核</li>
-<li><a href="http://activemq.apache.org/" target="_blank" rel="noopener">ActiveMQ</a> JMS消息服务器 - ActiveMQ 是Apache出品，最流行的，能力强劲的开源消息总线。ActiveMQ 是一个完全支持JMS1.1和J2EE 1.4规范的 JMS Provider实现,尽管JMS规范出台已经是很久的事情了,但是JMS在当今的J2EE应用中间仍然扮演着特殊的地位。</li>
-</ul>
-<h3 id="3-数据处理-分析"><a href="#3-数据处理-分析" class="headerlink" title="3. 数据处理/分析"></a>3. 数据处理/分析</h3><p>把非结构化的数据转换成结构化的数据，找到数据的关联性、隐藏模式，使用数据挖掘技术进行预测分析，提供更好的商务决策。</p>
-<p>What happen? Why it happen? What is likely to happen? What should be happen? How can we make it happen?</p>
-<h4 id="数据格式化"><a href="#数据格式化" class="headerlink" title="数据格式化"></a>数据格式化</h4><ul>
-<li><a href="https://avro.apache.org/" target="_blank" rel="noopener">Avro</a> 数据序列化系统 - 是数据序列化的工具，类似于ProtocolBuffers。使用json来定义数据类型。RPC项目，做hadoop的RPC，使得其通讯速度更快，数据结构更紧凑。</li>
-<li><a href="https://developers.google.com/protocol-buffers/" target="_blank" rel="noopener">ProtoBuf</a></li>
-<li><a href="https://thrift.apache.org/" target="_blank" rel="noopener">Thrift</a> 服务开发框架 - Thrift 是一个软件框架（远程过程调用框架），用来进行可扩展且跨语言的服务的开发。thrift允许你定义一个简单的定义文件中的数据类型和服务接口，以作为输入文件，编译器生成代码用来方便地生成RPC客户端和服务器通信的无缝跨编程语言。著名的 Key-Value 存储服务器 Cassandra 就是使用 Thrift 作为其客户端API的。</li>
-<li><a href="https://parquet.apache.org/" target="_blank" rel="noopener">Parquet</a> Hadoop柱状存储格式 - Parquet是一种面向列存存储的文件格式，Cloudera的大数据在线分析（OLAP）项目Impala中使用该格式作为列存储。Apache Parquet 是一个列存储格式，主要用于 Hadoop 生态系统。对数据处理框架、数据模型和编程语言无关。</li>
-<li><a href="http://sqoop.apache.org/" target="_blank" rel="noopener">Sqoop</a> Hadoop和数据库数据迁移工具。Sqoop是一个用来将Hadoop和关系型数据库中的数据相互转移的工具，可以将一个关系型数据库（例如 ： MySQL ,Oracle ,Postgres等）中的数据导入到Hadoop的HDFS中，也可以将HDFS的数据导入到关系型数据库中。</li>
-</ul>
-<h4 id="批处理-（离线计算，即席查询）"><a href="#批处理-（离线计算，即席查询）" class="headerlink" title="批处理 （离线计算，即席查询）"></a>批处理 （离线计算，即席查询）</h4><ul>
-<li><a href="http://spark.apache.org/" target="_blank" rel="noopener">Spark</a> 开源集群计算环境 - Spark 启用了内存分布数据集，除了能够提供交互式查询外，它还可以优化迭代工作负载。</li>
-<li><a href="http://hadoop.apache.org/" target="_blank" rel="noopener">Hadoop MapReduce</a> 大规模数据集软件架构 - 是一个Computing Framework，可以编写处理海量（TB级）数据的并行应用程序。它可以通过MapReduce的方式从HBase中存取数据，或者通过HBase的API来存取。</li>
-<li><a href="http://flink.apache.org/" target="_blank" rel="noopener">Flink</a> 通用数据处理平台 - Apache Flink 声明式的数据分析开源系统，结合了分布式 MapReduce 类平台的高效，灵活的编程和扩展性。同时在并行数据库发现查询优化方案。兼容HDFS。</li>
-<li><a href="http://tez.apache.org/" target="_blank" rel="noopener">Tez</a> 开源计算框架 - Tez建立在Apache Hadoop YARN的基础上，这是“一种应用程序框架，允许为任务构建一种复杂的有向无环图，以便处理数据。”它让Hive和Pig可以简化复杂的任务，而这些任务原本需要多个步骤才能完成。</li>
-</ul>
-<p><strong>High-Level MapReduce</strong></p>
-<ul>
-<li><a href="http://pig.apache.org/" target="_blank" rel="noopener">Pig</a> 大规模数据分析平台 - Pig是一个基于Hadoop的大规模数据分析平台，它提供的SQL-LIKE语言叫Pig Latin，该语言的编译器会把类SQL的数据分析请求转换为一系列经过优化处理的MapReduce运算。Pig为复杂的海量数据并行计算提供了一个简单的操作和编程接口。Pig和Hive的查询在底层都会转换成MapReduce。它俩都可以建立在HDFS和HBase之上。</li>
-<li><a href="http://hadoop.apache.org/docs/r1.2.1/streaming.html" target="_blank" rel="noopener">Hadoop Streaming</a></li>
-<li><a href="http://www.cascading.org/projects/cascalog/" target="_blank" rel="noopener">Cascalog</a> Hadoop数据处理解决方案 - Cascalog 是 Clojure 或者 Java 的全功能数据处理和查询库。Cascalog 主要的作用是处理 Hadoop 上的“大数据”或者分析你的本地电脑， Cascalog 是替代 Pig 和 Hive 的工具，而且比这些工具都有更高的抽象级别。</li>
-<li><a href="http://www.cascading.org/" target="_blank" rel="noopener">Cascading</a> Hadoop集群处理API - Cascading是一个新式的针对Hadoop clusters的数据处理API，它使用富于表现力的API来构建复杂的处理工作流，而不是直接实现Hadoop MapReduce的算法。</li>
-</ul>
-<p><strong>Batch Machine Learning</strong></p>
-<ul>
-<li><a href="http://www.h2o.ai/" target="_blank" rel="noopener">H20</a></li>
-<li><a href="https://mahout.apache.org/" target="_blank" rel="noopener">Mahout</a> 机器学习库 - 4个用例：推荐挖掘（搜集用户动作并以此向用户推荐可能喜欢的事物），聚集（收集文件并进行相关文件分组），分类（从现有的分类文档中学习，寻找文档中的相似特征，并为无标签的文档进行正确的归类），频繁项集挖掘（将一组项分组，并识别哪些个别项会经常一起出现）</li>
-<li><a href="https://spark.apache.org/mllib/" target="_blank" rel="noopener">Spark MLlib</a></li>
-</ul>
-<p><strong>Batch SQL</strong></p>
-<ul>
-<li><a href="http://hive.apache.org/" target="_blank" rel="noopener">Hive</a> 数据仓库平台 - 生产环境应用较广泛的，基于Hadoop的数据仓库系统，提供了数据的综述（将结构化的数据文件映射为一张数据库表）、即席查询以及存储在Hadoop兼容系统中的大型数据分析。提供完整的SQL查询功能，还提供传统的Map/Reduce方式。</li>
-<li><a href="https://prestodb.io/" target="_blank" rel="noopener">PrestoDB</a> 大数据查询引擎 - Presto是Facebook最新研发的数据查询引擎，可对250PB以上的数据进行快速地交互式分析。据称该引擎的性能是 Hive 的 10 倍以上。Presto 不使用 MapReduce ，只需要 HDFS</li>
-<li><a href="http://drill.apache.org/" target="_blank" rel="noopener">Drill</a> Google的Dremel的开源实现 - 这个Apache项目让用户可以使用基于SQL的查询，查询Hadoop、NoSQL数据库和云存储服务。它可用于数据挖掘和即席查询，它支持一系 列广泛的数据库，包括HBase、MongoDB、MapR-DB、HDFS、MapR-FS、亚马逊S3、Azure Blob Storage、谷歌云存储和Swift。</li>
-<li><a href="http://impala.io/" target="_blank" rel="noopener">Cloudera Impala</a> 基于Hadoop的实时查询 - Impala采用与Hive相同的元数据、SQL语法、ODBC驱动程序和用户接口(Hue Beeswax)，这样在使用CDH产品时，批处理和实时查询的平台是统一的。目前支持的文件格式是文本文件和SequenceFiles（可以压缩为Snappy、GZIP和BZIP，前者性能最好）。其他格式如Avro, RCFile, LZO文本和Doug Cutting的Trevni将在正式版中支持。</li>
-<li><a href="http://spark.apache.org/docs/latest/sql-programming-guide.html" target="_blank" rel="noopener">Spark SQL</a></li>
-</ul>
-<h4 id="流处理-（实时计算）"><a href="#流处理-（实时计算）" class="headerlink" title="流处理 （实时计算）"></a>流处理 （实时计算）</h4><ul>
-<li><a href="http://storm.apache.org/" target="_blank" rel="noopener">Storm</a> 分布式实时计算系统 - Apache Storm 是一个免费开源的分布式实时计算系统。简化了流数据的可靠处理，像 Hadoop 一样实现实时批处理。Storm 很简单，可用于任意编程语言。Apache Storm 采用 Clojure 开发。<br>Storm 有很多应用场景，包括实时数据分析、联机学习、持续计算、分布式 RPC、ETL 等。Storm 速度非常快，一个测试在单节点上实现每秒一百万的组处理。<br>目前已经有包括阿里百度在内的数家大型互联网公司在使用该平台。</li>
-<li><a href="http://spark.apache.org/streaming/" target="_blank" rel="noopener">Spark Streaming</a> - 实时性相对略差，但是吞吐量更高。</li>
-<li><a href="http://samza.apache.org/" target="_blank" rel="noopener">Samza</a> 分布式流处理框架 - Samza是近日由LinkedIn开源的一项技术，它是一个分布式流处理框架，专用于实时数据的处理，非常像Twitter的流处理系统Storm。不同的是Samza基于Hadoop，而且使用了LinkedIn自家的Kafka分布式消息系统，并使用资源管理器 Apache Hadoop YARN 实现容错处理、处理器隔离、安全性和资源管理。</li>
-<li><a href="http://flink.apache.org/" target="_blank" rel="noopener">Flink</a></li>
-</ul>
-<h3 id="4-综合管理"><a href="#4-综合管理" class="headerlink" title="4. 综合管理"></a>4. 综合管理</h3><h4 id="集群管理"><a href="#集群管理" class="headerlink" title="集群管理"></a>集群管理</h4><ul>
-<li><a href="http://www.docker.io/" target="_blank" rel="noopener">Docker</a> Linux容器引擎 - Docker 是一个开源的应用容器引擎，让开发者可以打包他们的应用以及依赖包到一个可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。容器是完全使用沙箱机制，相互之间不会有任何接口（类似 iPhone 的 app）。几乎没有性能开销,可以很容易地在机器和数据中心中运行。最重要的是,他们不依赖于任何语言、框架或包装系统。</li>
-<li><a href="http://zookeeper.apache.org/" target="_blank" rel="noopener">Zookeeper</a> 分布式系统协调 - ZooKeeper是Hadoop的正式子项目，它是一个针对大型分布式系统的可靠协调系统，提供的功能包括：配置维护、名字服务、分布式同步、组服务等。ZooKeeper的目标就是封装好复杂易出错的关键服务，将简单易用的接口和性能高效、功能稳定的系统提供给用户。<br>Zookeeper是Google的Chubby一个开源的实现.是高有效和可靠的协同工作系统.Zookeeper能够用来leader选举,配置信息维护等.在一个分布式的环境中,我们需要一个Master实例或存储一些配置信息,确保文件写入的一致性等。</li>
-<li><a href="http://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/YARN.html" target="_blank" rel="noopener">YARN</a> Hadoop资源管理器 - YARN是新一代Hadoop资源管理器，通过YARN，用户可以运行和管理同一个物理集群机上的多种作业，例如MapReduce批处理和图形处理作业。这样不仅可以巩固一个组织管理的系统数目，而且可以对相同的数据进行不同类型的数据分析。某些情况下，整个数据流可以执行在同一个集群机上。</li>
-<li><a href="http://mesos.apache.org/" target="_blank" rel="noopener">Mesos</a> 分布式大数据技术架构的操作系统 - Apache Mesos是一个集群管理器，提供了有效的、跨分布式应用或框架的资源隔离和共享，可以运行Hadoop、MPI、Hypertable、Spark。</li>
-<li><a href="http://incubator.apache.org/oozie" target="_blank" rel="noopener">Oozie</a> 开源工作流引擎 - Oozie 是一个开源的工作流和协作服务引擎，基于 Apache Hadoop 的数据处理任务。Oozie 是可扩展的、可伸缩的面向数据的服务，运行在Hadoop 平台上。Oozie 包括一个离线的Hadoop处理的工作流解决方案，以及一个查询处理 API。</li>
-</ul>
-<h4 id="调度-监控"><a href="#调度-监控" class="headerlink" title="调度/监控"></a>调度/监控</h4><ul>
-<li><a href="https://github.com/spotify/luigi" target="_blank" rel="noopener">Luigi</a> 开源大数据工具 - Luigi 是一个 Python 模块，可以帮你构建复杂的批量作业管道。处理依赖决议、工作流管理、可视化展示等等，内建 Hadoop 支持。</li>
-<li><a href="http://pythonhosted.org/airflow/" target="_blank" rel="noopener">Airflow</a> 数据管道监控工具 - 作为大数据的基础data pipeline，Airflow则是Airbnb内部发起、排序、监控data pipeline的工具。</li>
-<li><a href="https://www.nagios.org/" target="_blank" rel="noopener">Nagios</a> 监控系统 - Nagios是一个监视系统运行状态和网络信息的监视系统。Nagios能监视所指定的本地或远程主机以及服务，同时提供异常通知功能等。Nagios可运行在Linux/Unix平台之上，同时提供一个可选的基于浏览器的WEB界面以方便系统管理人员查看网络状态，各种系统问题，以及日志等等。</li>
-<li><a href="http://graphite.wikidot.com/" target="_blank" rel="noopener">Graphite</a> 网站实时信息采集和统计 - Graphite 是一个用于采集网站实时信息并进行统计的开源项目，可用于采集多种网站服务运行状态信息。Graphite服务平均每分钟有4800次更新操作。实践已经证实要监测网站发发生什么是非常有用的，它的简单文本协议和绘图功能可以方便地即插即 用的方式用于任何需要监控的系统上。</li>
-<li><a href="http://azkaban.github.io/" target="_blank" rel="noopener">Azkaban</a> Hadoop批处理调度器 - Azkaban是个简单的批处理调度器，用来构建和运行Hadoop作业或其他脱机过程。</li>
-<li><a href="http://incubator.apache.org/ambari/" target="_blank" rel="noopener">Ambari</a> Hadoop管理监控工具 - Apache Ambari是一种基于Web的工具，支持Apache Hadoop集群的供应、管理和监控。Ambari目前已支持大多数Hadoop组件，包括HDFS、MapReduce、Hive、Pig、Hbase、Zookeper、Sqoop和Hcatalog等的集中管理。也是5个顶级hadoop管理工具之一。<br>Ambari使用Ganglia收集度量指标，用Nagios支持系统报警，当需要引起管理员的关注时（比如，节点停机或磁盘剩余空间不足等问题），系统将向其发送邮件。此外，Ambari能够安装安全的（基于Kerberos）Hadoop集群，以此实现了对Hadoop 安全的支持，提供了基于角色的用户认证、授权和审计功能，并为用户管理集成了LDAP和Active Directory。</li>
-</ul>
-<h3 id="5-数据可视化"><a href="#5-数据可视化" class="headerlink" title="5. 数据可视化"></a>5. 数据可视化</h3><ul>
-<li><a href="https://d3js.org/" target="_blank" rel="noopener">D3</a> 开源图表库</li>
-<li><a href="http://www.tableau.com/" target="_blank" rel="noopener">Tableau</a></li>
-<li><a href="http://leafletjs.com/" target="_blank" rel="noopener">Leaflet</a> javascript地图库 - Leaflet是一个开源的地图Javascript库，它由Universal Mind的Vladimir Agafonkin创建的。我们将在一个应用程序中使用这个封装组件。该应用程序给我们展示了一个地图并提供了一个可以移动到地图中指定位置的按钮。</li>
-<li><a href="http://highcharts.com/" target="_blank" rel="noopener">Highcharts</a> 纯javascript图表</li>
-<li><a href="http://kibana.org/" target="_blank" rel="noopener">Kibana</a> 日志分析平台 - Kibana 是一个为 Logstash 和 ElasticSearch 提供的日志分析的 Web 接口。可使用它对日志进行高效的搜索、可视化、分析等各种操作。 环境要求： ruby。</li>
-</ul>
-<h2 id="大数据平台架构举例"><a href="#大数据平台架构举例" class="headerlink" title="大数据平台架构举例"></a>大数据平台架构举例</h2><p><img src="/img/big_data_structure.png" alt="大数据平台架构图"></p>
-<p>转自<a href="http://www.36dsj.com/archives/10223" target="_blank" rel="noopener">多图技术贴：深入浅出解析大数据平台架构</a></p>
-<p><img src="/img/big_data_structure_2.jpg" alt="大数据平台架构图2"></p>
-<p>转自<a href="http://www.36dsj.com/archives/10223" target="_blank" rel="noopener">多图技术贴：深入浅出解析大数据平台架构</a>]</p>
-
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/02/01/2016-07-05-big-data/" data-id="ck630bati0004vchl5d9h3oko" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
 
-
-  
-
-
-  <nav id="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+  </div>
+
+  
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
-</section>
-        
-          <aside id="sidebar">
-  
-    
 
-  
-    
 
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
   
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
-    </div>
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
   </div>
 
+  <aside class="sidebar">
+    <div class="sidebar-inner">
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2020/02/01/2019-12-29-stay-serious/">保持敬畏，保持严谨</a>
-          </li>
-        
-          <li>
-            <a href="/2020/02/01/2019-12-01-c-understanding-value-passing/">深入理解C语言的值传递</a>
-          </li>
-        
-          <li>
-            <a href="/2020/02/01/2018-08-19-internet-of-value/">Internet of Value</a>
-          </li>
-        
-          <li>
-            <a href="/2020/02/01/2018-07-08-about-working-overtime/">过度加班百害而无一利</a>
-          </li>
-        
-          <li>
-            <a href="/2020/02/01/2017-05-03-understandable-computer-science/">白话计算机科学</a>
-          </li>
-        
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
       </ul>
-    </div>
-  </div>
 
-  
-</aside>
-        
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
       </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2020 LiAng<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Hackerleon</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/anchem" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;anchem" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:hackerleon@foxmail.com" title="E-Mail → mailto:hackerleon@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/anchem" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;anchem" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+      </span>
   </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-
-  
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-nd.svg" alt="Creative Commons"></a>
   </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hackerleon</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
 </body>
 </html>
