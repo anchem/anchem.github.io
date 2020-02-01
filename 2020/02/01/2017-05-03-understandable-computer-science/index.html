@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>白话计算机科学 | Still Waters</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="学了这么多年的计算机，我在想，要是有个不懂计算机的人想了解计算机科学的内幕，我该怎么回答呢？我简单整理了一下，于是，就有了这篇文章。 计算机的出现源于战争的需要，因为在研制先进武器的过程中，需要大量的科学计算。为了帮助人们计算大量复杂且繁琐的科学计算工作，人们发明并改进了计算机。 计算机的工作原理简单的说，就是从输入中取得数据，计算之后再输出。最常见的输入设备是键盘，最常见的输出设备是显示器，你看">
+<meta property="og:type" content="article">
+<meta property="og:title" content="白话计算机科学">
+<meta property="og:url" content="http://yoursite.com/2020/02/01/2017-05-03-understandable-computer-science/index.html">
+<meta property="og:site_name" content="Still Waters">
+<meta property="og:description" content="学了这么多年的计算机，我在想，要是有个不懂计算机的人想了解计算机科学的内幕，我该怎么回答呢？我简单整理了一下，于是，就有了这篇文章。 计算机的出现源于战争的需要，因为在研制先进武器的过程中，需要大量的科学计算。为了帮助人们计算大量复杂且繁琐的科学计算工作，人们发明并改进了计算机。 计算机的工作原理简单的说，就是从输入中取得数据，计算之后再输出。最常见的输入设备是键盘，最常见的输出设备是显示器，你看">
+<meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2020-02-01T02:50:13.906Z">
+<meta property="article:modified_time" content="2020-02-01T02:57:01.061Z">
+<meta property="article:author" content="LiAng">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Still Waters" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Still Waters</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2017-05-03-understandable-computer-science" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/02/01/2017-05-03-understandable-computer-science/" class="article-date">
+  <time datetime="2020-02-01T02:50:13.906Z" itemprop="datePublished">2020-02-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      白话计算机科学
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>学了这么多年的计算机，我在想，要是有个不懂计算机的人想了解计算机科学的内幕，我该怎么回答呢？我简单整理了一下，于是，就有了这篇文章。</p>
+<p><strong>计算机</strong>的出现源于战争的需要，因为在研制先进武器的过程中，需要大量的科学计算。为了帮助人们计算大量复杂且繁琐的科学计算工作，人们发明并改进了计算机。</p>
+<p>计算机的工作原理简单的说，就是从输入中取得数据，计算之后再输出。最常见的输入设备是键盘，最常见的输出设备是显示器，你看计算器就是这样的。如果你想长久地保存一些数据，那就得放到磁盘之类的存储设备上了。现代计算机的硬件架构都是基于<strong>冯·诺依曼体系结构</strong>的（这货很牛逼，但总有一天会过时的），包括运算器、控制器、存储器、输入设备和输出设备这五类。</p>
+<p>可是使用这样一个裸机会带来很多问题。首先，一次只能运行一批处理程序，如果有程序正在用（哪怕它目前没有任何计算任务），其他程序就必须等，效率低下；其次，这些硬件资源的管理成本很高，写程序的人只关心计算结果，并不想陷入到硬件细节中去，否则会消耗大量的精力。</p>
+<p>于是，（现代）<strong>操作系统</strong>就诞生了。它是硬件层面上的第一层软件，它把计算机的所有硬件资源都管理了起来，屏蔽掉了底层的使用细节，并且给使用计算机的人以简洁的接口，同时，它还支持同时运行多个程序且互不影响，大大提高了计算机的利用率。</p>
+<p>虽然有了操作系统，计算机更方便使用了，但是，人们写程序还是很不舒服的。因为计算机只认识二进制的数据，而这种由0和1组合起来的代码并不适合人类阅读和使用（就像这样0101000101010101101010001010），人类更喜欢使用自己的语言（if 明天是个好天气 then 我就晒被子）。</p>
+<p>于是，<strong>编程语言</strong>就出现了。什么汇编、C、Java，乱七八糟的编程语言一箩筐。每种语言都有它擅长的地方和不擅长的地方，比如C语言就非常适合系统级编程，而Javascript则是Web页面的不二之选。有了编程语言，人们写起程序就溜的飞起了。</p>
+<p>这下，人们写程序方便了，但是计算机可懵逼了。它不认识乱七八糟的字母，它只认识数字。于是，<strong>编译器</strong>闪亮登场。它能够将人类可读的高级编程语言翻译成机器可执行的代码。简而言之，它就是个翻译，从一种语言翻译成另一种语言。</p>
+<p>这下终于好了，我写一个{if 到早上7点了 then 打开窗帘}，计算机就能读懂我的代码，并且自动执行了。当然这个程序很简单，但假如我想统计学校里所有学生的成绩并排序，该怎么办呢？</p>
+<p>在解决这个问题之前，我们需要稍微深入地理解一下计算机。我们写软件，写程序，实际上就是通过计算机这么一个工具帮助我们解决问题。计算机擅长处理数据，而如何高效地让计算机处理这些数据，则是我们的问题。于是，<strong>算法</strong>来了，它实际上就是一些适合用计算机来实现的解决问题的办法。不同的算法的性能差别很大，比如同样给1万个学生的成绩排序，有的排序算法1秒之内就能给出结果，有的可能需要好几分钟。同时，算法的特性极大地受到<strong>数据结构</strong>的影响，如何选择数据结构有时候直接能决定一个问题是否能够解决。</p>
+<p>除了数据的处理之外，计算机的另一个重要的问题就是数据的存储。结构化的存储能够帮助我们快速准确地找到想要的数据，而<strong>数据库</strong>和<strong>数据仓库</strong>是解决这个问题的利刃。相对于文件存储来说，数据库提供了更强大的数据存储和检索功能；而数据仓库则更适合对大量数据进行分析，提取一些更有价值的信息。</p>
+<p>有了数据，我们能做很多事情，基于海量的数据和先进的处理方式，我们迎来了<strong>大数据</strong>和<strong>人工智能</strong>的时代。这些都是现下的热门，也是未来的发展趋势之一。</p>
+<p>为了搞定这些数据，软件的设计也相应地要解决很多很复杂的问题，要考虑功能、性能、扩展性、可维护性、安全性等等。所以，人们总结并发明了不少编程的设计方法，比如<strong>面向对象编程</strong>（以及使用该方式总结出来的经验<strong>设计模式</strong>），<strong>软件系统架构</strong>等等。</p>
+<p>以上说的都还是单机的软件，如果把多台计算机连接起来，会发生什么呢？boom！这就是我们今天的<strong>互联网</strong>和<strong>移动互联网</strong>。它们的出现得益于<strong>计算机网络</strong>的研究和发展。计算机网络解决的问题就是计算机与计算机之间如何通讯的问题，它的重要性相当于人类赖以交流沟通的语言。</p>
+<p>当计算机和计算机借由网络连接起来协同工作时，就像几个人组成一个小组一样，可以做更多更强大的事情。而<strong>分布式系统</strong>解决的就是多台计算机协同工作时要面临的问题，比如数据一致性、安全性、容错机制等等。我们所说的<strong>云计算</strong>，很多实际上背后就是分布式系统。云计算的一个重要的用途是资源整合，它可以把多台计算机的资源整合成一个资源池，你可以把它看成一个超级计算机，拥有N多的CPU和N多的内存，你需要多少，它就给你分配多少。这样，当你想发布一个软件的时候，不需要再自己买服务器，直接管云计算服务提供商买就行了，不仅成本更低（租用办公室的钱都省了），而且扩容更加方便。可能未来某天，我们的终端仅仅需要输入和输出设备就够了，所有的数据和计算任务都交给“云”来搞定。</p>
+<p>以上就是计算机科学的一个简单的概览。其实还有一些内容我没有说，比如<strong>计算机图形图像</strong>、<strong>语音识别</strong>等等，它们同样为我们的生活带来了许许多多的便利。</p>
+<p>我想，生活在这个时代是幸运的，能从事IT方面的工作也是令人兴奋的一件事。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/02/01/2017-05-03-understandable-computer-science/" data-id="ck630batq0009vchl56dy2qyy" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/02/01/2018-07-08-about-working-overtime/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          过度加班百害而无一利
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/02/01/2017-04-21-meta-ability/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">元能力</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/02/01/2019-12-29-stay-serious/">保持敬畏，保持严谨</a>
+          </li>
+        
+          <li>
+            <a href="/2020/02/01/2019-12-01-c-understanding-value-passing/">深入理解C语言的值传递</a>
+          </li>
+        
+          <li>
+            <a href="/2020/02/01/2018-08-19-internet-of-value/">Internet of Value</a>
+          </li>
+        
+          <li>
+            <a href="/2020/02/01/2018-07-08-about-working-overtime/">过度加班百害而无一利</a>
+          </li>
+        
+          <li>
+            <a href="/2020/02/01/2017-05-03-understandable-computer-science/">白话计算机科学</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 LiAng<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
