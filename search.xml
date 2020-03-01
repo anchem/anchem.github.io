@@ -55,7 +55,7 @@
   </entry>
   <entry>
     <title>Process的waitFor()为何会阻塞</title>
-    <url>/process-stock-waitfor-function/</url>
+    <url>/process-stuck-waitfor-function/</url>
     <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>我们想要通过Java调用外部命令行，常常会使用<code>Runtime.getRuntime().exec(command)</code>方法，它会返回一个<code>Process</code>对象，而当我们想要等待这个命令执行结果时，我们可以调用它的<code>waitFor()</code>方法，像这样：</p>
 <a id="more"></a>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Process p &#x3D; Runtime.getRuntime().exec(command);</span><br><span class="line">p.waitFor();</span><br></pre></td></tr></table></figure>
