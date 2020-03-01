@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://stillwaters.top').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="圈复杂度什么是圈复杂度圈复杂度（CC，Cyclomatic complexity）是一种代码复杂度的衡量标准，由托马斯·J·麦凯布（Thomas J. McCabe, Sr.）于1976年提出，目的是为了度量代码的复杂程度。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="圈复杂度重构技术（C语言篇）">
+<meta property="og:url" content="http://stillwaters.top/cyclomatic-complexity-in-c/index.html">
+<meta property="og:site_name" content="Still Waters">
+<meta property="og:description" content="圈复杂度什么是圈复杂度圈复杂度（CC，Cyclomatic complexity）是一种代码复杂度的衡量标准，由托马斯·J·麦凯布（Thomas J. McCabe, Sr.）于1976年提出，目的是为了度量代码的复杂程度。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-01-22T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-03-01T03:13:56.052Z">
+<meta property="article:author" content="Hackerleon">
+<meta property="article:tag" content="C语言">
+<meta property="article:tag" content="软件工程师">
+<meta property="article:tag" content="圈复杂度">
+<meta property="article:tag" content="重构">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://stillwaters.top/cyclomatic-complexity-in-c/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>圈复杂度重构技术（C语言篇） | Still Waters</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Still Waters</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">深入理解</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="搜索..." spellcheck="false" type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://stillwaters.top/cyclomatic-complexity-in-c/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hackerleon">
+      <meta itemprop="description" content>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Still Waters">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          圈复杂度重构技术（C语言篇）
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-23 00:00:00" itemprop="dateCreated datePublished" datetime="2020-01-23T00:00:00+08:00">2020-01-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%B3%BB%E5%88%97/" itemprop="url" rel="index">
+                    <span itemprop="name">软件工程师系列</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="圈复杂度"><a href="#圈复杂度" class="headerlink" title="圈复杂度"></a>圈复杂度</h2><h3 id="什么是圈复杂度"><a href="#什么是圈复杂度" class="headerlink" title="什么是圈复杂度"></a>什么是圈复杂度</h3><p><strong>圈复杂度（CC，Cyclomatic complexity）</strong>是一种代码复杂度的衡量标准，由托马斯·J·麦凯布（Thomas J. McCabe, Sr.）于1976年提出，目的是为了度量代码的复杂程度。</p>
+<a id="more"></a>
+<p>代码复杂度简单说是由独立的<strong>执行路径</strong>的条数决定，而执行路径的条数取决于<strong>判定节点</strong>的结构。</p>
+<p>什么是判定节点呢，判定节点就是会根据逻辑表达式来选择后续执行哪条执行路径的节点，比如if语句，while语句，case语句，and和or语句，?:三元运算符等。</p>
+<p>例1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if (i &lt; 0) &#123;</span><br><span class="line">    &#x2F;&#x2F; do something</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    &#x2F;&#x2F; do other</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>代码执行的流程如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(1)----&gt;(2)----&gt;(4)----&gt;(5)</span><br><span class="line"> |               |</span><br><span class="line"> |-----&gt;(3)-----&gt;|</span><br></pre></td></tr></table></figure>
+<p>从例1中可以看到，if语句作为一个判定节点（1），会带来2条独立的执行路径，一条执行判定结果为成立的（2），一条执行判定结果为不成立的（3），它们执行完毕后都会继续执行（4）</p>
+<h3 id="为什么需要圈复杂度"><a href="#为什么需要圈复杂度" class="headerlink" title="为什么需要圈复杂度"></a>为什么需要圈复杂度</h3><p>之所以要度量代码的复杂程度是因为它和软件质量息息相关，主要表现在以下几个方面：</p>
+<ol>
+<li><strong>圈复杂度高的代码容易出现缺陷</strong></li>
+<li><strong>圈复杂度高的代码不容易进行测试</strong></li>
+<li><strong>圈复杂度过高往往其内聚性比较低</strong></li>
+<li><strong>圈复杂度高的代码难以维护</strong></li>
+</ol>
+<p>所以我们往往会在持续集成的时候监控圈复杂度的大小，并且在必要的时候进行圈复杂度的清理，把它降到一个合适的范围。一般来说，圈复杂度在1-10是比较好的范围。</p>
+<h3 id="如何计算圈复杂度"><a href="#如何计算圈复杂度" class="headerlink" title="如何计算圈复杂度"></a>如何计算圈复杂度</h3><p>计算公式</p>
+<blockquote>
+<p>V(G) = E - N + 2</p>
+</blockquote>
+<p>其中V(G)表示圈复杂度，E表示控制流图中边的数量，N表示节点的数量。</p>
+<p>例2：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">while (i &lt; len) &#123;</span><br><span class="line">    if (a[i] &#x3D;&#x3D; 1) &#123;</span><br><span class="line">        printf(&quot;matched&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    ++i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>控制流图简化如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(1)----&gt;(2)----&gt;(3)----&gt;(5)----&gt;(7)----&gt;(8)</span><br><span class="line"> |       |               |       |</span><br><span class="line"> |       |-----&gt;(4)-----&gt;|       |</span><br><span class="line"> |                               |</span><br><span class="line"> |&lt;------------(6)&lt;--------------|</span><br></pre></td></tr></table></figure>
+<p>例2对应的这个控制流图里，边的数量有9条，节点8个，带入公式，V(G)=9-8+2=3</p>
+<h2 id="降低圈复杂度–C语言"><a href="#降低圈复杂度–C语言" class="headerlink" title="降低圈复杂度–C语言"></a>降低圈复杂度–C语言</h2><h3 id="识别"><a href="#识别" class="headerlink" title="识别"></a>识别</h3><p>除了通过工具扫描之外，圈复杂度比较高的代码往往有一些明显的特征，它不像代码味道那样因人而异，所以比较容易识别。以下是一些常见的特征：</p>
+<ul>
+<li>在一个函数内部使用了很多if，while，for等判断语句；</li>
+<li>嵌套了多层的条件判断或者循环语句；</li>
+<li>函数内部的局部变量数量过多；</li>
+<li>代码行数较长，比如超过了50行；</li>
+</ul>
+<h3 id="主要方法：提炼函数"><a href="#主要方法：提炼函数" class="headerlink" title="主要方法：提炼函数"></a>主要方法：提炼函数</h3><p><strong>提炼函数</strong>是最常用也是最主要的降圈方法，也是一种重要的重构方法，我们直接通过例子来说明：</p>
+<p>例3：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">int ProcessData(Context context, int sid, Param param)</span><br><span class="line">&#123;</span><br><span class="line">    Data data &#x3D; NULL;</span><br><span class="line">    if (context &#x3D;&#x3D; NULL) &#123;</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line">    if (sid &lt;&#x3D; 0) &#123;</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line">    if (param &#x3D;&#x3D; NULL || param.errCode !&#x3D; 0) &#123;</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    data &#x3D; GetDataFromParam(param);</span><br><span class="line">    if (data-&gt;flag !&#x3D; null) &#123;</span><br><span class="line">        &#x2F;&#x2F; some process ...</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        &#x2F;&#x2F; other process ...</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    Log(INFO, &quot;the name of data is %s&quot;, data-&gt;name);</span><br><span class="line">    Log(INFO, &quot;the value of data is %s&quot;, data-&gt;value);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>提炼之后：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">Bool IsParamValid(Context context, int sid, Param param)</span><br><span class="line">&#123;</span><br><span class="line">    if (context &#x3D;&#x3D; NULL) &#123;</span><br><span class="line">        return FALSE;</span><br><span class="line">    &#125;</span><br><span class="line">    if (sid &lt;&#x3D; 0) &#123;</span><br><span class="line">        return FALSE;</span><br><span class="line">    &#125;</span><br><span class="line">    if (param &#x3D;&#x3D; NULL || param.errCode !&#x3D; 0) &#123;</span><br><span class="line">        return FALSE;</span><br><span class="line">    &#125;</span><br><span class="line">    return TRUE;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void HandleDataProcess(Data data)</span><br><span class="line">&#123;</span><br><span class="line">    if (data-&gt;flag !&#x3D; null) &#123;</span><br><span class="line">        &#x2F;&#x2F; some process ...</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        &#x2F;&#x2F; other process ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void PrintDataDetail(Data data)</span><br><span class="line">&#123;</span><br><span class="line">    Log(INFO, &quot;the name of data is %s&quot;, data-&gt;name);</span><br><span class="line">    Log(INFO, &quot;the value of data is %s&quot;, data-&gt;value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int ProcessData(Context context, int sid, Param param)</span><br><span class="line">&#123;</span><br><span class="line">    Data data &#x3D; NULL;</span><br><span class="line">    if (IsParamValid(context, sid, param) !&#x3D; TRUE) &#123;</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line">    data &#x3D; GetDataFromParam(param);</span><br><span class="line">    if (data &#x3D;&#x3D; NULL) &#123;</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line">    HandleDataProcess(data);</span><br><span class="line">    PrintDataDetail(data);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在例3所示原始的<strong>ProcessData</strong>函数里，我们看到圈复杂度较高，且整个函数做的事情有点多；在提炼之后，我们将功能相关的部分单独提炼出来了3个独立的函数，分别是<strong>IsParamValid</strong>，<strong>HandleDataProcess</strong>和<strong>PrintDataDetail</strong>，这样不仅每个函数的圈复杂度都不高，而且提炼后的代码逻辑更加清晰了。对于像<strong>PrintDataDetail</strong>之类的函数，还可以在其他函数里达到复用的效果。</p>
+<p>对于提炼函数以及其他几种能够帮助降圈的方法，在《重构》这本书里你能找到更多更详尽解释和用法说明，我在这里就不再赘述了。</p>
+<p>但我认为有两个关键点值得重复强调一下，那就是函数的命名和局部变量的修改。</p>
+<p><strong>【函数命名】</strong><br>既然要提炼函数，那么提炼出来的函数肯定要有一个名字，而这个名字很重要，因为它会影响其他人怎么理解它。一个最普遍的做法就是按照它做了什么来命名，见名知意，达到自注释的效果。这样，上层函数读起来就跟读注释一样简单明了。</p>
+<p><strong>【局部变量的修改】</strong><br>提炼函数往往伴随着局部变量的修改，这是该方法的难点，也是容易引入bug的地方，尤其是以下几个地方：</p>
+<p><strong>====》</strong>如果存在仅用于被提炼出的函数的局部变量，那么就在提炼出的函数中声明并使用它，在原函数中移除掉；</p>
+<p><strong>====》</strong>将被提炼代码中需要读取的局部变量作为参数传递进去；</p>
+<p><strong>====》</strong>如果在被提炼代码中修改了声明在原函数中的局部变量，那么如果在被提炼的代码之后还在使用这个变量，要么通过返回值传递出来，要么传递变量的地址进去，利用语言出参数的特性带出来；如果之后不再使用这个变量，那么直接在提炼出的函数中使用即可；</p>
+<p><strong>====》</strong>对于指向动态内存的局部变量，尽量在同一个函数内分配和释放，换句话说，如果在原函数中有这样的变量，那么建议不要在被提炼的函数中释放它，而应该在原函数中释放，这样有利于维护它的声明周期，避免内存泄露或重复释放等错误；</p>
+<p>下面以一个例子来说明上述问题：<br>例4：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">int CountMatchedParam(Context context, Param param)</span><br><span class="line">&#123;</span><br><span class="line">    Session session &#x3D; NULL;</span><br><span class="line">    Connection conn &#x3D; NULL;</span><br><span class="line">    unsigned int i &#x3D; 0;</span><br><span class="line">    unsigned int count &#x3D; 0;</span><br><span class="line">    Data* data &#x3D; NULL;</span><br><span class="line">    if (IsParamValid(context, prarm) !&#x3D; TRUE) &#123;</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line">    conn &#x3D; GetConnection(context);</span><br><span class="line">    if (conn &#x3D;&#x3D; NULL) &#123;</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line">    session &#x3D; GetSessionFromConnection(conn);</span><br><span class="line">    if (session &#x3D;&#x3D; NULL) &#123;</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line">    data &#x3D; (Data*)MALLOC(sizeof(Data));</span><br><span class="line">    if (data &#x3D;&#x3D; NULL) &#123;</span><br><span class="line">        return NULL;</span><br><span class="line">    &#125;</span><br><span class="line">    HandleExceptionMatch(session, param, &amp;count);</span><br><span class="line">    for (i &#x3D; 0; i &lt; param-&gt;len; i++) &#123;</span><br><span class="line">        if (param-&gt;arr[i] &#x3D;&#x3D; MATCH_FLAG) &#123;</span><br><span class="line">            ++count;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if (count &#x3D;&#x3D; 0) &#123;</span><br><span class="line">        SAFE_FREE(data);</span><br><span class="line">        return -1</span><br><span class="line">    &#125;</span><br><span class="line">    HandleMatchedCount(param, data, count);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>提炼后：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">Session GetSession(Context context) &#x2F;&#x2F; context作为入参传递进来</span><br><span class="line">&#123;</span><br><span class="line">    Connection conn &#x3D; NULL; &#x2F;&#x2F; 修改了声明的位置</span><br><span class="line">    Session session &#x3D; NULL;</span><br><span class="line">    conn &#x3D; GetConnection(context);</span><br><span class="line">    if (conn &#x3D;&#x3D; NULL) &#123;</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line">    session &#x3D; GetSessionFromConnection(conn);</span><br><span class="line">    return session; &#x2F;&#x2F; 作为返回值传递出来</span><br><span class="line">&#125;</span><br><span class="line">ErrCode MatchProcess(Param param, Data data, unsigned int count)</span><br><span class="line">&#123;</span><br><span class="line">    unsigned int i &#x3D; 0; &#x2F;&#x2F; 修改了声明的位置</span><br><span class="line">    for (i &#x3D; 0; i &lt; param-&gt;len; i++) &#123;</span><br><span class="line">        if (param-&gt;arr[i] &#x3D;&#x3D; MATCH_FLAG) &#123;</span><br><span class="line">            ++count;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if (count &#x3D;&#x3D; 0) &#123;</span><br><span class="line">        return ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    HandleMatchedCount(param, data, count);</span><br><span class="line">    return OK;</span><br><span class="line">&#125;</span><br><span class="line">int CountMatchedParam(Context context, Param param)</span><br><span class="line">&#123;</span><br><span class="line">    Session session &#x3D; NULL;</span><br><span class="line">    unsigned int count &#x3D; 0;</span><br><span class="line">    Data* data &#x3D; NULL;</span><br><span class="line">    if (IsParamValid(context, prarm) !&#x3D; TRUE) &#123;</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line">    session &#x3D; GetSession(context); &#x2F;&#x2F; session通过函数返回值获取</span><br><span class="line">    if (session &#x3D;&#x3D; NULL) &#123;</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line">    data &#x3D; (Data*)MALLOC(sizeof(Data));</span><br><span class="line">    if (data &#x3D;&#x3D; NULL) &#123;</span><br><span class="line">        return NULL;</span><br><span class="line">    &#125;</span><br><span class="line">    HandleExceptionMatch(session, param, &amp;count); &#x2F;&#x2F; 这里用到了session；同时由于修改了count的值，且在后续用到了，所以这里传递了它的地址</span><br><span class="line">    if (MatchProcess(param, data, count) !&#x3D; OK) &#123; &#x2F;&#x2F; count后续不再使用，所以直接传递即可</span><br><span class="line">        SAFE_FREE(data);  &#x2F;&#x2F; data在哪个函数里申请，就在哪个函数里释放，方便统一维护</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>首先，我们关注下原<strong>CountMatchedParam</strong>函数中的<strong>i</strong>和<strong>conn</strong>，由于他们只在提炼后的函数中使用，所以修改了其声明的位置；</p>
+<p>其次，对于<strong>GetSession</strong>函数中用到的<strong>context</strong>，直接通过入参传递了进去；</p>
+<p>同时，在<strong>GetSession</strong>函数中，由于修改了<strong>session</strong>的值，且在后面会继续用到它，所以通过返回值将其传递了出来；</p>
+<p>而<strong>count</strong>变量有2处值得注意的地方：首先，在<strong>HandleExceptionMatch</strong>中修改了它的值，且后续会继续使用它，所以传入的是它的地址；其次，在<strong>MatchProcess</strong>之后不再使用<strong>count</strong>，所以直接传递进去就行了；</p>
+<p>最后，<strong>data</strong>这个局部变量是在<strong>CountMatchedParam</strong>函数内申请的，那么在<strong>MatchProcess</strong>内部处理的时候，就需要把释放的方法放到被调函数里，也就是<strong>CountMatchedParam</strong>里。</p>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><h4 id="1-小心宏定义"><a href="#1-小心宏定义" class="headerlink" title="1. 小心宏定义"></a>1. 小心宏定义</h4><p>如果宏定义里有return之类的跳转或返回语句，一定要小心，不要因为提取函数而误改了原有的流程。</p>
+<p>例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#define PRE_CHECK(a) \</span><br><span class="line">    if (a &#x3D;&#x3D; NULL) &#123; \</span><br><span class="line">        return -1;   \ &#x2F;&#x2F; 要小心这里有个return</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">int foo(Param param)</span><br><span class="line">&#123;</span><br><span class="line">    PRE_CHECK(param);</span><br><span class="line">    if (param-&gt;flag &#x3D;&#x3D; ERR_FLAG) &#123;</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    &#x2F;&#x2F; ... other process</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在PRE_CHECK这个宏定义的代码段里，有一个return语句，如果不小心提了出去，则很容易破坏原有函数的逻辑。不过在宏定义里写return语句也的确不是一个好的编程习惯。</p>
+<h4 id="2-数组形参要传长度"><a href="#2-数组形参要传长度" class="headerlink" title="2. 数组形参要传长度"></a>2. 数组形参要传长度</h4><p>将数组作为入参时，如果在函数内要使用它的长度，那么一定要通过入参传进去，否则你不仅会得到一个编译告警，还会发现根本得不到入参数组的实际长度。</p>
+<blockquote>
+<p>warning: ‘sizeof’ on array function parameter ‘arr’ will return size of ‘char *’ [-Wsizeof-array-argument]</p>
+</blockquote>
+<h4 id="3-指针传参问题"><a href="#3-指针传参问题" class="headerlink" title="3. 指针传参问题"></a>3. 指针传参问题</h4><p>指针传参问题是新手最容易遇到的问题，当然理解了之后也比较容易解决。我们还是用例子来说明。<br>例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">ErrCode GetRequiredInfo(Context context, Session* session, char* sid)</span><br><span class="line">&#123;</span><br><span class="line">    Connection *conn &#x3D; NULL;</span><br><span class="line">    conn &#x3D; GetConnection(context);</span><br><span class="line">    if (conn &#x3D;&#x3D; NULL) &#123;</span><br><span class="line">        return ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    session &#x3D; GetSessionFromConn(conn);</span><br><span class="line">    if (session &#x3D;&#x3D; NULL) &#123;</span><br><span class="line">        return ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    sid &#x3D; GetSidFromSession(session);</span><br><span class="line">    if (sid &#x3D;&#x3D; NULL) &#123;</span><br><span class="line">        return ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    return OK;</span><br><span class="line">&#125;</span><br><span class="line">ErrCode GetReport(Context context, char *sid, Report **report)</span><br><span class="line">&#123;</span><br><span class="line">    *report &#x3D; ParseReport(context, sid);</span><br><span class="line">    if (report &#x3D;&#x3D; NULL) &#123;</span><br><span class="line">        return ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    return OK;</span><br><span class="line">&#125;</span><br><span class="line">int HandleData(Context context, Param param)</span><br><span class="line">&#123;</span><br><span class="line">    Session *session &#x3D; NULL;</span><br><span class="line">    char *sid &#x3D; NULL;</span><br><span class="line">    Report *report &#x3D; NULL;</span><br><span class="line">    ErrCode ret &#x3D; ERROR;</span><br><span class="line">    ret &#x3D; GetRequiredInfo(context, session, sid);</span><br><span class="line">    if (ret !&#x3D; OK) &#123;</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line">    ret &#x3D; GetReport(context, sid, &amp;report);</span><br><span class="line">    if (ret !&#x3D; OK) &#123;</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F; ... other process</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个例子里有3处新手常常容易犯的错误：</p>
+<ol>
+<li>在<strong>GetRequiredInfo</strong>函数里，<strong>session</strong>被重新赋值了，而如果在<strong>HandleData</strong>里要继续使用它，那么就一定会拿到一个空的值；因为C语言的函数是值传递的，指针也是拷贝复制的，对形参的修改不会影响实参；所以这里应该传递二级指针。</li>
+<li>同样在<strong>GetRequiredInfo</strong>函数里，<strong>sid</strong>也犯了同样的错误，也要传二级指针。</li>
+<li>第3个错误发生在<strong>GetReport</strong>函数里，因为修改了<strong>report</strong>的值，所以传递了二级指针，并通过解引用来赋值，这是正确的；但是在第21行发生了一个错误，本意应该是要判断<strong>*report</strong>是否为空，却误判成了<strong>report</strong>，它本身虽然是NULL，但是空指针的指针却不是NULL，所以这个逻辑判断永远都会返回成立，起不到实际想要的效果。</li>
+</ol>
+<p>正确的修改应该是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">ErrCode GetRequiredInfo(Context context, Session** session, char** sid)</span><br><span class="line">&#123;</span><br><span class="line">    Connection *conn &#x3D; NULL;</span><br><span class="line">    conn &#x3D; GetConnection(context);</span><br><span class="line">    if (conn &#x3D;&#x3D; NULL) &#123;</span><br><span class="line">        return ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    *session &#x3D; GetSessionFromConn(conn);</span><br><span class="line">    if (*session &#x3D;&#x3D; NULL) &#123;</span><br><span class="line">        return ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    *sid &#x3D; GetSidFromSession(*session);</span><br><span class="line">    if (*sid &#x3D;&#x3D; NULL) &#123;</span><br><span class="line">        return ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    return OK;</span><br><span class="line">&#125;</span><br><span class="line">ErrCode GetReport(Context context, char *sid, Report **report)</span><br><span class="line">&#123;</span><br><span class="line">    *report &#x3D; ParseReport(context, sid);</span><br><span class="line">    if (*report &#x3D;&#x3D; NULL) &#123;</span><br><span class="line">        return ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    return OK;</span><br><span class="line">&#125;</span><br><span class="line">int HandleData(Context context, Param param)</span><br><span class="line">&#123;</span><br><span class="line">    Session *session &#x3D; NULL;</span><br><span class="line">    char *sid &#x3D; NULL;</span><br><span class="line">    Report *report &#x3D; NULL;</span><br><span class="line">    ErrCode ret &#x3D; ERROR;</span><br><span class="line">    ret &#x3D; GetRequiredInfo(context, &amp;session, &amp;sid);</span><br><span class="line">    if (ret !&#x3D; OK) &#123;</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line">    ret &#x3D; GetReport(context, sid, &amp;report);</span><br><span class="line">    if (ret !&#x3D; OK) &#123;</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F; ... other process</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-free之后的赋空"><a href="#4-free之后的赋空" class="headerlink" title="4. free之后的赋空"></a>4. free之后的赋空</h4><p>释放动态分配的内存后，指向这块内存的指针一定要赋空，否则会引入一些意想不到的问题。</p>
+<p>例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">void Deinit()</span><br><span class="line">&#123;</span><br><span class="line">    if (g_session_data-&gt;report_list !&#x3D; NULL) &#123;</span><br><span class="line">        free(g_session_data-&gt;report_list);</span><br><span class="line">        g_session_data-&gt;report_list &#x3D; NULL; &#x2F;&#x2F; 这句不能少</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>例子中的函数释放了全局变量中的<strong>report_list</strong>，并在释放后将其赋空。如果这里缺少了赋空的操作，那么在程序的其他地方如果使用到了这个变量，则很容易访问非法内存，篡改数据，带来意想不到的问题。</p>
+<h4 id="5-注意返回值"><a href="#5-注意返回值" class="headerlink" title="5. 注意返回值"></a>5. 注意返回值</h4><p>返回值会影响代码的执行逻辑，在提炼函数时，如果被提炼出来的函数包含了返回值，则一定要确保提炼出去之后，原函数的逻辑不能改变。</p>
+<p>同时，也要小心在提炼出来的函数里当你想要自定义一个返回值的时候，不要和原返回值所定义的宏相重复了，否则就会篡改原来的逻辑。</p>
+<p>例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#define RET_ERROR -1</span><br><span class="line">#define RET_ERROR_SEC -2</span><br><span class="line">void foo(Status status)</span><br><span class="line">&#123;</span><br><span class="line">    if (status &#x3D;&#x3D; LASTING) &#123;</span><br><span class="line">        &#x2F;&#x2F; process...</span><br><span class="line">        return RET_ERROR;</span><br><span class="line">    &#125; else if (status &#x3D;&#x3D; PENDING) &#123;</span><br><span class="line">        &#x2F;&#x2F; process...</span><br><span class="line">        return RET_ERROR_SEC;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        &#x2F;&#x2F; process...</span><br><span class="line">        return -2; &#x2F;&#x2F; 本想返回一个其他类型的错误码，却与RET_ERROR_SEC重复了</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="一点思考"><a href="#一点思考" class="headerlink" title="一点思考"></a>一点思考</h2><p>圈复杂度作为一个衡量软件复杂度的指标，它的确提供了一个可以度量代码质量的方法，便于监控和管理，但是圈复杂度高的代码就一定是不好的吗？</p>
+<p>例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">void TimerHandler(Msg msg)</span><br><span class="line">&#123;</span><br><span class="line">    switch (msg) &#123;</span><br><span class="line">        case RESTART:</span><br><span class="line">            ProcessRestart();</span><br><span class="line">            break;</span><br><span class="line">        case UPDATE_CFG:</span><br><span class="line">            ProcessUpdateCfg();</span><br><span class="line">            break;</span><br><span class="line">        case NEW_BACKUP:</span><br><span class="line">            ProcessNewPackup();</span><br><span class="line">            break;</span><br><span class="line">        case OPEN_FLAG:</span><br><span class="line">            ProcessOpenFlag();</span><br><span class="line">            break;</span><br><span class="line">        &#x2F;&#x2F; ....other cases but not too many</span><br><span class="line">        default:</span><br><span class="line">            Log(ERROR, &quot;unknown message&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其实这样的代码不管是从可读性还是可维护性的角度来讲都是可以接受的，当然你也可以按照表驱动的方式去重构它，但是如果不动它，也没有什么问题，反而如果表驱动用的不好，到是会引入其他的问题。</p>
+<p>类似的例子还有不少，我就不一一举例了，我想说的是，圈复杂度其实只能代表圈复杂度本身，并不能完全描述代码的质量和可维护性等特性，只能作为一个侧面的参考。代码是给人看的，是人来维护的，关键在于在功能正确的前提下，怎么把代码写的让人容易看懂，容易维护。圈复杂度低的代码往往逻辑简洁，好读、好测、可控，同时，一些圈复杂度高的代码也可能拥有同样的特点，反而你想尽办法把它的圈复杂度降下去了之后却发现更难维护了。所以，当我们在讨论圈复杂度的时候，一定要清楚我们到底在讨论什么。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Hackerleon
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://stillwaters.top/cyclomatic-complexity-in-c/" title="圈复杂度重构技术（C语言篇）">http://stillwaters.top/cyclomatic-complexity-in-c/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="external nofollow" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-ND</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E4%B8%8E%E9%87%8D%E6%9E%84/" rel="tag"><i class="fa fa-tag"></i> 软件设计与重构</a>
+              <a href="/tags/C%E8%AF%AD%E8%A8%80/" rel="tag"><i class="fa fa-tag"></i> C语言</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/stay-serious/" rel="prev" title="保持敬畏，保持严谨">
+      <i class="fa fa-chevron-left"></i> 保持敬畏，保持严谨
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/caprice-in-2020/" rel="next" title="2020新年随想">
+      2020新年随想 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#圈复杂度"><span class="nav-number">1.</span> <span class="nav-text">圈复杂度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是圈复杂度"><span class="nav-number">1.1.</span> <span class="nav-text">什么是圈复杂度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么需要圈复杂度"><span class="nav-number">1.2.</span> <span class="nav-text">为什么需要圈复杂度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何计算圈复杂度"><span class="nav-number">1.3.</span> <span class="nav-text">如何计算圈复杂度</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#降低圈复杂度–C语言"><span class="nav-number">2.</span> <span class="nav-text">降低圈复杂度–C语言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#识别"><span class="nav-number">2.1.</span> <span class="nav-text">识别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主要方法：提炼函数"><span class="nav-number">2.2.</span> <span class="nav-text">主要方法：提炼函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意事项"><span class="nav-number">2.3.</span> <span class="nav-text">注意事项</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-小心宏定义"><span class="nav-number">2.3.1.</span> <span class="nav-text">1. 小心宏定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-数组形参要传长度"><span class="nav-number">2.3.2.</span> <span class="nav-text">2. 数组形参要传长度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-指针传参问题"><span class="nav-number">2.3.3.</span> <span class="nav-text">3. 指针传参问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-free之后的赋空"><span class="nav-number">2.3.4.</span> <span class="nav-text">4. free之后的赋空</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-注意返回值"><span class="nav-number">2.3.5.</span> <span class="nav-text">5. 注意返回值</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一点思考"><span class="nav-number">3.</span> <span class="nav-text">一点思考</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Hackerleon</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/anchem" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;anchem" rel="external nofollow" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:hackerleon@foxmail.com" title="E-Mail → mailto:hackerleon@foxmail.com" rel="external nofollow" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/anchem" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;anchem" rel="external nofollow" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" class="cc-opacity" rel="external nofollow" target="_blank"><img src="/images/cc-by-nc-nd.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hackerleon</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="external nofollow" target="_blank">Hexo</a> 强力驱动
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="external nofollow" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

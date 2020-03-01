@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://stillwaters.top').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="“不是在加班，就是在加班的路上”">
+<meta property="og:type" content="article">
+<meta property="og:title" content="过度加班百害而无一利">
+<meta property="og:url" content="http://stillwaters.top/about-working-overtime/index.html">
+<meta property="og:site_name" content="Still Waters">
+<meta property="og:description" content="“不是在加班，就是在加班的路上”">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-07-07T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-03-01T03:13:45.819Z">
+<meta property="article:author" content="Hackerleon">
+<meta property="article:tag" content="软件工程师系列">
+<meta property="article:tag" content="加班">
+<meta property="article:tag" content="过度加班">
+<meta property="article:tag" content="工作管理">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://stillwaters.top/about-working-overtime/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>过度加班百害而无一利 | Still Waters</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Still Waters</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">深入理解</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="搜索..." spellcheck="false" type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://stillwaters.top/about-working-overtime/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hackerleon">
+      <meta itemprop="description" content>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Still Waters">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          过度加班百害而无一利
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-07-08 00:00:00" itemprop="dateCreated datePublished" datetime="2018-07-08T00:00:00+08:00">2018-07-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%B3%BB%E5%88%97/" itemprop="url" rel="index">
+                    <span itemprop="name">软件工程师系列</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>“不是在加班，就是在加班的路上”</p>
+<a id="more"></a>
+<p><strong>加班</strong>，已经成为了职场人生活的常态。自从我去年毕业6月份加入菊厂之后，加班就成为了我生活中重要的一部分。刚开始还能做到周一二四晚上加班到21点，周三周五18点下班；随后慢慢地就变成了周内晚上22点前没下过班，周六还要再来加一天班的情况；遇到紧急或者重要的问题时，凌晨3,4点的夜空我也是见过的。</p>
+<p>如果正常工作时间能够完成任务，我当然不想选择加班。之所以加班，主要有以下几个原因：</p>
+<ol>
+<li>项目版本过点或者即将发布；</li>
+<li>有重要紧急的网上问题要及时处理；</li>
+<li>任务量太多，人手不够，活多人少；</li>
+<li>有想学习的东西，需要在工作之余的时间充电。</li>
+</ol>
+<p>对于第一个原因，由于版本即将过点，所有需求必须交付，所有问题单都要解决掉，工作量会非常大，所以加班不可避免。</p>
+<p>第二个原因呢，自然不必说了，网上问题在所有问题里面都是优先级最高的，哪怕版本停掉都要第一时间把线上问题处理掉，尽量减少问题给客户带来的损失。</p>
+<p>至于第三个原因，在我看来就是管理上的问题了。活多人少，要么减活，要么加人。不管一个技术人员能力再牛逼，他的处理能力都是有限的，为了尽可能多地处理掉更多的问题，投入更多的时间往往成了唯一的办法。但是，长时间地处于这种状态对一名研发人员来说是致命的。这个时候，管理层的各个经理就需要好好想想办法了。减少不必要的工作量，合理安排多版本交付时间点，减少并行版本开发数量，投入更多的人力，等等，这些都是办法。</p>
+<p>第四个原因我也不用多说了，对于我们这些初入职场的新人来说，多花时间学习，为自己充电是必不可少的。</p>
+<p>除了以上几点原因之外，我想有些人也遇到过这样的情况：工作干完了，但是老板不走，我也不敢走；或者是，老板要求大家某个时间段必须加班，没有事情也要加班。像这种情况，我的建议是：“Do the right thing, wait to go get fired.”你的时间是宝贵的，不要浪费在无谓的事情上。</p>
+<p>说完了加班常见的原因之外，我想重点说说加班的影响。</p>
+<p>任何事情都有一个度，加班也不例外。</p>
+<p>适度的加班一方面有利于公司业务快速增长，另一方面也能提高员工的业务与技能水平。毕竟在这个以奋斗和发展为主题的时代里，成长是需要花费大量精力和时间的，不管是公司还是个人。</p>
+<p>但是，加班过了度，它就会变成一颗定时炸弹，危害巨大而深远。为什么我这么说，因为过度的加班有以下几点影响：</p>
+<p><strong>过度的加班有害健康</strong>。我曾经有一段时间天天晚上24点之后到家，洗洗上床睡觉就已经第二天1点左右了，早上6点半又要起床赶班车。那段时间感觉记忆力特别差，刚想说一个事情，转眼就忘，而且处理过的事情很难快速回忆起来。而且有时候坐那儿就觉得好像谁在晃我的凳子，时不时会觉得晕那么一下。同时，长时间坐着对着电脑屏幕也让我的眼睛干涩酸痛，脖子僵硬难受，浑身肌肉无力，感觉特别不好。我想，健康的重要性怎么强调都不为过吧，毕竟它是任何事情的根基，我不赘述了。谁都不想前几年用生命换金钱，后几年用金钱换生命吧。</p>
+<p><strong>过度的加班会使工作陷入恶性循环</strong>。很多时候，需要加班是因为白天被大量琐事占用了时间，没有一段安静不受打扰的时间来思考业务逻辑代码怎么写。而加班的时间往往并不如正常工作时间那么高效，写出来的业务代码往往质量也不高，这就为后面改bug埋下了地雷。加班写bug，加班改bug成为了工作的常态。同时，过度的加班也会损害工作的积极性。我曾有段时间对工作有一些想法，想要努力改善目前的工作现状，并且工作的态度非常积极主动。但是，在一段望不到头的加班中，我的积极性慢慢地被消耗殆尽，甚至到了每天早上根本不想上班的状态。我知道，长期下来的话，这样的状态，我是不可能有什么高效高质量的产出的，我在这里呆下去的意愿也会越来越低。</p>
+<p><strong>过度的加班会损害家庭关系</strong>。一个人的时间花在哪里，哪里就会有回报。如果天天除了上班，回家只有倒头睡觉的精力，没时间跟老婆孩子说说话吃吃饭，时间久了，这份爱情和亲情也会渐渐淡化，不仅夫妻感情会受到影响，也会给孩子性格的形成带来不利的影响。我小的时候就因为父母经常加班回不了家而经常生气，感觉跟父母之间的联结也越来越淡，甚至有些低自尊的行为和内向的性格也是受到了这方面的影响。而最近的长时间不间断的加班也让我的老婆对我充满了不满，谁都不想看到自己最亲的人每天回家这几个小时的时间里，除了洗漱就是睡觉，连说话的时间都挤不出来几分钟吧。换句话说，对于公司来说，你只是一名员工，对于你的家庭来说，你就是全部。</p>
+<p><strong>过度的加班不利于个人成长</strong>。公司的进步在于员工个人的进步，而个人的进步是需要时间去沉淀、总结、思考的。如果员工个人的时间都被大量的加班所占据，抽不出来时间去反思、去总结，那么他迟早会废掉，或者公司废掉他。比如我今天看到哪篇技术文章写得非常好，和项目中遇到的问题有所关联，我想去深入了解一下背后的原理和机制，以后遇到同样的坑能够举一反三，提高解决问题的效率，但是我从一大早开始就在处理工作上的事情，开会、处理问题、做需求、改bug，一直到晚上12点多了也没时间整理，第二天又要早起上班，回家赶紧洗洗睡觉，免得第二天没有精神。这样的状态长期下来，个人往往会疲于应付工作中遇到的各种各样的事情，没时间来做这些不紧急但重要的事情，这便是恶性循环的开始。聪明的你也许会想到时间管理、工作方法，可当你真的穿上这双红舞鞋之后，你会发现根本没有什么喘息的时间，只有不停地跳下去，让你这颗螺丝保持运转，或者离开这里。等到你想要离开的时候，你会发现，除了平台给你的，你没有成长多少。</p>
+<p>过度加班危害多，那么我们怎么样避免掉入过度加班的陷阱中呢？对于这个问题，我想每个人都有自己的想法，我只分享下我的想法，也是我最近在实践的方法，希望能够摆脱这种状态，让工作回到良性循环的轨道上。</p>
+<p><strong>提高自我意识</strong>。任何事情的改善都是从意识到它需要改善开始。不管工作有多繁忙，都要保持清醒的自我意识，知道自己在做什么事情，知道这是一件什么样的事情，知道完成它需要多久的时间，知道哪些事情优先级高、哪些事情风险不可控需要及时上报等等。意识是思考的前提，当我意识到自己马上就要陷入疲忙的陷阱中时，我才可能去思考如何避免这种事情的发生以及发生后的对策。同时，意识到工作中哪些事情让自己疲于奔命，哪些事情能够提高效率减少无用功，这些也是改善的前提，至少要清楚，需要做什么事情才能摆脱这个怪圈。</p>
+<p><strong>化被动为主动</strong>。与其天天被领导问，天天被周边同事催，不如把这些事情都掌控在自己的手里，及时主动知会进展，识别风险并求助讨论，让别人知道自己在做什么、进展如何，同时对于自己搞不定的问题，及时集思广益，快速闭环，不要在自己这里卡了好久临近过点了才暴露出来。只有自己掌控了这一切，才会主动负责，才能想办法跳出不良陷阱。</p>
+<p><strong>学会拒绝</strong>。明确自己的职责范围，对于非重要且非紧急的事情，学会说不，或者排到第二天再解决，不要什么活都揽，那样只会让自己越来越疲惫。</p>
+<p><strong>做重要的事情</strong>。说了这么多，这一点才是关键。不要因为处理紧急的事情而占用了重要事情的时间，正是这些重要的事情才能够让你成长，让工作更高效，让合作更加便捷，让家庭更加幸福，让健康得以支撑一切。这些包括但不限于运动、按时作息、每日复盘、输出思考总结的结果、修复破窗户、践行TDD、整理知识网络、写一篇文章、与朋友同事交流分享、高质量陪伴家人、在生活中创造仪式感等等。</p>
+<p>其实在我国的劳动法里，已经明确写明了用人单位应该如何安排工作时间和休息休假。劳动法第四章规定劳动者每日工作时间不超过8小时，平均每周工作时间不超过44小时；用人单位保证劳动者每周至少休息1日；如因生产经营需要，在保障劳动者身体健康的条件下延长工作时间，每日不得超过3小时，每月不得超过36小时；同时对延长工作时间的，还需要支付额外的工资报酬等等。当然，法律如何规定和实际如何执行往往是两码事，并且劳动者作为弱势群体，有时候很难维护自己的利益。看看发达国家，再看看我们国家，在这一点上，我们还有很多路要走。我希望终有一天会看到更好的结果。</p>
+<p>总之，不管是在加班，还是在加班的路上，有一点我们一定要清楚，那就是我们到底想要的是什么？加这个班能不能帮助我们争取到我们想要的东西？如果不能，我们应该做什么？</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Hackerleon
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://stillwaters.top/about-working-overtime/" title="过度加班百害而无一利">http://stillwaters.top/about-working-overtime/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="external nofollow" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-ND</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%B7%A5%E4%BD%9C%E7%AE%A1%E7%90%86/" rel="tag"><i class="fa fa-tag"></i> 工作管理</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/understandable-computer-science/" rel="prev" title="白话计算机科学">
+      <i class="fa fa-chevron-left"></i> 白话计算机科学
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/internet-of-value/" rel="next" title="Internet of Value">
+      Internet of Value <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Hackerleon</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/anchem" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;anchem" rel="external nofollow" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:hackerleon@foxmail.com" title="E-Mail → mailto:hackerleon@foxmail.com" rel="external nofollow" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/anchem" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;anchem" rel="external nofollow" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" class="cc-opacity" rel="external nofollow" target="_blank"><img src="/images/cc-by-nc-nd.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hackerleon</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="external nofollow" target="_blank">Hexo</a> 强力驱动
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="external nofollow" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
