@@ -48,12 +48,12 @@
   };
 </script>
 
-  <meta name="description" content="近期由于项目需要，我在研究Apache Mesos，它是一个分布式操作系统的内核。下面我将分几个部分来介绍Mesos：  背景 什么是Mesos Mesos是如何运作的 如何使用Mesos">
+  <meta name="description" content="简单介绍下Apache Mesos">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mesos">
 <meta property="og:url" content="http://stillwaters.top/what-is-mesos/index.html">
 <meta property="og:site_name" content="Still Waters">
-<meta property="og:description" content="近期由于项目需要，我在研究Apache Mesos，它是一个分布式操作系统的内核。下面我将分几个部分来介绍Mesos：  背景 什么是Mesos Mesos是如何运作的 如何使用Mesos">
+<meta property="og:description" content="简单介绍下Apache Mesos">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://stillwaters.top/img/mesos/example1.png">
 <meta property="og:image" content="http://stillwaters.top/img/mesos/example2.png">
@@ -68,7 +68,7 @@
 <meta property="og:image" content="http://stillwaters.top/img/mesos/mesos_container.png">
 <meta property="og:image" content="http://stillwaters.top/img/mesos/mesos-12.jpg">
 <meta property="article:published_time" content="2016-10-21T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-03-01T03:14:30.421Z">
+<meta property="article:modified_time" content="2020-03-05T15:58:22.576Z">
 <meta property="article:author" content="Hackerleon">
 <meta property="article:tag" content="云计算">
 <meta property="article:tag" content="Mesos">
@@ -267,6 +267,7 @@
             </span>
 
           
+            <div class="post-description">简单介绍下Apache Mesos</div>
 
         </div>
       </header>
@@ -282,10 +283,9 @@
 <li><strong>背景</strong></li>
 <li><strong>什么是Mesos</strong></li>
 <li><strong>Mesos是如何运作的</strong></li>
-<li><strong>如何使用Mesos</strong><a id="more"></a>
-<h3 id="1-背景"><a href="#1-背景" class="headerlink" title="1 背景"></a>1 背景</h3></li>
+<li><strong>如何使用Mesos</strong></li>
 </ul>
-<h4 id="1-1-资源划分"><a href="#1-1-资源划分" class="headerlink" title="1.1 资源划分"></a>1.1 资源划分</h4><p>现代大部分应用程序最根本的基础在于<strong>存储和处理数据</strong>，当数据量和计算量不断上升时，传统的方式是通过购买硬件来扩容，但是渐渐地，企业发现，这种方式也不能满足需求了。</p>
+<h3 id="1-背景"><a href="#1-背景" class="headerlink" title="1 背景"></a>1 背景</h3><h4 id="1-1-资源划分"><a href="#1-1-资源划分" class="headerlink" title="1.1 资源划分"></a>1.1 资源划分</h4><p>现代大部分应用程序最根本的基础在于<strong>存储和处理数据</strong>，当数据量和计算量不断上升时，传统的方式是通过购买硬件来扩容，但是渐渐地，企业发现，这种方式也不能满足需求了。</p>
 <p>一些大型企业开始向分布式应用转型，他们把大量计算机当成单个巨型机器使用，在这些计算机中划分资源给不同的分布式应用程序。</p>
 <p>比如有这么一个场景，我现在有9台计算机，有三个分布式应用要运行，分别是Hadoop，Spark和Ruby on Rails。为了公平起见，我给每个应用分配3台机器，如下图所示：</p>
 <p><img src="/img/mesos/example1.png" alt="静态资源划分"></p>

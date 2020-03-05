@@ -48,15 +48,15 @@
   };
 </script>
 
-  <meta name="description" content="这周的周二到周五，有幸聆听了来自Portland State University计算机学院的XieFei教授的讲座，真是收获良多，颇受振奋啊。">
+  <meta name="description" content="有幸聆听了来自Portland State University计算机学院的XieFei教授的讲座，真是收获良多，颇受振奋啊。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="听一次讲座有感">
 <meta property="og:url" content="http://stillwaters.top/professor-xie-fei-feelings/index.html">
 <meta property="og:site_name" content="Still Waters">
-<meta property="og:description" content="这周的周二到周五，有幸聆听了来自Portland State University计算机学院的XieFei教授的讲座，真是收获良多，颇受振奋啊。">
+<meta property="og:description" content="有幸聆听了来自Portland State University计算机学院的XieFei教授的讲座，真是收获良多，颇受振奋啊。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2015-09-25T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-03-01T03:14:17.519Z">
+<meta property="article:modified_time" content="2020-03-05T15:51:35.284Z">
 <meta property="article:author" content="Hackerleon">
 <meta property="article:tag" content="软件工程师">
 <meta property="article:tag" content="讲座">
@@ -254,6 +254,7 @@
             </span>
 
           
+            <div class="post-description">有幸聆听了来自Portland State University计算机学院的XieFei教授的讲座，真是收获良多，颇受振奋啊。</div>
 
         </div>
       </header>
@@ -265,7 +266,6 @@
 
       
         <p>这周的周二到周五，有幸聆听了来自Portland State University计算机学院的XieFei教授的讲座，真是收获良多，颇受振奋啊。 </p>
-<a id="more"></a>  
 <p>这四天的讲座，每天都以一篇独立的博士论文为材料，介绍了软件工程方面的一些问题和解决办法。每天的讲解都以motivation开始，告诉我们为什么要解决这样一个问题，然后介绍解决的办法，最后得出结论以及效果如何，对未来应用的展望等。XieFei教授的讲解深入浅出，通俗易懂，而且互动性特别好，常常一针见血，给我的启发特别多。如果说我目前处于Level 2 的层次，那他就是在Level 4的层次在向我展示他们的成果，同时也会向我们介绍Level 6层次的人在做什么，为什么他们能领先我们那么多，为什么他们有那么高的价值，<br>先从这四篇论文说起吧。   </p>
 <ol>
 <li><strong>Automate-Theoretic Approach to Hardware/Software Co-verification</strong><br>简单说就是软硬件的协同验证。我们知道一个操作系统，除了内核kernel部分，有绝大部分都是各种各样的driver。windows xp有超过35000个driver，linux有70%都是driver，系统软件开发大多也是在做driver，真正动kernel的很少。用过win xp或者更早的操作系统的人，一定见过蓝屏死机，为啥呢？它就是在软硬件交互的时候（devices and device drivers）出的错，大概有52%的crash都是在软硬件交互的时候发生的。为了进行有效的软硬件协同认证，这里引入了formal specification和model checking的方法。但是在使用这些方法的时候，我们会面临三个问题：缺少形式化描述（通常使用英语来描述接口协议，但英语作为自然语言没有形式化定义），缺少一个统一正式的软硬件接口（软件是一个下推自动机，而硬件是有限自动机），缺少验证工具。这篇论文就针对这些问题，提出了一种合理且有效的解决方案，并且已经被应用到了工业界。<br>他们做的这个验证工具，在生产过程中，可以直接减掉一个环节的人工成本（雇佣一个工程师的价格是一年20万美金，而一个工具，显然要便宜的多），并且还能提高验证的正确率，这对老板来说可是一个不小的诱惑。而在IT界，有很多人就在做这样的工具，让工具来替代人的工作。工具可以一天24小时运转，工具不会有情绪，不会因为情感的波动而出错。这是一个好消息，也是一个坏消息。假如你不幸的被这种工具替代了，要么失业，要么学别的东西吧。所以，做对别人来说有用的工具，是非常有意义的一件事。（为什么图灵问题一直都不可解？图灵问题要是解决了，咱这做软件工程师的，可就都要失业喽。也正是因为如此，我们才有饭碗，我们才有工作去做）</li>

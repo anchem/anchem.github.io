@@ -56,7 +56,7 @@
 <meta property="og:description" content="上周五上午抽了个空，去参加了来自爱尔兰的Owen Obrien带来的基于云化架构下的可信软件开发实践的技术交流活动，收获不少，特此记录一下。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-03-01T15:52:59.000Z">
-<meta property="article:modified_time" content="2020-03-01T16:04:24.444Z">
+<meta property="article:modified_time" content="2020-03-05T15:56:48.849Z">
 <meta property="article:author" content="Hackerleon">
 <meta property="article:tag" content="软件设计与重构">
 <meta property="article:tag" content="心得感悟">
@@ -253,6 +253,7 @@
             </span>
 
           
+            <div class="post-description">上周五上午抽了个空，去参加了来自爱尔兰的Owen Obrien带来的基于云化架构下的可信软件开发实践的技术交流活动，收获不少，特此记录一下。</div>
 
         </div>
       </header>
@@ -264,8 +265,6 @@
 
       
         <p>上周五上午抽了个空，去参加了来自爱尔兰的Owen Obrien带来的基于云化架构下的可信软件开发实践的技术交流活动，收获不少，特此记录一下。</p>
-<a id="more"></a>
-
 <p>Owen的团队的主力都是来自微软、谷歌、IBM等拥有超过20年软件开发经验的老鸟，自然也积累了丰富的经验，能够站在他们的肩膀上向前走，对我和我们的团队来说都会是极大的助力。</p>
 <p>技术交流的主题是可信软件开发实践，那么自然少不了对可信软件的定义。我司对于可信软件的定义包含了6个特征，分别是safety/security/reliability/resilience/availability/privacy，而Owen对于可信软件特征的定义则包括4个方面，分别是Design&amp;Clean Code, Availability&amp;Resiliency, Security&amp;Privacy, Release&amp;Response，下面我主要来谈谈对Design&amp;Clean Code的理解：</p>
 <h2 id="Design-amp-Clean-Code"><a href="#Design-amp-Clean-Code" class="headerlink" title="Design&amp;Clean Code"></a>Design&amp;Clean Code</h2><p>在讨论为什么要开发可信软件之前，我们不妨反过来想一想，如果软件开发不可信，会给我们带来哪些问题呢？</p>
@@ -275,8 +274,8 @@
 <h2 id="SOLID"><a href="#SOLID" class="headerlink" title="SOLID"></a>SOLID</h2><p>好了，回到Design for Clean Code这一方面，让我们先来看一看，在软件开发活动的最主要的环节，我们都需要注意哪些方面。</p>
 <p>首先，我们要写出好代码的前提是知道什么样的代码是好代码，好代码的形式有很多种，它们都遵循一些基本的原则，那就是<strong>SOLID</strong>设计原则，这是面向对象设计和编程最基本的5个原则。那我们来看一看，这SOLID到底都包含哪些内容。</p>
 <ul>
-<li><strong>S</strong>代表<strong>Single Responsibility</strong>，也就是<strong>单一功能原则</strong>，意思是每个对象应该仅有一种单一的功能。</li>
-<li><strong>O</strong>代表<strong>Open-Close</strong>，也就是<strong>开闭原则</strong>，简单说就是对扩展开放，对修改关闭。（<a href="http://stillwaters.top/srp-principle">更多介绍</a>）</li>
+<li><strong>S</strong>代表<strong>Single Responsibility</strong>，也就是<strong>单一功能原则</strong>，意思是每个对象应该仅有一种单一的功能。（<a href="http://stillwaters.top/srp-principle">更多介绍</a>）</li>
+<li><strong>O</strong>代表<strong>Open-Close</strong>，也就是<strong>开闭原则</strong>，简单说就是对扩展开放，对修改关闭。</li>
 <li><strong>L</strong>代表<strong>Liskov Substitution</strong>，<strong>里氏替换原则</strong>，是芭芭拉·丽斯科夫在一个会议上首次提出来的，描述的是程序中的对象应该可以在不改变程序正确性的前提下被它的子类所替换的概念。</li>
 <li><strong>I</strong>代表<strong>Interface Segregation</strong>，即接口隔离原则，是说多个拥有特定功能的接口要好于一个宽泛用途的接口。</li>
 <li><strong>D</strong>代表<strong>Dependency Inversion</strong>，即<strong>依赖反转原则</strong>，是一种解耦，认为方法应该依赖于一个抽象而不是一个实例，不管是高层和底层之间的依赖，还是抽象和细节之间的依赖。</li>

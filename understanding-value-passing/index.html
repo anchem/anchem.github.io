@@ -48,15 +48,15 @@
   };
 </script>
 
-  <meta name="description" content="一、函数调用与参数传递C语言的函数提供了一种过程的抽象，函数的调用离不开参数的传递与返回值接收，而你真的理解这个过程吗？ 为了说明这个问题，让我们先来统一一下几个概念。">
+  <meta name="description" content="本以为C语言的值传递很好掌握，直到我遇到了一些bug。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深入理解C语言的值传递">
 <meta property="og:url" content="http://stillwaters.top/understanding-value-passing/index.html">
 <meta property="og:site_name" content="Still Waters">
-<meta property="og:description" content="一、函数调用与参数传递C语言的函数提供了一种过程的抽象，函数的调用离不开参数的传递与返回值接收，而你真的理解这个过程吗？ 为了说明这个问题，让我们先来统一一下几个概念。">
+<meta property="og:description" content="本以为C语言的值传递很好掌握，直到我遇到了一些bug。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-11-30T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-03-01T03:14:27.287Z">
+<meta property="article:modified_time" content="2020-03-05T15:57:51.528Z">
 <meta property="article:author" content="Hackerleon">
 <meta property="article:tag" content="软件工程师">
 <meta property="article:tag" content="C语言">
@@ -254,6 +254,7 @@
             </span>
 
           
+            <div class="post-description">本以为C语言的值传递很好掌握，直到我遇到了一些bug。</div>
 
         </div>
       </header>
@@ -266,7 +267,6 @@
       
         <h2 id="一、函数调用与参数传递"><a href="#一、函数调用与参数传递" class="headerlink" title="一、函数调用与参数传递"></a>一、函数调用与参数传递</h2><p>C语言的函数提供了一种过程的抽象，函数的调用离不开参数的传递与返回值接收，而你真的理解这个过程吗？</p>
 <p>为了说明这个问题，让我们先来统一一下几个概念。</p>
-<a id="more"></a>
 <h3 id="实际参数-argument"><a href="#实际参数-argument" class="headerlink" title="实际参数 (argument)"></a>实际参数 (argument)</h3><p>实际参数指的是出现在函数调用中参数，比如有以下函数定义：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">int max(int x, int y)  &#x2F;&#x2F; x和y为形式参数</span><br><span class="line">&#123;</span><br><span class="line">    return x &gt; y ? x : y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int a &#x3D; 1;  &#x2F;&#x2F; a和b为实际参数</span><br><span class="line">    int b &#x3D; 2;</span><br><span class="line">    printf(&quot;max is %d\n&quot;, max(a, b));</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
