@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://stillwaters.top').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="本以为C语言的值传递很好掌握，直到我遇到了一些bug。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入理解C语言的值传递">
+<meta property="og:url" content="http://stillwaters.top/SE-AB-CD-C-understanding-value-passing/index.html">
+<meta property="og:site_name" content="Still Waters">
+<meta property="og:description" content="本以为C语言的值传递很好掌握，直到我遇到了一些bug。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-11-30T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-03-05T15:57:51.528Z">
+<meta property="article:author" content="Hackerleon">
+<meta property="article:tag" content="软件工程师">
+<meta property="article:tag" content="C语言">
+<meta property="article:tag" content="值传递">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://stillwaters.top/SE-AB-CD-C-understanding-value-passing/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>深入理解C语言的值传递 | Still Waters</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Still Waters</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">深入理解</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap/" rel="section"><i class="fa fa-fw fa-sitemap"></i>站点地图</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="搜索..." spellcheck="false" type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://stillwaters.top/SE-AB-CD-C-understanding-value-passing/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hackerleon">
+      <meta itemprop="description" content>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Still Waters">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          深入理解C语言的值传递
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-12-01 00:00:00" itemprop="dateCreated datePublished" datetime="2019-12-01T00:00:00+08:00">2019-12-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%B3%BB%E5%88%97/" itemprop="url" rel="index">
+                    <span itemprop="name">软件工程师系列</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">本以为C语言的值传递很好掌握，直到我遇到了一些bug。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="一、函数调用与参数传递"><a href="#一、函数调用与参数传递" class="headerlink" title="一、函数调用与参数传递"></a>一、函数调用与参数传递</h2><p>C语言的函数提供了一种过程的抽象，函数的调用离不开参数的传递与返回值接收，而你真的理解这个过程吗？</p>
+<p>为了说明这个问题，让我们先来统一一下几个概念。</p>
+<h3 id="实际参数-argument"><a href="#实际参数-argument" class="headerlink" title="实际参数 (argument)"></a>实际参数 (argument)</h3><p>实际参数指的是出现在函数调用中参数，比如有以下函数定义：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">int max(int x, int y)  &#x2F;&#x2F; x和y为形式参数</span><br><span class="line">&#123;</span><br><span class="line">    return x &gt; y ? x : y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int a &#x3D; 1;  &#x2F;&#x2F; a和b为实际参数</span><br><span class="line">    int b &#x3D; 2;</span><br><span class="line">    printf(&quot;max is %d\n&quot;, max(a, b));</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在main函数里调用了max函数，其中传入的2个参数a和b就是实际参数。</p>
+<h3 id="形式参数-parameter"><a href="#形式参数-parameter" class="headerlink" title="形式参数 (parameter)"></a>形式参数 (parameter)</h3><p>相对的，形式参数就是出现在函数定义中参数列表上的值，比如上例中max函数里的x和y。</p>
+<h3 id="值传递"><a href="#值传递" class="headerlink" title="值传递"></a>值传递</h3><p>在C语言中，实际参数是通过值传递的方式传给被调用的函数的。换句话说，形式参数会拿到实际参数的一个拷贝的副本，而不是实际参数本身。</p>
+<p>在上例中，在main函数里通过表达式max(a,b)进行函数调用时，会将a和b的值拷贝给x和y。在max函数里对x和y做任何操作都不会影响a和b的值，因为他们标识的值保存在内存上不同的位置。</p>
+<p>我们通过gdb的<code>disassemble main</code>来看下汇编的代码也能够确认这一点：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">0x0000000000400546 &lt;+0&gt;:     push   %rbp</span><br><span class="line">0x0000000000400547 &lt;+1&gt;:     mov    %rsp,%rbp</span><br><span class="line">0x000000000040054a &lt;+4&gt;:     sub    $0x10,%rsp</span><br><span class="line">0x000000000040054e &lt;+8&gt;:     movl   $0x1,-0x4(%rbp)  &#x2F;&#x2F; int a &#x3D; 1;</span><br><span class="line">0x0000000000400555 &lt;+15&gt;:    movl   $0x2,-0x8(%rbp)  &#x2F;&#x2F; int b &#x3D; 2;</span><br><span class="line">0x000000000040055c &lt;+22&gt;:    mov    -0x8(%rbp),%edx</span><br><span class="line">0x000000000040055f &lt;+25&gt;:    mov    -0x4(%rbp),%eax</span><br><span class="line">0x0000000000400562 &lt;+28&gt;:    mov    %edx,%esi        &#x2F;&#x2F; 将b的值复制给y（%esi保存被调函数的第2个参数）</span><br><span class="line">0x0000000000400564 &lt;+30&gt;:    mov    %eax,%edi        &#x2F;&#x2F; 将a的值复制给x（%edi保存被调函数的第1个参数）</span><br><span class="line">0x0000000000400566 &lt;+32&gt;:    callq  0x400530 &lt;max&gt;   &#x2F;&#x2F; 调用max(a, b)</span><br><span class="line">0x000000000040056b &lt;+37&gt;:    mov    %eax,%esi</span><br><span class="line">0x000000000040056d &lt;+39&gt;:    mov    $0x400620,%edi</span><br><span class="line">0x0000000000400572 &lt;+44&gt;:    mov    $0x0,%eax</span><br><span class="line">0x0000000000400577 &lt;+49&gt;:    callq  0x400410 &lt;printf@plt&gt;</span><br><span class="line">0x000000000040057c &lt;+54&gt;:    mov    $0x0,%eax</span><br><span class="line">0x0000000000400581 &lt;+59&gt;:    leaveq</span><br><span class="line">0x0000000000400582 &lt;+60&gt;:    retq</span><br></pre></td></tr></table></figure>
+
+<p>其中汇编代码和原始代码的对应关系已标注，我们可以看到，在调用max函数时，是a和b的值是通过拷贝的方式给到x和y的，而他们的值都保存在不同的寄存器里。</p>
+<h2 id="二、例子"><a href="#二、例子" class="headerlink" title="二、例子"></a>二、例子</h2><p>概念明确了之后，下面我们以几个典型的例子来深入理解一下。</p>
+<h3 id="1-整型指针"><a href="#1-整型指针" class="headerlink" title="1. 整型指针"></a>1. 整型指针</h3><p>了解了值传递，你可能会想到一个问题，既然形参不会影响实参的值，那么如果我想在被调函数里修改实参的值怎么办呢？</p>
+<p>我们以一个经典的数字交换的例子来看这个问题：</p>
+<p>【源码1-1】</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">void Swap(int x, int y)  </span><br><span class="line">&#123;</span><br><span class="line">    int tmp &#x3D; y;</span><br><span class="line">    y &#x3D; x;</span><br><span class="line">    x &#x3D; tmp;</span><br><span class="line">    printf(&quot;x &#x3D; %d, y &#x3D; %d\n&quot;, x, y);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int a &#x3D; 1;</span><br><span class="line">    int b &#x3D; 2;</span><br><span class="line">    Swap(a, b);</span><br><span class="line">    printf(&quot;a &#x3D; %d, b &#x3D; %d\n&quot;, a, b);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>【输出】</p>
+<blockquote>
+<p>x = 2, y = 1<br>a = 1, b = 2</p>
+</blockquote>
+<p>我们希望通过调用Swap(a, b)来交换a和b的值，但是失败了。因为在Swap函数里，x、y和a、b实际都指向不同的内存块，x和y只是将自己的值从a和b那里拷贝了一份，对x和y的修改不会影响到a和b。<br>那么我们怎么改变a和b的值呢？用指针。</p>
+<p>指针表示一块内存的地址，地址也是一个值。通过<code>&amp;a</code>可以获取到变量a的地址，而通过<code>*x</code>则可以拿到指针x所指向的那块内存的值。因此，我们可以通过传递地址来达到修改该地址所标识的值的目的。</p>
+<p>【源码1-2】</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">void Swap(int *x, int *y)  </span><br><span class="line">&#123;</span><br><span class="line">    int tmp &#x3D; *y;</span><br><span class="line">    *y &#x3D; *x;</span><br><span class="line">    *x &#x3D; tmp;</span><br><span class="line">    printf(&quot;x &#x3D; %d, y &#x3D; %d\n&quot;, *x, *y);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int a &#x3D; 1;</span><br><span class="line">    int b &#x3D; 2;</span><br><span class="line">    Swap(&amp;a, &amp;b);</span><br><span class="line">    printf(&quot;a &#x3D; %d, b &#x3D; %d\n&quot;, a, b);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>【输出】</p>
+<blockquote>
+<p>x = 2, y = 1<br>a = 2, b = 1</p>
+</blockquote>
+<p>这样才能成功地交换a和b的值，这是因为，我们在调用Swap函数时，将a和b的地址，也就是门牌号给传了进去，而Swap里的x和y就可以根据门牌号来找到保存a和b的值的地方，进而对他们进行修改。</p>
+<h3 id="2-字符指针"><a href="#2-字符指针" class="headerlink" title="2. 字符指针"></a>2. 字符指针</h3><p>字符指针常用来表示字符串，比如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">char *str &#x3D; &quot;abc&quot;;</span><br></pre></td></tr></table></figure>
+
+<p>那么str实际指向了一个长度为4个char型的内存块的第一个元素，该内存块依次保存了’a’,’b’,’c’,’\0’。<br>如果我想在另一个函数中改变str里的值，那么我就需要把字符指针str传递给那个函数：</p>
+<p>【源码2-1】</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">void ChangeStr(char *strc)</span><br><span class="line">&#123;</span><br><span class="line">    strcat(strc, &quot;dc&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    char *str &#x3D; (char*)malloc(sizeof(char) * 10);</span><br><span class="line">    memset(str, 0, sizeof(char)*10);</span><br><span class="line">    strncpy(str, &quot;abc&quot;, 2);</span><br><span class="line">    printf(&quot;str 1 &#x3D; %s\n&quot;, str);</span><br><span class="line">    ChangeStr(str);</span><br><span class="line">    printf(&quot;str 2 &#x3D; %s\n&quot;, str);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>【输出】</p>
+<blockquote>
+<p>str 1 = ab<br>str 2 = abdc</p>
+</blockquote>
+<p>如果你理解了上面的整型指针，那么这段代码就很好理解了。在调用ChangeStr函数时，传递的就是指针str，这时在ChangeStr内部就可以通过strc找到str所指向的内存块了，自然就能够修改实参str所指向的字符串了。</p>
+<p>但是这种场景也可能会出现问题，比如下面这样：</p>
+<p>【源码2-2】</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">void ChangeStr(char *strc)</span><br><span class="line">&#123;</span><br><span class="line">    if (strc &#x3D;&#x3D; NULL) &#123;</span><br><span class="line">        strc &#x3D; (char*)malloc(sizeof(char) * 10);</span><br><span class="line">        memset(strc, 0, sizeof(char)*10);</span><br><span class="line">    &#125;</span><br><span class="line">    strncpy(strc, &quot;abc&quot;, 2);</span><br><span class="line">    strcat(strc, &quot;dc&quot;);</span><br><span class="line">    printf(&quot;str 1 &#x3D; %s\n&quot;, strc);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    char *str &#x3D; NULL;</span><br><span class="line">    ChangeStr(str);</span><br><span class="line">    if (str &#x3D;&#x3D; NULL) &#123;</span><br><span class="line">        printf(&quot;str is null\n&quot;);</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;str 2 &#x3D; %s\n&quot;, str);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>【输出】</p>
+<blockquote>
+<p>str 1 = abdc<br>str is null</p>
+</blockquote>
+<p>虽然我给ChangeStr传递的也是char类型的指针，在ChangeStr里的确也分配了内存，成功地修改了形参strc指向的字符串的值，为什么在main函数里，实参str指向的还是空的呢？</p>
+<p>让我们回到值传递这个概念，在main函数里调用ChangeStr的时候，str的值是空值，而在ChangeStr函数里，形参strc刚开始拿到的是实参str的一份拷贝，也就是一个空值。之后通过malloc函数所在的那一行修改了strc的值，这时strc指向了另一块内存，和实参str所指向的地方已经不同了。当ChangeStr函数返回时，strc是strc，str是str，两个变量的值已经不一样了，所以str还是一个空值。</p>
+<p>同时，在ChangeStr函数返回后，形参strc就失效了，而它所指向的那块内存因为没有指针可以索引到，既用不了，也不能分配给别人，所以自然就内存泄露了。</p>
+<p>这个问题修改起来也简单，只需要把ChangeStr的形参作为返回值再传递给实参str就可以了，像下面这样：</p>
+<p>【源码2-3】</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">char *ChangeStr(char *strc)</span><br><span class="line">&#123;</span><br><span class="line">    if (strc &#x3D;&#x3D; NULL) &#123;</span><br><span class="line">        strc &#x3D; (char*)malloc(sizeof(char) * 10);</span><br><span class="line">        memset(strc, 0, sizeof(char)*10);</span><br><span class="line">    &#125;</span><br><span class="line">    strncpy(strc, &quot;abc&quot;, 2);</span><br><span class="line">    strcat(strc, &quot;dc&quot;);</span><br><span class="line">    printf(&quot;str 1 &#x3D; %s\n&quot;, strc);</span><br><span class="line">    return strc;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    char *str &#x3D; NULL;</span><br><span class="line">    str &#x3D; ChangeStr(str);</span><br><span class="line">    if (str &#x3D;&#x3D; NULL) &#123;</span><br><span class="line">        printf(&quot;str is null\n&quot;);</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;str 2 &#x3D; %s\n&quot;, str);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>【输出】</p>
+<blockquote>
+<p>str 1 = abdc<br>str 2 = abdc</p>
+</blockquote>
+<p>我们通过<code>str = ChangeStr(str);</code>表达式，将形参strc的值赋值给了实参str，这样str就能够索引到strc所指向的那个字符串了。</p>
+<p>当然，如果你对指针有足够的理解的话，也可以通过传递二级指针的方式解决这个问题，像下面这样：</p>
+<p>【源码2-4】</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">char *ChangeStr(char **strc)</span><br><span class="line">&#123;</span><br><span class="line">    if (*strc &#x3D;&#x3D; NULL) &#123;</span><br><span class="line">        *strc &#x3D; (char*)malloc(sizeof(char) * 10);</span><br><span class="line">        memset(*strc, 0, sizeof(char)*10);</span><br><span class="line">    &#125;</span><br><span class="line">    strncpy(*strc, &quot;abc&quot;, 2);</span><br><span class="line">    strcat(*strc, &quot;dc&quot;);</span><br><span class="line">    printf(&quot;str 1 &#x3D; %s\n&quot;, *strc);</span><br><span class="line">    return *strc;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    char *str &#x3D; NULL;</span><br><span class="line">    ChangeStr(&amp;str);</span><br><span class="line">    if (str &#x3D;&#x3D; NULL) &#123;</span><br><span class="line">        printf(&quot;str is null\n&quot;);</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;str 2 &#x3D; %s\n&quot;, str);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>【输出】</p>
+<blockquote>
+<p>str 1 = abdc<br>str 2 = abdc</p>
+</blockquote>
+<p>指针就是变量的地址，那么指针自己本身也有地址，通过传递指针的指针，我们就可以在其他函数里修改指针的值了。</p>
+<p>当然，我个人比较建议用2-3的方式来解决这个问题，毕竟返回值一读即懂，而通过形参来修改实参的方式读起来稍微费劲儿一些。</p>
+<h3 id="3-free-函数"><a href="#3-free-函数" class="headerlink" title="3. free()函数"></a>3. free()函数</h3><p>在上面的例子里我们用到了<code>malloc</code>函数，下面我们再来看一个由<code>free</code>函数引发的血案：</p>
+<p>【源码3-1】</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">void SafeFree(void *p)</span><br><span class="line">&#123;</span><br><span class="line">    if(p !&#x3D; NULL)&#123;</span><br><span class="line">        free(p);</span><br><span class="line">        p &#x3D; NULL;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">char *InitStr()</span><br><span class="line">&#123;</span><br><span class="line">    char *str &#x3D; (char*)malloc(sizeof(char)*10);</span><br><span class="line">    memset(str, 0, sizeof(char)*10);</span><br><span class="line">    strncpy(str, &quot;abc&quot;, 3);</span><br><span class="line">    return str;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    char *str;</span><br><span class="line">    str &#x3D; InitStr();</span><br><span class="line">    printf(&quot;str &#x3D; %s\n&quot;, str);</span><br><span class="line">    SafeFree(str);</span><br><span class="line">    if(str !&#x3D; NULL)&#123;</span><br><span class="line">        printf(&quot;str is %s&quot;, str);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>【输出】</p>
+<blockquote>
+<p>str = abc<br>str is h?y</p>
+</blockquote>
+<p>通过上面的例子，很容易理解<code>InitStr()</code>初始化str没有问题。在这之后，调用了<code>SafeFree(str)</code>来释放这块内存，在该函数里，free函数把str指向的内存块释放掉了，而形参p拿到的是实参str的拷贝，把p修改成NULL并不会影响实参str的值，str指向的还是这块内存。这时我们再打印str，就会把str当前指向的这块内存的内容给打印出来了。如果这段代码出现在了一个复杂的大型程序中，很容易引发进程复位。</p>
+<p>要修复这个问题，我们需要在SafeFree函数之后，把NULL再赋值给str，让它不要再指向一块已不属于它的内存了。</p>
+<p>这也提醒了我们，在使用free函数之后，要注意所有指向这块内存的指针，一定要赋空，否则不管是再次使用还是二次free，都会引发血案</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SafeFree(str);</span><br><span class="line">str &#x3D; NULL;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-局部变量的指针"><a href="#4-局部变量的指针" class="headerlink" title="4. 局部变量的指针"></a>4. 局部变量的指针</h3><p>由上面的几个例子我们可以看到，函数可以返回指向外部变量的指针，也可以返回局部指针变量，那么如果我们返回了指向局部变量的指针会发生什么情况呢？</p>
+<p>【源码4-1】</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">int *TempTest()</span><br><span class="line">&#123;</span><br><span class="line">    int temp &#x3D; 100;</span><br><span class="line">    return &amp;temp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int *num;</span><br><span class="line">    num &#x3D; TempTest();</span><br><span class="line">    printf(&quot;num &#x3D; %d&quot;, *num);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>【输出】</p>
+<blockquote>
+<p>警告：函数返回局部变量的地址 [-Wreturn-local-addr]<br>     return &temp;</p>
+</blockquote>
+<p>在TempTest函数里定义了一个局部变量temp，一旦TempTest函数返回了，变量temp的生命周期就结束了，而指向temp的指针将指向一块无效的内存，也许这个指针就成NULL的了。这段代码在编译的时候会触发编译告警，提示函数返回了局部变量的地址，运行时很可能就会触发段错误。</p>
+<p>如果把temp修改成全局变量或者局部静态变量<code>static</code>，由于其生命周期不再局限于TempTest函数，而是整个程序级别的，这样就不会出现其内存无效的情况了。</p>
+<h2 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h2><p>C语言的函数调用和参数传递是初学者常常容易轻视而栽跟头的地方，其实只要记住C语言的参数传递是值传递，是拷贝传递，同时注意参数的生命周期，就能够掌握它了。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Hackerleon
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://stillwaters.top/SE-AB-CD-C-understanding-value-passing/" title="深入理解C语言的值传递">http://stillwaters.top/SE-AB-CD-C-understanding-value-passing/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="external nofollow" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-ND</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/C%E8%AF%AD%E8%A8%80/" rel="tag"><i class="fa fa-tag"></i> C语言</a>
+              <a href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" rel="tag"><i class="fa fa-tag"></i> 编程语言</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/PG-TM-internet-of-value/" rel="prev" title="Internet of Value">
+      <i class="fa fa-chevron-left"></i> Internet of Value
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/SE-EXP-stay-serious/" rel="next" title="保持敬畏，保持严谨">
+      保持敬畏，保持严谨 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、函数调用与参数传递"><span class="nav-number">1.</span> <span class="nav-text">一、函数调用与参数传递</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实际参数-argument"><span class="nav-number">1.1.</span> <span class="nav-text">实际参数 (argument)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#形式参数-parameter"><span class="nav-number">1.2.</span> <span class="nav-text">形式参数 (parameter)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#值传递"><span class="nav-number">1.3.</span> <span class="nav-text">值传递</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、例子"><span class="nav-number">2.</span> <span class="nav-text">二、例子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-整型指针"><span class="nav-number">2.1.</span> <span class="nav-text">1. 整型指针</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-字符指针"><span class="nav-number">2.2.</span> <span class="nav-text">2. 字符指针</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-free-函数"><span class="nav-number">2.3.</span> <span class="nav-text">3. free()函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-局部变量的指针"><span class="nav-number">2.4.</span> <span class="nav-text">4. 局部变量的指针</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、总结"><span class="nav-number">3.</span> <span class="nav-text">三、总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Hackerleon</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/anchem" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;anchem" rel="external nofollow" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:hackerleon@foxmail.com" title="E-Mail → mailto:hackerleon@foxmail.com" rel="external nofollow" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/anchem" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;anchem" rel="external nofollow" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" class="cc-opacity" rel="external nofollow" target="_blank"><img src="/images/cc-by-nc-nd.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hackerleon</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="external nofollow" target="_blank">Hexo</a> 强力驱动
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="external nofollow" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
