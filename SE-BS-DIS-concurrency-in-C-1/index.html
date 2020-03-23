@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://stillwaters.top').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="本篇介绍了C语言中基于Pthreads的多线程并发编程。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于线程的并发编程——概览">
+<meta property="og:url" content="http://stillwaters.top/SE-BS-DIS-concurrency-in-C-1/index.html">
+<meta property="og:site_name" content="Still Waters">
+<meta property="og:description" content="本篇介绍了C语言中基于Pthreads的多线程并发编程。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-23T15:54:40.000Z">
+<meta property="article:modified_time" content="2020-03-23T15:57:33.899Z">
+<meta property="article:author" content="Hackerleon">
+<meta property="article:tag" content="C语言">
+<meta property="article:tag" content="并发编程">
+<meta property="article:tag" content="Pthreads">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://stillwaters.top/SE-BS-DIS-concurrency-in-C-1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>基于线程的并发编程——概览 | Still Waters</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Still Waters</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">深入理解</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap/" rel="section"><i class="fa fa-fw fa-sitemap"></i>站点地图</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="搜索..." spellcheck="false" type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://stillwaters.top/SE-BS-DIS-concurrency-in-C-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hackerleon">
+      <meta itemprop="description" content>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Still Waters">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          基于线程的并发编程——概览
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-23 23:54:40" itemprop="dateCreated datePublished" datetime="2020-03-23T23:54:40+08:00">2020-03-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%B3%BB%E5%88%97/" itemprop="url" rel="index">
+                    <span itemprop="name">软件工程师系列</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">本篇介绍了C语言中基于Pthreads的多线程并发编程。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="1-背景知识"><a href="#1-背景知识" class="headerlink" title="1. 背景知识"></a>1. 背景知识</h1><p>在类UNIX系统的世界里，要说基于线程的并发编程，那就要请出<strong>POSIX Threads</strong>了。为了说明它的使用，我们以C语言为工具，来了解一下吧。（本文假设你已经了解进程、线程和并发编程的基本概念了）</p>
+<h1 id="2-POSIX-Threads"><a href="#2-POSIX-Threads" class="headerlink" title="2. POSIX Threads"></a>2. POSIX Threads</h1><h2 id="2-1-概念"><a href="#2-1-概念" class="headerlink" title="2.1. 概念"></a>2.1. 概念</h2><p>要说POSIX Threads，得先说说POSIX是什么。<strong>POSIX（Portable Operating System Interface）</strong>也叫可移植操作系统接口，是最初由IEEE定义的一套标准族，它定义了操作系统应该提供的各种服务。因为早期UNIX系统有各种各样的版本，不同版本之间的系统接口各不相同（包括软件和硬件），一个软件可能在这个操作系统上运行着好好的，到了另一个系统上就挂掉了。而它出现的目的就是为了提升应用程序在各种UNIX系统环境之间的可移植性，说白了就是达到软件一次编写，哪儿都能跑的目的。</p>
+<p><strong>POSIX Threads</strong>，就是基于POSIX的线程标准，它定义了一套管理和操纵线程的API，也就是接口。实现了这个标准的库常常被称为<strong>Pthreads</strong>。因为POSIX标准是基于UNIX的，所以Pthreads一般只能用于类UNIX的系统，当然Windows上的实现也存在，但本次先不讨论它。</p>
+<h2 id="2-2-Why-amp-When"><a href="#2-2-Why-amp-When" class="headerlink" title="2.2. Why &amp; When"></a>2.2. Why &amp; When</h2><p>一般简单的程序可能用不到多线程，但现在大部分的程序基本都是多线程的，因为多线程能够带来更好的性能和响应速度。比如浏览器，大部分人在使用浏览器的时候往往会打开多个窗口，并且在浏览当前网页的同时，其他页面也能同时加载。如果这样的浏览器只有一个线程的话，它是无法提供上述功能的，只有多线程的浏览器才可以。比如一个线程负责展示你当前浏览的页面，另一个线程负责加载你刚才打开的另一个页面。</p>
+<p>而对于使用Pthreads的多线程程序来说，好处包括以下几个方面：</p>
+<ul>
+<li><strong>轻量级</strong><ul>
+<li>相对于进程来说，线程的创建和管理会消耗更少的系统资源。</li>
+</ul>
+</li>
+<li><strong>高效的数据交换</strong><ul>
+<li>由于线程共享同一进程内的地址空间，线程间的数据通讯不会带来额外的拷贝动作。</li>
+<li>线程间的通讯常常是CPU和缓存或内存间的数据交换，比MPI提供的共享内存的交换方式要高效的多。</li>
+</ul>
+</li>
+<li><strong>高性能</strong><ul>
+<li>如果程序内有等待I/O的动作，它不会因此而阻塞，多线程的能力允许不同的任务并发执行。</li>
+<li>任务可以按照优先级顺序执行，高优先级可以推迟或打断低优先级的任务。</li>
+<li>具备异步事件处理的能力，当前正在处理的事件和新到来的事件可以交错执行。</li>
+</ul>
+</li>
+</ul>
+<p>如果你的程序需要具备以上的能力的话，那么请放心大胆地使用Pthreads吧。</p>
+<h2 id="2-3-API概述"><a href="#2-3-API概述" class="headerlink" title="2.3. API概述"></a>2.3. API概述</h2><p>Pthreads由一个pthreads.h文件和一个线程库组成，定义了一套C语言的数据类型、函数和常量。库里所有的标识符都以<strong>pthread_</strong>打头，比较好辨认，在后面的详细介绍里我们会看到。<br>Pthreads库主要使用以下几种数据类型：</p>
+<ul>
+<li><strong>pthread_t</strong>：线程句柄。</li>
+<li><strong>pthread_attr_t</strong>：线程属性。</li>
+<li><strong>pthread_mutex_t</strong>：互斥量数据类型。</li>
+<li><strong>pthread_cond_t</strong>：条件变量数据类型。</li>
+<li><strong>pthread_barrier_t</strong>：同步屏障数据类型。</li>
+</ul>
+<p>这些函数可以分成四大类，分别是：</p>
+<ul>
+<li><strong>线程管理</strong>。例如创建、销毁、结合、分离线程，设置和查询线程属性等方法。</li>
+<li><strong>互斥锁</strong>。创建、销毁、锁定、解锁、设置属性等方法。</li>
+<li><strong>条件变量</strong>。创建、摧毁、等待、通知、设置与查询条件变量属性等操作。</li>
+<li><strong>同步管理</strong>。管理读写锁和屏障。</li>
+</ul>
+<h2 id="2-4-引入"><a href="#2-4-引入" class="headerlink" title="2.4. 引入"></a>2.4. 引入</h2><p>要在程序中引入Pthreads很简单，只需要做2件事：</p>
+<ol>
+<li>源代码引入Pthreads的头文件<code>#include &lt;pthread.h&gt;</code></li>
+<li>编译时添加编译命令<code>gcc -pthread</code>或<code>g++ -pthread</code></li>
+</ol>
+<h2 id="2-5-分类介绍"><a href="#2-5-分类介绍" class="headerlink" title="2.5. 分类介绍"></a>2.5. 分类介绍</h2><h3 id="2-5-1-线程管理"><a href="#2-5-1-线程管理" class="headerlink" title="2.5.1. 线程管理"></a>2.5.1. 线程管理</h3><p>线程管理类的API提供了<strong>创建</strong>、<strong>销毁</strong>、<strong>取消</strong>、<strong>结合</strong>、<strong>分离</strong>线程与设置和查询线程<strong>属性</strong>等方法。</p>
+<p>详细介绍请看：<a href="http://stillwaters.top">《基于线程的并发编程——线程管理》</a>（待补充）</p>
+<h3 id="2-5-2-线程同步"><a href="#2-5-2-线程同步" class="headerlink" title="2.5.2. 线程同步"></a>2.5.2. 线程同步</h3><p>当多个线程之间不会共享相同的内存，也就是说每个线程使用的变量都是其他线程不会读取和修改的，那么大家就相安无事，不会存在什么问题。就像我从我家的冰箱里拿一个鸡蛋，和你从你家的冰箱里拿一个，咱俩用的是各自独立的冰箱，相互之间没有什么影响。但是，如果咱俩住在一个屋檐下，共用一个冰箱，想要同时从冰箱里拿东西，就会存在竞争问题了。多线程之间的同步也是类似的道理。</p>
+<p>线程对内存的使用无非就是<strong>读</strong>和<strong>写</strong>，在多个线程使用共享的内存时，如果大家都只是读取，而不会修改这块内存的值，那么也没问题。但一旦有一个或多个线程可能会修改这块内存的值，那么就会遇到<strong>一致性</strong>的问题。比如当一个线程在修改一个变量，那么其他线程在读取这个变量的时候可能会看到一个不一致的值。为什么会出现这种情况呢？</p>
+<p><strong>【原因】</strong></p>
+<p>在高级编程语言的代码里，一个变量的修改只需要一条语句就足够了，但它的实际执行则需要多条机器指令来完成，如下例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; main.c</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;pthread.h&gt;</span><br><span class="line">int num &#x3D; 0;</span><br><span class="line"></span><br><span class="line">void *ThreadFunc(void *any)</span><br><span class="line">&#123;</span><br><span class="line">    num++; &#x2F;&#x2F; 修改全局变量num，只一行</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    pthread_t thread1;</span><br><span class="line">    pthread_t thread2;</span><br><span class="line">    pthread_create(&amp;thread1, NULL, ThreadFunc, NULL);</span><br><span class="line">    pthread_create(&amp;thread2, NULL, ThreadFunc, NULL);</span><br><span class="line"> </span><br><span class="line">    void *status;</span><br><span class="line">    pthread_join(thread1, &amp;status);</span><br><span class="line">    pthread_join(thread2, &amp;status);</span><br><span class="line">    printf(&quot;num&#x3D;%d\r\n&quot;, num);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中线程函数<code>ThreadFunc()</code>的汇编代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">(gdb) disassemble ThreadFunc</span><br><span class="line">Dump of assembler code for function ThreadFunc:</span><br><span class="line">   0x00000000004005f6 &lt;+0&gt;:     push   %rbp</span><br><span class="line">   0x00000000004005f7 &lt;+1&gt;:     mov    %rsp,%rbp</span><br><span class="line">   0x00000000004005fa &lt;+4&gt;:     mov    %rdi,-0x8(%rbp)</span><br><span class="line">   0x00000000004005fe &lt;+8&gt;:     mov    0x2004a0(%rip),%eax        # 0x600aa4 &lt;num&gt;</span><br><span class="line">   0x0000000000400604 &lt;+14&gt;:    add    $0x1,%eax</span><br><span class="line">   0x0000000000400607 &lt;+17&gt;:    mov    %eax,0x200497(%rip)        # 0x600aa4 &lt;num&gt;</span><br><span class="line">   0x000000000040060d &lt;+23&gt;:    nop</span><br><span class="line">   0x000000000040060e &lt;+24&gt;:    pop    %rbp</span><br><span class="line">   0x000000000040060f &lt;+25&gt;:    retq</span><br><span class="line">End of assembler dump.</span><br></pre></td></tr></table></figure>
+<p>我们关注一下线程函数<code>ThreadFunc()</code>，在C语言代码里，它只做了一件事，就是把全局变量num+1；而对应的汇编代码里，我们可以看到，机器需要3条指令来完成这个操作，即：</p>
+<ol>
+<li>从内存中读入至寄存器（第6行）；</li>
+<li>在寄存器中对变量做修改操作（第7行）；</li>
+<li>把新的值写回到内存中（第8行）。</li>
+</ol>
+<p>在本例中，<code>main()</code>函数启动了2个线程，同时对全局变量<code>num</code>做自增操作，假如2个线程以如下的方式执行：</p>
+<ol>
+<li>线程1将num的值从内存读入至寄存器中，%eax=0；</li>
+<li>线程2将num的值从内存读入至寄存器中，%eax=0；</li>
+<li>线程1对寄存器中的值做自增操作，%eax=1；</li>
+<li>线程2对寄存器中的值做自增操作，%eax=1；</li>
+<li>线程1将寄存器中的值写回到内存里，此时num的值为1；</li>
+<li>线程2将寄存器中的值写回到内存里，此时num的值仍为1；</li>
+</ol>
+<p>问题就出在第5和第6步：第5步时，线程1已经将num的值修改为了1，但是这个修改对线程2来说<strong>不可见</strong>，此时num的值就出现了<strong>不一致</strong>的情况，那么当第6步线程2将num的值再修改的时候，就覆盖了线程1的修改。最后num的值预期是2，但是结果可能是2，也可能是1，也就是刚刚描述的这种场景。</p>
+<p>除了计算机体系结构的原因之外，程序使用变量的方式也会带来<strong>竞争</strong>的问题。比如一个线程把某个共享变量+1，然后其他线程会根据这个值做出某个决定，但是很有可能当那个线程还没有把变量的值写进去的时候，其他线程就过来读取了，这时候就会读取到一个不一致的值，从而影响程序的行为。</p>
+<p>为了解决这种线程同步的问题，Pthreads提供了以下几种机制：</p>
+<ul>
+<li><strong>互斥量</strong> - <a href="http://stillwaters.top">《基于线程的并发编程——互斥量》</a>（待补充）</li>
+<li><strong>读写锁</strong> - <a href="http://stillwaters.top">《基于线程的并发编程——读写锁》</a>（待补充）</li>
+<li><strong>条件变量</strong> - <a href="http://stillwaters.top">《基于线程的并发编程——条件变量》</a>（待补充）</li>
+<li><strong>自旋锁</strong> - <a href="http://stillwaters.top">《基于线程的并发编程——自旋锁》</a>（待补充）</li>
+<li><strong>屏障</strong> - <a href="http://stillwaters.top">《基于线程的并发编程——屏障》</a>（待补充）</li>
+</ul>
+<h1 id="3-实例"><a href="#3-实例" class="headerlink" title="3. 实例"></a>3. 实例</h1><h2 id="3-1-生产者-消费者"><a href="#3-1-生产者-消费者" class="headerlink" title="3.1. 生产者-消费者"></a>3.1. 生产者-消费者</h2><h2 id="3-2-读者-写者"><a href="#3-2-读者-写者" class="headerlink" title="3.2. 读者-写者"></a>3.2. 读者-写者</h2><h1 id="4-参考资料"><a href="#4-参考资料" class="headerlink" title="4. 参考资料"></a>4. 参考资料</h1><ol>
+<li><a href="https://computing.llnl.gov/tutorials/pthreads/" target="_blank" rel="external nofollow">POSIX Threads Programming</a></li>
+<li>《Advanced Programming in the UNIX Environment》</li>
+<li>《Computer Systems:A Programmer’s Perspective》</li>
+<li><a href="http://man7.org/linux/man-pages/index.html" target="_blank" rel="external nofollow">Linux man pages online</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Hackerleon
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://stillwaters.top/SE-BS-DIS-concurrency-in-C-1/" title="基于线程的并发编程——概览">http://stillwaters.top/SE-BS-DIS-concurrency-in-C-1/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="external nofollow" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-ND</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/C%E8%AF%AD%E8%A8%80/" rel="tag"><i class="fa fa-tag"></i> C语言</a>
+              <a href="/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" rel="tag"><i class="fa fa-tag"></i> 并发编程</a>
+              <a href="/tags/Pthreads/" rel="tag"><i class="fa fa-tag"></i> Pthreads</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/HB-MS-28th-birthday-gift-for-you/" rel="prev" title="《化作繁星》">
+      <i class="fa fa-chevron-left"></i> 《化作繁星》
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-背景知识"><span class="nav-number">1.</span> <span class="nav-text">1. 背景知识</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-POSIX-Threads"><span class="nav-number">2.</span> <span class="nav-text">2. POSIX Threads</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-概念"><span class="nav-number">2.1.</span> <span class="nav-text">2.1. 概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-Why-amp-When"><span class="nav-number">2.2.</span> <span class="nav-text">2.2. Why &amp; When</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-API概述"><span class="nav-number">2.3.</span> <span class="nav-text">2.3. API概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-引入"><span class="nav-number">2.4.</span> <span class="nav-text">2.4. 引入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-分类介绍"><span class="nav-number">2.5.</span> <span class="nav-text">2.5. 分类介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-1-线程管理"><span class="nav-number">2.5.1.</span> <span class="nav-text">2.5.1. 线程管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-2-线程同步"><span class="nav-number">2.5.2.</span> <span class="nav-text">2.5.2. 线程同步</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-实例"><span class="nav-number">3.</span> <span class="nav-text">3. 实例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-生产者-消费者"><span class="nav-number">3.1.</span> <span class="nav-text">3.1. 生产者-消费者</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-读者-写者"><span class="nav-number">3.2.</span> <span class="nav-text">3.2. 读者-写者</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-参考资料"><span class="nav-number">4.</span> <span class="nav-text">4. 参考资料</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Hackerleon</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/anchem" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;anchem" rel="external nofollow" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:hackerleon@foxmail.com" title="E-Mail → mailto:hackerleon@foxmail.com" rel="external nofollow" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/anchem" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;anchem" rel="external nofollow" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" class="cc-opacity" rel="external nofollow" target="_blank"><img src="/images/cc-by-nc-nd.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hackerleon</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="external nofollow" target="_blank">Hexo</a> 强力驱动
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="external nofollow" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
