@@ -1,7 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>基于线程的并发编程——概览</title>
+    <title>基于线程的并发编程——线程管理</title>
+    <url>/SE-BS-DIS-concurrency-in-C-2/</url>
+    <content><![CDATA[<p>Pthreads线程管理类的API提供了创建、销毁、取消、结合、分离线程与设置和查询线程属性等方法。</p>
+<h1 id="1-线程标识"><a href="#1-线程标识" class="headerlink" title="1. 线程标识"></a>1. 线程标识</h1><p>在Pthreads里，数据类型<code>pthread_t</code>用来标识一个线程，你也可以称之为线程ID，或者线程句柄。出于移植的目的，你不能把它当做整数处理，因为不同的操作系统的实现是不一样的。</p>
+<p>你可以在线程函数内获取线程自身的ID，通过以下方法</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pthread_t pthread_self(void);</span><br><span class="line">&#x2F;&#x2F; 返回线程ID</span><br></pre></td></tr></table></figure>
+
+<p>当你需要比较2个线程的时候，可以使用以下方法</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int pthread_equal(pthread_t, pthread_t);</span><br><span class="line">&#x2F;&#x2F; 若相等，返回非0数值；否则返回0</span><br></pre></td></tr></table></figure>
+
+<h1 id="2-创建线程"><a href="#2-创建线程" class="headerlink" title="2. 创建线程"></a>2. 创建线程</h1><p>当你的程序从<code>main()</code>函数启动时，它本身就是一个线程，我们姑且把它称作<strong>主线程</strong>，之后如果你需要创建线程，都需要手工创建和管理。也就是说，从<code>main()</code>创建的主线程是唯一一个不用我们太操心的线程。</p>
+<p><strong><code>pthread_create(thread,attr,start_routine,arg)</code></strong>提供了创建线程的方法。<br><strong>[参数]</strong></p>
+<ul>
+<li>thread（pthread_t*） - 是一个指针类型的出参，指向新创建线程的ID；</li>
+<li>attr（pthread_attr_t*） - 设置新线程的一些属性，如果传空就使用默认的；</li>
+<li>start_routine（void<em>()(void</em>)） - 新线程要执行的函数；</li>
+<li>arg（void*） - 所要执行函数的入参，是一个任意指针类型，惯用法是在start_routine内部对入参进行类型转换从而得到想要的数据。如果你有多个参数的话，那就封装成一个结构体，把它的指针传进去就好了。</li>
+</ul>
+<p><strong>[返回值]</strong>该函数返回0就表示创建成功了，否则会返回一个错误码（这种情况下，出参指向的内容可能是未定义的，要谨慎使用）。</p>
+<p><strong>[调度]</strong>线程创建了之后，会处于可执行的状态，之后就会被操作系统调度了；这也意味着，你无法控制这个线程具体什么时间会真正跑起来，也无法知晓这个语句执行之后，下一个被调度的线程时主线程还是新线程。</p>
+<p><strong>[限制]</strong>每个进程可以创建多少个线程是有限制的，这个限制和具体的操作系统实现有关。<br>其中，操作系统限制的创建的最大线程数可以通过如下命令查看<code>cat /proc/sys/kernel/threads-max</code>。</p>
+<p>但它只是提供了一个逻辑天花板，实际物理天花板在于虚拟内存和线程栈大小之间的关系，也就是<code>virtual memory / stack size</code>，其中virtual memory可以通过<code>ulimit -v</code>来查看，stack size可以通过<code>ulimit -s</code>查看。</p>
+<p>同时，由于线程是运行在进程里的，它也会受到系统允许的最大进程数的影响，可以通过<code>ulimit -u</code>查看。<br>而对于具体线程的限制，可以通过<code>cat /proc/${pid}/limits</code>命令查看。如果需要修改生效的话，需要确保进程在生效后启动才可以。</p>
+<h1 id="3-线程属性"><a href="#3-线程属性" class="headerlink" title="3. 线程属性"></a>3. 线程属性</h1><p>Pthreads接口允许我们通过设置每个对象关联的不同属性来细调线程（和同步对象）的行为。管理这些属性的函数都遵循<strong>相同</strong>的模式：</p>
+<ol>
+<li>每个对象与它自己类型的<strong>属性对象</strong>进行关联。比如线程与线程属性关联，互斥量与互斥量属性关联等。</li>
+<li>一个属性对象可以代表多个属性。比如你要设置线程的多个属性，只用定义一个属性对象就可以了。</li>
+<li>属性对象对应用程序来说是<strong>不透明</strong>的。不透明意味着你无需知道属性对象内部结构的细节，只需要使用相应的函数来管理就可以了。这样可以增强程序的可移植性。</li>
+<li>使用<strong>初始化函数</strong>将属性设置为默认值。当然，也可以使用静态变量设置。</li>
+<li>如果使用初始化函数分配了与属性对象关联的资源，那么使用完毕后，要使用<strong>销毁函数</strong>来释放这些资源。</li>
+<li>每个属性都有一个从属性对象中<strong>获取属性值</strong>的函数。成功返回0，否则返回错误编号。</li>
+<li>每个属性都有一个<strong>设置属性值</strong>的函数。</li>
+</ol>
+<p>比如，对于线程属性来说，我们可以这样进行设置，使用举例如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pthread_attr_t attr; &#x2F;&#x2F; 定义一个线程属性对象</span><br><span class="line">pthread_attr_init(&amp;attr); &#x2F;&#x2F; 使用初始化函数设置默认值</span><br><span class="line">pthread_attr_setdetachstate(&amp;attr, PTHREAD_CREATE_JOINABLE); &#x2F;&#x2F; 设置一个属性值，此处设置其结合分离属性</span><br><span class="line">&#x2F;&#x2F; ......</span><br><span class="line">pthread_attr_getdetachstate(&amp;attr, &amp;detachState); &#x2F;&#x2F; 获取一个属性值，此处获取其结合分离属性，并将其保存在detachState里</span><br><span class="line">&#x2F;&#x2F; ......</span><br><span class="line">pthread_attr_destroy(&amp;attr); &#x2F;&#x2F; 最后使用销毁函数释放资源</span><br></pre></td></tr></table></figure>
+<p>有以下几个属性值得我们关注一下：</p>
+<h2 id="3-1-结合与分离"><a href="#3-1-结合与分离" class="headerlink" title="3.1. 结合与分离"></a>3.1. 结合与分离</h2><p>结合与分离提供了一种线程间同步的机制。</p>
+<p>在默认情况下，线程是<strong>可结合的（JOINABLE）</strong>，意味着线程能够被其他线程回收或者kill掉，比如主线程可以调用<code>pthread_join()</code>方法等待其创建的某个指定的子线程执行完毕后再继续执行，同时也能得到子线程的退出状态（若想等待任意一个子线程，则需要<code>pthread_wait</code>方法）。与之相对的就是<strong>分离的（DETATCHED）</strong>，分离的线程不能被其他线程回收或者kill，它是相对自由独立的，自己跑完就完事儿了，不用给它擦屁股。</p>
+<p>对于线程占用的资源，可结合的线程的资源在被其他线程回收或kill之前是不会释放的（等着擦屁股呢），如果创建了可结合的线程却没有回收它，则很可能带来内存泄露的问题；而分离的线程的资源在它终止的时候会被系统自动释放。当然，如果进程被干掉了或者主线程结束了，不管哪种类型的线程都会被中止掉并释放资源。基于这个原因，如果没有必须等待线程回收的理由，建议使用分离的线程。</p>
+<p>设置线程结合分离可以通过2种方式：</p>
+<ol>
+<li>在创建线程时，通过设置线程属性的函数<code>pthread_attr_setdetachstate(pthread_attr_t *attr, int detachState)</code>来设置，<code>attr</code>是属性对象，<code>detachState</code>是要设置的值。若为<code>PTHREAD_CREATE_DETACHED</code>，则将其设置为可分离的；<code>PTHREAD_CREATE_JOINABLE</code>则设置为可结合的；</li>
+<li>在线程函数里，通过<code>pthread_detach(pthread_self())</code>函数来将其设置为分离的。一旦线程被设置为分离的之后，就无法再设置为可结合的了噢。</li>
+</ol>
+<p>获取线程结合分离的属性可以通过以下方法：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pthread_attr_getdetachstate(const pthread_attr_t *attr, int *detachState)</span><br></pre></td></tr></table></figure>
+<p>其中，<code>attr</code>是线程属性对象，<code>detachState</code>保存了当前是结合或分离的状态值。</p>
+<h2 id="3-2-线程栈大小"><a href="#3-2-线程栈大小" class="headerlink" title="3.2. 线程栈大小"></a>3.2. 线程栈大小</h2><p>每个线程都有自己的栈，POSIX规范并没有规定这个栈的大小应该是多少，这个和具体的机器实现有关。如果线程内的函数调用超过了栈空间上限，则很容易引发程序中止或者数据损坏。作为有修养的程序（安全且可移植的），常常会显式地指定栈空间大小以避免此类问题的发生。同时，Pthreads还允许程序指定线程栈在内存中存放的具体区域。</p>
+<p>我们可以使用以下一对方法在属性中设置和获取线程的栈空间大小：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pthread_attr_getstacksize(attr, stacksize)</span><br><span class="line">pthread_attr_setstacksize(attr, stacksize)</span><br></pre></td></tr></table></figure>
+<p>我们也可以使用以下方法在属性中设置和获取线程栈空间的地址区域：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pthread_attr_getstackaddr(attr, stackaddr)</span><br><span class="line">pthread_attr_setstackaddr(attr, stackaddr)</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-3-其他属性"><a href="#3-3-其他属性" class="headerlink" title="3.3. 其他属性"></a>3.3. 其他属性</h2><p>除此之外，线程属性还支持设置线程的<strong>调度策略</strong>、<strong>优先级</strong>以及优先级的<strong>有效范围</strong>。本次暂时先不讨论，以后用到了再说。</p>
+<h1 id="4-结束线程"><a href="#4-结束线程" class="headerlink" title="4. 结束线程"></a>4. 结束线程</h1><p>有始就有终，线程的结束有4种方式。</p>
+<ul>
+<li>当顶层的线程函数返回时，线程会<strong>隐式</strong>地终止；</li>
+<li>当线程函数内通过调用<code>pthread_exit(void *)</code>函数时，线程会<strong>显式</strong>地终止，返回值为该方法的参数，其他线程可以通过<code>pthread_join(pthread_t, void**)</code>方法的第二个参数访问到返回值的指针。如果主线程调用了该方法，它会等待所有其他线程终止后，再结束主线程和整个进程；</li>
+<li>某个线程调用了Linux的<code>exit()</code>函数，该函数会终止进程以及所有与该进程相关的线程；</li>
+<li>线程可以被同一进程中的其他线程通过<code>pthread_cancel(pthread_t)</code>方法<strong>取消</strong>掉。当然这由线程的<strong>状态</strong>和<strong>类型</strong>决定，当线程通过<code>pthread_setcancelstate()</code>方法设置其状态为<code>PTHREAD_CANCEL_ENABLE</code>时，才能够响应取消，否则取消响应直到线程改变其状态后才能发生。同时，线程有2种取消类型，可以通过<code>pthread_setcanceltype()</code>方法设置，默认的是延迟取消<code>PTHREAD_CANCEL_DEFERRED</code>，意思是说当取消请求发来时，线程会继续运行直到执行到某个<strong>取消点</strong>，几乎所有使线程挂起的库都是取消点，比如sleep、delay函数；另一种取消类型是异步取消<code>PTHREAD_CANCEL_ASYNCHRONOUS</code>，意思是指线程可以在任意时刻被取消掉（通常是这样，但系统并不能完全保证）。</li>
+</ul>
+<h2 id="4-1-清理程序"><a href="#4-1-清理程序" class="headerlink" title="4.1. 清理程序"></a>4.1. 清理程序</h2><p>根据POSIX标准，Pthreads还提供了线程清理处理程序，它们需要成对使用，分别是</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">void pthread_cleanup_push(void (*rtn)(void *), void *arg);</span><br><span class="line">void pthread_cleanup_pop(int execute);</span><br></pre></td></tr></table></figure>
+<p>从名字上也可以看出来，实际上每个线程都有一个清理处理的栈，<code>pthread_cleanup_push</code>函数向这个栈里塞入一条清理函数<code>rtn</code>，入参是<code>arg</code>，而<code>pthread_cleanup_pop</code>函数在线程结束时从栈顶弹出一个清理函数并进行处理。由于POSIX允许具体实现可以使用宏的方式，所以一定要在与线程相同的作用域里成对匹配使用，否则可能导致编译错误。</p>
+<p>通过<code>pthread_cleanup_pop</code>函数执行的清理函数会在以下任意3种情况发生的时候执行：</p>
+<ul>
+<li>线程调用<code>pthread_exit()</code>时；</li>
+<li>线程响应取消时，在取消点会执行；</li>
+<li>传入<code>pthread_cleanup_pop</code>函数的参数为非0数值时；</li>
+</ul>
+<p>如果入参为0，它会删除上一次通过调用<code>pthread_cleanup_push</code>建立的清理处理函数而并不会调用清理函数。</p>
+<p>需要注意的是，如果线程是通过<code>return</code>语句结束返回的话，那么清理函数是不会被调用的。</p>
+<h2 id="4-2-内存问题"><a href="#4-2-内存问题" class="headerlink" title="4.2. 内存问题"></a>4.2. 内存问题</h2><p>不管是<code>pthread_create</code>还是<code>pthread_exit</code>函数，其都能够通过无类型的指针参数传递值，我们格外要注意这个指针指向的内存在调用者完成调用之后必须仍然是有效的。比如，在调用者线程的栈上分配了该内存，其他线程在使用这个内存的时候，其内容可能已经发生了变化；又或者，线程在自己的栈上分配了一块内存，然后把它的指针通过<code>pthread_exit</code>函数带了出去，那么其他线程通过<code>pthread_join</code>方法试图使用这块内存的时候，其可能已经被撤销或另作他用了。为了解决这个问题，建议使用全局变量或者通过<code>malloc</code>函数分配内存。</p>
+<h1 id="5-使用示例"><a href="#5-使用示例" class="headerlink" title="5. 使用示例"></a>5. 使用示例</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;pthread.h&gt;</span><br><span class="line"></span><br><span class="line">struct Data&#123;</span><br><span class="line">    int id;</span><br><span class="line">    char *msg;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">void cleanup(void *arg) &#123; &#x2F;&#x2F; 清理函数</span><br><span class="line">    printf(&quot;clean up: %s\n&quot;, (char*)arg);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void *threadFunc1(void *arg) &#123;</span><br><span class="line">    printf(&quot;thread 1 start\n&quot;);</span><br><span class="line">    pthread_cleanup_push(cleanup, &quot;thread 1, 1st cleanup&quot;);</span><br><span class="line">    pthread_cleanup_push(cleanup, &quot;thread 1, 2nd cleanup&quot;); &#x2F;&#x2F; 设置清理函数栈</span><br><span class="line">    int data &#x3D; (int) arg;</span><br><span class="line">    printf(&quot;thread 1 get data : %d\n&quot;, data);</span><br><span class="line">    pthread_cleanup_pop(1);</span><br><span class="line">    pthread_cleanup_pop(1); &#x2F;&#x2F; 执行清理函数，与设置的顺序相反</span><br><span class="line">    return ((void*)1);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void *threadFunc2(void *arg) &#123;</span><br><span class="line">    printf(&quot;thread 2 start\n&quot;);</span><br><span class="line">    pthread_cleanup_push(cleanup, &quot;thread 2, 1st cleanup&quot;);</span><br><span class="line">    pthread_cleanup_push(cleanup, &quot;thread 2, 2nd cleanup&quot;);</span><br><span class="line">    pthread_cleanup_push(cleanup, &quot;thread 2, 3rd cleanup&quot;);</span><br><span class="line">    struct Data *data &#x3D; (struct Data*)arg; &#x2F;&#x2F; 函数入参转换</span><br><span class="line">    printf(&quot;thread 2 get data with id:%d, msg:%s\n&quot;, data-&gt;id, data-&gt;msg);</span><br><span class="line">    pthread_cleanup_pop(1);</span><br><span class="line">    pthread_cleanup_pop(0); &#x2F;&#x2F; 删除位于清理函数栈顶的函数，这样&quot;2nd&quot;的清理函数就不会被执行了</span><br><span class="line">    pthread_cleanup_pop(1);</span><br><span class="line">    pthread_exit((void*)2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">    int error;</span><br><span class="line">    pthread_t pid1, pid2;</span><br><span class="line">    pthread_attr_t pAttr;</span><br><span class="line">    int data1 &#x3D; 1;</span><br><span class="line">    struct Data data2;</span><br><span class="line">    void *ret;</span><br><span class="line"></span><br><span class="line">    pthread_attr_init(&amp;pAttr); &#x2F;&#x2F; 初始化线程属性</span><br><span class="line">    pthread_attr_setdetachstate(&amp;pAttr, PTHREAD_CREATE_JOINABLE); &#x2F;&#x2F; 设置一个线程属性值</span><br><span class="line"></span><br><span class="line">    error &#x3D; pthread_create(&amp;pid1, NULL, threadFunc1, (void*)data1); &#x2F;&#x2F; 创建一个线程，使用默认属性</span><br><span class="line">    if (error !&#x3D; 0) &#123;</span><br><span class="line">        printf(&quot;can not create thread 1&quot;);</span><br><span class="line">        exit(1);</span><br><span class="line">    &#125;</span><br><span class="line">    data2.id &#x3D; 2;</span><br><span class="line">    data2.msg &#x3D; &quot;thread 2 data&quot;;</span><br><span class="line">    error &#x3D; pthread_create(&amp;pid2, &amp;pAttr, threadFunc2, (void*)&amp;data2); &#x2F;&#x2F; 创建一个线程，使用自定义的属性，可以将自定义结构体的指针作为参数传入</span><br><span class="line">    if (error !&#x3D; 0) &#123;</span><br><span class="line">        printf(&quot;can not create thread 2&quot;);</span><br><span class="line">        exit(1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    error &#x3D; pthread_join(pid1, &amp;ret); &#x2F;&#x2F; 等待一个线程返回，并获取其返回值</span><br><span class="line">    if (error !&#x3D; 0) &#123;</span><br><span class="line">        printf(&quot;can not join with thread 1&quot;);</span><br><span class="line">        exit(1);</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;thread 1 join with ret : %ld\n&quot;, (long)ret);</span><br><span class="line"></span><br><span class="line">    error &#x3D; pthread_join(pid2, &amp;ret);</span><br><span class="line">    if (error !&#x3D; 0) &#123;</span><br><span class="line">        printf(&quot;can not join with thread 2&quot;);</span><br><span class="line">        exit(1);</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;thread 2 join with ret : %ld\n&quot;, (long)ret);</span><br><span class="line">    pthread_attr_destroy(&amp;pAttr); &#x2F;&#x2F; 销毁线程属性，释放资源</span><br><span class="line">    exit(0);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>【程序输出】</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">thread 1 start</span><br><span class="line">thread 1 get data : 1</span><br><span class="line">clean up: thread 1, 2nd cleanup</span><br><span class="line">clean up: thread 1, 1st cleanup</span><br><span class="line">thread 2 start</span><br><span class="line">thread 2 get data with id:2, msg:thread 2 data</span><br><span class="line">clean up: thread 2, 3rd cleanup</span><br><span class="line">clean up: thread 2, 1st cleanup</span><br><span class="line">thread 1 join with ret : 1</span><br><span class="line">thread 2 join with ret : 2</span><br></pre></td></tr></table></figure>
+<p>也有可能是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">thread 1 start</span><br><span class="line">thread 1 get data : 1</span><br><span class="line">clean up: thread 1, 2nd cleanup</span><br><span class="line">thread 2 start</span><br><span class="line">thread 2 get data with id:2, msg:thread 2 data</span><br><span class="line">clean up: thread 2, 3rd cleanup</span><br><span class="line">clean up: thread 2, 1st cleanup</span><br><span class="line">clean up: thread 1, 1st cleanup</span><br><span class="line">thread 1 join with ret : 1</span><br><span class="line">thread 2 join with ret : 2</span><br></pre></td></tr></table></figure>
+<p>或者这样的：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">thread 1 start</span><br><span class="line">thread 2 start</span><br><span class="line">thread 2 get data with id:2, msg:thread 2 data</span><br><span class="line">clean up: thread 2, 3rd cleanup</span><br><span class="line">clean up: thread 2, 1st cleanup</span><br><span class="line">thread 1 get data : 1</span><br><span class="line">clean up: thread 1, 2nd cleanup</span><br><span class="line">clean up: thread 1, 1st cleanup</span><br><span class="line">thread 1 join with ret : 1</span><br><span class="line">thread 2 join with ret : 2</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>软件工程师系列</category>
+      </categories>
+      <tags>
+        <tag>C语言</tag>
+        <tag>并发编程</tag>
+        <tag>Pthreads</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>初识传播学——人际传播</title>
+    <url>/TW-CM-communication-concepts-2/</url>
+    <content><![CDATA[<blockquote>
+<p>人际传播讲述的是一对一的互动，它是一个多向的过程，它用语言和非语言信息与另一个人不断地创造并改变大脑里的图像。假如其中两幅图像形成一定的重叠，传播就开始了，传播的有效性与图像重叠部分不断增长相伴而生。然而，就算出现在我们脑海中的图像是一致的，传播也会因为解释的不同而出现偏差。</p>
+</blockquote>
+<ul>
+<li><strong><a href="http://stillwaters.top/TW-CM-communication-concepts-21">符号互动论</a></strong></li>
+</ul>
+<p>(持续更新中)</p>
+]]></content>
+      <categories>
+        <category>认识世界</category>
+      </categories>
+      <tags>
+        <tag>传播学</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>人际传播——符号互动论</title>
+    <url>/TW-CM-communication-concepts-21/</url>
+    <content><![CDATA[<h1 id="1-概念"><a href="#1-概念" class="headerlink" title="1. 概念"></a>1. 概念</h1><h1 id="2-核心假设"><a href="#2-核心假设" class="headerlink" title="2. 核心假设"></a>2. 核心假设</h1><h2 id="2-1-意义：社会现实的构建"><a href="#2-1-意义：社会现实的构建" class="headerlink" title="2.1. 意义：社会现实的构建"></a>2.1. 意义：社会现实的构建</h2><h2 id="2-2-语言：意义的来源"><a href="#2-2-语言：意义的来源" class="headerlink" title="2.2. 语言：意义的来源"></a>2.2. 语言：意义的来源</h2><h2 id="2-3-思维：扮演他人角色的过程"><a href="#2-3-思维：扮演他人角色的过程" class="headerlink" title="2.3. 思维：扮演他人角色的过程"></a>2.3. 思维：扮演他人角色的过程</h2><h1 id="3-推导结论"><a href="#3-推导结论" class="headerlink" title="3. 推导结论"></a>3. 推导结论</h1><h2 id="3-1-自我：镜子中的映像"><a href="#3-1-自我：镜子中的映像" class="headerlink" title="3.1. 自我：镜子中的映像"></a>3.1. 自我：镜子中的映像</h2><h2 id="3-2-社群：他人预期的社会化效果"><a href="#3-2-社群：他人预期的社会化效果" class="headerlink" title="3.2. 社群：他人预期的社会化效果"></a>3.2. 社群：他人预期的社会化效果</h2><h1 id="4-应用案例"><a href="#4-应用案例" class="headerlink" title="4. 应用案例"></a>4. 应用案例</h1><h2 id="4-1-创造现实"><a href="#4-1-创造现实" class="headerlink" title="4.1. 创造现实"></a>4.1. 创造现实</h2><h2 id="4-2-有意义的研究"><a href="#4-2-有意义的研究" class="headerlink" title="4.2. 有意义的研究"></a>4.2. 有意义的研究</h2><h2 id="4-3-概化他人"><a href="#4-3-概化他人" class="headerlink" title="4.3. 概化他人"></a>4.3. 概化他人</h2><h2 id="4-4-归类"><a href="#4-4-归类" class="headerlink" title="4.4. 归类"></a>4.4. 归类</h2><h2 id="4-5-自证预言"><a href="#4-5-自证预言" class="headerlink" title="4.5. 自证预言"></a>4.5. 自证预言</h2><h2 id="4-6-符号操控"><a href="#4-6-符号操控" class="headerlink" title="4.6. 符号操控"></a>4.6. 符号操控</h2>]]></content>
+      <categories>
+        <category>认识世界</category>
+      </categories>
+      <tags>
+        <tag>传播学</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基于线程的并发编程</title>
     <url>/SE-BS-DIS-concurrency-in-C-1/</url>
     <content><![CDATA[<h1 id="1-背景知识"><a href="#1-背景知识" class="headerlink" title="1. 背景知识"></a>1. 背景知识</h1><p>在类UNIX系统的世界里，要说基于线程的并发编程，那就要请出<strong>POSIX Threads</strong>了。为了说明它的使用，我们以C语言为工具，来了解一下吧。（本文假设你已经了解进程、线程和并发编程的基本概念了）</p>
 <h1 id="2-POSIX-Threads"><a href="#2-POSIX-Threads" class="headerlink" title="2. POSIX Threads"></a>2. POSIX Threads</h1><h2 id="2-1-概念"><a href="#2-1-概念" class="headerlink" title="2.1. 概念"></a>2.1. 概念</h2><p>要说POSIX Threads，得先说说POSIX是什么。<strong>POSIX（Portable Operating System Interface）</strong>也叫可移植操作系统接口，是最初由IEEE定义的一套标准族，它定义了操作系统应该提供的各种服务。因为早期UNIX系统有各种各样的版本，不同版本之间的系统接口各不相同（包括软件和硬件），一个软件可能在这个操作系统上运行着好好的，到了另一个系统上就挂掉了。而它出现的目的就是为了提升应用程序在各种UNIX系统环境之间的可移植性，说白了就是达到软件一次编写，哪儿都能跑的目的。</p>
@@ -47,7 +168,7 @@
 <li>编译时添加编译命令<code>gcc -pthread</code>或<code>g++ -pthread</code></li>
 </ol>
 <h2 id="2-5-分类介绍"><a href="#2-5-分类介绍" class="headerlink" title="2.5. 分类介绍"></a>2.5. 分类介绍</h2><h3 id="2-5-1-线程管理"><a href="#2-5-1-线程管理" class="headerlink" title="2.5.1. 线程管理"></a>2.5.1. 线程管理</h3><p>线程管理类的API提供了<strong>创建</strong>、<strong>销毁</strong>、<strong>取消</strong>、<strong>结合</strong>、<strong>分离</strong>线程与设置和查询线程<strong>属性</strong>等方法。</p>
-<p>详细介绍请看：<a href="http://stillwaters.top">《基于线程的并发编程——线程管理》</a>（待补充）</p>
+<p>详细介绍请看：<a href="http://stillwaters.top/SE-BS-DIS-concurrency-in-C-2/">《基于线程的并发编程——线程管理》</a></p>
 <h3 id="2-5-2-线程同步"><a href="#2-5-2-线程同步" class="headerlink" title="2.5.2. 线程同步"></a>2.5.2. 线程同步</h3><p>当多个线程之间不会共享相同的内存，也就是说每个线程使用的变量都是其他线程不会读取和修改的，那么大家就相安无事，不会存在什么问题。就像我从我家的冰箱里拿一个鸡蛋，和你从你家的冰箱里拿一个，咱俩用的是各自独立的冰箱，相互之间没有什么影响。但是，如果咱俩住在一个屋檐下，共用一个冰箱，想要同时从冰箱里拿东西，就会存在竞争问题了。多线程之间的同步也是类似的道理。</p>
 <p>线程对内存的使用无非就是<strong>读</strong>和<strong>写</strong>，在多个线程使用共享的内存时，如果大家都只是读取，而不会修改这块内存的值，那么也没问题。但一旦有一个或多个线程可能会修改这块内存的值，那么就会遇到<strong>一致性</strong>的问题。比如当一个线程在修改一个变量，那么其他线程在读取这个变量的时候可能会看到一个不一致的值。为什么会出现这种情况呢？</p>
 <p><strong>【原因】</strong></p>
@@ -322,7 +443,7 @@
       </tags>
   </entry>
   <entry>
-    <title>初识传播学(一)</title>
+    <title>初识传播学</title>
     <url>/TW-CM-communication-concepts-1/</url>
     <content><![CDATA[<p>本文为我在学习传播学相关知识的笔记，内容为传播学的基本概念和框架地图。</p>
 <blockquote>

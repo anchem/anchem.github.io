@@ -2,16 +2,44 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://stillwaters.top/SE-BS-DIS-concurrency-in-C-2/</loc>
+    
+    <lastmod>2020-03-24T15:58:39.955Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://stillwaters.top/SE-BS-DIS-concurrency-in-C-1/</loc>
     
-    <lastmod>2020-03-23T15:57:33.899Z</lastmod>
+    <lastmod>2020-03-24T15:57:12.887Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://stillwaters.top/sitemap/index.html</loc>
     
-    <lastmod>2020-03-23T15:54:08.318Z</lastmod>
+    <lastmod>2020-03-24T15:56:55.509Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://stillwaters.top/TW-CM-communication-concepts-2/</loc>
+    
+    <lastmod>2020-03-24T15:51:29.687Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://stillwaters.top/TW-CM-communication-concepts-1/</loc>
+    
+    <lastmod>2020-03-24T15:50:52.013Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://stillwaters.top/TW-CM-communication-concepts-21/</loc>
+    
+    <lastmod>2020-03-23T16:18:31.458Z</lastmod>
     
   </url>
   
@@ -26,13 +54,6 @@
     <loc>http://stillwaters.top/SE-AB-DS-tech-communication-from-owen/</loc>
     
     <lastmod>2020-03-06T14:38:55.226Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://stillwaters.top/TW-CM-communication-concepts-1/</loc>
-    
-    <lastmod>2020-03-06T14:37:18.667Z</lastmod>
     
   </url>
   
