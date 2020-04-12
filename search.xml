@@ -1,6 +1,246 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>基于线程的并发编程——互斥量</title>
+    <url>/SE-BS-DIS-concurrency-in-C-3/</url>
+    <content><![CDATA[<h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>既然多个线程访问数据的时候会带来问题，那么我们可以控制在同一时间段内只能有一个线程访问这个数据，这样就不会出现数据不一致的情况了。Pthreads为我们提供了<strong>互斥量（Mutex）</strong>的方式来实现上述控制，它从本质上来说就是一把锁，当一个线程需要访问共享资源时，它可以对互斥量进行加锁，访问完毕后再释放锁。在互斥量被锁住期间，其他线程试图对该互斥量进行加锁的话就会被阻塞，直到这个线程释放了锁。如果有多个线程试图加锁，那么它们都会被阻塞，而解锁时，只有一个线程可以获得这个锁，其他线程仍然会处于阻塞的状态。所以，在这种方式下，每次只能有一个线程可以执行。</p>
+<h1 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h1><p>互斥量用<code>pthread_mutex_t</code>数据类型表示，在使用前需要初始化，有2种初始化的方式：</p>
+<p><strong>1. 静态初始化</strong>：将其设置为常量<code>PTHREAD_MUTEX_INITIALIZER</code>，变量类型为静态：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">static pthread_mutex_t mutex &#x3D; PTHREAD_MUTEX_INITIALIZER;</span><br></pre></td></tr></table></figure>
+<p><strong>2. 动态初始化</strong>：调用函数进行初始化，由于是动态分配的内存，使用完毕后记得释放：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int pthread_mutex_init(pthread_mutex_t *restrict mutex, const pthread_mutexattr_t *restrict attr);</span><br><span class="line">int pthread_mutex_destroy(pthread_mutex_t *mutex);</span><br></pre></td></tr></table></figure>
+
+<h1 id="加锁"><a href="#加锁" class="headerlink" title="加锁"></a>加锁</h1><p>使用的方法有3种，包括阻塞式和非阻塞式：</p>
+<p>最常用的就是在需要加锁的时候lock一下，释放锁的时候unlock一下就可以了。如果在lock的时候发现锁已经被其他线程占用，那么本线程就会阻塞直到锁被释放。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int pthread_mutex_lock(pthread_mutex_t *mutex);</span><br><span class="line">int pthread_mutex_unlock(pthread_mutex_t *mutex);</span><br></pre></td></tr></table></figure>
+
+<p>如果你不希望线程在尝试加锁时被阻塞（也就是说这时候有其他线程已经加锁了），那么可以使用以下方法来尝试加锁，如果互斥量没有被锁住，那么就可以拿到锁；如果被锁住了，那么就会加锁失败，但不会阻塞该线程。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int pthread_mutex_trylock(pthread_mutex_t *mutex);</span><br></pre></td></tr></table></figure>
+
+<p>如果你不希望线程在尝试加锁时一直被阻塞，而是等待一段时间后还没有获得锁的话就解除阻塞，那么可以使用<code>pthread_mutex_timedlock()</code>方法来尝试加锁：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int pthread_mutex_timedlock(pthread_mutex_t *mutex,</span><br><span class="line">                            const struct timespec *restrict tsptr);</span><br></pre></td></tr></table></figure>
+<p>其中，第二个参数指明了愿意<strong>等待到</strong>什么时候，这是一个绝对时间而不是相对时间。也就是说，线程如果没获得锁的话，最多只会阻塞到一个确定的时间点，比如2020年3月10日22:00:00，当时间超过了这个时间点，就会解除阻塞；而不是说，线程会等待个比如10秒，10秒之后就不等了。</p>
+<p>以上就是Pthreads提供的互斥机制。当然，只有我们将所有线程都设计成遵守相同数据访问规则时，互斥机制才能正常工作。如果允许某个线程在没有得到锁的情况下也可以访问共享资源，那么即便其他线程都申请了锁，也还是会出现不一致的问题。</p>
+<h1 id="避免死锁"><a href="#避免死锁" class="headerlink" title="避免死锁"></a>避免死锁</h1><p>试想这么一种情况，线程在拿到了互斥锁A之后，试图再次对A进行加锁，由于A被锁住了，线程只能等待这个锁被释放，但是这个锁又是自己占有的，所以自己就会被自己阻塞在这里。（非递归互斥量）</p>
+<p>再考虑这么一种情况，有2个线程，2个互斥量，线程1锁住了互斥量A，线程2锁住了互斥量B，此时线程1试图对B进行加锁，而由于线程2占有了该锁，它只能阻塞；而此时线程2又试图对A进行加锁，同样的，线程1占有A，线程2也只能阻塞。</p>
+<p>这些情况被称之为<strong>死锁</strong>，它会导致程序无法响应也无法恢复，所以需要我们谨慎地使用互斥量以避免死锁的发生。</p>
+<p>一种避免死锁的方法是控制对多个互斥量加锁的顺序，保证所有线程都使用相同的顺序进行加锁。比如有2个互斥量A和B，所有线程都总是先尝试对A进行加锁，然后再尝试对B加锁，而不会以相反的方向操作的话，那么使用这2个互斥量就不会出现死锁的情况。</p>
+<p>在复杂的程序结构里，有时很难梳理清楚对互斥量加锁的排序，在这种情况下，可以使用<code>pthread_mutex_trylock()</code>或者<code>pthread_mutex_timedlock()</code>这种非阻塞式的方法来避免死锁的发生。</p>
+<h1 id="互斥量属性"><a href="#互斥量属性" class="headerlink" title="互斥量属性"></a>互斥量属性</h1><p>在调用<code>pthread_mutex_init()</code>函数对互斥量初始化的时候，可以指定其属性，用<code>pthread_mutexattr_t</code>来表示。</p>
+<p>互斥量属性的使用和线程属性的使用类似，都需要初始化和反初始化：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int pthread_mutexattr_init(pthread_mutexattr_t *attr);</span><br><span class="line">int pthread_mutexattr_destroy(pthread_mutexattr_t *attr);</span><br></pre></td></tr></table></figure>
+
+<p>在其属性值里，值得注意的有3个属性，分别是<strong>进程共享属性</strong>、<strong>健壮属性</strong>和<strong>类型属性</strong>。</p>
+<h2 id="进程共享属性"><a href="#进程共享属性" class="headerlink" title="进程共享属性"></a>进程共享属性</h2><p><strong>进程共享属性</strong>是一个可选属性，并不是所有系统都支持这个属性，可以通过检查<code>_POSIX_THREAD_PROCESS_SHARED</code>符号来判断是否支持。如果互斥量是线程间共享的，也就是只能在一个进程里使用的，那么它就是<code>PTHREAD_PROCESS_PRIVATE</code>的；如果互斥量允许多个进程间共享，那么它就是<code>THREAD_PROCESS_SHARED</code>的。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int pthread_mutexattr_getshared(const pthread_mutexattr_t *restrict attr, int *restrict pshared);</span><br><span class="line">int pthread_mutexattr_setshared(pthread_mutexattr_t *attr, int pshared);</span><br></pre></td></tr></table></figure>
+
+<h2 id="健壮属性"><a href="#健壮属性" class="headerlink" title="健壮属性"></a>健壮属性</h2><p>互斥量的<strong>健壮属性</strong>与在多个进程间共享的互斥量有关。当持有互斥量的进程终止时，如果互斥量处于锁定的状态，那么其他阻塞在这个锁的进程就会一直阻塞下去，而健壮属性就是为了解决互斥量状态恢复的问题。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int pthread_mutexattr_getrobust(const pthread_mutexattr_t *restrict attr, int *restrict robust);</span><br><span class="line">int pthread_mutexattr_setrobust(pthread_mutexattr_t *attr, int robust);</span><br></pre></td></tr></table></figure>
+
+<p>其中，<code>robust</code>的取值有2种：</p>
+<ul>
+<li><code>PTHREAD_MUTEX_STALLED</code>是默认值，意味着持有互斥量的进程终止时不采取任何动作，使用互斥量之后的行为是未定义的，此时，如果有其他进程等待这个互斥量，就很有可能会被阻塞住；</li>
+<li>另一个取值是<code>PTHREAD_MUTEX_ROBUST</code>，如果持有互斥量的进程异常终止没有释放锁，那么下一个进程在调用<code>pthread_mutex_lock()</code>获得该锁后会得到一个非0的返回值<code>EOWNERDEAD</code>，在这种情况下，往往需要对其进行恢复才可以继续使用，否则该互斥量将处于永久不可用状态，除非对其调用<code>pthread_mutex_destroy()</code>。</li>
+</ul>
+<p>那么，当发现互斥量需要恢复时，往往需要调用<code>pthread_mutex_consistent()</code>函数来恢复互斥量的状态，并在这之后再使用<code>pthread_mutex_unlock()</code>函数释放该锁，否则这个锁将永远不可用，其他线程再使用<code>pthread_mutex_lock()</code>试图获取该锁时会得到<code>ENOTRECOVERABLE</code>返回码，意味着该互斥量已不可用也无法恢复了。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;pthread.h&gt;</span><br><span class="line">#include &lt;errno.h&gt;</span><br><span class="line"></span><br><span class="line">static pthread_mutex_t mtx;</span><br><span class="line">static void *original_owner_thread(void *ptr)</span><br><span class="line">&#123;</span><br><span class="line">   printf(&quot;[original owner] Setting lock...\n&quot;);</span><br><span class="line">   pthread_mutex_lock(&amp;mtx);</span><br><span class="line">   printf(&quot;[original owner] Locked. Now exiting without unlocking.\n&quot;);</span><br><span class="line">   pthread_exit(NULL);  &#x2F;&#x2F; 线程退出而没有释放互斥量</span><br><span class="line">&#125;</span><br><span class="line">int main(int argc, char *argv[])</span><br><span class="line">&#123;</span><br><span class="line">   pthread_t thr;</span><br><span class="line">   pthread_mutexattr_t attr;</span><br><span class="line">   int s;</span><br><span class="line"></span><br><span class="line">   pthread_mutexattr_init(&amp;attr);  &#x2F;&#x2F; 初始化互斥量属性</span><br><span class="line">   pthread_mutexattr_setrobust(&amp;attr, PTHREAD_MUTEX_ROBUST);  &#x2F;&#x2F; 设置健壮属性</span><br><span class="line">   pthread_mutex_init(&amp;mtx, &amp;attr);   &#x2F;&#x2F; 使用互斥量属性初始化互斥量</span><br><span class="line">   pthread_create(&amp;thr, NULL, original_owner_thread, NULL);</span><br><span class="line">   sleep(2);  &#x2F;&#x2F; 等待2秒是为了确保创建的线程已经退出</span><br><span class="line">   printf(&quot;[main thread] Attempting to lock the robust mutex.\n&quot;);</span><br><span class="line">   s &#x3D; pthread_mutex_lock(&amp;mtx);</span><br><span class="line">   if (s &#x3D;&#x3D; EOWNERDEAD) &#123;  &#x2F;&#x2F; 意味着上一个占有该互斥量的线程异常退出且未释放</span><br><span class="line">        printf(&quot;[main thread] pthread_mutex_lock() returned EOWNERDEAD\n&quot;);</span><br><span class="line">        printf(&quot;[main thread] Now make the mutex consistent\n&quot;);</span><br><span class="line">        s &#x3D; pthread_mutex_consistent(&amp;mtx);  &#x2F;&#x2F; 此时需要调用该方法进行恢复</span><br><span class="line">        if (s !&#x3D; 0) &#123;</span><br><span class="line">            printf(&quot;pthread_mutex_consistent&quot;);</span><br><span class="line">            exit(EXIT_FAILURE);</span><br><span class="line">        &#125;</span><br><span class="line">        printf(&quot;[main thread] Mutex is now consistent; unlocking\n&quot;);</span><br><span class="line">        s &#x3D; pthread_mutex_unlock(&amp;mtx);  &#x2F;&#x2F; 恢复成功后再释放该锁，之后互斥量仍然可以继续使用</span><br><span class="line">        if (s !&#x3D; 0) &#123;</span><br><span class="line">            exit(EXIT_SUCCESS);</span><br><span class="line">        &#125;</span><br><span class="line">   &#125; else if (s &#x3D;&#x3D; 0) &#123;</span><br><span class="line">        printf(&quot;[main thread] pthread_mutex_lock() unexpectedly succeeded\n&quot;);</span><br><span class="line">        pthread_mutex_unlock(&amp;mtx);</span><br><span class="line">        exit(EXIT_FAILURE);</span><br><span class="line">   &#125; else &#123;</span><br><span class="line">        printf(&quot;[main thread] pthread_mutex_lock() unexpectedly failed\n&quot;);</span><br><span class="line">        exit(EXIT_FAILURE);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>【程序输出】</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[original owner] Setting lock...</span><br><span class="line">[original owner] Locked. Now exiting without unlocking.</span><br><span class="line">[main thread] Attempting to lock the robust mutex.</span><br><span class="line">[main thread] pthread_mutex_lock() returned EOWNERDEAD</span><br><span class="line">[main thread] Now make the mutex consistent</span><br><span class="line">[main thread] Mutex is now consistent; unlocking</span><br></pre></td></tr></table></figure>
+
+<h2 id="类型属性"><a href="#类型属性" class="headerlink" title="类型属性"></a>类型属性</h2><p><strong>类型属性</strong>控制着互斥量的锁定特性，POSIX定义了4种类型：</p>
+<ol>
+<li><strong>PTHREAD_MUTEX_NORMAL</strong> - 标准互斥量类型，不做任何特殊的错误检查和死锁检测。</li>
+<li><strong>PTHREAD_MUTEX_ERRORCHECK</strong> - 错误检查互斥量。</li>
+<li><strong>PTHREAD_MUTEX_RECURSIVE</strong> - 递归互斥量。此类互斥量允许同一线程在互斥量解锁之前对该互斥量进行多次加锁，这也意味着，解锁次数如果不等于加锁次数，那么这个锁会一直处于锁定状态。</li>
+<li><strong>PTHREAD_MUTEX_DEFAULT</strong> - 默认互斥量类型。不同的操作系统在实现时可能会把它映射到上述不同的互斥量类型中。</li>
+</ol>
+<p>下表显示了这4种类型的锁在不同使用场景下的行为：</p>
+<table>
+<thead>
+<tr>
+<th>互斥量类型</th>
+<th align="center">未解锁时重新加锁</th>
+<th align="center">未占用时解锁</th>
+<th align="center">已解锁时再解锁</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PTHREAD_MUTEX_NORMAL</td>
+<td align="center">死锁</td>
+<td align="center">未定义</td>
+<td align="center">未定义</td>
+</tr>
+<tr>
+<td>PTHREAD_MUTEX_ERRORCHECK</td>
+<td align="center">返回错误</td>
+<td align="center">返回错误</td>
+<td align="center">返回错误</td>
+</tr>
+<tr>
+<td>PTHREAD_MUTEX_RECURSIVE</td>
+<td align="center">允许</td>
+<td align="center">返回错误</td>
+<td align="center">返回错误</td>
+</tr>
+<tr>
+<td>PTHREAD_MUTEX_DEFAULT</td>
+<td align="center">未定义</td>
+<td align="center">未定义</td>
+<td align="center">未定义</td>
+</tr>
+</tbody></table>
+<p>获取和修改类型属性的方法如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int pthread_mutexattr_gettype(const pthread_mutexattr_t *restrict attr, int *restrict type);</span><br><span class="line">int pthread_mutexattr_settype(pthread_mutexattr_t *attr, int type);</span><br></pre></td></tr></table></figure>
+
+<p>在这4种类型中，<code>PTHREAD_MUTEX_RECURSIVE</code>递归互斥量的使用要特别注意。互斥量常常用来保护与条件变量有关的条件，在阻塞线程之前，<code>pthread_cond_wait()</code>函数会先释放互斥量，这就允许其他线程触发条件（过程：获取互斥量-&gt;改变条件-&gt;给条件变量发信号-&gt;释放互斥量），如果此时使用了递归互斥量且它被多次加锁，那么在调用<code>pthread_cond_wait()</code>函数后，互斥量并不能被真正解锁，这就导致条件永远都得不到满足。</p>
+]]></content>
+      <categories>
+        <category>软件工程师系列</category>
+      </categories>
+      <tags>
+        <tag>C语言</tag>
+        <tag>并发编程</tag>
+        <tag>Pthreads</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基于线程的并发编程——读写锁</title>
+    <url>/SE-BS-DIS-concurrency-in-C-4/</url>
+    <content><![CDATA[<h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>互斥量提供了同一时间内只有一个线程可以访问共享资源的机制，但它也存在弊端，那就是并发效率较低。如果大多数情况下，多个线程都是在读取这个共享资源而并非写入的话，仅仅是读取并不会带来一致性的问题，这样，强制让所有线程都互斥访问就显得有些多余。这时我们就可以使用第二种同步机制——<strong>读写锁</strong>。</p>
+<h1 id="状态"><a href="#状态" class="headerlink" title="状态"></a>状态</h1><p>读写锁有3种状态，分别是，<strong>读模式加锁</strong>，<strong>写模式加锁</strong>和<strong>解锁</strong>。读写锁允许多个线程占有<strong>读模式</strong>下的锁，而仅允许一个线程一次占有一个<strong>写模式</strong>的锁。也就是说，如果有多个线程尝试以<strong>读模式加锁</strong>，那么它们都可以拿到锁，不会被阻塞。而当有一个线程尝试以<strong>写模式加锁</strong>的话，如果此时没有线程占有这个锁，那么它可以拿到锁，此时其他的线程不管是以读模式加锁还是以写模式加锁都会被阻塞；如果此时有线程占有这个锁，不管是读模式还是写模式的，那么试图加写模式锁的线程会被阻塞，直到这个锁被释放掉。同时，在锁被其他线程占有的情况下，如果某线程尝试加写模式的锁，那么后续其他线程再想加读模式的锁也会被阻塞，这样可以避免出现由于读模式的锁长期被占用，而导致写模式的锁一直得不到满足的情况。</p>
+<p>读写锁的这种特性也被称之为“共享互斥锁”，也就是说，当读写锁以读模式锁住时，锁是共享的，大家都可以用；而当读写锁以写模式锁住时，锁是互斥的，一次只有一个线程可以使用。这种特性使其非常适用于对数据读的次数远大于写的情况，会比互斥量更加高效。</p>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>在使用上，读写锁与互斥量类似，使用前都需要初始化，释放底层内存前必须销毁（顺序不要反了）：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int pthread_rwlock_init(pthread_rwlock_t *restrict rwlock,</span><br><span class="line">                        const pthread_rwlockattr_t *restrict attr);</span><br><span class="line">int pthread_rwlock_destroy(pthread_rwlock_t *rwlock);</span><br></pre></td></tr></table></figure>
+
+<p>锁定与解锁的方法也一目了然，相比互斥量，加锁提供了2种模式，分别是读模式和写模式：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int pthread_rwlock_rdlock(pthread_rwlock_t *rwlock); &#x2F;&#x2F; 读模式加锁</span><br><span class="line">int pthread_rwlock_wrlock(pthread_rwlock_t *rwlock); &#x2F;&#x2F; 写模式加锁</span><br><span class="line">int pthread_rwlock_unlock(pthread_rwlock_t *rwlock);</span><br></pre></td></tr></table></figure>
+
+<p><strong>[Single UNIX Specification]</strong></p>
+<p>Single UNIX Specification 还额外提供了2种加锁的版本：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 非阻塞式的加锁</span><br><span class="line">int pthread_rwlock_tryrdlock(pthread_rwlock_t *rwlock); </span><br><span class="line">int pthread_rwlock_trywrlock(pthread_rwlock_t *rwlock);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 带有超时的读写锁，第2个参数表示绝对时间</span><br><span class="line">int pthread_rwlock_timedrdlock(pthread_rwlock_t *rwlock,</span><br><span class="line">                               const struct timespec *restrict tsptr);</span><br><span class="line">int pthread_rwlock_timedwrlock(pthread_rwlock_t *rwlock,</span><br><span class="line">                               const struct timespec *restrict tsptr);</span><br></pre></td></tr></table></figure>
+
+<h1 id="读写锁属性"><a href="#读写锁属性" class="headerlink" title="读写锁属性"></a>读写锁属性</h1><p>和互斥量属性类似，读写锁也有自己的属性，使用<code>pthread_rwlockattr_t</code>定义，并且提供初始化和反初始化的方法：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int pthread_rwlockattr_init(pthread_rwlockattr_t *attr);</span><br><span class="line">int pthread_rwlockattr_destroy(pthread_rwlockattr_t *attr);</span><br></pre></td></tr></table></figure>
+
+<p>不过POSIX对读写锁属性只定义了<strong>进程共享</strong>属性，和互斥量的进程共享属性是相同的。</p>
+<p>读取和设置读写锁的进程共享属性的方法如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int pthread_rwlockattr_getpthread(const pthread_rwlockattr_t *restrict attr, int *restrict pshared);</span><br><span class="line">int pthread_rwlockattr_setshared(pthread_rwlockattr_t *attr, int pshared);</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>软件工程师系列</category>
+      </categories>
+      <tags>
+        <tag>C语言</tag>
+        <tag>并发编程</tag>
+        <tag>Pthreads</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基于线程的并发编程——条件变量</title>
+    <url>/SE-BS-DIS-concurrency-in-C-5/</url>
+    <content><![CDATA[<h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>试想这么一种场景，比如我设置了一个全局变量，由一个特定的线程对其进行修改，我希望当这个变量达到某个特定的值了，再让其他线程做某件事情。如果使用以上介绍的互斥量和读写锁，是可以实现的，但是线程需要不停地查询这个全局变量的值，直到发现它达到特定条件了，才能继续执行，这种方式会消耗更多的资源，比较低效。</p>
+<p>这个时候，就需要<strong>条件变量</strong>出场了。条件变量和互斥量的不同在于，互斥量（包括读写锁）只能控制能否访问共享数据，而条件变量允许根据共享数据的特定的值来协调线程的同步。当你的程序需要一个特定的同步条件时，就应该创建一个条件变量，如果有多个同步条件，那就创建多个。同时，条件变量<strong>一定</strong>是要和互斥量一起使用的，因为它们都是对共享数据的控制，一个控制访问权，一个控制条件。</p>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>条件变量使用<code>pthread_cond_t</code>数据类型表示，可以使用静态的<code>PTHREAD_COND_INITIALIZER</code>给其赋值，也可以使用动态分配的方式，也就是init和destroy：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int pthread_cond_init(pthread_cond_t *restrict cond,</span><br><span class="line">                      const pthread_condattr_t *restrict attr);</span><br><span class="line">int pthread_cond_destroy(pthread_cond_t *cond);</span><br></pre></td></tr></table></figure>
+
+<p>对于等待特定条件的线程来说，它们需要以下方法：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int pthread_cond_wait(pthread_cond_t *restrict cond,</span><br><span class="line">                      pthread_mutex_t *restrict mutex);</span><br><span class="line">int pthread_cond_timedwait(pthread_cond_t *restrict cond,</span><br><span class="line">                      pthread_mutex_t *restrict mutex,</span><br><span class="line">                      const struct timespec *restrict tsptr);</span><br></pre></td></tr></table></figure>
+<p>首先，线程需要使用<code>pthread_mutex_lock()</code><strong>锁住</strong>互斥量，然后将其传递给<code>pthread_cond_wait()</code>，该互斥量的作用是对条件进行保护。<code>pthread_cond_wait()</code>函数会自动把调用它的线程放到等待条件的线程列表上，然后对互斥量<strong>解锁</strong>。此时线程就会处于阻塞状态，等待特定条件的发生。当条件满足时，<code>pthread_cond_wait()</code>就会返回，此时该线程重新获得互斥量的锁，并解除阻塞继续执行。类似的，<code>pthread_cond_timedwait()</code>函数允许指定线程等待多长时间，时间仍然是一个绝对时间。</p>
+<p>需要注意的是，当线程从以上2种wait方法成功返回时，都需要重新计算条件，因为其他线程可能已经在运行并改变了这个条件。</p>
+<p>那等待条件的线程什么时候才能被唤醒呢？这就需要以下2个函数了，它们用于给线程发信号，告诉它们：“条件已经满足了”：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int pthread_cond_signal(pthread_cond_t *cond);</span><br><span class="line">int pthread_cond_broadcast(pthread_cond_t *cond);</span><br></pre></td></tr></table></figure>
+<p>其中，<code>pthread_cond_signal()</code>可以唤醒至少一个等待条件的线程列表上的一个线程，而<code>pthread_cond_broadcast()</code>能唤醒所有等待该条件的线程。</p>
+<p>同样需要注意的时，在给线程发信号前，一定确保要在改变条件状态之后再发。</p>
+<h1 id="条件变量属性"><a href="#条件变量属性" class="headerlink" title="条件变量属性"></a>条件变量属性</h1><p>Single UNIX Specification定义了条件变量的2个属性，分别是<strong>进程共享属性</strong>和<strong>时钟属性</strong>。和其他属性对象一样，有一对函数用来初始化和反初始化条件变量属性：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int pthread_condattr_init(pthread_condattr_t *attr);</span><br><span class="line">int pthread_condattr_destroy(pthread_condattr_t *attr);</span><br></pre></td></tr></table></figure>
+
+<p><strong>进程共享属性</strong>控制着条件变量可以被单进程使用，还是多进程的线程使用。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int pthread_condattr_getshared(const pthread_condattr_t *restrict attr, int *restrict pshared);</span><br><span class="line">int pthread_condattr_setshared(pthread_condattr_t *attr, int pshared);</span><br></pre></td></tr></table></figure>
+
+<p><strong>时钟属性</strong>控制计算<code>pthread_cond_timewait()</code>函数的超时参数（<code>tsptr</code>）时采用的是哪个时钟。可选值包括<code>CLOCK_REALTIME</code>（实时系统时间）、<code>CLOCK_MONOTONIC</code>（不带负跳数的实时系统时间）、<code>CLOCK_PROCESS_CPUTIME_ID</code>（调用进程的CPU时间）、<code>CLOCK_THREAD_CPUTIME_ID</code>（调用线程的CPU时间）。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int pthread_condattr_getclock(const pthread_condattr_t *restrict attr, clockid_t *restrict clock_id);</span><br><span class="line">int pthread_condattr_setclock(pthread_condattr_t *attr, clockid_t clock_id);</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>软件工程师系列</category>
+      </categories>
+      <tags>
+        <tag>C语言</tag>
+        <tag>并发编程</tag>
+        <tag>Pthreads</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基于线程的并发编程——自旋锁</title>
+    <url>/SE-BS-DIS-concurrency-in-C-6/</url>
+    <content><![CDATA[<p>自旋锁和互斥量类似，它不是通过休眠使进程阻塞，而是在获取锁之前一直处于忙等阻塞状态。它适用于这种场景：锁被持有的时间短，且线程不希望在重新调度上花太多的成本。一般作为底层原语用于实现其他类型的锁，用户层很少用到，所以先不做深入了解。</p>
+]]></content>
+      <categories>
+        <category>软件工程师系列</category>
+      </categories>
+      <tags>
+        <tag>C语言</tag>
+        <tag>并发编程</tag>
+        <tag>Pthreads</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基于线程的并发编程——屏障</title>
+    <url>/SE-BS-DIS-concurrency-in-C-7/</url>
+    <content><![CDATA[<h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>屏障是协调多线程并行工作的一种同步机制，屏障允许每个线程等待，直到所有线程都达到某个特定的点，然后再从该点继续执行。我们之前介绍的<code>pthread_join()</code>就是一种屏障，但我们现在介绍的屏障更强大一些，它允许任意数量的线程等待，直到所有线程都达到该屏障后继续工作，不需要退出。</p>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>屏障使用<code>pthread_barrier_t</code>类型表示，可以使用以下方式初始化与销毁：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int pthread_barrier_init(pthread_barrier_t *restrict barrier</span><br><span class="line">                         const pthread_barrierattr_t *restrict attr,</span><br><span class="line">                         unsigned int count);</span><br><span class="line">int pthread_barrier_destroy(pthread_barrier_t *barrier);</span><br></pre></td></tr></table></figure>
+
+<p>初始化屏障时，可以用<code>count</code>参数指定必须到达屏障的线程数量，也就是说，只有到达该屏障的线程数量达到这个值了之后，才允许它们继续执行。</p>
+<p>对应的，可以使用以下方法设定屏障的点：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int pthread_barrier_wait(pthread_barrier_t *barrier);</span><br></pre></td></tr></table></figure>
+<p>当线程调用该函数时，会对屏障计数+1，如果此时未满足之前设定的<code>count</code>条件，那么线程会进入休眠状态；如果线程是最后一个调用该函数的线程，满足了屏障的计数，那么所有线程都会被唤醒。对于任意一个线程，该函数可能会返回<code>PTHREAD_BARRIER_SERIAL_THREAD</code>，同时其他线程看到的返回值就都是0，这种机制允许使一个线程作为主线程，它可以工作在其他所有线程已经完成的工作结果上。</p>
+<p>当屏障计数值达到，并且所有线程解除阻塞后，屏障就可以继续被使用了。</p>
+<h1 id="屏障属性"><a href="#屏障属性" class="headerlink" title="屏障属性"></a>屏障属性</h1><p>和其他同步对象属性一样，屏障也有属性。初始化和去初始化的方法如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int pthread_barrierattr_init(pthread_barrierattr_t *attr);</span><br><span class="line">int pthread_barrierattr_destroy(pthread_barrierattr_t *attr);</span><br></pre></td></tr></table></figure>
+
+<p>屏障只有<strong>进程共享属性</strong>，含义和互斥量是一样的，此处不再赘述。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int pthread_barrierattr_getpshared(const pthread_ barrierattr_t *restrict attr, int *restrict pshared);</span><br><span class="line">int pthread_barrierattr_setpshared(pthread_barrierattr_t *attr, int pshared);</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>软件工程师系列</category>
+      </categories>
+      <tags>
+        <tag>C语言</tag>
+        <tag>并发编程</tag>
+        <tag>Pthreads</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>《化作繁星》</title>
+    <url>/HB-MS-2nd-cotton-wedding-gift/</url>
+    <content><![CDATA[<h1 id="化作繁星"><a href="#化作繁星" class="headerlink" title="化作繁星"></a>化作繁星</h1><p>2020年是一个不平凡的年份，老婆怀孕了，由于新冠疫情的影响，我和她不得不分开了几个月的时间，这也让我缺失了一段陪伴她早孕的宝贵时光。4月底是我们的第2个结婚纪念日（棉婚），我想送她一个不一样的礼物。刚好有一天听到了一首歌，旋律很优美温馨，虽然听不懂歌词，但我从曲调里感受到了温暖和力量，所以我想把这首歌曲重新填词送给她：</p>
+<p>《化作繁星》<br>跨过行走的城市<br>飞过夕阳下的海<br>一起听过的晚风<br>一起注目的星河</p>
+<p>看那世间的美景<br>在我们身边流淌<br>我的心不变坚定<br>你的眼如初清澄</p>
+<p>多幸运遇见你<br>温暖我生命里<br>让我留下阳光<br>陪你看山高水长</p>
+<p>天上的月有阴晴圆缺<br>相爱的人有欢笑喜悲<br>不论<br>经历了多少风浪<br>那都是我们<br>珍藏的回忆</p>
+<p>时刻记得我们的初心<br>要做彼此最棒的爱人<br>大大的城市里<br>小小的灯光下<br>我们是彼此的家</p>
+<p>步足虽小的青草<br>拥有足下的大地<br>凤凰翱翔着天空<br>无视麻雀的非议</p>
+<p>人间多少的喧嚣<br>如云烟一样环绕<br>漫天闪烁的繁星<br>是否照亮了前路</p>
+<p>你可曾还记得<br>心灵中的梦想<br>我在你的身边<br>让我们携手前行</p>
+<p>生来这人世间头一遭<br>今生的相伴请多指教<br>我们<br>一起相爱一起分享创造<br>让生命<br>闪耀着光芒</p>
+<p>生活有时总会不如意<br>别忘记我们已不孤寂<br>时光的间隙里<br>我们彼此拥有<br>爱汇成满天繁星</p>
+<p>时光的间隙里<br>我们彼此拥有<br>爱汇成满天繁星</p>
+<p>时光的间隙里<br>我们彼此拥有<br>爱汇成满天繁星</p>
+<h1 id="原曲背景"><a href="#原曲背景" class="headerlink" title="原曲背景"></a>原曲背景</h1><p>这首歌的旋律来自日本歌手KOKIA翻唱的歌曲《夢追人》，它是日本至学馆高等学校的校歌，但不同于我们的校歌，这首歌舒缓温柔，让人有种莫名的感动。后来我查了查，发现原来这首曲子的背后，还有一个特别的故事，讲的是学校成立没多久的棒球部经历了千难万阻之后带着逝去队友的梦想和老牌棒球豪门在进入全国大赛的决赛中绝地反杀拿下了比赛的故事，赛后，队员们和师生们一起携手唱起了这首校歌，热泪盈眶，感人至深。</p>
+<p>这也让我想起了当年高三运动会800米比赛的时候，刚一起步没多久我就在弯道被别人绊倒并跌到了最后，眼看大部队已经跑出50米开外了，我翻身爬起来奋力追赶，并且连续2圈全程加速，一个一个地超越对手，并在最后的100米冲刺时第一个越过了终点线。我想，这就是刻在我骨子里的努力和执着吧，算是能给孩子吹牛一辈子的事情之一了。</p>
+<blockquote>
+<p>日本至学馆 校歌 《夢追人》<br>一番高い所に登って<br>（我登上最高的山峰）<br>一番光る星を掴んだ<br>（去摘下最亮的星星（<br>一番辛い道を選んで<br>（我选择最艰辛的道路）<br>一番強い心をまとった<br>（磨炼出最坚强的内心）<br>海を渡る風が吹いた<br>（迎着海风、漂洋过海）<br>カシオペアが近くに見えた<br>（仙后座看起来更近了一些）<br>夢を追い続けた<br>（为了追逐自己的梦想）<br>そしてここまで来た<br>（我才终于来到这里）<br>でもどうしてかな<br>（可是究竟为什么呢）<br>熱い涙が止まらない<br>（我止不住地热泪盈眶）<br>うつむきかけた時<br>（我低下头来）<br>君の顔が見えた<br>（便看到了你的脸庞）<br>差し出された白い腕が<br>（你向我伸出洁白的手臂）<br>翼に見えた<br>（就仿佛一对翅膀那样）<br>いろんなことを経験したね<br>（经历了各种各样的事情吧）<br>あんまり先を急がないでね<br>（不必那么着急地往前走啊）<br>いろんな人に巡り会えたね<br>（见过了形形色色的人们吧）<br>そんな旅なら悪くはないさ<br>（这样的旅途倒也并不坏啊）<br>オリンポスの丘の上から<br>（从奥林匹斯的山丘上）<br>女神様の歌が聞こえた<br>（我听到过女神的歌声）<br>夢を追い続ける<br>（我一直追逐着梦想）<br>もっと遠くへ行く<br>（想去到更远的地方）<br>でもどうしてかな<br>（可是到底为什么呢）<br>いつもみんなにいて欲しい<br>（却总是希望和大家在一起）<br>一番星よりも<br>（比起启明星）<br>夏の星座が好き<br>（我更喜欢夏夜的星星）<br>君がいれば夜を越えて<br>（因为只要有你在我就能飞过这夜空）<br>銀河になれる<br>（化身为那银河）<br>君がいれば夜を越えて<br>（因为只要有你在我就能飞过这夜空）<br>銀河になれる<br>（化身为那银河）<br>君がいれば夜を越えて<br>（因为只要有你在我就能飞过这夜空）<br>銀河になれる<br>（化身为那银河）</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>兴趣爱好</category>
+      </categories>
+      <tags>
+        <tag>音乐</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>基于线程的并发编程——线程管理</title>
     <url>/SE-BS-DIS-concurrency-in-C-2/</url>
     <content><![CDATA[<p>Pthreads线程管理类的API提供了创建、销毁、取消、结合、分离线程与设置和查询线程属性等方法。</p>
@@ -93,6 +333,24 @@
       </tags>
   </entry>
   <entry>
+    <title>初识传播学——人际传播</title>
+    <url>/TW-CM-communication-concepts-2/</url>
+    <content><![CDATA[<blockquote>
+<p>人际传播讲述的是一对一的互动，它是一个多向的过程，它用语言和非语言信息与另一个人不断地创造并改变大脑里的图像。假如其中两幅图像形成一定的重叠，传播就开始了，传播的有效性与图像重叠部分不断增长相伴而生。然而，就算出现在我们脑海中的图像是一致的，传播也会因为解释的不同而出现偏差。</p>
+</blockquote>
+<ul>
+<li><strong><a href="http://stillwaters.top/TW-CM-communication-concepts-21">符号互动论</a></strong></li>
+</ul>
+<p>(持续更新中)</p>
+]]></content>
+      <categories>
+        <category>认识世界</category>
+      </categories>
+      <tags>
+        <tag>传播学</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>人际传播——符号互动论</title>
     <url>/TW-CM-communication-concepts-21/</url>
     <content><![CDATA[<h1 id="1-概念"><a href="#1-概念" class="headerlink" title="1. 概念"></a>1. 概念</h1><blockquote>
@@ -106,24 +364,6 @@
 <p>究竟，什么是现实？没有真正的现实，一切只是大家的直觉罢了。</p>
 </blockquote>
 <h2 id="2-2-语言：意义的来源"><a href="#2-2-语言：意义的来源" class="headerlink" title="2.2. 语言：意义的来源"></a>2.2. 语言：意义的来源</h2><h2 id="2-3-思维：扮演他人角色的过程"><a href="#2-3-思维：扮演他人角色的过程" class="headerlink" title="2.3. 思维：扮演他人角色的过程"></a>2.3. 思维：扮演他人角色的过程</h2><h1 id="3-推导结论"><a href="#3-推导结论" class="headerlink" title="3. 推导结论"></a>3. 推导结论</h1><h2 id="3-1-自我：镜子中的映像"><a href="#3-1-自我：镜子中的映像" class="headerlink" title="3.1. 自我：镜子中的映像"></a>3.1. 自我：镜子中的映像</h2><h2 id="3-2-社群：他人预期的社会化效果"><a href="#3-2-社群：他人预期的社会化效果" class="headerlink" title="3.2. 社群：他人预期的社会化效果"></a>3.2. 社群：他人预期的社会化效果</h2><h1 id="4-应用案例"><a href="#4-应用案例" class="headerlink" title="4. 应用案例"></a>4. 应用案例</h1><h2 id="4-1-创造现实"><a href="#4-1-创造现实" class="headerlink" title="4.1. 创造现实"></a>4.1. 创造现实</h2><h2 id="4-2-有意义的研究"><a href="#4-2-有意义的研究" class="headerlink" title="4.2. 有意义的研究"></a>4.2. 有意义的研究</h2><h2 id="4-3-概化他人"><a href="#4-3-概化他人" class="headerlink" title="4.3. 概化他人"></a>4.3. 概化他人</h2><h2 id="4-4-归类"><a href="#4-4-归类" class="headerlink" title="4.4. 归类"></a>4.4. 归类</h2><h2 id="4-5-自证预言"><a href="#4-5-自证预言" class="headerlink" title="4.5. 自证预言"></a>4.5. 自证预言</h2><h2 id="4-6-符号操控"><a href="#4-6-符号操控" class="headerlink" title="4.6. 符号操控"></a>4.6. 符号操控</h2>]]></content>
-      <categories>
-        <category>认识世界</category>
-      </categories>
-      <tags>
-        <tag>传播学</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>初识传播学——人际传播</title>
-    <url>/TW-CM-communication-concepts-2/</url>
-    <content><![CDATA[<blockquote>
-<p>人际传播讲述的是一对一的互动，它是一个多向的过程，它用语言和非语言信息与另一个人不断地创造并改变大脑里的图像。假如其中两幅图像形成一定的重叠，传播就开始了，传播的有效性与图像重叠部分不断增长相伴而生。然而，就算出现在我们脑海中的图像是一致的，传播也会因为解释的不同而出现偏差。</p>
-</blockquote>
-<ul>
-<li><strong><a href="http://stillwaters.top/TW-CM-communication-concepts-21">符号互动论</a></strong></li>
-</ul>
-<p>(持续更新中)</p>
-]]></content>
       <categories>
         <category>认识世界</category>
       </categories>
@@ -205,11 +445,11 @@
 <p>除了计算机体系结构的原因之外，程序使用变量的方式也会带来<strong>竞争</strong>的问题。比如一个线程把某个共享变量+1，然后其他线程会根据这个值做出某个决定，但是很有可能当那个线程还没有把变量的值写进去的时候，其他线程就过来读取了，这时候就会读取到一个不一致的值，从而影响程序的行为。</p>
 <p>为了解决这种线程同步的问题，Pthreads提供了以下几种机制：</p>
 <ul>
-<li><strong>互斥量</strong> - <a href="http://stillwaters.top">《基于线程的并发编程——互斥量》</a>（待补充）</li>
-<li><strong>读写锁</strong> - <a href="http://stillwaters.top">《基于线程的并发编程——读写锁》</a>（待补充）</li>
-<li><strong>条件变量</strong> - <a href="http://stillwaters.top">《基于线程的并发编程——条件变量》</a>（待补充）</li>
-<li><strong>自旋锁</strong> - <a href="http://stillwaters.top">《基于线程的并发编程——自旋锁》</a>（待补充）</li>
-<li><strong>屏障</strong> - <a href="http://stillwaters.top">《基于线程的并发编程——屏障》</a>（待补充）</li>
+<li><strong>互斥量</strong> - <a href="http://stillwaters.top/SE-BS-DIS-concurrency-in-C-3/">《基于线程的并发编程——互斥量》</a></li>
+<li><strong>读写锁</strong> - <a href="http://stillwaters.top/SE-BS-DIS-concurrency-in-C-4/">《基于线程的并发编程——读写锁》</a></li>
+<li><strong>条件变量</strong> - <a href="http://stillwaters.top/SE-BS-DIS-concurrency-in-C-5/">《基于线程的并发编程——条件变量》</a></li>
+<li><strong>自旋锁</strong> - <a href="http://stillwaters.top/SE-BS-DIS-concurrency-in-C-6/">《基于线程的并发编程——自旋锁》</a></li>
+<li><strong>屏障</strong> - <a href="http://stillwaters.top/SE-BS-DIS-concurrency-in-C-7/">《基于线程的并发编程——屏障》</a></li>
 </ul>
 <h1 id="3-实例"><a href="#3-实例" class="headerlink" title="3. 实例"></a>3. 实例</h1><h2 id="3-1-生产者-消费者"><a href="#3-1-生产者-消费者" class="headerlink" title="3.1. 生产者-消费者"></a>3.1. 生产者-消费者</h2><h2 id="3-2-读者-写者"><a href="#3-2-读者-写者" class="headerlink" title="3.2. 读者-写者"></a>3.2. 读者-写者</h2><h1 id="4-参考资料"><a href="#4-参考资料" class="headerlink" title="4. 参考资料"></a>4. 参考资料</h1><ol>
 <li><a href="https://computing.llnl.gov/tutorials/pthreads/" target="_blank" rel="external nofollow">POSIX Threads Programming</a></li>

@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://stillwaters.top').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="介绍Pthreads条件变量及其属性的API">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于线程的并发编程——条件变量">
+<meta property="og:url" content="http://stillwaters.top/SE-BS-DIS-concurrency-in-C-5/index.html">
+<meta property="og:site_name" content="Still Waters">
+<meta property="og:description" content="介绍Pthreads条件变量及其属性的API">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-12T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-04-12T16:19:44.579Z">
+<meta property="article:author" content="Hackerleon">
+<meta property="article:tag" content="C语言">
+<meta property="article:tag" content="并发编程">
+<meta property="article:tag" content="Pthreads">
+<meta property="article:tag" content="条件变量">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://stillwaters.top/SE-BS-DIS-concurrency-in-C-5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>基于线程的并发编程——条件变量 | Still Waters</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Still Waters</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">深入理解</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap/" rel="section"><i class="fa fa-fw fa-sitemap"></i>站点地图</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="搜索..." spellcheck="false" type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://stillwaters.top/SE-BS-DIS-concurrency-in-C-5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hackerleon">
+      <meta itemprop="description" content>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Still Waters">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          基于线程的并发编程——条件变量
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-13 00:00:00" itemprop="dateCreated datePublished" datetime="2020-04-13T00:00:00+08:00">2020-04-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%B3%BB%E5%88%97/" itemprop="url" rel="index">
+                    <span itemprop="name">软件工程师系列</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">介绍Pthreads条件变量及其属性的API</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>试想这么一种场景，比如我设置了一个全局变量，由一个特定的线程对其进行修改，我希望当这个变量达到某个特定的值了，再让其他线程做某件事情。如果使用以上介绍的互斥量和读写锁，是可以实现的，但是线程需要不停地查询这个全局变量的值，直到发现它达到特定条件了，才能继续执行，这种方式会消耗更多的资源，比较低效。</p>
+<p>这个时候，就需要<strong>条件变量</strong>出场了。条件变量和互斥量的不同在于，互斥量（包括读写锁）只能控制能否访问共享数据，而条件变量允许根据共享数据的特定的值来协调线程的同步。当你的程序需要一个特定的同步条件时，就应该创建一个条件变量，如果有多个同步条件，那就创建多个。同时，条件变量<strong>一定</strong>是要和互斥量一起使用的，因为它们都是对共享数据的控制，一个控制访问权，一个控制条件。</p>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>条件变量使用<code>pthread_cond_t</code>数据类型表示，可以使用静态的<code>PTHREAD_COND_INITIALIZER</code>给其赋值，也可以使用动态分配的方式，也就是init和destroy：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int pthread_cond_init(pthread_cond_t *restrict cond,</span><br><span class="line">                      const pthread_condattr_t *restrict attr);</span><br><span class="line">int pthread_cond_destroy(pthread_cond_t *cond);</span><br></pre></td></tr></table></figure>
+
+<p>对于等待特定条件的线程来说，它们需要以下方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int pthread_cond_wait(pthread_cond_t *restrict cond,</span><br><span class="line">                      pthread_mutex_t *restrict mutex);</span><br><span class="line">int pthread_cond_timedwait(pthread_cond_t *restrict cond,</span><br><span class="line">                      pthread_mutex_t *restrict mutex,</span><br><span class="line">                      const struct timespec *restrict tsptr);</span><br></pre></td></tr></table></figure>
+<p>首先，线程需要使用<code>pthread_mutex_lock()</code><strong>锁住</strong>互斥量，然后将其传递给<code>pthread_cond_wait()</code>，该互斥量的作用是对条件进行保护。<code>pthread_cond_wait()</code>函数会自动把调用它的线程放到等待条件的线程列表上，然后对互斥量<strong>解锁</strong>。此时线程就会处于阻塞状态，等待特定条件的发生。当条件满足时，<code>pthread_cond_wait()</code>就会返回，此时该线程重新获得互斥量的锁，并解除阻塞继续执行。类似的，<code>pthread_cond_timedwait()</code>函数允许指定线程等待多长时间，时间仍然是一个绝对时间。</p>
+<p>需要注意的是，当线程从以上2种wait方法成功返回时，都需要重新计算条件，因为其他线程可能已经在运行并改变了这个条件。</p>
+<p>那等待条件的线程什么时候才能被唤醒呢？这就需要以下2个函数了，它们用于给线程发信号，告诉它们：“条件已经满足了”：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int pthread_cond_signal(pthread_cond_t *cond);</span><br><span class="line">int pthread_cond_broadcast(pthread_cond_t *cond);</span><br></pre></td></tr></table></figure>
+<p>其中，<code>pthread_cond_signal()</code>可以唤醒至少一个等待条件的线程列表上的一个线程，而<code>pthread_cond_broadcast()</code>能唤醒所有等待该条件的线程。</p>
+<p>同样需要注意的时，在给线程发信号前，一定确保要在改变条件状态之后再发。</p>
+<h1 id="条件变量属性"><a href="#条件变量属性" class="headerlink" title="条件变量属性"></a>条件变量属性</h1><p>Single UNIX Specification定义了条件变量的2个属性，分别是<strong>进程共享属性</strong>和<strong>时钟属性</strong>。和其他属性对象一样，有一对函数用来初始化和反初始化条件变量属性：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int pthread_condattr_init(pthread_condattr_t *attr);</span><br><span class="line">int pthread_condattr_destroy(pthread_condattr_t *attr);</span><br></pre></td></tr></table></figure>
+
+<p><strong>进程共享属性</strong>控制着条件变量可以被单进程使用，还是多进程的线程使用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int pthread_condattr_getshared(const pthread_condattr_t *restrict attr, int *restrict pshared);</span><br><span class="line">int pthread_condattr_setshared(pthread_condattr_t *attr, int pshared);</span><br></pre></td></tr></table></figure>
+
+<p><strong>时钟属性</strong>控制计算<code>pthread_cond_timewait()</code>函数的超时参数（<code>tsptr</code>）时采用的是哪个时钟。可选值包括<code>CLOCK_REALTIME</code>（实时系统时间）、<code>CLOCK_MONOTONIC</code>（不带负跳数的实时系统时间）、<code>CLOCK_PROCESS_CPUTIME_ID</code>（调用进程的CPU时间）、<code>CLOCK_THREAD_CPUTIME_ID</code>（调用线程的CPU时间）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int pthread_condattr_getclock(const pthread_condattr_t *restrict attr, clockid_t *restrict clock_id);</span><br><span class="line">int pthread_condattr_setclock(pthread_condattr_t *attr, clockid_t clock_id);</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Hackerleon
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://stillwaters.top/SE-BS-DIS-concurrency-in-C-5/" title="基于线程的并发编程——条件变量">http://stillwaters.top/SE-BS-DIS-concurrency-in-C-5/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="external nofollow" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-ND</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/C%E8%AF%AD%E8%A8%80/" rel="tag"><i class="fa fa-tag"></i> C语言</a>
+              <a href="/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" rel="tag"><i class="fa fa-tag"></i> 并发编程</a>
+              <a href="/tags/Pthreads/" rel="tag"><i class="fa fa-tag"></i> Pthreads</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/SE-BS-DIS-concurrency-in-C-6/" rel="prev" title="基于线程的并发编程——自旋锁">
+      <i class="fa fa-chevron-left"></i> 基于线程的并发编程——自旋锁
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/SE-BS-DIS-concurrency-in-C-4/" rel="next" title="基于线程的并发编程——读写锁">
+      基于线程的并发编程——读写锁 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概念"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#条件变量属性"><span class="nav-number">3.</span> <span class="nav-text">条件变量属性</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Hackerleon</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/anchem" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;anchem" rel="external nofollow" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:hackerleon@foxmail.com" title="E-Mail → mailto:hackerleon@foxmail.com" rel="external nofollow" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/anchem" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;anchem" rel="external nofollow" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" class="cc-opacity" rel="external nofollow" target="_blank"><img src="/images/cc-by-nc-nd.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hackerleon</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="external nofollow" target="_blank">Hexo</a> 强力驱动
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="external nofollow" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
