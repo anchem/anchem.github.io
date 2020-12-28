@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: 404
 hide-in-nav: true
 description: "这里是哪儿？我是谁？我在哪儿？"
@@ -7,6 +7,23 @@ header-img: "img/404-bg.jpg"
 permalink: /404.html
 ---
 
-<script>
-	document.body.classList.add('page-fullscreen');
-</script>
+<!-- Page Header -->
+{% if page.background %}
+<header class="masthead" style="background-image: url('{{ page.background | prepend: site.baseurl | replace: '//', '/' }}')">
+  {% else %}
+  <header class="masthead">
+    {% endif %}
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>{{ page.title }}</h1>
+            {% if page.description %}
+            <h2 class="subheading">{{ page.description }}</h2>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
