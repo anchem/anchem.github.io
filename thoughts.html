@@ -6,17 +6,8 @@ background: '/img/bg-about.jpg'
 ---
 
 {% for thoughts in site.data.thoughts %}
-<div class="card">
-  <div class="card-header">
-    {{ thoughts.date }}
-  </div>
-  <div class="card-body">
-    <blockquote class="blockquote mb-0">
-      <p>{{ thoughts.content }}</p>
-      {% if thoughts.quote %}
-      <footer class="blockquote-footer">{{ thoughts.quote }}</footer>
-      {% endif %}
-    </blockquote>
-  </div>
+<div class="bd-callout bd-callout-info">
+  <p>{{ thoughts.content }}</p>
+  <footer class="blockquote-footer">{{ thoughts.date }}</footer>
 </div>
 {% endfor %}
