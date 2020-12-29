@@ -5,10 +5,19 @@ description: 每日所思
 background: '/img/bg-about.jpg'
 ---
 
-<ul>
 {% for thoughts in site.data.thoughts %}
-  <li>
-      【{{ thoughts.date }}】 - thoughts.content
-  </li>
+<div class="card">
+  <div class="card-header">
+    {{ thoughts.date }}
+  </div>
+  <div class="card-body">
+    <blockquote class="blockquote mb-0">
+      <p>{{ thoughts.content }}</p>
+      {% if thoughts.quote %}
+      <footer class="blockquote-footer">{{ thoughts.quote }}</footer>
+      {% endif %}
+    </blockquote>
+  </div>
+</div>
+</hr>
 {% endfor %}
-</ul>
