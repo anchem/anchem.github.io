@@ -10,13 +10,13 @@ tags:
 - 编程语言
 - Java语言
 keywords: 编译告警,serialVersionUID,Java,匿名类
-description: 本文全文转载自我司洪燕的一篇分享，非常有启发。
+description: 最近版本组织清理编译告警，其中有这么一条比较有意思，之前没见过，拿出来说一说。
 background: '/img/posts/default.jpg'
 ---
 
 ## 问题描述
 
-最近版本组织清理编译告警，其中有这么一条比较有意思，之前没见过，拿出来说一说
+最近版本组织清理编译告警，其中有这么一条比较有意思，之前没见过，拿出来说一说：
 
 “**serializable class anonymous com.demo.Main$1 has no definition of serialVersionUID**”
 
