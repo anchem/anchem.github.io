@@ -2,7 +2,7 @@
 
 ## 简介
 
-这是我的个人博客站点，欢迎访问 -> [Still Waters](https://stillwaters.top/)
+这是我的个人博客站点，欢迎访问 -> <a href="https://stillwaters.top/" target="_blank">Still Waters</a>
 
 ## 参考
 
