@@ -7,9 +7,9 @@ background: '/img/bg-about.jpg'
 
 {% for thoughts in site.data.thoughts %}
 <div class="card">
-  <div class="card-header">
+  <h5 class="card-header">
     {{ thoughts.date }}
-  </div>
+  </h5>
   <div class="card-body">
       <p>{{ thoughts.content }}</p>
   </div>
