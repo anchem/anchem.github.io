@@ -59,13 +59,13 @@ background: '/img/bg-post.jpg'
 
                 <div class="post-preview item" data-tags="{{ _tags }}">
                     <a href="{{ _article.url | prepend: site.baseurl }}">
-                        <h2 class="post-title">
+                        <h3 class="post-title">
                             {{ _article.title }}
-                        </h2>
-                        {% if _article.discription %}
-                        <h3 class="post-subtitle">
-                            {{ _article.discription }}
                         </h3>
+                        {% if _article.description %}
+                        <h4 class="post-subtitle">
+                            {{ _article.description }}
+                        </h4>
                         {% endif %}
                     </a>
                     <hr>
