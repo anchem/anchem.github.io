@@ -4,7 +4,7 @@ title: Process的waitFor()为何会阻塞
 date: 2020-03-01 23:42:08
 categories: 软件工程师系列
 tags:
-- Java
+- Java语言
 - 编程语言
 - 编码规范
 keywords: Java,waitFor,编码规范
