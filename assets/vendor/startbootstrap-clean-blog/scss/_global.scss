@@ -137,7 +137,7 @@ img::-moz-selection {
     line-height: 28px;
     margin: 0 2px;
     margin-bottom: 8px;
-    background: #f3f5f5;
+    background: #B4B5FF;
     &:hover,
     &:active,
     &.focus {
@@ -150,6 +150,7 @@ img::-moz-selection {
     &.tag-button--all {
       font-weight: 700;
       color: #0085a1 !important;
+      background: #F0F0F0 !important;
       &:hover,
       &:active,
       &.focus {
