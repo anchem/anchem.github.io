@@ -193,23 +193,19 @@ img::-moz-selection {
 // Customize Style for Posts in Mini-Post-List
 .mini-post-list {
   margin: 20px 0 15px 0;
-  .tag-text {
-    font-weight: 200;
-    .sans-serif;
-  }
   .post-preview {
     position: relative;
-    > a {
+    a {
       .post-title {
-        font-size: 16px;
-        font-weight: 500;
+        font-size: 18px;
+        font-weight: 900;
         margin-top: 20px;
       }
       .post-subtitle {
-        font-size: 13px;
+        font-size: 15px;
       }
     }
-    > .post-meta {
+    .post-meta {
       position: absolute;
       right: 5px;
       bottom: 0px;
@@ -219,12 +215,12 @@ img::-moz-selection {
     }
     @media only screen and (min-width: 768px) {
       margin-left: 20px;
-      > a {
-        > .post-title {
+      a {
+        .post-title {
           font-size: 18px;
           line-height: 1.3;
         }
-        > .post-subtitle {
+        .post-subtitle {
           font-size: 14px;
         }
       }
