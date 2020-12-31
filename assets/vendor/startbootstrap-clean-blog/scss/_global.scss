@@ -133,22 +133,21 @@ img::-moz-selection {
     transition-duration: 0.4s;
     transition-timing-function: ease;
     font-size: 14px;
+    font-weight: 700;
     border: none;
     line-height: 28px;
     margin: 0 2px;
     margin-bottom: 8px;
-    background: #B4B5FF;
+    background: #B3ACF4;
     &:hover,
     &:active,
     &.focus {
       background-color: #0085a1 !important;
-    }
-    &.focus {
       box-shadow: rgba(0, 0, 0, 0.117647) 0 1px 6px,
         rgba(0, 0, 0, 0.239216) 0 1px 4px;
     }
     &.tag-button--all {
-      font-weight: 700;
+      font-weight: 900;
       color: #0085a1 !important;
       background: #F0F0F0 !important;
       &:hover,
