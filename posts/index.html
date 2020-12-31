@@ -11,7 +11,7 @@ background: '/img/bg-post.jpg'
 			<!-- Tags (as filter) -->
 			<div id='tag_cloud' class="tags tags-sup js-tags">
 				<a class="tag-button--all" data-encode="">
-        所有 Show All 
+        				所有 Show All 
 					<sup>{{site.posts.size}}</sup>
 				</a>
 
@@ -26,10 +26,10 @@ background: '/img/bg-post.jpg'
 				</a>__SEPERATOR__
 				{% endfor %}
 				{% endcapture %}
-        {{ tags | split:'__SEPERATOR__' | sort }}
+        			{{ tags | split:'__SEPERATOR__' | sort }}
 			</div>
 
-      <!-- Article List -->
+      			<!-- Article List -->
 			<div class="mini-post-list js-result d-none">
 			{%- assign _sorted_list = site.posts -%}
 			{%- assign _sorted_list = _sorted_list | sort: 'date' -%}
