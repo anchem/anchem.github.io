@@ -6,7 +6,7 @@ categories: 生活随感
 tags:
 - 三观探讨
 keywords: 亲密关系,家庭,三观
-description: 
+description: 这句话真是震荡了我的三观，我想，同时也震荡了他们的三观吧
 background: '/img/posts/default.jpg'
 ---
 
