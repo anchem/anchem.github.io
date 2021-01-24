@@ -7,18 +7,6 @@ background: '/img/bg-about.jpg'
 
 <div id="gitalk-container"></div>
 
-{% for thoughts in site.data.thoughts %}
-<div class="card">
-  <h5 class="card-header">
-    {{ thoughts.date }}
-  </h5>
-  <div class="card-body">
-      <p>{{ thoughts.content }}</p>
-  </div>
-</div>
-<p></p>
-{% endfor %}
-
 <script type="text/javascript">
   var gitalk = new Gitalk({
   clientID: '8f8b00c0f9a02da92827',
