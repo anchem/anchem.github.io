@@ -5,6 +5,8 @@ description: 灵感稍纵即逝
 background: '/img/bg-about.jpg'
 ---
 
+<div id="gitalk-container"></div>
+
 {% for thoughts in site.data.thoughts %}
 <div class="card">
   <h5 class="card-header">
@@ -16,3 +18,19 @@ background: '/img/bg-about.jpg'
 </div>
 <p></p>
 {% endfor %}
+
+<script>
+  var gitalk = new Gitalk({
+  clientID: '8f8b00c0f9a02da92827',
+  clientSecret: 'e9e5f5370d1497b34960a41d0027faf1ee508cf1',
+  repo: 'anchem.github.io',
+  owner: 'anchem',
+  admin: ['anchem'],
+  id: stillwaters.thoughts,      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false,  // Facebook-like distraction free mode
+  title: '随想记录'
+  
+})
+
+gitalk.render('gitalk-container')
+</script>
