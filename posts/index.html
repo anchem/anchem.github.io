@@ -68,6 +68,9 @@ background: '/img/bg-post.jpg'
                         </h5>
                         {% endif %}
                     </a>
+                    <p class="post-meta">
+                        {{ page.date | date: '%B %d, %Y' }}            
+                    </p>
                     <hr>
                 </div>
             {%- if forloop.last -%}</section>{%- endif -%}
