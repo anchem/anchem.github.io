@@ -18,9 +18,11 @@ layout: default
             <h2 class="subheading">{{ page.description }}</h2>
             {% endif %}
             <span class="meta">Posted by
-              <a href="#">{% if page.author %}{{ page.author }}{% else %}{{ site.author }}{% endif %}</a>
-              on {{ page.date | date: '%B %d, %Y' }} &middot; {% include read_time.html
+              :date: {{ page.date | date: '%B %d, %Y' }} &middot; {% include read_time.html
               content=page.content %}
+              <span id="busuanzi_container_page_pv">
+                <span id="busuanzi_value_page_pv"></span>次访问
+              </span>
             </span>
           </div>
         </div>
