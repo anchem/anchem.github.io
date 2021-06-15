@@ -25,7 +25,9 @@ layout: default
 
   <div class="container">
     <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
+      <!-- main content -->
+      <div class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1 col-sm-12
+      col-xs-12 postlist-container">
 
         {{ content }}
 
@@ -55,6 +57,12 @@ layout: default
           <a class="btn btn-primary float-right" href="{{"/posts" | relative_url }}">查看所有 View All Posts &rarr;</a>
         </div>
 
+      </div>
+      
+      <!-- side bar -->
+      <div class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-12
+      col-xs-12 sidebar-container">
+        this is a side bar
       </div>
     </div>
   </div>
