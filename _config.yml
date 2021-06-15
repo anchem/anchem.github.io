@@ -51,3 +51,7 @@ anchorjs: true
 # make sure you have this gem installed
 # `$ gem install jekyll-paginate`
 plugins: [jekyll-paginate]
+
+# side bar
+sidebar-about-description: "HackerLeon."
+sidebar-avatar: /img/avatar-hackerleon-me.jpg
