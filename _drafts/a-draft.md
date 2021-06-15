@@ -66,14 +66,27 @@ long[][] matrixLong = new long[5][];  // 二维数组初始化时，必须指定
 
 ## 进阶用法
 
-多维数组，矩阵，
+### 进阶操作
 
-数组拷贝，拼接，与List转换，转成stream，泛型
+Java SE 提供了原生的`java.util.Arrays`工具类库用来对数组做一些常见的操作，包括：
+
+- 二分查找 - `binarySearch`
+- 比较 - `equals`
+- 填充 - `fill`
+- 排序 - `sort`和`parallelSort`
+- 创建流 - `stream`
+- 转String - `toString`
+
+### Array vs. ArrayList
+
+转换方法
+
+数组拷贝，拼接，泛型
 
 ## 相关算法
 
-排序，搜索
+### 排序
 
-### 相关库
+### 搜索
 
-arrays，apache common等
+### 矩阵算法
