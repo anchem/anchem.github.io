@@ -1,3 +1,9 @@
 <section>
   <h5><a href="{{'/about/' | prepend: site.baseurl }}">关于我 | About Me</a></h5>
+  {% if site.sidebar-avatar %}
+    <img src="{{site.sidebar-avatar}}" />
+  {% endif %}
+  {% if site.sidebar-about-description %}
+    <p>{{site.sidebar-about-description}}</p>
+  {% endif %}
 </section>
