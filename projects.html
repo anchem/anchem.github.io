@@ -1,23 +1,17 @@
 ---
 layout: page
-title: 项目 Projects
-description: 我的项目 | This is what I do.
+title: 主题 Theme
+description: 主题分类 | Grouped themes.
 background: '/img/bg-about.jpg'
 ---
 
+{% for theme in site.post-theme %}
 <div class="card mb-3">
-  <h5 class="card-header">知识库</h5>
+  <h5 class="card-header">{{theme.title}}</h5>
   <div class="card-body">
-    <p class="card-text">本项目用于整理和归档日常所思所学的关于客观世界的知识，包括一些专业文章的归档。</p>
-    <a href="https://github.com/anchem/Knowledge#readme" class="btn btn-primary btn-sm" target="_blank">Go</a>
+    <p class="card-text">{{theme.desc}}</p>
+    <a href="{{theme.url}}" class="btn btn-primary btn-sm" target="_blank">Go</a>
   </div>
 </div>
 <p></p>
-
-<div class="card mb-3">
-  <h5 class="card-header">阿不成长树</h5>
-  <div class="card-body">
-    <p class="card-text">阿不的成长树建设，持续更新中。</p>
-    <a href="https://github.com/anchem/GrowthTree#readme" class="btn btn-primary btn-sm" target="_blank">Go</a>
-  </div>
-</div>
+{% endfor %}
