@@ -1,0 +1,8 @@
+<section>
+  <h5><a href="{{'/projects/' | prepend: site.baseurl }}">主题 | Subjects</a></h5>
+  <ul class="list">
+    {% for subject in site.post-subjects %}
+      <li><a href="{{subject.url}}">{{subject.title}}</a></li>
+    {% endfor %}
+  </ul>
+</section>
