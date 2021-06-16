@@ -1,6 +1,6 @@
-title:              Still Waters
+title:              @sitetitle Still Waters
 email:              hackerleon@foxmail.com
-description:        Hackerleon Blog
+description:        @sitedesc Hackerleon Blog
 author:             Hackerleon
 baseurl:            ""
 url:                "https://stillwaters.top"
@@ -11,8 +11,8 @@ defaults:
     scope:
       path: "" # an empty string here means all files in the project
     values:
-      title: *title
-      description: *description
+      title: *sitetitle
+      description: *sitedesc
 
 # Social Profiles
 # twitter_username:   SBootstrap
