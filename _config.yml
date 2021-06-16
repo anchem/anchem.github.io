@@ -55,3 +55,15 @@ plugins: [jekyll-paginate]
 # side bar
 sidebar-about-description: "HackerLeon."
 sidebar-avatar: /img/avatar-hackerleon-me.jpg
+
+# theme
+post-theme: [
+    {
+        title: "软件工程师系列",
+        url: "#"
+    },
+    {
+        title: "阿不成长树",
+        url: "#"
+    }
+]
