@@ -61,7 +61,7 @@ post-subjects: [
     {
         title: "软件工程师系列",
         desc: "软件工程师系列",
-        url: "#"
+        url: "{{ '/subjects/software-engineering' | relative_url }}"
     },
     {
         title: "阿不成长树",
