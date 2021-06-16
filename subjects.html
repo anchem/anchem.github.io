@@ -1,0 +1,17 @@
+---
+layout: page
+title: 主题 Subjects
+description: 主题分类 | Grouped subjects.
+background: '/img/bg-about.jpg'
+---
+
+{% for subject in site.post-subjects %}
+<div class="card mb-3">
+  <h5 class="card-header">{{subject.title}}</h5>
+  <div class="card-body">
+    <p class="card-text">{{subject.desc}}</p>
+    <a href="{{subject.url}}" class="btn btn-primary btn-sm" target="_blank">Go</a>
+  </div>
+</div>
+<p></p>
+{% endfor %}
