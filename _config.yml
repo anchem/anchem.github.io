@@ -5,6 +5,15 @@ author:             Hackerleon
 baseurl:            ""
 url:                "https://stillwaters.top"
 
+# front matter default config
+defaults:
+  -
+    scope:
+      path: "" # an empty string here means all files in the project
+    values:
+      title: "#/title"
+      description: "#/description"
+
 # Social Profiles
 # twitter_username:   SBootstrap
 github_username:    anchem
