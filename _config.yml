@@ -56,14 +56,16 @@ plugins: [jekyll-paginate]
 sidebar-about-description: "HackerLeon."
 sidebar-avatar: /img/avatar-hackerleon-me.jpg
 
-# theme
-post-theme: [
+# subjects
+post-subjects: [
     {
         title: "软件工程师系列",
+        desc: "软件工程师系列",
         url: "#"
     },
     {
         title: "阿不成长树",
+        desc: "阿不的成长树，持续更新中",
         url: "#"
     }
 ]
