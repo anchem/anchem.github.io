@@ -1,9 +1,13 @@
-<section>
-  <h5><a href="{{'/about/' | prepend: site.baseurl }}">关于我 | About Me</a></h5>
-  {% if site.sidebar-avatar %}
-    <img src="{{site.sidebar-avatar}}" />
-  {% endif %}
-  {% if site.sidebar-about-description %}
-    <p>{{site.sidebar-about-description}}</p>
-  {% endif %}
-</section>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h5 class="panel-title"><a href="{{'/about/' | prepend: site.baseurl }}">关于我 | About Me</a></h3>
+  </div>
+  <div class="panel-body">
+    {% if site.sidebar-avatar %}
+      <img src="{{site.sidebar-avatar}}" />
+    {% endif %}
+    {% if site.sidebar-about-description %}
+      <p>{{site.sidebar-about-description}}</p>
+    {% endif %}
+  </div>
+</div>
