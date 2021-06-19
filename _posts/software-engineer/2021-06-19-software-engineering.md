@@ -2,7 +2,6 @@
 layout: post
 title: 现代软件工程
 date: 2021-06-19 15:00:00
-categories: 软件工程师系列
 tags:
 - 理论方法
 - 软件工程
