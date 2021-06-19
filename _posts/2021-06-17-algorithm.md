@@ -29,18 +29,18 @@ background: '/img/posts/default.jpg'
 
 ### 常用算法
 
-- :point_right: [贪心算法](https://github.com/anchem/Knowledge/blob/main/software/basic/algorithm/greedy.md)
-- :point_right: [双指针](https://github.com/anchem/Knowledge/blob/main/software/basic/algorithm/twopoints.md)：高频，变形多，快慢指针，滑动窗口
-- :point_right: 二分法：模板
-- :point_right: [排序](https://github.com/anchem/Knowledge/blob/main/software/basic/algorithm/sort.md)：快排和归并变体，循环排序
-- :point_right: 搜索
+- [贪心算法](https://github.com/anchem/Knowledge/blob/main/software/basic/algorithm/greedy.md)
+- [双指针](https://github.com/anchem/Knowledge/blob/main/software/basic/algorithm/twopoints.md)：高频，变形多，快慢指针，滑动窗口
+- 二分法：模板
+- [排序](https://github.com/anchem/Knowledge/blob/main/software/basic/algorithm/sort.md)：快排和归并变体，循环排序
+- 搜索
  - 深度优先搜索：高频，递归
  - 广度优先搜索：高频
-- :point_right: 动态规划：高频
-- :point_right: 分治法：常与二叉树一起出现
-- :point_right: 区间合并
-- :point_right: 拓扑排序：高频
-- :point_right: 位运算
+- 动态规划：高频
+- 分治法：常与二叉树一起出现
+- 区间合并
+- 拓扑排序：高频
+- 位运算
 
 ## 资源
 
