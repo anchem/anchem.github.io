@@ -2,7 +2,6 @@
 layout: post
 title: Java--数据类型
 date: 2021-06-19 15:10:00
-categories: 软件工程师系列
 tags:
 - 关键能力
 - 编码实现
