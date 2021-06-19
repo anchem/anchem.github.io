@@ -14,7 +14,7 @@ background: '/img/posts/default.jpg'
 
 ## 内容
 
-- [数据类型]({{site.url}}/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%B3%BB%E5%88%97/2021/06/19/java-data-type/)
+- [数据类型]({% post_url /software-engineer/2021-06-19-java-data-type %})
 - 语法
   - 运算符
   - 控制流
@@ -29,7 +29,7 @@ background: '/img/posts/default.jpg'
 - 语言特性
   - 异常
   - 反射
-  - [IO]({{site.url}}/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%B3%BB%E5%88%97/2021/06/19/java-io/)
+  - [IO]({% post_url /software-engineer/2021-06-19-java-io %})
   - 字符串
   - 集合
   - 数组
@@ -47,9 +47,9 @@ background: '/img/posts/default.jpg'
 - 数据压缩
 - 数据库编程
 - 文档处理
-  - [XML读写]({{site.url}}/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%B3%BB%E5%88%97/2021/06/19/java-xml/)
+  - [XML读写]({% post_url /software-engineer/2021-06-19-java-xml %})
 - Java Web
-- [安全]({{site.url}}/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%B3%BB%E5%88%97/2021/06/19/java-security/)
+- [安全]({% post_url /software-engineer/2021-06-19-java-security %})
 - 单元测试
 - 文档注释
 - 项目管理
