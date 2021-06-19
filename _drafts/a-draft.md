@@ -118,9 +118,43 @@ System.out.println(Arrays.binarySearch(a,2, (t0, t1) -> t1-t0));  // 结果打�
 
 #### 【比较】
 
+`Arrays.eqauls`提供了判断两个数组元素是否完全相等的方法，相等的意思是数组的每一个位置上的元素均相同。
+
+**例子1：**
+
+```java
+Integer[] b = new Integer[] {5, 4, 3, 2, 1};
+Integer[] c = new Integer[] {3, 5, 4, 2, 1};
+System.out.println(Arrays.equals(b, c));  // 打印 false
+Arrays.sort(c, (t0, t1) -> t1 - t0);
+System.out.println(Arrays.equals(b, c));  // 打印 true
+```
+
 #### 【填充】
 
+`Arrays.fill`方法可以为数组填充指定的值，其重载方法还可以指定范围，范围为左闭右开区间\[fromIndex, toIndex\)。
+
+**例子1：**
+
+```java
+int[] b = new int[5];
+Arrays.fill(b, 1, 3, 2);
+System.out.println(Arrays.toString(b));  // 打印 [0, 2, 2, 0, 0]，填充区间为[1,3)
+```
+
 #### 【创建流】
+
+`Arrays.stream`方法可以方便地将数组转换为Steam对象，从而方便地进行流操作。
+
+**例子1：**
+
+```java
+Integer[] b = new Integer[] {5, 4, 3, 2, 1};
+System.out.println(Arrays.stream(b)
+                    .sorted()
+                    .filter(i -> i < 5)
+                    .collect(Collectors.toList()));  // 打印 [1, 2, 3, 4]
+```
 
 #### 【转String】
 
