@@ -2,7 +2,6 @@
 layout: post
 title: 数据结构与算法
 date: 2021-06-17 22:40:00
-categories: 软件工程师系列
 tags:
 - 基础内功
 - 算法与数据结构
