@@ -1,6 +1,6 @@
-# Arrays in Java
+# Java 数组
 
-## Content
+## 内容
 
 - **基本用法**
 - **进阶用法**
@@ -77,17 +77,38 @@ Java SE 提供了原生的`java.util.Arrays`工具类库用来对数组做一些
 - 创建流 - `stream`
 - 转String - `toString`
 
-#### 二分查找
+#### 【排序】
 
-#### 比较
+#### 【二分查找】
 
-#### 填充
+**在数组已经充分排好序的情况下**，`Arrays.binarySearch`提供了二分查找数组元素的功能，函数包含多个重载形式，返回值含义如下：
 
-#### 排序
+1. \[0-length-1\] - 找到寻找的值，返回其索引；
+2. -1 - 未找到，且待寻找的值比数组最小的元素还小；
+3. -(length) - 未找到，且寻找的值比数组最大元素还大。
 
-#### 创建流
+如果待寻找的值在数组中有多个，则返回任意一个元素的索引。
 
-#### 转String
+值得关注的是`Arrays.binarySearch(T[] a, T key, Comparator<? super T> c)`这个重载方法，其中`Comparator`指明了数组的排序方式。
+
+**例子1：**
+
+```java
+Integer[] a = new Integer[]{5,4,3,2,1};
+
+System.out.println(Arrays.binarySearch(a,2);  // 结果打印 -1, 表示未找到，因为二分查找默认数组是按照从小到大排好序的
+System.out.println(Arrays.binarySearch(a,2, null);  // 同上，null表示默认按照数组从小到大排列
+
+System.out.println(Arrays.binarySearch(a,2, (t0, t1) -> t1-t0));  // 结果打印 3，其中 Comparator 指明了数组的排序方式，也决定了二分查找的方向
+```
+
+#### 【比较】
+
+#### 【填充】
+
+#### 【创建流】
+
+#### 【转String】
 
 ```java
 int[] a = new int[]{1,2,3};
@@ -97,7 +118,7 @@ int[] a = new int[]{1,2,3};
 
 如果想打印数组中元素的内容，则需要使用`Arrays.toString()`方法将数组转成`String`类型，再使用"print"函数打印即可：`[1,2,3]`。
 
-### 数组拷贝
+#### 【数组拷贝】
 
 使用`System.arraycopy(Object src, int srcPos, Object dest, int destPos, int length)`方法可以将`src`数组拷贝到`dest`数组，需指定拷贝的起始位置（即索引）和拷贝元素的长度。
 
