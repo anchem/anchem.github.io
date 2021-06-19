@@ -7,7 +7,7 @@ background: '/img/bg-about.jpg'
 
 ## 基础内功
 
-- [算法与数据结构]({{"/" | relative_url }}/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%B3%BB%E5%88%97/2021/06/17/algorithm/)
+- [算法与数据结构]({{site.url}}/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%B3%BB%E5%88%97/2021/06/17/algorithm/)
 - 操作系统
 - 计算机网络
 - 数据库及存储
@@ -16,7 +16,7 @@ background: '/img/bg-about.jpg'
 
 ## 理论方法
 
-- [现代软件工程]({{"/" | relative_url }}/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%B3%BB%E5%88%97/2021/06/19/software-engineering/)
+- [现代软件工程]({{site.url}}/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%B3%BB%E5%88%97/2021/06/19/software-engineering/)
 - 安全可信
 - 安全
 
@@ -30,7 +30,7 @@ background: '/img/bg-about.jpg'
   - API 设计
 - 编码实现
   - 编程语言
-    - [Java]({{"/" | relative_url }}/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%B3%BB%E5%88%97/2021/06/19/java-language/)
+    - [Java]({{site.url}}/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%B3%BB%E5%88%97/2021/06/19/java-language/)
 - 编译构建
 - 开发者测试
 - 代码审查
