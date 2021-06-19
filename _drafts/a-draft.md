@@ -79,6 +79,20 @@ Java SE 提供了原生的`java.util.Arrays`工具类库用来对数组做一些
 
 #### 【排序】
 
+`Arrays.sort`方法提供了为数组排序的功能，顺序默认是从小到大排列的。该排序方法使用单线程顺序排序，适合小规模的数组。
+
+对于较大的数组，建议使用`Arrays.parallelSort`方法并行排序，速度更快，且可以充分利用多核处理器的能力。但是对于小数组，就不建议使用该方法了，因为拆分数组的开销要大于并行排序的效率。实际上`parallelSort`也会判断数组的长度，如果小于8192，则不会采用并行排序的。
+
+如果想要逆序排序，或者自定义顺序排序，就要用到`Arrays.sort(T[] a, Comparator<? super T> c)`方法了。
+
+**例子1：**
+
+```java
+Integer[] a = new Integer[]{1,4,2,3,5};
+Arrays.sort(a, (t0, t1)-> t1-t0);
+System.out.println(Arrays.toString(a));  // 打印 [5, 4, 3, 2, 1]
+```
+
 #### 【二分查找】
 
 **在数组已经充分排好序的情况下**，`Arrays.binarySearch`提供了二分查找数组元素的功能，函数包含多个重载形式，返回值含义如下：
