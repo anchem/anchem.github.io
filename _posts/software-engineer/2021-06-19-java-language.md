@@ -36,7 +36,7 @@ background: '/img/posts/default.jpg'
   - 枚举
   - 注解
   - 序列化
-  - Stream API
+  - [Stream API]({% post_url /software-engineer/2021-06-21-java-stream %})
   - 日期和时间
   - 类型系统
   - 泛型
