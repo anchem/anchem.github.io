@@ -29,6 +29,10 @@ background: '/img/posts/default.jpg'
 - `offer()` - 向队列中插入元素。
 - `peek()` - 获取队列中首元素，但不删除。
 - `poll()` - 获取并删除队列中首元素。
+- `remove(Object)` - 删除指定元素。
+- `contains(Object)` - 判断是否包含指定元素。
+
+对于入队和出队的方法，时间复杂度为O(log(n))；对于删除和包含判断操作，时间复杂度为O(n).
 
 【遍历】
 
