@@ -31,7 +31,7 @@ background: '/img/posts/default.jpg'
   - 反射
   - [IO]({% post_url /software-engineer/2021-06-19-java-io %})
   - 字符串
-  - 集合
+  - [集合]({% post_url /software-engineer/2021-06-22-java-colections %})
   - 数组
   - 枚举
   - 注解
