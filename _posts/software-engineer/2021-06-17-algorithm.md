@@ -33,7 +33,7 @@ background: '/img/posts/default.jpg'
 - 搜索
  - 深度优先搜索：高频，递归
  - 广度优先搜索：高频
-- [贪心算法](https://github.com/anchem/Knowledge/blob/main/software/basic/algorithm/greedy.md)
+- [贪心算法]({% post_url /software-engineer/2021-06-30-algorithm-greedy %})
 - [双指针](https://github.com/anchem/Knowledge/blob/main/software/basic/algorithm/twopoints.md)：高频，变形多，快慢指针，滑动窗口
 - 前缀和与差分
 - 回溯
