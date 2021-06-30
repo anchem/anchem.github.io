@@ -19,30 +19,30 @@ background: '/img/posts/default.jpg'
 - 队列：包括优先队列，双端队列
 - 链表：高频
 - 哈希表：高频
-- 字符串
-- 堆：高频
+- 字符串：含字典树
+- 堆：优先队列
 - 树：递归，层次遍历，前中后序遍历，二叉查找树，字典树
 - 图：包括二分图，拓扑排序
 - 单调栈
 - 线段树
 - 并查集
-- 字典树
 
 ### 常用算法
 
-- [贪心算法](https://github.com/anchem/Knowledge/blob/main/software/basic/algorithm/greedy.md)
-- [双指针](https://github.com/anchem/Knowledge/blob/main/software/basic/algorithm/twopoints.md)：高频，变形多，快慢指针，滑动窗口
-- 二分法：模板
 - [排序](https://github.com/anchem/Knowledge/blob/main/software/basic/algorithm/sort.md)：快排和归并变体，循环排序
 - 搜索
  - 深度优先搜索：高频，递归
  - 广度优先搜索：高频
-- 动态规划：高频
+- [贪心算法](https://github.com/anchem/Knowledge/blob/main/software/basic/algorithm/greedy.md)
+- [双指针](https://github.com/anchem/Knowledge/blob/main/software/basic/algorithm/twopoints.md)：高频，变形多，快慢指针，滑动窗口
+- 前缀和与差分
+- 回溯
+- 二分法：模板
 - 分治法：常与二叉树一起出现
+- 动态规划：高频
 - 区间合并
 - 拓扑排序：高频
 - 位运算
-- 前缀和与差分
 
 ## 资源
 
