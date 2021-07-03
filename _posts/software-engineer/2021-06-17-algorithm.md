@@ -36,7 +36,7 @@ background: '/img/posts/default.jpg'
 - [贪心算法]({% post_url /software-engineer/2021-06-30-algorithm-greedy %})
 - [双指针](https://github.com/anchem/Knowledge/blob/main/software/basic/algorithm/twopoints.md)：高频，变形多，快慢指针，滑动窗口
 - 前缀和与差分
-- 回溯
+- [回溯算法]({% post_url /software-engineer/2021-07-03-algorithm-backtracking %})
 - 二分法：模板
 - 分治法：常与二叉树一起出现
 - 动态规划：高频
