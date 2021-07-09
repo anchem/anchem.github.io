@@ -24,10 +24,44 @@
 
 区间影响了2个处理细节，一个是循环结束条件，一个是端点如何移动。
 
-如果是左开右闭区间，即`[left, right)`，那么只有当 left 严格小于 right 时，这个区间才是一个有效的区间；同时，当本次查找的中间元素大于待查找的元素时，下次查找的区间要取`[left, middle)`，则 right 仅需取 middle即可。以下是代码实现：
+如果是左开右闭区间，即`[left, right)`，那么只有当 left 严格小于 right 时，这个区间才是一个有效的区间；同时，当本次查找的中间元素大于待查找的元素时，下次查找的区间要取`[left, middle)`，即 right 仅需取 middle即可。以下是代码实现：
 
 ```java
+public static int binarySearch(int[] arr, int key) {
+    int left = 0;
+    int right = arr.length;
+    while (left < right) {
+        int middle = left + (right - left) / 2;
+        if (arr[middle] < key) {
+            left = middle + 1;
+        } else if (arr[middle] > key) {
+            right = middle;
+        } else {
+            return middle;
+        }
+    }
+    return -1;
+}
+```
 
+如果是两边都闭区间，即`[left, right]`，那么只有当left 小于等于 right 时，这个区间才是一个有效的区间；同时，当本次查找的中间元素大于待查找的元素时，下次查找的区间要取`[left, middle - 1]`，即 right 要取 middle - 1， 因为 middle 已经在这一轮查找过了。以下是代码实现：
+
+```java
+public static int binarySearch(int[] arr, int key) {
+    int left = 0;
+    int right = arr.length - 1;
+    while (left <= right) {
+        int middle = left + (right - left) / 2;
+        if (arr[middle] < key) {
+            left = middle + 1;
+        } else if (arr[middle] > key) {
+            right = middle - 1;
+        } else {
+            return middle;
+        }
+    }
+    return -1;
+}
 ```
 
 #### 查找左边界
