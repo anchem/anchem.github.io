@@ -32,7 +32,7 @@ background: '/img/posts/default.jpg'
   - [IO]({% post_url /software-engineer/2021-06-19-java-io %})
   - 字符串
   - [集合]({% post_url /software-engineer/2021-06-22-java-colections %})
-  - 数组
+  - [数组]({% post_url /software-engineer/2021-07-31-java-arrays %})
   - 枚举
   - 注解
   - 序列化
