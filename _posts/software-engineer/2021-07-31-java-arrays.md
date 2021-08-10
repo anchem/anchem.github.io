@@ -65,10 +65,6 @@ long value = arrLong[-1];  // 数组越界访问，会抛出异常
 5. 遍历数组
 
 ```java
-for (int i = 0; i < arr.length; i++) {
-    System.out.print(arr[i]);
-}
-
 for (int i : arr) {
     System.out.print(i);
 }
