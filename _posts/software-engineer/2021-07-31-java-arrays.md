@@ -51,14 +51,7 @@ arrInt[1] = 3;  // 为数组的第 2 个元素赋值为 3
 long value = arrLong[0];  // 通过索引直接访问数组的元素，效率很高
 long value = arrLong[-1];  // 数组越界访问，会抛出异常
 
-// 5. 遍历数组
-for (int i = 0; i < arr.length; i++) {
-    System.out.print(arr[i]);
-}
 
-for (int i : arr) {
-    System.out.print(i);
-}
 ```
 
 ### 二维数组
