@@ -8,7 +8,7 @@ tags:
 - 编程语言
 - Java语言
 keywords: 编程语言,Java语言,数组,Arrays
-description: Java 数组详解
+description: Java数组详解
 background: '/img/posts/default.jpg'
 ---
 
