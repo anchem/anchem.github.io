@@ -55,5 +55,7 @@ background: '/img/posts/default.jpg'
 - 项目管理
   - Maven
 - JVM
+- 常用开源组件
+  - 缓存
 - 常用框架
   - Spring
