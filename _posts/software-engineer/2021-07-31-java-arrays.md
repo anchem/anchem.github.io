@@ -37,13 +37,13 @@ background: '/img/posts/default.jpg'
 
 1. 声明一个数组
 
-```Java
+```java
 int[] arr;
 ```
 
 2. 初始化数组
 
-```Java
+```java
 long[] arrLong = new long[10];  // 初始化了一个长度为10，保存了 long 类型的数组，每个元素初始化为该元素类型的默认值
 int[] arrInt = new int[]{1,2};  // 初始化了一个长度为2，保存了 int 类型的数组，并定义了各元素的值为 1 和 2
 Person[] person = new Person[5];  // 初始化了一个长度为5，保存了 Person 类型的数组，每个元素初始化为 null
@@ -51,20 +51,20 @@ Person[] person = new Person[5];  // 初始化了一个长度为5，保存了 Pe
 
 3. 赋值
 
-```Java
+```java
 arrInt[1] = 3;  // 为数组的第 2 个元素赋值为 3
 ```
 
 4. 访问数组元素
 
-```Java
+```java
 long value = arrLong[0];  // 通过索引直接访问数组的元素，效率很高
 long value = arrLong[-1];  // 数组越界访问，会抛出异常
 ```
 
 5. 遍历数组
 
-```Java
+```java
 for (int i : arr) {
     System.out.print(i);
 }
