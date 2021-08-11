@@ -177,3 +177,17 @@ int[] a = new int[]{1,2,3};
 使用`System.arraycopy(Object src, int srcPos, Object dest, int destPos, int length)`方法可以将`src`数组拷贝到`dest`数组，需指定拷贝的起始位置（即索引）和拷贝元素的长度。
 
 3个int类型的变量，只要有一个不满足拷贝的条件，都会抛出异常。
+
+### Array vs. ArrayList
+
+转换方法
+
+拼接，泛型
+
+## 相关算法
+
+### 排序
+
+### 搜索
+
+### 矩阵算法
