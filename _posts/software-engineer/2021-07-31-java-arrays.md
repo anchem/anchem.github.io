@@ -32,3 +32,41 @@ background: '/img/posts/default.jpg'
 - **长度** - 数组是固定长度的，一旦定义了数组，那么长度也就明确了。
 - **元素** - 数组中保存的每一个对象都被称为元素。
 - **索引** - 数组中每一个元素都有一个索引值，标识它在数组中的位置。对于长度为 N 的数组，其索引值取值范围为 \[0, N-1\]；若索引值超出了范围，会抛出`java.lang.ArrayIndexOutOfBoundsException`异常
+
+#### 【基本操作】
+
+1. 声明一个数组
+
+```Java
+int[] arr;
+```
+
+2. 初始化数组
+
+```Java
+long[] arrLong = new long[10];  // 初始化了一个长度为10，保存了 long 类型的数组，每个元素初始化为该元素类型的默认值
+int[] arrInt = new int[]{1,2};  // 初始化了一个长度为2，保存了 int 类型的数组，并定义了各元素的值为 1 和 2
+Person[] person = new Person[5];  // 初始化了一个长度为5，保存了 Person 类型的数组，每个元素初始化为 null
+```
+
+3. 赋值
+
+```Java
+arrInt[1] = 3;  // 为数组的第 2 个元素赋值为 3
+```
+
+4. 访问数组元素
+
+```Java
+long value = arrLong[0];  // 通过索引直接访问数组的元素，效率很高
+long value = arrLong[-1];  // 数组越界访问，会抛出异常
+```
+
+5. 遍历数组
+
+```Java
+for (int i : arr) {
+    System.out.print(i);
+}
+```
+
