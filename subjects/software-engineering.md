@@ -32,7 +32,8 @@ background: '/img/bg-about.jpg'
   - 编程语言
     - [Java]({% post_url /software-engineer/2021-06-19-java-language %})
 - 编译构建
-- 开发者测试
+- [开发者测试]({% post_url /software-engineer/2021-08-11-developer-test %})
+  - [Java测试框架]({% post_url /software-engineer/2021-08-11-developer-test-for-java %})
 - 代码审查
 
 ## 项目管理
