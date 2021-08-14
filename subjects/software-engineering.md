@@ -1,11 +1,50 @@
 ---
 layout: home
-title: 软件工程师系列
-description: 软件工程师的点滴成长
+title: 软件大师之路
+description: 路漫漫其修远兮，吾将上下而求索
 background: '/img/bg-about.jpg'
 ---
 
-## 基础内功
+## 角色能力模型
+
+```
+|-- 通用能力
+    |-- 知识管理
+        |-- AAR
+        |-- QCC
+    |-- 沟通表达
+    |-- 对外呈现
+    |-- 事务管理
+|-- 专业能力
+    |-- ICT理论基础
+    |-- 软件工程
+    |-- 软件需求
+    |-- 软件架构
+    |-- 软件设计
+    |-- 软件实现
+        |-- 编程语言能力
+            |-- Java
+    |-- 软件验证
+    |-- 软件维护
+    |-- 前沿热点
+    |-- 软件安全
+```
+
+## 角色能力地图
+
+### 通用能力
+
+#### 知识管理
+
+#### 沟通表达
+
+#### 对外呈现
+
+#### 事务管理
+
+### 专业能力
+
+#### ICT理论基础
 
 - [算法与数据结构]({% post_url /software-engineer/2021-06-17-algorithm %})
 - 操作系统
@@ -14,26 +53,35 @@ background: '/img/bg-about.jpg'
 - 汇编及编译原理
 - 分布式及并行开发
 
-## 理论方法
+#### 软件工程
 
 - [现代软件工程]({% post_url /software-engineer/2021-06-19-software-engineering %})
-- 安全可信
-- 安全
 
-## 关键能力
+#### 软件需求
 
-- 软件需求分析
-- 软件设计与重构
-  - 面向对象分析与设计
-  - 设计原则
-  - 设计模式
-  - API 设计
-- 编码实现
-  - 编程语言
-    - [Java]({% post_url /software-engineer/2021-06-19-java-language %})
+#### 软件架构
+
+#### 软件设计
+
+- 面向对象分析与设计
+- 设计原则
+- 设计模式
+- API 设计
+
+#### 软件实现
+  
+- 编程语言
+  - [Java]({% post_url /software-engineer/2021-06-19-java-language %})
 - 编译构建
-- [开发者测试]({% post_url /software-engineer/2021-08-11-developer-test %})
-  - [Java测试框架]({% post_url /software-engineer/2021-08-11-developer-test-for-java %})
 - 代码审查
 
-## 项目管理
+#### 软件验证
+
+- [开发者测试]({% post_url /software-engineer/2021-08-11-developer-test %})
+- [Java测试框架]({% post_url /software-engineer/2021-08-11-developer-test-for-java %})
+
+#### 软件维护
+
+#### 前沿热点
+
+#### 软件安全
