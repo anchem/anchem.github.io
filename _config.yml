@@ -68,8 +68,8 @@ sidebar-avatar: /img/avatar-hackerleon-me.jpg
 # subjects
 post-subjects: [
     {
-        title: "软件工程师系列",
-        desc: "软件工程师系列",
+        title: "软件大师之路",
+        desc: "路漫漫其修远兮，吾将上下而求索",
         url: "https://stillwaters.top/subjects/software-engineering"
     },
     {
