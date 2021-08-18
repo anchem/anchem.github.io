@@ -19,7 +19,7 @@ background: '/img/posts/default.jpg'
 
 ## PowerMock
 
-PowerMock 是一种扩展的测试框架，支持 EasyMock 和 Mockito。PowerMock 扩展提供了对静态方法、final方法、private方法等方法的测试能力。
+PowerMock 是一种扩展的测试框架，支持 EasyMock 和 Mockito。PowerMock 扩展提供了对静态方法、final方法、private方法、系统方法等方法的测试能力。
 
 ### PowerMockito
 
@@ -39,3 +39,23 @@ public class YourTestCase {
 
 #### Mock 静态方法
 
+【基本步骤】
+
+1. 添加 `@PrepareForTest` 注解，指明要 mock 的静态方法所在的类。
+
+```java
+@PrepareForTest(Static.class) // Static.class 包含要测试的静态方法
+```
+
+2. 调用 `PowerMockito.mockStatic()` 方法来 mock 一个静态类；如果仅需要 mock 静态类中的指定的方法，其他方法不 mock，则使用`PowerMockito.spy(class)`函数。
+
+```java
+PowerMockito.mockStatic(Static.class); // 会 mock 该类的所有静态函数
+Static staticObj = PowerMockito.spy(new Static()); // 仅需要 mock 个别的静态函数，其他函数不 mock
+```
+
+3. 通过 `Mockito.when()` 方法进行 mock 规则设置。
+
+```java
+Mockito.when(Static.firstStaticMethod(param)).thenReturn(value);
+```
