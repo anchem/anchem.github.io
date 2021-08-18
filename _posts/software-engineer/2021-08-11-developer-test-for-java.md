@@ -32,6 +32,7 @@ PowerMockito 是 PowerMock 对 Mockito的扩展支持，我们只需要使用`Po
 ```java
 @RunWith(PowerMockRunner.class)
 @PrepareForTest( { YourClassWithEgStaticMethod.class })
+// @PrepareForTest( { fullyQualifiedNames = "com.xxx.xxx.*" })  使用该注解表示fullyQualifiedNames指明的包下的所有类都是要mock的
 public class YourTestCase {
 ...
 }
@@ -51,11 +52,28 @@ public class YourTestCase {
 
 ```java
 PowerMockito.mockStatic(Static.class); // 会 mock 该类的所有静态函数
-Static staticObj = PowerMockito.spy(new Static()); // 仅需要 mock 个别的静态函数，其他函数不 mock
+PowerMockito.spy(Static.class); // 仅需要 mock 个别的静态函数，其他函数不 mock
 ```
 
-3. 通过 `Mockito.when()` 方法进行 mock 规则设置。
+3. 通过 `Mockito.when()` 方法设置期望值。
 
 ```java
-Mockito.when(Static.firstStaticMethod(param)).thenReturn(value);
+Mockito.when(Static.firstStaticMethod(param)).thenReturn(value); // param 可以通过 anyXXX() 方法填充
+// 也可以通过以下方法测试抛异常的场景
+doThrow(new RuntimeException()).when(Static.class);
+Static.secondStaticMethod(); 
+```
+
+4. 观察验证
+
+```java
+assertEquals(value, Static.firstStaticMethod(param));
+
+// 也可以验证mock方法的行为，比如被调用多少次
+verifyStatic(Mockito.times(2));
+Static.firstStaticMethod(anyString());
+
+// 每验证一个静态方法，都需要调用一次 verifyStatic() 方法
+verifyStatic(Mockito.never());
+Static.secondStaticMethod();
 ```
