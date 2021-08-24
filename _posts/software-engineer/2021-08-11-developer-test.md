@@ -122,8 +122,13 @@ background: '/img/posts/default.jpg'
 
 "给定 - 当 - 那么"，即给定某个上下文，当发生某些事情时，那么期望某些结果。
 
+## 可测试的设计
+
+## 可测试的编码
+
 ## 参考资料
 
 - 《xUnit Test Patterns: Refactoring Test Code》，C3
 - 《单元测试的艺术》
 - 《测试驱动开发》
+- 《有效的单元测试》
