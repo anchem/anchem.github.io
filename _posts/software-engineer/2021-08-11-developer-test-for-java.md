@@ -77,3 +77,28 @@ Static.firstStaticMethod(anyString());
 verifyStatic(Mockito.never());
 Static.secondStaticMethod();
 ```
+
+#### 测试静态方法
+
+当我们想要测试一个`private`方法时，可以使用PowerMock的`Whitebox`类提供的`invokeMethod`方法来进行私有方法的调用，这种方式相对于反射更加简洁易懂。
+
+比如，想要对`Foo`类的`func`方法编写UT：
+
+```java
+class Foo {
+    private int func(int a, int b) {
+        return a + b;
+    }
+}
+```
+
+可以使用以下方法进行私有方法调用：
+
+```java
+@Test
+public void funcTest() {
+    Foo foo = new Foo();
+    int result = Whitebox.invokeMethod(foo, "func", 1, 2);
+    Assert.assertEquals(3, result);
+}
+```
