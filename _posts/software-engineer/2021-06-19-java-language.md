@@ -59,3 +59,7 @@ background: '/img/posts/default.jpg'
   - 缓存
 - 常用框架
   - Spring
+
+## 学习资源
+
+- [Java 全栈知识体系](https://www.pdai.tech/)
