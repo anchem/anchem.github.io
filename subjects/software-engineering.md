@@ -45,6 +45,7 @@ background: '/img/bg-about.jpg'
 
 #### 个人管理
 
+- [工作习惯]({% post_url /software-engineer/2021-09-13-work-habits %})
 - 精力管理
 - 事务管理
 
