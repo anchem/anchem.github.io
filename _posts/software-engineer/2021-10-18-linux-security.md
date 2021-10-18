@@ -111,9 +111,33 @@ iptables -A INPUT -p udp --dport XXX -j DROP
 | FTP、TFTP | 明文传输账号口令和数据 | SFTP/FTPS |
 | Telnet | 明文传输账号口令和数据 | SSH v2 |
 | SSH v1 | 采用CRC算法保证完整性 | SSH v2 |
-|  |  |  |
 
 #### 系统漏洞防御
+
+**【栈保护】**
+
+攻击者可以利用栈溢出漏洞，对函数的返回地址进行覆盖，从而达到控制程序执行流的目的。
+
+可以使用gcc编译选项来对缓冲区溢出做保护`-fstack-protector-strong`。（金丝雀守护）
+
+**【地址随机化ASLR】**
+
+通过将进程地址空间进行随机化来更加攻击者预测目的地址的难度。
+
+- 通过`sysctl`对`kernel.randomize_va_space`设置为2，获得最大的随机化能力；
+- gcc编译选项添加`-fPIE -pie`开启PIE，实现代码段和数据段的随机化
+- 将内核镜像的基址进行随机化偏移；
+- 每次启动后的内核地址随机化；
+
+**【NX(DEP)】**
+
+攻击者发现目标系统的漏洞后，常常会将恶意代码注入到可控的数据区。通过将数据所在的内存页标识为不可执行（No-eXucute），可以防御该攻击，即对程序执行DEP保护。
+
+gcc 安全选项`-z noexecstack` 开启NX保护。
+
+**【CFI】**
+
+CFI（Control Flow Integrity）的核心思想是对所有程序跳转做校验，以防御代码重用攻击（ROP，Return-oriented Programming）。
 
 #### 认证与鉴权
 
