@@ -56,6 +56,7 @@ background: '/img/bg-about.jpg'
 - [算法与数据结构]({% post_url /software-engineer/2021-06-17-algorithm %})
 - 操作系统
   - Linux
+    - [Linux安全]({% post_url /software-engineer/2021-10-18-linux-security %})
 - 计算机网络
 - 数据库及存储
 - 汇编及编译原理
