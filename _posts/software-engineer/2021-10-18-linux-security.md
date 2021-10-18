@@ -68,7 +68,7 @@ iptables -A OUTPUT -p icmp --icmp-type address-mask-reply -j DROP
 
 系统中的普通用户通过查看内核导出的接口，可以获取内核地址分布信息。因此，需要对内核地址信息进行保护，防止普通用户通过`dmesg`、串口打印等手段获取，进而饶过内核地址随机化。
 
-使用`sysctl`将`kernal.kptr_restrict`的值设置为1，即可禁止普通用户查看内核打印的地址。
+使用`sysctl`将`kernal.kptr_restrict`的值设置为1（或修改`/proc/sys/kernel/kptr_restrict`文件），即可禁止普通用户查看内核打印的地址。
 
 Linux提供了控制变量`/proc/sys/kernel/kptr_restrict`来控制内核输出的打印，其权限的描述如下：
 
