@@ -149,4 +149,63 @@ CFI（Control Flow Integrity）的核心思想是对所有程序跳转做校验�
 
 #### 认证与鉴权
 
+**【避免root直接用于远程登录】**
+
+root拥有最高权限，如果可用于远程登录，将会被攻击者作为暴力破解的首选目标。
+
+禁止root账号远程直接登录：
+
+```bash
+vi /etc/ssh/sshd_config
+PermitRootLogin No
+```
+
+**【PAM机制】**
+
+PAM（Pluggable Authentication Modules）可动态加载验证模块，将系统提供的服务和该服务的认证方式分开，使得系统管理员可以灵活地给不同的服务配置不同的认证方式，而无需修改服务程序。
+
+它有四种验证类别：
+
+| 管理方式 | 说明 |
+| :--: | :-- |
+| auth | 用于对用户的身份进行识别。比如，提示用户输入密码，判断用户是否为root等 |
+| account | 对账号的各项属性进行检查。比如，是否允许登录，是否达到最大登录数等 |
+| password | 使用用户信息来更新。比如，修改密码 |
+| session | 用来定义用户登录前以及用户退出后所要进行的操作。比如，记录连接信息，挂载文件系统等 |
+
+常用举例：
+
+```bash
+# 在/etc/pam.d/common-password中添加：
+auth required pam_tally2.so deny=3  unlock_time=120
+# 表示当连续3次登录失败时，锁定用户，锁定时长为120秒
+
+# 在/etc/pam.d/common-password中添加：
+password  required pam_cracklib.so  dcredit=-1 ucredit=-1 lcredit=-1  minlen=8
+# 表示口令的最小长度为8位，至少需要包含一个大写字母，一个小写字母，一个数字
+
+# 在/etc/pam.d/common-password中添加：
+password  required pam_pwhistory.so  remember=5
+# 表示修改口令时，禁止使用历史用过的5个口令
+```
+
+**【设置口令有效期】**
+
+长时间使用同一个口令会增加其被破解的可能，因此需要设置口令有效期。
+
+```bash
+cat /etc/login.defs
+PASS_MAX_DAYS   90
+PASS_MIN_DAYS   0
+PASS_WARN_AGE   30
+PASS_MIN_LEN   6
+```
+
+用户口令遗忘后，管理员可以为其重置口令，用户第一次登录系统后必须修改口令：
+
+```bash
+# 管理员修改用户口令后，执行以下命令即可
+passwd -e <username>
+```
+
 ### 本地攻击
