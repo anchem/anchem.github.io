@@ -42,13 +42,41 @@ Linux系统常见的安全威胁包括以下几个方面：
 - 内核接口泄露地址布局等信息；
 - 通过端口扫描工具获取网络服务或系统版本信息；
 
-#### 防范方法1：修改登录Banner隐藏系统信息
+#### 防御方法1：修改登录Banner隐藏系统信息
 
 通过修改以下3个文件来隐藏系统信息：
 
-- `/etc/issue`
-- `/etc/issue`
-- `/etc/ssh/sshd_connfig`
+- `/etc/issue`：当一个网络用户登录到系统时，会在login提示符之前提示打印的信息；
+- `/etc/issue.net`：提供给telnet远程登录程序使用；
+- `/etc/ssh/sshd_connfig`：OpenSSH的Banner信息。
+
+此外，Linux还有一个相关的文件`/etc/motd`，它是在登录成功之后显示的信息。
+
+#### 防御方法2：隐藏系统网络协议栈信息
+
+通过ICMP报文可以获取子网、目标系统时间戳等信息，可以通过配置iptables来屏蔽。
+
+```bash
+iptables -A INPUT -p icmp --icmp-type timestamp-request -j DROP
+iptables -A OUTPUT -p icmp --icmp-type timestamp-reply -j DROP
+
+iptables -A INPUT -p icmp --icmp-type address-mask-request -j DROP
+iptables -A OUTPUT -p icmp --icmp-type address-mask-reply -j DROP
+```
+
+#### 防御方法4：隐藏内核地址布局信息
+
+系统中的普通用户通过查看内核导出的接口，可以获取内核地址分布信息。因此，需要对内核地址信息进行保护，防止普通用户通过`dmesg`、串口打印等手段获取，进而饶过内核地址随机化。
+
+使用`sysctl`将`kernal.kptr_restrict`的值设置为1，即可禁止普通用户查看内核打印的地址。
+
+Linux提供了控制变量`/proc/sys/kernel/kptr_restrict`来控制内核输出的打印，其权限的描述如下：
+
+| 取值 | 描述 |
+| :--: |:--: |
+| 0 | root和普通用户都可以读取 |
+| 1 | root用户有权限读取, 普通用户没有权限 |
+| 2 | 内核将符号地址打印为全0, root和普通用户都没有权限 |
 
 ### 远程攻击
 
