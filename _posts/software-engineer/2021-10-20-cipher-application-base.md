@@ -48,11 +48,11 @@ background: '/img/posts/default.jpg'
 | 用途 | 不安全的密码算法 | 可遗留使用的 | 推荐使用的安全密码算法|
 | :--: | :--: | :--: | :--: |
 | 分组加密 | Blowfish, DES, DESX, RC2, 2TDEA, Skipjack, TEA, 3DES（未遵循K1!=K2!=K3） | 3DES（K1!=K2!=K3） | AES-GCM（128bits及以上） |
-| 流加密 | SEAL, CYLINK_MEK, RC4（<128bits） | RC4（128bits及以上） | AES-CTR（128bits及以上）， |
-| 哈希算法 |  |  |  |
-| 非对称加密 |  |  |  |
-| 数字签名 |  |  |  |
-| 密钥交换 |  |  |  |
+| 流加密 | SEAL, CYLINK_MEK, RC4（<128bits） | RC4（128bits及以上） | AES-CTR（128bits及以上），AES-OFB（128bits及以上），Chacha20 |
+| 哈希算法 | SHA0, MD2, MD4,  MD5, RIPEMD, RIPEMD-128 | SHA-1 | SHA256或以上，SHA3 |
+| 非对称加密 | RSA（<2048bits） | RSA（<3072bits） | RSA（3072bits及以上） |
+| 数字签名 | RSA（<2048bits）, DSA（<2048bits）, ECDSA（<224bits） | RSA（<3072bits）, DSA（<3072bits）, ECDSA（<256bits） | RSA（3072bits及以上）, DSA（3072bits及以上）, ECDSA（256bits及以上） |
+| 密钥交换 | DH（<2048bits）, ECDH（<224bits） | DH（<3072bits）, ECDH（<256bits） | DH（3072bits及以上）, ECDH（256bits及以上） |
 
 ## 密码算法
 
