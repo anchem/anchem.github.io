@@ -72,6 +72,7 @@ background: '/img/bg-about.jpg'
 #### 软件安全
 
 - 安全基础
+  - [密码学应用基础]({% post_url /software-engineer/2021-10-20-cipher-application-base %})
 - 安全设计
   - 威胁建模
 
