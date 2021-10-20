@@ -56,6 +56,20 @@ background: '/img/posts/default.jpg'
 
 ## 密码算法
 
+### 随机数
+
+在密码算法中，随机数发挥了重要的作用，其使用场景包括：
+
+- 产生密钥。直接作为密钥，或作为密钥协商过程中的密钥材料。
+- 产生不可预测的IV。产生不可预测的初始化向量。
+- 产生盐值。盐值可以有效增加攻击的难度。
+
+【安全随机数生成器】
+
+- Linux下的/dev/random文件
+- Windows下的CryptGenRandom
+- JDK的java.security.SecureRandom
+
 ## 密钥管理
 
 ## 密码协议
