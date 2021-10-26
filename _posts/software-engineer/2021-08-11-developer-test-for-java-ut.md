@@ -1,27 +1,33 @@
 ---
 layout: post
-title: Java测试框架
+title: Java单元测试
 date: 2021-08-11 09:40:00
 tags:
 - 关键能力
 - 开发者测试
-- Java测试框架
-keywords: 开发者测试,Java测试框架
-description: Java测试框架详解
+- Java单元测试
+keywords: 开发者测试,Java单元测试
+description: Java单元测试详解
 background: '/img/posts/default.jpg'
 ---
 
 （建设中）
 
-## JUnit
+## 概述
 
-## Mockito
+## UT分析
 
-## PowerMock
+## 框架
+
+### JUnit
+
+### Mockito
+
+### PowerMock
 
 PowerMock 是一种扩展的测试框架，支持 EasyMock 和 Mockito。PowerMock 扩展提供了对静态方法、final方法、private方法、系统方法等方法的测试能力。
 
-### PowerMockito
+#### PowerMockito
 
 PowerMockito 是 PowerMock 对 Mockito的扩展支持，我们只需要使用`PowerMockito`类即可创建需要 mock 的对象并进行测试验证。
 
@@ -78,7 +84,7 @@ verifyStatic(Mockito.never());
 Static.secondStaticMethod();
 ```
 
-#### 测试静态方法
+#### 测试私有方法
 
 当我们想要测试一个`private`方法时，可以使用PowerMock的`Whitebox`类提供的`invokeMethod`方法来进行私有方法的调用，这种方式相对于反射更加简洁易懂。
 
