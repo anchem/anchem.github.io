@@ -104,7 +104,7 @@ background: '/img/bg-about.jpg'
 
 - 调试技术
 - [开发者测试]({% post_url /software-engineer/2021-08-11-developer-test %})
-- [Java测试框架]({% post_url /software-engineer/2021-08-11-developer-test-for-java %})
+  - [Java单元测试]({% post_url /software-engineer/2021-08-11-developer-test-for-java-ut %})
 
 #### 软件维护
 
