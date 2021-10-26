@@ -7,13 +7,19 @@ tags:
 - 开发者测试
 - Java单元测试
 keywords: 开发者测试,Java单元测试
-description: Java单元测试详解
+description: 对于Java程序来说，最小的功能单元是方法Method，本文介绍对单个方法的测试。
 background: '/img/posts/default.jpg'
 ---
 
 （建设中）
 
 ## 概述
+
+对于Java程序来说，最小的功能单元是方法Method，本文介绍对单个方法的测试。
+
+### 何谓良好的单元测试
+
+### 单元测试设计原则
 
 ## UT分析
 
