@@ -38,7 +38,7 @@ JDK里包含如下敏感异常（有些三方件里也存在）：
 
 ### 1.2. 禁止记录/打印敏感信息
 
-### 1.3. [使用完毕后清理内存中的敏感信息]({% post_url /software-engineer/2021-08-20-purge-sensitive-information-in-memory-after-use %})
+### 1.3. 使用完毕后清理内存中的敏感信息
 
 ## 2. IO操作
 
