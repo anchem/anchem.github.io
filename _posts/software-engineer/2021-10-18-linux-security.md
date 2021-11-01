@@ -11,8 +11,6 @@ description: Linux安全基础知识
 background: '/img/posts/default.jpg'
 ---
 
-（建设中）
-
 ## Linux安全风险
 
 Linux系统常见的安全威胁包括以下几个方面：
@@ -209,3 +207,5 @@ passwd -e <username>
 ```
 
 ### 本地攻击
+
+（待完善）
