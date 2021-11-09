@@ -32,12 +32,7 @@ background: '/img/bg-about.jpg'
 
 #### 知识管理
 
-- 经验管理
-  - 同行协助
-  - 事后回顾
-  - 项目回顾
-  - 知识收割
-- 知识萃取
+- [知识收割]({% post_url /software-engineer/2021-11-09-knowledge-harvest %})
 
 #### 沟通表达
 
