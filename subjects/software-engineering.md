@@ -32,6 +32,11 @@ background: '/img/bg-about.jpg'
 
 #### 知识管理
 
+- 知识管理计划 KM Plan
+- 同行协助 PA
+- 事前回顾 BAR
+- 事后回顾 AAR
+- 项目回顾 Retrospect
 - [知识收割]({% post_url /software-engineer/2021-11-09-knowledge-harvest %})
 
 #### 沟通表达
