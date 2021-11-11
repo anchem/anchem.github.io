@@ -6,5 +6,4 @@
 
 ## 参考
 
-1. 博客框架基于[Start Bootstrap - Clean Blog Jekyll](https://startbootstrap.com/themes/clean-blog-jekyll/)搭建；
-2. 部分功能实现参考[Hux Blog](https://github.com/Huxpro/huxpro.github.io)。
+博客框架基于[Start Bootstrap - Clean Blog Jekyll](https://startbootstrap.com/themes/clean-blog-jekyll/)搭建；
