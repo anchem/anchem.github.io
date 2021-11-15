@@ -372,7 +372,7 @@ PowerMockito.doReturn(true).when(testObject, "func1", anyString());
 
 ```java
 public void foo() {
-    func1("test);
+    func1("test");
 }
 
 private boolean func1(String str) {
