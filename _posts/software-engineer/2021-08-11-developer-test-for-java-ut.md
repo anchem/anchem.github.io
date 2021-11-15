@@ -339,7 +339,27 @@ public void funcTest() {
 
 #### 依赖私有方法的测试
 
+【测试私有方法是否被调用】
 
+有如下场景，需要对`foo`函数写UT，其中它调用了一个私有方法。
+
+```java
+public void foo() {
+    func1("test);
+}
+
+private boolean func1(String str) {
+    // .....
+}
+```
+
+可以用如下方式验证对私有方法的调用 ：
+
+```java
+verifyPrivate(object, Mockito.times(1)).invoke("func1", "test");
+```
+
+该方法验证了私有方法`func1`被调用了一次，且入参为`test`。注意，后面的`invoke`方法的第一个参数表示被调的私有方法名称，后面的参数为该私有方法的入参，这个入参必须是具体的值，而不能用`anyXXX`代替。
 
 #### 依赖静态方法的测试
 
