@@ -302,6 +302,8 @@ public class YourTestCase {
 }
 ```
 
+通过`PrepareForTest`注解的类，会在加载时修改其对应的字节码，以便实现对静态方法、final方法、private方法或系统类的替换；与此同时，需要通过`RunWith`注解指定测试执行器。
+
 ### 3.3. Mock测试框架的应用
 
 #### 3.3.1. 测试普通方法
