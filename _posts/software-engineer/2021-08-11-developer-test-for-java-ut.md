@@ -339,7 +339,34 @@ public void funcTest() {
 
 #### 依赖私有方法的测试
 
-【测试私有方法是否被调用】
+**【依赖私有方法的返回值】**
+
+有如下场景， `foo`函数调用了私有方法`func1`，并根据其返回值进行分支处理。
+
+```java
+public void foo() {
+    boolean result = func1("test");
+    if (result) {
+        // ......
+    } else {
+        // ......
+    }
+}
+
+private boolean func1(String str) {
+    // ......
+}
+```
+
+对`foo`函数的单元测试，依赖`func1`这个私有方法的返回值，这种情况，可以采用如下方式破除依赖：
+
+```java
+PowerMockito.doReturn(true).when(testObject, "func1", anyString());
+```
+
+通过控制`doReturn`方法中的返回值，即可覆盖测试`foo`函数的不同分支。
+
+**【测试私有方法是否被调用】**
 
 有如下场景，需要对`foo`函数写UT，其中它调用了一个私有方法。
 
@@ -356,10 +383,10 @@ private boolean func1(String str) {
 可以用如下方式验证对私有方法的调用 ：
 
 ```java
-verifyPrivate(object, Mockito.times(1)).invoke("func1", "test");
+PowerMockito.verifyPrivate(object, Mockito.times(1)).invoke("func1", "test");
 ```
 
-该方法验证了私有方法`func1`被调用了一次，且入参为`test`。注意，后面的`invoke`方法的第一个参数表示被调的私有方法名称，后面的参数为该私有方法的入参，这个入参必须是具体的值，而不能用`anyXXX`代替。
+该方法验证了私有方法`func1`被调用了一次（也可以验证多次），且入参为`test`。注意，后面的`invoke`方法的第一个参数表示被调的私有方法名称，后面的参数为该私有方法的入参，这个入参必须是具体的值，而不能用`anyXXX`代替。
 
 #### 依赖静态方法的测试
 
