@@ -298,11 +298,13 @@ verify(spy).add("two");
 @PrepareForTest( { YourClassWithEgStaticMethod.class })
 // @PrepareForTest( { fullyQualifiedNames = "com.xxx.xxx.*" })  使用该注解表示fullyQualifiedNames指明的包下的所有类都是要mock的
 public class YourTestCase {
-...
+    // ...
 }
 ```
 
 通过`PrepareForTest`注解的类，会在加载时修改其对应的字节码，以便实现对静态方法、final方法、private方法或系统类的替换；与此同时，需要通过`RunWith`注解指定测试执行器。
+
+注意 `PowerMockito` 也有 `spy` 方法，它和 `Mockito` 的 `spy` 方法的区别在于，如果你要mock类的私有方法或`final`方法，需要使用`PowerMockito.spy`方法，而不能使用`Mockito.spy`方法。
 
 ### 3.3. Mock测试框架的应用
 
@@ -312,7 +314,36 @@ public class YourTestCase {
 
 #### 3.3.2. 测试静态方法
 
+**====【测试普通类的静态方法】====**
 
+**====【测试静态类的静态方法】====**
+
+我们有时想要测试静态类的静态方法，而该方法又依赖该类的其他静态方法。
+
+```java
+class StaticClass {
+    public static String staticFunc1(String str) {
+        // some code
+    }
+    public static void staticFunc2() {
+        // some code
+        String str = staticFunc1(inStr)
+        // some code
+    }
+}
+```
+
+此时，若我们需要对`staticFunc2`写UT，就要破除对`staticFund1`的依赖，也就是说，对于`StaticClass`，我们需要部分mock，那就可以使用`spy`方法了：
+
+```java
+@Test
+public void staticFunc2Test() {
+    spy(StaticClass.class);
+    PowerMockito.doReturn("someString").when(StaticClass.class, "staticFunc1", anyString());
+}
+```
+
+通过`spy`方法，我们仅mock静态类的部分方法，并通过`doXXX`和`when`方法设置mock的方法即可。注意，这里不要使用`mockito.when()`方法，也就是不要写成`when(StaticClass.staticFunc1(anyString))`，这种是无法执行成功的。
 
 #### 3.3.3. 测试私有方法
 
@@ -341,7 +372,7 @@ public void funcTest() {
 
 #### 3.3.4. 依赖私有方法的测试
 
-====**【依赖私有方法的返回值】**====
+**====【依赖私有方法的返回值】====**
 
 有如下场景， `foo`函数调用了私有方法`func1`，并根据其返回值进行分支处理。
 
@@ -368,7 +399,7 @@ PowerMockito.doReturn(true).when(testObject, "func1", anyString());
 
 通过控制`doReturn`方法中的返回值，即可覆盖测试`foo`函数的不同分支。
 
-====**【测试私有方法是否被调用】**====
+**====【测试私有方法是否被调用】====**
 
 有如下场景，需要对`foo`函数写UT，其中它调用了一个私有方法。
 
@@ -420,6 +451,8 @@ public boolean func(String param) {
 PowerMockito.mockStatic(Static.class); // 会 mock 该类的所有静态函数
 PowerMockito.spy(Static.class); // 仅需要 mock 个别的静态函数，其他函数不 mock
 ```
+
+若该静态类还依赖了其他静态类，也同时需要mock。
 
 3. 通过 `Mockito.when()` 方法设置期望值。
 
