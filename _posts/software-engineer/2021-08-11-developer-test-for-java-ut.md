@@ -10,7 +10,6 @@ keywords: 开发者测试,Java单元测试
 description: 单元测试作为代码防护网的第一道屏障，能够有效地检验程序最小功能块的正确性，尽早发现bug，提高代码质量，减少返工成本，让你能够早点下班。
 background: '/img/posts/default.jpg'
 ---
-
 单元测试作为代码防护网的第一道屏障，能够有效地检验程序最小功能块的正确性，尽早发现bug，提高代码质量，减少返工成本，让你能够早点下班。
 
 ## 一、概述
@@ -310,11 +309,9 @@ public class YourTestCase {
 
 #### 3.3.1. 测试普通方法
 
-
+上面的例子已经介绍过了，这里就不赘述了。
 
 #### 3.3.2. 测试静态方法
-
-**====【测试普通类的静态方法】====**
 
 **====【测试静态类的静态方法】====**
 
@@ -467,13 +464,14 @@ Static.secondStaticMethod();
 4. 观察验证
 
 ```java
+// 可以对结果验证
 assertEquals(value, Static.firstStaticMethod(param));
 
 // 也可以验证mock方法的行为，比如被调用多少次
-verifyStatic(Mockito.times(2));
+verifyStatic(Static.class, times(2));
 Static.firstStaticMethod(anyString());
 
 // 每验证一个静态方法，都需要调用一次 verifyStatic() 方法
-verifyStatic(Mockito.never());
+verifyStatic(Static.class, times(0));
 Static.secondStaticMethod();
 ```
