@@ -1,4 +1,4 @@
-title:              Code Thousand
+title:              倚码千言 | Code Thousand
 email:              hackerleon@foxmail.com
 description:        Hackerleon Blog
 author:             Hackerleon
@@ -11,7 +11,7 @@ defaults:
     scope:
       path: "" # an empty string here means all files in the project
     values:
-      title: "Code Thousand"
+      title: "倚码千言 | Code Thousand"
       description: "Hackerleon Blog"
 
 # Social Profiles
