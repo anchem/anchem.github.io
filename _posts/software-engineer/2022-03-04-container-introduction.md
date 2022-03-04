@@ -5,8 +5,8 @@ date: 2022-03-04 09:50:00
 tags:
 - ICT理论基础
 - 容器技术
-keywords: 容器技术,Docker
-description: 随着PaaS（Platform as a service）技术的普及，软件应当以什么样的方式进行交付成为了一个关键的问题，而容器通过“容器镜像”的概念，解决了软件应用打包这个根本性难题。
+keywords: 容器技术,Docker,PaaS
+description: 随着PaaS技术的普及，软件应当以什么样的方式进行交付成为了一个关键的问题，而容器通过“容器镜像”的概念，解决了软件应用打包这个根本性难题。
 background: '/img/posts/default.jpg'
 ---
 
