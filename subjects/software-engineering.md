@@ -52,7 +52,7 @@ background: '/img/bg-about.jpg'
 - 大数据
 - 云计算
 - 容器技术
-  - [容器技术导入](#)
+  - [容器技术导入]({% post_url /software-engineer/2022-03-04-container-introduction %})
 - AI
 
 ### 3.2. 软件工程
