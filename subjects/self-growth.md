@@ -11,7 +11,7 @@ background: '/img/bg-about.jpg'
 - 精力管理
 - 目标管理
 
-### 1.2. 知识管理
+### 1.1. 知识管理
 
 - 知识管理计划 KM Plan
 - 同行协助 PA
