@@ -3,7 +3,7 @@ email:              hackerleon@foxmail.com
 description:        Hackerleon Blog
 author:             Hackerleon
 baseurl:            ""
-url:                "https://stillwaters.top"
+url:                "https://codethousand.cn"
 
 # front matter default config
 defaults:
@@ -70,11 +70,11 @@ post-subjects: [
     {
         title: "软件大师之路",
         desc: "路漫漫其修远兮，吾将上下而求索",
-        url: "https://stillwaters.top/subjects/software-engineering"
+        url: "https://codethousand.cn/subjects/software-engineering"
     },
     {
         title: "阿不成长树",
         desc: "阿不的成长树，持续更新中",
-        url: "https://stillwaters.top/subjects/growth-tree"
+        url: "https://codethousand.cn/subjects/growth-tree"
     }
 ]

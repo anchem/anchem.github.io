@@ -2,7 +2,7 @@
 
 ## 简介
 
-这是我的个人博客站点，欢迎访问 -> [倚码千言 Code Thousand](https://stillwaters.top/)
+这是我的个人博客站点，欢迎访问 -> [倚码千言 Code Thousand](https://codethousand.cn/)
 
 ## 参考
 
