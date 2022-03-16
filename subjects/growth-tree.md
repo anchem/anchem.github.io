@@ -13,6 +13,8 @@ background: '/img/bg-about.jpg'
 
 成长树的主要内容包含以下2部分，分别从时间和内容这两个维度展开：
 
+- [**成长时间轴**]({% post_url /growth-tree/2022-03-15-growth-timeline %})：成长时间轴以时间为角度，描述了孩子成长的每个年龄阶段所适合的养育活动。
+- [**成长能力树**]({% post_url /growth-tree/2022-03-15-growth-classification %})：成长能力树从不同的方面来描述孩子成长的内容。
 
 ## 设计想法
 
