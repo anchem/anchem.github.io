@@ -16,7 +16,7 @@ background: '/img/posts/default.jpg'
 
 首先给出思维导图：
 
-```
+```txt
 -- [时间线]
   |-- [诞生背景]
   |-- [现状]
