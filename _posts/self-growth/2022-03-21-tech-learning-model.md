@@ -4,7 +4,7 @@ title: 技术学习思考模型
 date: 2022-03-21 10:40:00
 tags:
 - 个人成长
-- 知识管理
+- 思维模型
 keywords: 技术学习,思考模型
 description: 我们应当思考哪些问题才能帮助我们快速、全面、深入地掌握一项技术
 background: '/img/posts/default.jpg'
