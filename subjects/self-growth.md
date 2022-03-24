@@ -24,10 +24,10 @@ background: '/img/bg-about.jpg'
 
 - 问题分析模型
 - 成长思维模型
-- 拦截器链思维模型
+- [拦截器链思维模型](#)
 - 冗余备份思维模型
 - [技术学习思考模型]({% post_url /self-growth/2022-03-21-tech-learning-model %})
-- [责任圈思维模型](#)
+- [责任圈思维模型]({% post_url /self-growth/2022-03-22-responsibility-cycle %})
 
 ## 3. 正念心理
 
