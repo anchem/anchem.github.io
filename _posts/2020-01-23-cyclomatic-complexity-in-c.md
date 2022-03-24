@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 圈复杂度重构技术（C语言篇）
-date: 2020-01-23
+date: 2020-01-23 +0800
 categories: 软件工程师系列
 tags: 
 - 软件设计与重构

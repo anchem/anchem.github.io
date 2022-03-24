@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 想法很好，却无法执行？
-date: 2016-08-13
+date: 2016-08-13 +0800
 categories: 个人成长
 tags: 
 - 正念心理

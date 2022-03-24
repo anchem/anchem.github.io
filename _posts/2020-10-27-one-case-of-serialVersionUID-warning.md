@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 注意由双大括号匿名类引起的serialVersionUID编译告警
-date: 2020-10-27 20:33:00
+date: 2020-10-27 20:33:00 +0800
 categories: 软件工程师系列
 tags:
 - 静态检查与修复

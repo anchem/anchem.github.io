@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 保持敬畏，保持严谨
-date: 2019-12-29
+date: 2019-12-29 +0800
 categories: 软件工程师系列
 tags: 
 - 心得感悟

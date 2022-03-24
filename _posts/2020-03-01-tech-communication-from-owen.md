@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 【技术交流】来自Owen Obrien团队的可信开发
-date: 2020-03-01 23:52:59
+date: 2020-03-01 23:52:59 +0800
 categories: 软件工程师系列
 tags:
 - 软件设计与重构

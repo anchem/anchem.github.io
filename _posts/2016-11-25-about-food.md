@@ -1,6 +1,6 @@
 ---
 layout: post
-date: 2016-11-25
+date: 2016-11-25 +0800
 title: 生活之美——对食物用心
 categories: 生活随感
 tags: 

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 白话计算机科学
-date: 2017-05-03
+date: 2017-05-03 +0800
 categories: 软件工程师系列
 tags: 
 - 心得感悟

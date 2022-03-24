@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Internet of Value
-date: 2018-08-19
+date: 2018-08-19 +0800
 categories: 个人成长
 tags: 
 - 思维模型

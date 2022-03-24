@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 听一次讲座有感
-date: 2015-09-26
+date: 2015-09-26 +0800
 categories: 软件工程师系列
 tags: 
 - 心得感悟

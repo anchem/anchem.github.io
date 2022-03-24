@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 《化作繁星》
-date: 2020-04-12
+date: 2020-04-12 +0800
 categories: 兴趣爱好
 tags: 
 - 音乐

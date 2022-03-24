@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 元能力
-date: 2017-04-21
+date: 2017-04-21 +0800
 categories: 个人成长
 tags: 
 - 思维模型

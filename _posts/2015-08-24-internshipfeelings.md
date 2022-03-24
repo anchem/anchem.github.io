@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 实习感想
-date: 2015-08-24
+date: 2015-08-24 +0800
 categories: 软件工程师系列
 tags: 
 - 心得感悟
