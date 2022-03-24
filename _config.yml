@@ -53,7 +53,7 @@ paginate: 10
 exclude: ["less","node_modules","Gruntfile.js","package.json","README.md","README.zh.md"]
 anchorjs: true
 # If you have timezone issue (e.g. #68) in China, uncomment to use this:
-#timezone: CN  
+timezone: Asia/Shanghai
 
 # Gems
 # from PR#40, to support local preview for Jekyll 3.0
