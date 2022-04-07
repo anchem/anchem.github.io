@@ -72,7 +72,7 @@ background: '/img/bg-about.jpg'
 
 - 面向对象分析与设计
 - 设计原则
-- 设计模式
+- [设计模式](https://refactoringguru.cn/design-patterns/catalog)
 - API 设计
 
 #### 3.2.3. 软件实现
