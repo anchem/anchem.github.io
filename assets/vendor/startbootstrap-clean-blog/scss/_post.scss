@@ -40,3 +40,17 @@
     }
   }
 }
+
+// home layout, list a style
+#postContent {
+  li {
+    a {
+      color: $gray-900;
+      text-decoration: underline dotted;
+      &:hover {
+        color: $primary;
+        text-decoration: underline;
+      }
+    }
+  }
+}
