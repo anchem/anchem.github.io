@@ -32,9 +32,11 @@ a {
   }
 }
 
-li {
-  a {
-    text-decoration: underline dotted;
+.postlist-container{
+  li {
+    a {
+      text-decoration: underline dotted;
+    }
   }
 }
 
