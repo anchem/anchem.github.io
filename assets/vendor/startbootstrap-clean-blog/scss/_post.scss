@@ -23,7 +23,7 @@
     margin-top: 0;
     color: $gray-600;
     > a {
-      text-decoration: none;
+      text-decoration: underline dotted;
       color: $gray-900;
       &:focus,
       &:hover {
