@@ -35,7 +35,12 @@ a {
 .postlist-container {
   li {
     a {
+      color: $gray-900;
       text-decoration: underline dotted;
+      &:hover {
+        color: $primary;
+        text-decoration: underline;
+      }
     }
   }
 }
