@@ -41,3 +41,4 @@ background: '/img/bg-about.jpg'
 
 - [决策能力]({% post_url /self-growth/2022-03-15-decision-making %})
 - 系统思维能力
+- 批判性思维：去伪存真
