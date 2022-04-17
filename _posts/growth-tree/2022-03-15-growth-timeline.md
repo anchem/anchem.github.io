@@ -11,6 +11,8 @@ background: '/img/posts/default.jpg'
 
 ## 第一阶段：从出生到3岁
 
+- [18个月体检记录]({% post_url /growth-tree/2022-04-17-18-months-examination %})
+
 ## 第二阶段：从3岁到6岁
 
 ## 第三阶段：从6岁到12岁
