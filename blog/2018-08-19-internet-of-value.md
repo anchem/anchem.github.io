@@ -3,7 +3,7 @@ slug: internet-of-value
 title: 价值网络
 date: 2018-08-19 20:00:00 +0800
 authors: hackerleon
-tags: [thinking model]
+tags: ['思维模型']
 ---
 
 我们身处一个价值网络的社会，你是价值消费者，还是价值生产者呢？

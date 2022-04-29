@@ -3,7 +3,7 @@ slug: professor-xie-fei-feelings
 title: 听一次讲座有感
 date: 2015-09-26 20:00:00 +0800
 authors: hackerleon
-tags: [thoughts]
+tags: ['思考感悟']
 ---
 
 这周的周二到周五，有幸聆听了来自Portland State University计算机学院的XieFei教授的讲座，真是收获良多，颇受振奋啊。

@@ -3,7 +3,7 @@ slug: good-idea-but-cannot-do
 title: 想法很好，却无法执行？
 date: 2016-08-13 20:00:00 +0800
 authors: hackerleon
-tags: [thoughts]
+tags: ['思考感悟']
 ---
 
 昨天早上整理思绪的时候，我想到了这么一个问题：

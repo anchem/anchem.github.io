@@ -3,7 +3,7 @@ slug: tech-communication-from-owen
 title: 【技术交流】来自Owen Obrien团队的可信开发
 date: 2020-03-01 23:52:59 +0800
 authors: hackerleon
-tags: [software]
+tags: ['思考感悟']
 ---
 
 上周五上午抽了个空，去参加了来自爱尔兰的Owen Obrien带来的基于云化架构下的可信软件开发实践的技术交流活动，收获不少，特此记录一下。

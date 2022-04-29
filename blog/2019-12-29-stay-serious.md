@@ -3,7 +3,7 @@ slug: stay-serious
 title: 保持敬畏，保持严谨
 date: 2019-12-29 20:00:00 +0800
 authors: hackerleon
-tags: [thoughts]
+tags: ['思考感悟']
 ---
 
 > 码者，国之大事，死生之地，存亡之道，不可不察也。

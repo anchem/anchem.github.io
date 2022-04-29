@@ -3,7 +3,7 @@ slug: km-shared-from-tuobuhua
 title: 知识管理——得到CEO脱不花女士的一次分享
 date: 2020-11-09 16:10:00 +0800
 authors: hackerleon
-tags: [knowledge management]
+tags: ['知识管理']
 ---
 
 近日，公司举办了一场"CKO首席知识官"研讨会，邀请到了得到APP的CEO脱不花女士做了一场精彩的分享，让我深受启发。

@@ -3,7 +3,7 @@ slug: 2nd-cotton-wedding-gift
 title: 《化作繁星》
 date: 2020-04-12 23:52:59 +0800
 authors: hackerleon
-tags: [thoughts]
+tags: ['思考感悟']
 ---
 
 《化作繁星》——送给老婆的结婚纪念日礼物

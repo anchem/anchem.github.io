@@ -3,7 +3,7 @@ slug: about-food
 title: 生活之美——对食物用心
 date: 2016-11-25 20:00:00 +0800
 authors: hackerleon
-tags: [thoughts]
+tags: ['思考感悟']
 ---
 
 这几天早晨走在去实验室的路上听着蒋勋的《美的沉思.生活美学》，颇有感触，是为一记。

@@ -3,7 +3,7 @@ slug: meta-ability
 title: 元能力
 date: 2017-04-21 20:00:00 +0800
 authors: hackerleon
-tags: [thinking model]
+tags: ['思维模型']
 ---
 
 离毕业已经过去半个多月了，距入职还有1个多月，我没有急于入职是因为想要留点空闲的时间，做一些闲事，给生命一些间隙，用来成长。

@@ -3,7 +3,7 @@ slug: how-to-control-yourself
 title: 【转载】罗胖精选｜什么样的自控方法才有效？
 date: 2020-11-13 17:26:00 +0800
 authors: hackerleon
-tags: [self growth]
+tags: ['自我成长']
 ---
 
 本文全文转载自我司洪燕的一篇分享，非常有启发。如有冒犯，请联系我删除，谢谢。

@@ -3,7 +3,7 @@ slug: understandable-computer-science
 title: 白话计算机科学
 date: 2017-05-03 20:00:00 +0800
 authors: hackerleon
-tags: [work]
+tags: ['计算机']
 ---
 
 学了这么多年的计算机，我在想，要是有个不懂计算机的人想了解计算机科学的内幕，我该怎么回答呢？我简单整理了一下，于是，就有了这篇文章。

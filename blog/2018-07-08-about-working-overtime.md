@@ -3,7 +3,7 @@ slug: about-working-overtime
 title: 过度加班百害而无一利
 date: 2018-07-08 20:00:00 +0800
 authors: hackerleon
-tags: [work]
+tags: ['工作杂谈']
 ---
 
 “不是在加班，就是在加班的路上”
