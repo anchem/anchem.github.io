@@ -7,10 +7,10 @@ sidebar_position: 4
 ## 3.1. ICT理论基础
 
 - 离散数学
-- [算法与数据结构]({% post_url /software-engineer/2021-06-17-algorithm %})
+- [算法与数据结构](#)
 - 操作系统
   - Linux
-    - [Linux安全]({% post_url /software-engineer/2021-10-18-linux-security %})
+    - [Linux安全](#)
 - 计算机网络
 - 数据库及存储
 - 汇编及编译原理
@@ -18,12 +18,12 @@ sidebar_position: 4
 - 大数据
 - 云计算
 - 容器技术
-  - [容器技术导入]({% post_url /software-engineer/2022-03-04-container-introduction %})
+  - [容器技术导入](#)
 - AI
 
 ## 3.2. 软件工程
 
-- [现代软件工程]({% post_url /software-engineer/2021-06-19-software-engineering %})
+- [现代软件工程](#)
 - 版本管理
 - CI
 - 配置管理
@@ -44,7 +44,7 @@ sidebar_position: 4
 ### 3.2.3. 软件实现
   
 - 编程语言
-  - [Java]({% post_url /software-engineer/2021-06-19-java-language %})
+  - [Java](#)
 - 编译构建
 - 代码审查
 - 重构
@@ -52,13 +52,13 @@ sidebar_position: 4
 ### 3.2.4. 软件验证
 
 - 调试技术
-- [开发者测试]({% post_url /software-engineer/2021-08-11-developer-test %})
-  - [Java单元测试]({% post_url /software-engineer/2021-08-11-developer-test-for-java-ut %})
+- [开发者测试](#)
+  - [Java单元测试](#)
 
 ### 3.2.5. 软件安全
 
 - 安全基础
-  - [密码学应用基础]({% post_url /software-engineer/2021-10-20-cipher-application-base %})
+  - [密码学应用基础](#)
 - 安全设计
   - 威胁建模
 
