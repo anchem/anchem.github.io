@@ -36,7 +36,7 @@ const config = {
           blogSidebarCount: 'ALL',
           blogSidebarTitle: '所有文章',
           readingTime: ({content, frontMatter, defaultReadingTime}) =>
-            defaultReadingTime({content, options: {wordsPerMinute: 300}}),
+            defaultReadingTime({content, options: {wordsPerMinute: 500}}),
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
