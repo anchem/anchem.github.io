@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkwebsite=self.webpackChunkwebsite||[]).push([[3755],{1514:function(e){e.exports=JSON.parse('{"allTagsPath":"/blog/tags","name":"knowledge management","count":1,"permalink":"/blog/tags/knowledge-management"}')}}]);
