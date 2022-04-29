@@ -1,6 +1,6 @@
 {
-  "position": 1,
-  "label": "阿不成长树",
+  "position": 3,
+  "label": "成长能力树",
   "collapsible": true,
   "collapsed": false,
   "className": "growthtree",
