@@ -1,7 +1,7 @@
 ---
 slug: intership-feelings
 title: 暑期实习感想
-date: 2015-08-24 +0800
+date: 2015-08-24 20:00:00 +0800
 authors: hackerleon
 tags: [thoughts]
 ---
