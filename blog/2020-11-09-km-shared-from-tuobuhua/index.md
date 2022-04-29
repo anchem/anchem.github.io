@@ -2,6 +2,7 @@
 slug: km-shared-from-tuobuhua
 title: 知识管理——得到CEO脱不花女士的一次分享
 date: 2020-11-09 16:10:00 +0800
+authors: hackerleon
 tags: [knowledge management]
 ---
 
