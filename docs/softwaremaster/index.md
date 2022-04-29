@@ -5,6 +5,8 @@ sidebar_class_name: softwaremaster
 displayed_sidebar: softwaremaster
 ---
 
+# 软件大师之路
+
 > 你在做什么？你有什么愿景？
 
 我的回答是：**我在做软件产品，并致力于做出更好的软件产品，成为一名软件大师**。
