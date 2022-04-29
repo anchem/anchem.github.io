@@ -1,0 +1,10 @@
+{
+  "position": 1,
+  "label": "软件大师之路",
+  "collapsible": true,
+  "collapsed": false,
+  "className": "softwaremaster",
+  "customProps": {
+    "description": "This description can be used in the swizzled DocCard"
+  }
+}

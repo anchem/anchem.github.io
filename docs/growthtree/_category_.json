@@ -1,0 +1,10 @@
+{
+  "position": 2,
+  "label": "阿不成长树",
+  "collapsible": true,
+  "collapsed": false,
+  "className": "growthtree",
+  "customProps": {
+    "description": "This description can be used in the swizzled DocCard"
+  }
+}
