@@ -20,6 +20,30 @@ function MyThoughtsContent() {
   );
 }
 
+function MyThoughtsScript() {
+  const {siteConfig} = useDocusaurusContext();
+  return (
+    `<script type="text/javascript">
+      var gitalk = new Gitalk({
+      clientID: '8f8b00c0f9a02da92827',
+      clientSecret: 'e9e5f5370d1497b34960a41d0027faf1ee508cf1',
+      repo: 'anchem.github.io',
+      owner: 'anchem',
+      admin: ['anchem'],
+      id: location.pathname,      // Ensure uniqueness and length less than 50
+      title: 'thoughts_repo',
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      createIssueManually: true,
+      labels: ['comment','Gitalk'],
+      language: 'zh-CN',
+      pagerDirection: 'last',
+      isLocked: true
+    })
+    gitalk.render('gitalk-container')
+    </script>`
+  );
+}
+
 export default function MyThoughts() {
   const {siteConfig} = useDocusaurusContext();
   var gitalk = new Gitalk({
@@ -44,6 +68,7 @@ export default function MyThoughts() {
       <MyThoughtsHeader/>
       <main>]
         <MyThoughtsContent/>
+        <MyThoughtsScript/>
       </main>
     </Layout>
   );
