@@ -65,7 +65,7 @@ const config = {
         },
         hideOnScroll: true,  // 滚动时自动隐藏导航栏
         items: [
-          {to: '/thoughts', label: '随想', position: 'left'},
+          // {to: '/thoughts', label: '随想', position: 'left'},
           {
             to: 'docs/softwaremaster',
             label: '软件大师之路',
