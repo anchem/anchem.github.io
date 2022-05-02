@@ -7,7 +7,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: '倚码千言',
-  tagline: 'Hakcerleon\'s Website',  // 网站标语
+  tagline: 'Hackerleon\'s Website',  // 网站标语
   url: 'https://codethousand.cn',
   baseUrl: '/',
   onBrokenLinks: 'warn',  // Docusaurus 在检测到无效链接时的行为
@@ -84,7 +84,7 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: '主题',
+            title: '站点主题',
             items: [
               {
                 label: '软件大师之路',
@@ -97,7 +97,7 @@ const config = {
             ],
           },
           {
-            title: '项目',
+            title: '我的项目',
             items: [
               {
                 label: '高质量软件工作手册',
@@ -111,6 +111,10 @@ const config = {
               {
                 label: '关于',
                 to: 'about',
+              },
+              {
+                label: '随笔',
+                to: 'blog',
               },
               {
                 label: 'GitHub',
