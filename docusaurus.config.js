@@ -15,13 +15,22 @@ const config = {
   favicon: 'img/favicon.ico',
   organizationName: 'anchem', // Usually your GitHub org/user name.
   projectName: 'blog', // Usually your repo name.
-  deploymentBranch: 'master',
+  deploymentBranch: 'gh-pages',
   trailingSlash: false,
   noIndex: false,  // 设置为false表示告知搜索引擎不要索引您的站点
   i18n: {
     defaultLocale: 'zh-Hans',
     locales: ['zh-Hans']
   },
+  stylesheets: [
+    'https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.7.2/gitalk.min.css'
+  ],
+  scripts: [
+    {
+      src: 'https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.7.2/gitalk.min.js',
+      async: true,
+    }
+  ],
   presets: [
     [
       'classic',
@@ -56,6 +65,7 @@ const config = {
         },
         hideOnScroll: true,  // 滚动时自动隐藏导航栏
         items: [
+          {to: '/thoughts', label: '随想', position: 'left'},
           {
             to: 'docs/softwaremaster',
             label: '软件大师之路',
