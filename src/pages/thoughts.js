@@ -1,12 +1,11 @@
 import React from 'react';
-import clsx from 'clsx';
 import Layout from '@theme/Layout';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 function MyThoughtsHeader() {
   const {siteConfig} = useDocusaurusContext();
   return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
+    <header>
       <link href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.7.2/gitalk.min.css" rel="stylesheet"/>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.7.2/gitalk.min.js"></script>
     </header>
