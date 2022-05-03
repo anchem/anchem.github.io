@@ -117,6 +117,10 @@ const config = {
                 to: 'blog',
               },
               {
+                label: '微博',
+                href: 'https://weibo.com/anchem',
+              },
+              {
                 label: 'GitHub',
                 href: 'https://github.com/anchem',
               },
