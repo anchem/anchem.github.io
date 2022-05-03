@@ -22,7 +22,7 @@ export default function Home() {
   const {siteConfig} = useDocusaurusContext();
   return (
     <Layout
-      title={`CodeThousand`}
+      title={`首页`}
       description="Description will go into a meta tag in <head />">
       <HomepageHeader />
       <main>
