@@ -1,0 +1,10 @@
+{
+  "position": 5,
+  "label": "运维：交付后的使用",
+  "collapsible": true,
+  "collapsed": false,
+  "className": "softwaremaster",
+  "customProps": {
+    "description": "This description can be used in the swizzled DocCard"
+  }
+}
