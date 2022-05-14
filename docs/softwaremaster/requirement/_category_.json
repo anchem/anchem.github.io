@@ -1,0 +1,10 @@
+{
+  "position": 3,
+  "label": "需求",
+  "collapsible": true,
+  "collapsed": false,
+  "className": "softwaremaster",
+  "customProps": {
+    "description": "This description can be used in the swizzled DocCard"
+  }
+}
