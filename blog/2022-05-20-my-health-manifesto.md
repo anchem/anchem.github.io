@@ -3,7 +3,7 @@ slug: my-health-manifesto
 title: 我的健康宣言
 date: 2022-05-20 07:00:00 +0800
 authors: hackerleon
-tags: ['思考感悟']
+tags: ['思考感悟', '个人成长']
 ---
 
  > 健康是我这一生最重要的事情，没有之一。
