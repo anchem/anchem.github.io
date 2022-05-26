@@ -72,6 +72,11 @@ const config = {
             position: 'left'
           },
           {
+            to: 'docs/selfdevelop',
+            label: '个人成长',
+            position: 'left'
+          },
+          {
             to: 'docs/growthtree',
             label: '阿不成长树',
             position: 'left'
@@ -89,6 +94,10 @@ const config = {
               {
                 label: '软件大师之路',
                 to: 'docs/softwaremaster',
+              },
+              {
+                label: '个人成长',
+                to: 'docs/selfdevelop',
               },
               {
                 label: '阿不成长树',
