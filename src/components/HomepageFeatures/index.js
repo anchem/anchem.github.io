@@ -8,7 +8,7 @@ const FeatureList = [
     Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
     description: (
       <>
-        本站点以文档的形式，系统性地记录和整理了我所关注的几个领域的知识与实践，包括软件大师之路、阿不成长树等。
+        本站点以文档的形式，系统性地记录和整理了我所关注的几个领域的知识与实践，包括软件大师之路、个人成长、阿不成长树等。
       </>
     ),
   },
