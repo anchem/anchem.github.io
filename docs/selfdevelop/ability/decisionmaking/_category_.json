@@ -1,0 +1,10 @@
+{
+  "position": 3,
+  "label": "决策能力",
+  "collapsible": true,
+  "collapsed": false,
+  "className": "selfdevelop",
+  "customProps": {
+    "description": "This description can be used in the swizzled DocCard"
+  }
+}
