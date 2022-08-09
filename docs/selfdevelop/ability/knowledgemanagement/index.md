@@ -2,4 +2,4 @@
 sidebar_position: 1
 ---
 
-# 知识管理
+# 管理能力
