@@ -25,9 +25,14 @@ export default function Thoughts() {
         repo: 'anchem.github.io',
         owner: 'anchem',
         admin: ['anchem'],
-        labels: ['thoughts']
-        id: thoughts,      // Ensure uniqueness and length less than 50
-        distractionFreeMode: false  // Facebook-like distraction free mode
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+        title: 'thoughts_repo',
+        distractionFreeMode: false,  // Facebook-like distraction free mode
+        createIssueManually: true,
+        labels: ['comment','Gitalk'],
+        language: 'zh-CN',
+        pagerDirection: 'last',
+        isLocked: true
       }} />
     </Layout>
   );
