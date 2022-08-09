@@ -1,5 +1,6 @@
 import React from 'react';
 import Layout from '@theme/Layout';
+import BrowserOnly from '@docusaurus/BrowserOnly';
 import 'gitalk/dist/gitalk.css'
 import Gitalk from 'gitalk'
 import GitalkComponent from "gitalk/dist/gitalk-component";
@@ -7,6 +8,7 @@ import GitalkComponent from "gitalk/dist/gitalk-component";
 export default function Thoughts() {
   return (
     <Layout title="Thoughts" description="my thoughts">
+      <BrowserOnly fallback={<div></div>}>{() => <GitalkComponent options={options} />}</BrowserOnly>
       <div
         style={{
           display: 'flex',
