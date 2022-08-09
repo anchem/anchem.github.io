@@ -18,6 +18,8 @@ jobs:
           node-version: 16.x
           cache: npm
 
+      - name: Add Gitalk
+        run: npm i --save gitalk
       - name: Install dependencies
         run: npm ci
       - name: Build website
