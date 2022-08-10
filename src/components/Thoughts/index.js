@@ -22,7 +22,7 @@ function Sentence({time, content}) {
   );
 }
 
-function SentenceComp() {
+export default function SentenceComp() {
   return (
   <div className="container">
     <div className={clsx('col col--8')}>
