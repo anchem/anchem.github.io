@@ -9,7 +9,7 @@ const SentenceList = [
     },
     {
         time: '2022-08-09',
-        content: (<>测试数据 2</>)
+        content: (<>测试数据 2 测试数据 2 测试数据 2 测试数据 2 测试数据 2 测试数据 2 测试数据 2 测试数据 2 测试数据 2 测试数据 2 测试数据 2 测试数据 2 测试数据 2 测试数据 2</>)
     }
 ]
 
@@ -40,7 +40,7 @@ export default function Thoughts() {
       <div
         style={{
           display: 'flex',
-          flex-direction: 'column',
+          flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center'
         }}>
