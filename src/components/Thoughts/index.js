@@ -22,14 +22,18 @@ function Sentence({time, content}) {
   );
 }
 
-export default function SentenceComp() {
-  return (
-  <div className="container">
-    <div className={clsx('col col--8')}>
-      {SentenceList.map((props, idx) => (
-        <Sentence key={idx} {...props} />
-      ))}
-    </div>
-  </div>
-  );
+class SentenceComp extends React.Component {
+    render() {
+        return (
+          <div className="container">
+            <div className={clsx('col col--8')}>
+              {SentenceList.map((props, idx) => (
+                <Sentence key={idx} {...props} />
+              ))}
+            </div>
+          </div>
+        );
+    }
 }
+
+export default SentenceComp;
