@@ -29,10 +29,6 @@ const config = {
     {
       src: 'https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.7.2/gitalk.min.js',
       async: true,
-    },
-    {
-      src: 'https://unpkg.com/html-react-parser@latest/dist/html-react-parser.min.js',
-      async: false
     }
   ],
   presets: [
