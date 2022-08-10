@@ -15,7 +15,7 @@ const SentenceList = [
 
 function Sentence({time, content}) {
   return (
-    <div className={clsx('col col--8')}>
+    <div>
       <h4>{time}</h4>
       <p>{content}</p>
     </div>
@@ -25,7 +25,7 @@ function Sentence({time, content}) {
 function SentenceComp() {
   return (
   <div className="container">
-    <div className="row">
+    <div className={clsx('col col--8')}>
       {SentenceList.map((props, idx) => (
         <Sentence key={idx} {...props} />
       ))}
@@ -40,14 +40,14 @@ export default function Thoughts() {
       <div
         style={{
           display: 'flex',
+          flex-direction: 'column',
           justifyContent: 'center',
           alignItems: 'center'
         }}>
-        <p>
-          内容：随想 | 灵感稍纵即逝
-        </p>
-        <SentenceComp>
-        </SentenceComp>
+        <h1>
+          随想 | 灵感稍纵即逝
+        </h1>
+        <SentenceComp />
       </div>
     </Layout>
   );
