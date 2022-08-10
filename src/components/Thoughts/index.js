@@ -41,7 +41,7 @@ class SentenceComp extends React.Component {
         if (error) {
           return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
-          return <h1>加载中 | Loading...</h1>;
+          return <h2>加载中 | Loading...</h2>;
         } else {
             return (
               <div className="container">
