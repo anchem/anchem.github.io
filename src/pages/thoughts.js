@@ -26,7 +26,7 @@ function SentenceComp() {
   <div className="container">
     <div className="row">
       {SentenceList.map((props, idx) => (
-        <Feature key={idx} {...props} />
+        <Sentence key={idx} {...props} />
       ))}
     </div>
   </div>
