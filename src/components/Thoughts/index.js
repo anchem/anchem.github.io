@@ -3,6 +3,23 @@ import clsx from 'clsx';
 import Layout from '@theme/Layout';
 import parse from 'html-react-parser';
 
+function isoToString(date) {
+  var timezone = -date.getTimezoneOffset(),
+      dif = timezone >= 0 ? '+' : '-',
+      pad = function(num) {
+          return (num < 10 ? '0' : '') + num;
+      };
+
+  return date.getFullYear() +
+      '-' + pad(date.getMonth() + 1) +
+      '-' + pad(date.getDate()) +
+      ' ' + pad(date.getHours()) +
+      ':' + pad(date.getMinutes()) +
+      ':' + pad(date.getSeconds()) + ' '
+      dif + pad(Math.floor(Math.abs(tzo) / 60)) +
+      ':' + pad(Math.abs(tzo) % 60);
+}
+
 class SentenceComp extends React.Component {
     constructor(props) {
     super(props);
@@ -48,7 +65,7 @@ class SentenceComp extends React.Component {
                 <div className={clsx('col col--8')}>
                   {items.map(item => (
                     <div>
-                      <h4>{item.updated_at}</h4>
+                      <h4>{isoToString(item.updated_at)}</h4>
                       {parse(item.body_html)}
                     </div>
                   ))}
