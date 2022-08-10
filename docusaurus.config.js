@@ -82,6 +82,7 @@ const config = {
             position: 'left'
           },
           {to: '/blog', label: '随笔', position: 'left'},
+          {to: '/thoughts', label: '随想', position: 'left'},
           {to: '/about', label: '关于', position: 'right'}
         ],
       },
@@ -120,6 +121,10 @@ const config = {
               {
                 label: '关于',
                 to: 'about',
+              },
+              {
+                label: '随想',
+                to: 'thoughts',
               },
               {
                 label: '随笔',
