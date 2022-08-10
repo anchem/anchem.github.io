@@ -14,10 +14,10 @@ class SentenceComp extends React.Component {
     }
     
     componentDidMount() {
-    fetch("https://api.github.com/repos/anchem/anchem.github.io/issues/7/comments?sort=updated&direction=desc", {
+    fetch("https://api.github.com/repos/anchem/anchem.github.io/issues/7/comments", {
         headers: {
-            'Accept': 'application/vnd.github.full+json',
-            'Authorization': `token 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`
+            'Accept': 'application/vnd.github.full+json'
+            // 'Authorization': `token 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`
         }
     }).then(res => res.json())
       .then(
