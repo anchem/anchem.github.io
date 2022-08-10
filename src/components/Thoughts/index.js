@@ -1,6 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import Layout from '@theme/Layout';
+import parse from 'html-react-parser';
 
 class SentenceComp extends React.Component {
     constructor(props) {
@@ -47,7 +48,7 @@ class SentenceComp extends React.Component {
                   {items.map(item => (
                     <div>
                       <h4>{item.updated_at}</h4>
-                      {item.body_html}
+                      {parse({item.body_html})}
                     </div>
                   ))}
                 </div>
