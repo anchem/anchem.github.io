@@ -65,7 +65,7 @@ class SentenceComp extends React.Component {
                 <div className={clsx('col col--8')}>
                   {items.map(item => (
                     <div>
-                      <h4>{isoToString(item.updated_at)}</h4>
+                      <h4>{isoToString(new Date(item.updated_at))}</h4>
                       {parse(item.body_html)}
                     </div>
                   ))}
