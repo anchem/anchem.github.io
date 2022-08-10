@@ -24,7 +24,7 @@ class SentenceComp extends React.Component {
         (result) => {
           this.setState({
             isLoaded: true,
-            items: result.sort((a, b) => a.updated_at > b.updated_at ? 1 : -1)
+            items: result.sort((a, b) => b.updated_at > a.updated_at ? 1 : -1)
           });
         },
         (error) => {
