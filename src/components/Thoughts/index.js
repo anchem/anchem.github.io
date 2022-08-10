@@ -48,7 +48,7 @@ class SentenceComp extends React.Component {
                   {items.map(item => (
                     <div>
                       <h4>{item.updated_at}</h4>
-                      {parse({item.body_html})}
+                      {parse(item.body_html)}
                     </div>
                   ))}
                 </div>
