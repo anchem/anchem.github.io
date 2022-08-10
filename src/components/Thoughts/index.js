@@ -13,7 +13,7 @@ class SentenceComp extends React.Component {
     }
     
     componentDidMount() {
-    fetch("https://api.github.com/repos/anchem/anchem.github.io/issues/7/comments", {
+    fetch("https://api.github.com/repos/anchem/anchem.github.io/issues/7/comments?sort=updated&direction=desc", {
         headers: {
             'Accept': 'application/vnd.github.full+json'
         }
@@ -25,9 +25,6 @@ class SentenceComp extends React.Component {
             items: result
           });
         },
-        // 注意：需要在此处处理错误
-        // 而不是使用 catch() 去捕获错误
-        // 因为使用 catch 去捕获异常会掩盖掉组件本身可能产生的 bug
         (error) => {
           this.setState({
             isLoaded: true,
@@ -50,7 +47,7 @@ class SentenceComp extends React.Component {
                   {items.map(item => (
                     <div>
                       <h4>{item.updated_at}</h4>
-                      <p>{item.body}</p>
+                      {item.body_html}
                     </div>
                   ))}
                 </div>
