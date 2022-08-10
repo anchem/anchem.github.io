@@ -3,11 +3,11 @@ import Layout from '@theme/Layout';
 
 const SentenceList = [
     {
-        time: 2022-08-10,
+        time: '2022-08-10',
         content: (<>测试数据 1</>)
     },
     {
-        time: 2022-08-09,
+        time: '2022-08-09',
         content: (<>测试数据 2</>)
     }
 ]
