@@ -2,6 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import Layout from '@theme/Layout';
 import parse from 'html-react-parser';
+import styles from './styles.module.css';
 
 function isoToString(date) {
   var timezone = -date.getTimezoneOffset(),
