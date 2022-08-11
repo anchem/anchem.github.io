@@ -1,5 +1,6 @@
 .thoughtTitle {
   margin: 50px;
+  padding: 50px;
   display: flex;
   flexDirection: column;
   justifyContent: center;
