@@ -1,5 +1,5 @@
 .thoughtTitle {
-  margin: 50px;
+  margin: 25px 5px;
   display: flex;
   flexDirection: column;
   justifyContent: center;
@@ -7,5 +7,5 @@
 }
 
 .thoughtItem {
-  margin: 25px;
+  margin: 15px;
 }
