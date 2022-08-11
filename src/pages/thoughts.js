@@ -7,9 +7,6 @@ export default function Thoughts() {
   return (
     <Layout title="随想" description="灵感稍纵即逝">
       <div>
-        <h1 className="thoughtTitle">
-          随想 | 灵感稍纵即逝
-        </h1>
         <SentenceComp />
       </div>
     </Layout>
