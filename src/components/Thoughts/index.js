@@ -62,6 +62,9 @@ class SentenceComp extends React.Component {
           return <h2>加载中 | Loading...</h2>;
         } else {
             return (
+              <h1 className="thoughtTitle">
+                随想 | 灵感稍纵即逝
+              </h1>
               <div className="container">
                 <div className={clsx('col col--8')}>
                   {items.map(item => (
