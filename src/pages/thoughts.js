@@ -7,6 +7,7 @@ export default function Thoughts() {
   return (
     <Layout title="随想" description="灵感稍纵即逝">
       <div
+        className="thoughtTitle"
         style={{
           display: 'flex',
           flexDirection: 'column',
