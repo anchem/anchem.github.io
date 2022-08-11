@@ -1,5 +1,4 @@
 .thoughtTitle {
-  margin: 25px 5px;
   display: flex;
   flexDirection: column;
   justifyContent: center;
@@ -8,4 +7,7 @@
 
 .thoughtItem {
   margin: 15px;
+  border-style: none none none solid;
+  border-width: medium;
+  border-color: #666666;
 }
