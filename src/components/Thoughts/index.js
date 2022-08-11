@@ -63,12 +63,12 @@ class SentenceComp extends React.Component {
         } else {
             return (
               <div className="container">
-                <div className="thoughtTitle">
+                <div className={styles.thoughtTitle}>
                     <h1>随想 | 灵感稍纵即逝</h1>
                 </div>
                 <div className={clsx('col col--8')}>
                   {items.map(item => (
-                    <div className="thoughtItem">
+                    <div className={styles.thoughtItem}>
                       <h4>{isoToString(new Date(item.updated_at))}</h4>
                       {parse(item.body_html)}
                     </div>
