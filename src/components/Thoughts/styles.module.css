@@ -1,0 +1,11 @@
+.thoughtTitle {
+  margin: 50px;
+  display: flex;
+  flexDirection: column;
+  justifyContent: center;
+  alignItems: center;
+}
+
+.thoughtItem {
+  margin: 25px;
+}
