@@ -14,3 +14,12 @@
   background-color: #F5F5F5;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
+
+.thoughtItem p {
+  color: #50555a;
+}
+
+.thoughtItem span {
+  font-size: 0.5em;
+  color: #838B8B;
+}
