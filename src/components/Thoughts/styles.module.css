@@ -1,15 +1,16 @@
 .thoughtTitle {
   margin: auto;
   display: flex;
-  flexDirection: column;
-  justifyContent: center;
-  alignItems: center;
+  justify-content: center;
+  padding: 2em 1em 0.1em;
 }
 
 .thoughtItem {
   margin: 1em;
-  padding: 1em 1em 0em;
+  padding: 1em 1em 0.1em;
   border-style: none none none solid;
-  border-width: 0.67em;
-  border-color: #666666;
+  border-width: 0.3em;
+  border-color: #9C9C9C;
+  background-color: #F5F5F5;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
