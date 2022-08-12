@@ -8,8 +8,8 @@
 
 .thoughtItem {
   margin: 1em;
-  padding: 1em 1em;
+  padding: 1em 1em 0em;
   border-style: none none none solid;
-  border-width: 1em;
+  border-width: 0.67em;
   border-color: #666666;
 }
