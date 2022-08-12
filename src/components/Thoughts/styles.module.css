@@ -7,9 +7,9 @@
 }
 
 .thoughtItem {
-  margin: 2em;
-  padding: 2em 4em 1em;
+  margin: 1em;
+  padding: 1em 1em;
   border-style: none none none solid;
-  border-width: 2em;
+  border-width: 1em;
   border-color: #666666;
 }
