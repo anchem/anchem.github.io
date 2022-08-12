@@ -2,26 +2,25 @@
   margin: auto;
   display: flex;
   justify-content: center;
-  padding: 3vw 1vw 1vw;
+  padding: 2em 1em 1em;
 }
 
 .thoughtItem {
-  margin: 1vw;
-  padding: 1vw 2vw 0.5vw;
+  margin: 1em;
+  padding: 1em 1em 0.5em;
   border-style: none none none solid;
-  border-width: 0.6vw;
+  border-width: 0.38em;
   border-color: #9C9C9C;
   background-color: #F5F5F5;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 .thoughtItem p {
-  font-size: 1.6vw;
   color: #50555a;
 }
 
 .thoughtItem span {
-  font-size: 1.38vw;
+  font-size: 0.8em;
   color: #838B8B;
   margin: 0.1em ;
 }
