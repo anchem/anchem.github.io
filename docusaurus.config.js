@@ -23,7 +23,12 @@ const config = {
     locales: ['zh-Hans']
   },
   // stylesheets: [ 'https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.7.2/gitalk.min.css' ],
-  // scripts: [ { src: 'https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.7.2/gitalk.min.js', async: true, } ],
+  scripts: [ 
+    { 
+      src: '/js/baiduanalytics.js', 
+      async: true, 
+    } 
+  ],
   presets: [
     [
       'classic',
