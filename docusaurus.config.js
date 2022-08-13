@@ -14,7 +14,7 @@ const config = {
   onBrokenMarkdownLinks: 'warn',  // Docusaurus 在检测到无效 Markdown 链接时的行为
   favicon: 'img/favicon.ico',
   organizationName: 'anchem', // Usually your GitHub org/user name.
-  projectName: 'blog', // Usually your repo name.
+  projectName: 'anchem.github.io', // Usually your repo name.
   deploymentBranch: 'gh-pages',
   trailingSlash: false,
   noIndex: true,  // 设置为false表示告知搜索引擎不要索引您的站点
