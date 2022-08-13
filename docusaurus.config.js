@@ -17,20 +17,13 @@ const config = {
   projectName: 'blog', // Usually your repo name.
   deploymentBranch: 'gh-pages',
   trailingSlash: false,
-  noIndex: false,  // 设置为false表示告知搜索引擎不要索引您的站点
+  noIndex: true,  // 设置为false表示告知搜索引擎不要索引您的站点
   i18n: {
     defaultLocale: 'zh-Hans',
     locales: ['zh-Hans']
   },
-  stylesheets: [
-    'https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.7.2/gitalk.min.css'
-  ],
-  scripts: [
-    {
-      src: 'https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.7.2/gitalk.min.js',
-      async: true,
-    }
-  ],
+  // stylesheets: [ 'https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.7.2/gitalk.min.css' ],
+  // scripts: [ { src: 'https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.7.2/gitalk.min.js', async: true, } ],
   presets: [
     [
       'classic',
@@ -129,10 +122,6 @@ const config = {
               {
                 label: '随笔',
                 to: 'blog',
-              },
-              {
-                label: '微博',
-                href: 'https://weibo.com/anchem',
               },
               {
                 label: 'GitHub',
