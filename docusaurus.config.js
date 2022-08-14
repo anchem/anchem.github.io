@@ -139,7 +139,7 @@ const config = {
             ],
           },
         ],
-        copyright: `<p>Copyright © ${new Date().getFullYear()} 倚码千言, Inc. 采用 Docusaurus 构建.</p><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="知识共享许可协议" style="border-width:0" src="/img/by-nc-sa.svg" /></a><br />本站所有内容遵循 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a>，转载须注明署名和出处，不可用于商业用途，且需要以相同方式共享。`,
+        copyright: `<p>Copyright © ${new Date().getFullYear()} 倚码千言, Inc. 采用 Docusaurus 构建.</p><p>本站所有内容遵循 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></p><p>转载须注明署名和出处，不可用于商业用途，且需要以相同方式共享。</p><p><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="知识共享许可协议" style="border-width:0" src="/img/by-nc-sa.svg" /></a><br /></p>`,
       },
       tableOfContents: {
         minHeadingLevel: 2,
