@@ -1,7 +1,7 @@
 ---
 id: fromknow2done
 title: 从知道到做到
-sidebar_position: 3
+sidebar_position: 4
 tags:
   - '学习与知识体系'
 ---
