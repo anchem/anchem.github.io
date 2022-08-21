@@ -1,7 +1,7 @@
 ---
 id: projectbasedlearning
 title: 项目式学习
-sidebar_position: 2
+sidebar_position: 3
 tags:
   - '学习与知识体系'
 ---
