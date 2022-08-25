@@ -53,10 +53,8 @@ const config = {
           anonymizeIP: true,
         },
         sitemap: {
-          changefreq: 'weekly',
-          priority: 0.5,
-          // ignorePatterns: [],
-          filename: 'sitemap.xml'
+          changefreq: 'daily',
+          priority: 0.5
         }
       })
     ],
