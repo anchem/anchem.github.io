@@ -26,7 +26,7 @@ const FeatureList = [
     Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
     description: (
       <>
-        你还可以通过我的随笔了解我平常的所思所想、所感所悟，在人生的旅途上不断修行。
+        你还可以通过我的随笔了解我平常的所思所想、所感所悟，在人生的旅途上遇见更多的风景。
       </>
     ),
   },
