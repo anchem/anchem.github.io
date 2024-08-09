@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkwebsite=self.webpackChunkwebsite||[]).push([[5683],{92:function(e){e.exports=JSON.parse('{"name":"\u804c\u573a","permalink":"/docs/tags/\u804c\u573a","docs":[{"id":"selfdevelop/outlook/career/workplace","title":"\u804c\u573a","description":"\u6c47\u62a5","permalink":"/docs/selfdevelop/outlook/career/workplace"}],"allTagsPath":"/docs/tags"}')}}]);

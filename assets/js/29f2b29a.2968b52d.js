@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkwebsite=self.webpackChunkwebsite||[]).push([[2230],{5586:function(e){e.exports=JSON.parse('{"name":"PPT","permalink":"/docs/tags/ppt","docs":[{"id":"selfdevelop/ability/presentation/ppt","title":"PPT","description":"\u5c0f\u6280\u5de7","permalink":"/docs/selfdevelop/ability/presentation/ppt"}],"allTagsPath":"/docs/tags"}')}}]);
