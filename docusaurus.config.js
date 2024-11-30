@@ -26,7 +26,7 @@ const config = {
   scripts: [ 
     { 
       src: '/js/baiduanalytics.js', 
-      async: true, 
+      async: true
     } 
   ],
   presets: [
@@ -50,7 +50,7 @@ const config = {
         },
         gtag: {
           trackingID: 'G-30W692FC25',
-          anonymizeIP: true,
+          anonymizeIP: true
         },
         sitemap: {
           changefreq: 'daily',
@@ -67,7 +67,7 @@ const config = {
         title: '倚码千言',
         logo: {
           alt: '倚码千言 Logo',
-          src: 'img/logo.svg',
+          src: 'img/logo.svg'
         },
         hideOnScroll: true,  // 滚动时自动隐藏导航栏
         items: [
@@ -105,19 +105,19 @@ const config = {
             items: [
               {
                 label: '软件大师之路',
-                to: 'docs/softwaremaster',
+                to: 'docs/softwaremaster'
               },
               {
                 label: '个人成长',
-                to: 'docs/selfdevelop',
+                to: 'docs/selfdevelop'
               },
               {
                 label: '阿不成长树',
-                to: 'docs/growthtree',
-              }，
+                to: 'docs/growthtree'
+              },
               {
                 label: '为乐而生',
-                to: 'docs/lifeforfun',
+                to: 'docs/lifeforfun'
               }
             ],
           },
@@ -126,7 +126,7 @@ const config = {
             items: [
               {
                 label: '高质量软件工作手册',
-                href: 'https://codethousand.cn/workbook/#/',
+                href: 'https://codethousand.cn/workbook/#/'
               }
             ],
           },
@@ -135,19 +135,19 @@ const config = {
             items: [
               {
                 label: '关于',
-                to: 'about',
+                to: 'about'
               },
               {
                 label: '随想',
-                to: 'thoughts',
+                to: 'thoughts'
               },
               {
                 label: '随笔',
-                to: 'blog',
+                to: 'blog'
               },
               {
                 label: 'GitHub',
-                href: 'https://github.com/anchem',
+                href: 'https://github.com/anchem'
               },
             ],
           },
@@ -156,12 +156,12 @@ const config = {
       },
       tableOfContents: {
         minHeadingLevel: 2,
-        maxHeadingLevel: 5,
+        maxHeadingLevel: 5
       },
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
-        additionalLanguages: ['java', 'markdown', 'c', 'python', 'bash', 'git', 'sql'],
+        additionalLanguages: ['java', 'markdown', 'c', 'python', 'bash', 'git', 'sql']
       },
       algolia: {
         // Algolia 提供的应用 ID
@@ -175,7 +175,7 @@ const config = {
         // 可选：Algolia 搜索参数
         searchParameters: {},
         // 可选：搜索页面的路径，默认启用（可以用 `false` 禁用）
-        searchPagePath: 'search',
+        searchPagePath: 'search'
         // ……其他 Algolia 参数
       }
     }),
