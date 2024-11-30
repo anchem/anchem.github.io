@@ -87,6 +87,11 @@ const config = {
             label: '阿不成长树',
             position: 'left'
           },
+          {
+            to: 'docs/lifeforfun',
+            label: '为乐而生',
+            position: 'left'
+          },
           {to: '/blog', label: '随笔', position: 'left'},
           {to: '/thoughts', label: '随想', position: 'right'},
           {to: '/about', label: '关于', position: 'right'}
@@ -109,6 +114,10 @@ const config = {
               {
                 label: '阿不成长树',
                 to: 'docs/growthtree',
+              }，
+              {
+                label: '为乐而生',
+                to: 'docs/lifeforfun',
               }
             ],
           },
