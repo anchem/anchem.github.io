@@ -1,0 +1,10 @@
+{
+  "position": 1,
+  "label": "为乐而生",
+  "collapsible": true,
+  "collapsed": false,
+  "className": "lifeforfun",
+  "customProps": {
+    "description": "This description can be used in the swizzled DocCard"
+  }
+}
