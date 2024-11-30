@@ -1,0 +1,10 @@
+{
+  "position": 3,
+  "label": "篮球",
+  "collapsible": true,
+  "collapsed": false,
+  "className": "lifeforfun",
+  "customProps": {
+    "description": "This description can be used in the swizzled DocCard"
+  }
+}
