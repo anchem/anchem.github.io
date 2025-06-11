@@ -1,0 +1,10 @@
+{
+  "position": 2,
+  "label": "容器技术",
+  "collapsible": true,
+  "collapsed": false,
+  "className": "softwaremaster",
+  "customProps": {
+    "description": "This description can be used in the swizzled DocCard"
+  }
+}
