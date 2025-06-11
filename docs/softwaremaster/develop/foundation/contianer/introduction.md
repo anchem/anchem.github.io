@@ -1,6 +1,6 @@
 ---
 id: containerintroduction
-title: 容器技术基础导入
+title: 容器技术导入
 sidebar_position: 2
 tags:
   - 'ICT理论基础'
