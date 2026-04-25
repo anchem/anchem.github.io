@@ -11,7 +11,6 @@ const config = {
   url: 'https://codethousand.cn',
   baseUrl: '/',
   onBrokenLinks: 'warn',  // Docusaurus 在检测到无效链接时的行为
-  onBrokenMarkdownLinks: 'warn',  // Docusaurus 在检测到无效 Markdown 链接时的行为
   favicon: 'img/favicon.ico',
   organizationName: 'anchem', // Usually your GitHub org/user name.
   projectName: 'anchem.github.io', // Usually your repo name.
