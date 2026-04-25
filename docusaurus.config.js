@@ -18,8 +18,8 @@ const config = {
   trailingSlash: false,
   noIndex: false,  // 设置为true表示告知搜索引擎不要索引您的站点
   i18n: {
-    defaultLocale: 'zh-Hans',
-    locales: ['zh-Hans']
+    defaultLocale: 'zh-CN',
+    locales: ['zh-CN']
   },
   // stylesheets: [ 'https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.7.2/gitalk.min.css' ],
   scripts: [ 
