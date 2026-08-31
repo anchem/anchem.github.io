@@ -70,28 +70,11 @@ const config = {
         },
         hideOnScroll: true,  // 滚动时自动隐藏导航栏
         items: [
-          // {to: '/thoughts', label: '随想', position: 'left'},
-          {
-            to: 'docs/softwaremaster',
-            label: '软件大师之路',
-            position: 'left'
-          },
-          {
-            to: 'docs/selfdevelop',
-            label: '个人成长',
-            position: 'left'
-          },
-          {
-            to: 'docs/growthtree',
-            label: '阿不成长树',
-            position: 'left'
-          },
-          {
-            to: 'docs/lifeforfun',
-            label: '为乐而生',
-            position: 'left'
-          },
-          {to: '/blog', label: '随笔', position: 'left'},
+          {to: 'docs/softwaremaster',label: '软件大师之路',position: 'right'},
+          {to: 'docs/selfdevelop',label: '个人成长',position: 'right'},
+          {to: 'docs/growthtree',label: '阿不成长树',position: 'right'},
+          {to: 'docs/lifeforfun',label: '为乐而生',position: 'right'},
+          {to: '/blog', label: '随笔', position: 'right'},
           {to: '/thoughts', label: '随想', position: 'right'},
           {to: '/about', label: '关于', position: 'right'}
         ],
@@ -100,58 +83,15 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: '站点主题',
-            items: [
-              {
-                label: '软件大师之路',
-                to: 'docs/softwaremaster'
-              },
-              {
-                label: '个人成长',
-                to: 'docs/selfdevelop'
-              },
-              {
-                label: '阿不成长树',
-                to: 'docs/growthtree'
-              },
-              {
-                label: '为乐而生',
-                to: 'docs/lifeforfun'
-              }
-            ],
+            label: 'GitHub',
+            href: 'https://github.com/anchem'
           },
           {
-            title: '我的项目',
-            items: [
-              {
-                label: '高质量软件工作手册',
-                href: 'https://codethousand.cn/workbook/#/'
-              }
-            ],
-          },
-          {
-            title: '更多',
-            items: [
-              {
-                label: '关于',
-                to: 'about'
-              },
-              {
-                label: '随想',
-                to: 'thoughts'
-              },
-              {
-                label: '随笔',
-                to: 'blog'
-              },
-              {
-                label: 'GitHub',
-                href: 'https://github.com/anchem'
-              },
-            ],
-          },
+            label: '关于',
+            to: 'about'
+          }
         ],
-        copyright: `<p>Copyright © ${new Date().getFullYear()} 倚码千言, Inc. 采用 Docusaurus 构建.</p><p>本站所有内容遵循 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></p><p>转载须注明署名和出处，不可用于商业用途，且需要以相同方式共享。</p><p><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="知识共享许可协议" style="border-width:0" src="/img/by-nc-sa.svg" /></a><br /></p>`,
+        copyright: `<p>Copyright © ${new Date().getFullYear()} 倚码千言, Inc. 采用 Docusaurus 构建.</p><p>本站所有内容遵循 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议</p><p><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="知识共享许可协议" style="border-width:0" src="/img/by-nc-sa.svg" /></a><br /></p>`,
       },
       tableOfContents: {
         minHeadingLevel: 2,
