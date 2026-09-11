@@ -70,6 +70,7 @@ const config = {
         },
         hideOnScroll: true,  // 滚动时自动隐藏导航栏
         items: [
+          {to: 'docs/lifeforfun',label: '为乐而生',position: 'right'},
           {to: 'docs/selfdevelop',label: '个人成长',position: 'right'},
           {to: 'docs/growthtree',label: '阿不成长树',position: 'right'},
           {to: '/blog', label: '随笔', position: 'right'},
