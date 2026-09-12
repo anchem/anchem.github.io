@@ -23,7 +23,7 @@ export default function Home() {
   return (
     <Layout
       title={`首页`}
-      description="Description will go into a meta tag in <head />">
+      description="倚码千言 —— Hackerleon 的个人网站，系统性记录软件技术、个人成长、养育心得与生活随笔。">
       <HomepageHeader />
       <main>
         <HomepageFeatures />

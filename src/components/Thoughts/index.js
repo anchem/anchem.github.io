@@ -17,8 +17,8 @@ function isoToString(date) {
       ' ' + pad(date.getHours()) +
       ':' + pad(date.getMinutes()) +
       ':' + pad(date.getSeconds()) + ' '
-      dif + pad(Math.floor(Math.abs(tzo) / 60)) +
-      ':' + pad(Math.abs(tzo) % 60);
+      dif + pad(Math.floor(Math.abs(timezone) / 60)) +
+      ':' + pad(Math.abs(timezone) % 60);
 }
 
 class SentenceComp extends React.Component {
@@ -35,17 +35,24 @@ class SentenceComp extends React.Component {
     fetch("https://api.github.com/repos/anchem/anchem.github.io/issues/7/comments", {
         headers: {
             'Accept': 'application/vnd.github.full+json'
-            // 'Authorization': `token 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`
         }
-    }).then(res => res.json())
-      .then(
-        (result) => {
+    }).then(res => {
+        if (!res.ok) {
+          throw new Error(`请求失败（HTTP ${res.status}），可能是 GitHub API 访问频率受限，请稍后再试`);
+        }
+        return res.json();
+      })
+      .then((result) => {
+          if (!Array.isArray(result)) {
+            throw new Error('返回数据格式异常');
+          }
           this.setState({
             isLoaded: true,
             items: result.sort((a, b) => b.updated_at > a.updated_at ? 1 : -1)
           });
-        },
-        (error) => {
+        }
+      )
+      .catch((error) => {
           this.setState({
             isLoaded: true,
             error
@@ -66,13 +73,15 @@ class SentenceComp extends React.Component {
                 <div className={styles.thoughtTitle}>
                     <h1>随想 | 灵感稍纵即逝</h1>
                 </div>
-                <div className={clsx('col col--8')}>
-                  {items.map(item => (
-                    <div className={styles.thoughtItem}>
-                      {parse(item.body_html)}
-                      <span>{isoToString(new Date(item.updated_at))}</span>
-                    </div>
-                  ))}
+                <div className="row">
+                  <div className={clsx('col col--8 col--offset-2')}>
+                    {items.map(item => (
+                      <div key={item.id} className={styles.thoughtItem}>
+                        {parse(item.body_html)}
+                        <span>{isoToString(new Date(item.updated_at))}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             );

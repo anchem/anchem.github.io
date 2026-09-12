@@ -21,8 +21,7 @@ const config = {
     defaultLocale: 'zh-Hans',
     locales: ['zh-Hans']
   },
-  // stylesheets: [ 'https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.7.2/gitalk.min.css' ],
-  scripts: [ 
+  scripts: [
     { 
       src: '/js/baiduanalytics.js', 
       async: true
@@ -70,9 +69,9 @@ const config = {
         },
         hideOnScroll: true,  // 滚动时自动隐藏导航栏
         items: [
-          {to: 'docs/lifeforfun',label: '为乐而生',position: 'right'},
-          {to: 'docs/selfdevelop',label: '个人成长',position: 'right'},
-          {to: 'docs/growthtree',label: '阿不成长树',position: 'right'},
+          {to: '/docs/lifeforfun',label: '为乐而生',position: 'right'},
+          {to: '/docs/selfdevelop',label: '个人成长',position: 'right'},
+          {to: '/docs/growthtree',label: '阿不成长树',position: 'right'},
           {to: '/blog', label: '随笔', position: 'right'},
           {to: '/thoughts', label: '随想', position: 'right'},
           {to: '/about', label: '关于', position: 'right'}
@@ -87,7 +86,7 @@ const config = {
           },
           {
             label: '关于',
-            to: 'about'
+            to: '/about'
           }
         ],
         // <p>本站所有内容遵循 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议</p>

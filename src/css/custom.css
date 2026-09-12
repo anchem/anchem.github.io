@@ -37,3 +37,13 @@
 [data-theme='dark'] .docusaurus-highlight-code-line {
   background-color: rgba(0, 0, 0, 0.3);
 }
+
+/* 移动端 footer 链接和版权信息居中 */
+@media (max-width: 768px) {
+  .footer__links {
+    justify-content: center;
+  }
+  .footer__bottom {
+    text-align: center;
+  }
+}
