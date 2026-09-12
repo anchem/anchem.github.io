@@ -1,0 +1,126 @@
+/* ===== 最新随笔：卡片分四层信息 —— 元信息 / 标题 / 摘要 / 入口 ===== */
+
+.section {
+  padding: var(--sand-section-y) 0;
+}
+
+.postsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sand-space-5);
+}
+
+/* 平板 2 列、手机 1 列。断点跟 Infima 的分界（996 / 576）走 */
+@media (max-width: 996px) {
+  .postsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 576px) {
+  .postsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.postCard {
+  display: flex;
+  flex-direction: column;
+  background: var(--ifm-card-background-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: var(--ifm-card-border-radius);
+  padding: var(--sand-space-5);
+  transition:
+    box-shadow var(--ifm-transition-fast) var(--ifm-transition-timing-default),
+    border-color var(--ifm-transition-fast) var(--ifm-transition-timing-default),
+    transform var(--ifm-transition-fast) var(--ifm-transition-timing-default);
+}
+
+.postCard:hover {
+  border-color: var(--sand-hair-2);
+  box-shadow: var(--ifm-global-shadow-md);
+  transform: translateY(-3px);
+}
+
+/* --- 第一层：元信息 --- */
+.postMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sand-space-3);
+  margin-bottom: var(--sand-space-3);
+}
+
+.postDate {
+  font-size: var(--sand-text-xs);
+  letter-spacing: 0.02em;
+  color: var(--sand-ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 序号：用极淡的砂色，只做结构提示，不抢标题 */
+.postIndex {
+  font-size: var(--sand-text-sm);
+  font-weight: 600;
+  line-height: 1;
+  color: var(--ifm-color-emphasis-400);
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- 第二层：标题 --- */
+.postTitle {
+  font-size: var(--sand-text-lg);
+  line-height: var(--sand-leading-snug);
+  margin-bottom: var(--sand-space-3);
+}
+
+.postTitle a {
+  color: var(--ifm-heading-color);
+}
+
+.postTitle a:hover {
+  color: var(--sand-accent-ink);
+  text-decoration: none;
+}
+
+/* --- 第三层：摘要。固定在 3 行内，保证三张卡的入口行对齐 --- */
+.postExcerpt {
+  font-size: var(--sand-text-sm);
+  line-height: var(--sand-leading-body);
+  color: var(--ifm-color-emphasis-600);
+  margin-bottom: var(--sand-space-4);
+  flex-grow: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* --- 第四层：入口 --- */
+.postFoot {
+  display: flex;
+  align-items: center;
+  border-top: 1px solid var(--sand-hair);
+  padding-top: var(--sand-space-3);
+}
+
+.postMore {
+  font-size: var(--sand-text-sm);
+  font-weight: 500;
+  color: var(--sand-accent-ink);
+}
+
+.postMore:hover {
+  color: var(--sand-accent);
+  text-decoration: none;
+}
+
+.postArrow {
+  display: inline-block;
+  margin-left: var(--sand-space-1);
+  transition: transform var(--ifm-transition-fast) var(--ifm-transition-timing-default);
+}
+
+.postMore:hover .postArrow {
+  transform: translateX(3px);
+}

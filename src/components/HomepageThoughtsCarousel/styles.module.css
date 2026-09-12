@@ -1,0 +1,123 @@
+/* ===== 随想：横向滚动的完整内容卡片 ===== */
+
+.section {
+  padding: var(--sand-section-y) 0 calc(var(--sand-section-y) + var(--sand-space-2));
+}
+
+/* 滚动区：宽度与上方模块一致（同在 container 内），
+   只做硬裁切，不再用渐隐遮罩 —— 边界和其他模块一样是清晰的 */
+.carousel {
+  overflow: hidden;
+  /* 留一点纵向空间，卡片悬停时的暖色投影不会被 overflow 裁掉 */
+  padding: var(--sand-space-3) 0;
+}
+
+/* 卡片自身有定高，不再靠 stretch 拉齐；flex-start 让定高说话 */
+.carouselTrack {
+  display: flex;
+  align-items: flex-start;
+  width: max-content;
+  animation-name: marquee;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.carousel:hover .carouselTrack {
+  animation-play-state: paused;
+}
+
+/* 每份列表宽度完全相同（含每张卡片右侧外边距），平移 -50% 即无缝衔接 */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* 宽度自适应：桌面定 380px，小屏收到 78vw，
+   这样卡片边缘不会被 container 裁掉，也能露出下一张的一角提示可横滑。
+   高度则一律取 --sand-thought-h（≈260px），不再随内容长短变化：
+   随想字数跨度 14–232 字，若交给内容撑高，最长的一条会把整条滚动画布
+   拉到 460px 以上，而多数卡只有 1–4 行，对比之下整排看着又高又空。 */
+.thoughtCard {
+  display: flex;
+  flex-direction: column;
+  width: clamp(16rem, 78vw, 23.75rem);
+  height: var(--sand-thought-h);
+  flex-shrink: 0;
+  margin-right: var(--sand-space-5);
+  background: var(--ifm-card-background-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-left: 3px solid var(--sand-accent);
+  border-radius: var(--ifm-card-border-radius);
+  padding: var(--sand-space-5);
+  /* 兜底：万一有内容（长图、不可断词）撑破内容区，也不会影响卡片尺寸 */
+  overflow: hidden;
+  transition:
+    box-shadow var(--ifm-transition-fast) var(--ifm-transition-timing-default),
+    border-color var(--ifm-transition-fast) var(--ifm-transition-timing-default);
+}
+
+.thoughtCard:hover {
+  border-color: var(--sand-hair-2);
+  box-shadow: var(--ifm-global-shadow-md);
+}
+
+/* 内容区：最多 --sand-thought-lines 行，超出部分在整行边界截断。
+   -webkit-line-clamp 保证切口永远落在整行（行数确定 → 高度确定），
+   overflow: hidden 是第二道保险；min-height: 0 让它在 flex 列里
+   真的能被压缩，两个属性才会生效。 */
+.thoughtContent {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--sand-thought-lines);
+  overflow: hidden;
+  min-height: 0;
+  font-size: var(--sand-text-md);
+  line-height: var(--sand-leading-loose);
+  color: var(--ifm-color-emphasis-700);
+  overflow-wrap: anywhere;
+}
+
+.thoughtContent p {
+  margin-bottom: var(--sand-space-2);
+}
+
+.thoughtContent p:last-child {
+  margin-bottom: 0;
+}
+
+.thoughtContent ul,
+.thoughtContent ol {
+  margin-bottom: var(--sand-space-2);
+  padding-left: var(--sand-space-5);
+}
+
+.thoughtContent img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+/* 时间行：margin-top:auto 把它压在卡片底部 */
+.thoughtMeta {
+  display: flex;
+  align-items: center;
+  margin-top: auto;
+  padding-top: var(--sand-space-4);
+}
+
+.thoughtDate {
+  font-size: var(--sand-text-xs);
+  color: var(--ifm-color-emphasis-600);
+  font-variant-numeric: tabular-nums;
+}
+
+.hintMsg {
+  text-align: center;
+  padding: var(--sand-space-6) 0;
+  font-size: var(--sand-text-sm);
+  color: var(--ifm-color-emphasis-600);
+}

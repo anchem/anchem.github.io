@@ -22,3 +22,4 @@ yarn-error.log*
 # to exclude Obsidian's settings (including plugin and hotkey configurations)
 .obsidian/
 .workbuddy/
+.trae/

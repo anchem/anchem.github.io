@@ -1,41 +1,535 @@
 /**
- * Any CSS included here will be global. The classic template
- * bundles Infima by default. Infima is a CSS framework designed to
- * work well for content-centric websites.
+ * ============================================================================
+ *  倚码千言 · 主题系统
+ *  ---------------------------------------------------------------------------
+ *  浅色（默认） = 暖砂柔光  Warm Sand Soft Light
+ *  深色（切换） = 沙丘暮色  Dune Dusk
+ *
+ *  【切换逻辑】
+ *  1. Docusaurus 在 <html> 上写 data-theme="light" | "dark"，
+ *     首屏渲染前由内联脚本写入，不会闪白；
+ *  2. 本文件用两组同名 CSS 变量承载两套主题，组件只引用变量、不写死颜色，
+ *     所以新增组件只要用 --ifm-* 变量就会自动跟随换肤；
+ *  3. 颜色过渡统一由文末的 transition 规则负责（见 §5）。
+ *
+ *  【改动这个文件时的三条规矩】
+ *  1. 只在 §1 里加颜色。§2 之后一律引用变量。
+ *  2. 新增颜色必须浅深两套都给，否则深色下会失配。
+ *  3. 强调色分两个：--sand-accent 只做装饰（描边、图标、点），
+ *     --sand-accent-ink 才可承载文字（链接、激活态）——
+ *     因为 #C97434 在暖白底上对比度只有 3.4:1，达不到可读标准。
+ * ============================================================================
  */
 
-/* You can override the default Infima variables here. */
-:root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
-  --ifm-code-font-size: 95%;
+/* ==========================================================================
+   §1 设计变量层（唯一定义颜色的地方）
+   ========================================================================== */
+
+html:root {
+  color-scheme: light;
+
+  /* --- 背景与表面 --- */
+  --sand-bg: #fdf8f1; /* 页面底色 · 暖米砂 */
+  --sand-bg-alt: #fbf1e4; /* 次级底色 · 用于正文页外区 */
+  --sand-surface: #ffffff; /* 卡片 / 面板表面 */
+  --sand-surface-2: #fcf6ee; /* 更浅的表面 · 表头、行内代码底 */
+
+  /* --- 文字 --- */
+  --sand-ink: #2c241d; /* 主文字 · 暖黑而非纯黑 */
+  --sand-ink-2: #6e6055; /* 次要文字 */
+  --sand-ink-3: #9c8d7e; /* 辅助文字 · 日期、面包屑 */
+
+  /* --- 描边 --- */
+  --sand-hair: #f1e4d3; /* 发丝线 · 分隔线、卡片边 */
+  --sand-hair-2: #e6d3bc; /* 稍重的描边 · 悬停、强调分隔 */
+
+  /* --- 强调色 --- */
+  --sand-accent: #c97434; /* 琥珀 · 只做装饰 */
+  --sand-accent-ink: #a85f28; /* 可读琥珀 · 链接与激活态（对比度 4.6:1） */
+  --sand-accent-soft: #fbeee0; /* 琥珀浅底 · 激活态背景 */
+  --sand-accent-2: #2e7060; /* 青绿辅色 · 标签 */
+  --sand-accent-2-soft: #e7f3ef;
+
+  /* --- 深色区块（页脚） --- */
+  --sand-deep: #33291f;
+  --sand-deep-ink: #e0d2c0;
+  --sand-deep-muted: #b9a794;
+  --sand-deep-hair: #4a3d30;
+
+  /* --- 代码 --- */
+  --sand-code-ink: #a2521f; /* 行内代码文字 */
+  --sand-code-hair: #ecdcc6; /* 代码块外描边 */
+
+  /* --- 阴影：带暖色调，不用纯黑 --- */
+  --sand-shadow-lw: 0 1px 2px rgba(122, 84, 45, 0.05),
+    0 4px 14px rgba(122, 84, 45, 0.05);
+  --sand-shadow-md: 0 2px 4px rgba(122, 84, 45, 0.05),
+    0 12px 32px rgba(122, 84, 45, 0.08);
+
+  /* --- 导航栏半透明底 --- */
+  --sand-nav-bg: rgba(253, 248, 241, 0.88);
+
+  /* --- 主题切换过渡时长（§5 使用） --- */
+  --sand-theme-ease: 320ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
-[data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
+/* ---------------------------------------------------------------------------
+   深色主题 · 沙丘暮色
+   关键判断：深色底用「暖黑」而不是 #1b1b1d 这类冷灰，
+   正文用暖白而不是纯白 —— 否则暖砂的调性在暗色下会完全丢掉。
+   --------------------------------------------------------------------------- */
+/* 选择器用 html:root[data-theme='dark']（0,2,1）：
+   既压过 Infima 的 html[data-theme=dark]（0,1,1），也压过本文件 §2 的
+   html:root（0,1,1），且不会因为与之同名而被压缩器合并到 Infima 规则里。 */
+html:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --sand-bg: #1c1611;
+  --sand-bg-alt: #221b15;
+  --sand-surface: #26201a;
+  --sand-surface-2: #2e271f;
+
+  --sand-ink: #f4ebdf;
+  --sand-ink-2: #bcab98;
+  --sand-ink-3: #8e7e6d;
+
+  --sand-hair: #372e25;
+  --sand-hair-2: #4c4034;
+
+  --sand-accent: #e3a868;
+  --sand-accent-ink: #e3a868; /* 暗底上浅琥珀本身就是可读色（8.7:1） */
+  --sand-accent-soft: #33261a;
+  --sand-accent-2: #7fbfab;
+  --sand-accent-2-soft: #1f2e29;
+
+  --sand-deep: #15100c;
+  --sand-deep-ink: #e5d8c9;
+  --sand-deep-muted: #a6957f;
+  --sand-deep-hair: #332a21;
+
+  --sand-code-ink: #f0be86;
+  --sand-code-hair: #2b2622;
+
+  --sand-shadow-lw: 0 1px 2px rgba(0, 0, 0, 0.3), 0 4px 14px rgba(0, 0, 0, 0.24);
+  --sand-shadow-md: 0 2px 6px rgba(0, 0, 0, 0.3), 0 16px 40px rgba(0, 0, 0, 0.36);
+
+  --sand-nav-bg: rgba(28, 22, 17, 0.88);
 }
 
-.docusaurus-highlight-code-line {
-  background-color: rgba(0, 0, 0, 0.1);
-  display: block;
-  margin: 0 calc(-1 * var(--ifm-pre-padding));
-  padding: 0 var(--ifm-pre-padding);
+/* ==========================================================================
+   §2 映射到 Infima 变量
+   做完这一步，站点里所有用 --ifm-* 的官方组件与自建组件会自动跟随主题。
+   ========================================================================== */
+
+html:root {
+  /* --- 表面与文字 --- */
+  --ifm-background-color: var(--sand-bg);
+  --ifm-background-surface-color: var(--sand-surface);
+  --ifm-card-background-color: var(--sand-surface);
+  --ifm-font-color-base: var(--sand-ink);
+  --ifm-heading-color: var(--sand-ink);
+  --ifm-color-content: var(--sand-ink);
+  --ifm-color-content-secondary: var(--sand-ink-2);
+  --ifm-color-primary-contrast-background: var(--sand-surface-2);
+  --ifm-color-primary-contrast-foreground: var(--sand-ink);
+
+  /* --- 灰色阶（emphasis-100 → 900 由浅到深 / 深色下反向） --- */
+  --ifm-color-emphasis-100: #fbf3e8;
+  --ifm-color-emphasis-200: #f5eadb; /* 卡片描边、次级背景 */
+  --ifm-color-emphasis-300: #eddfcb; /* 分隔线、表格线 */
+  --ifm-color-emphasis-400: #dcc8ae;
+  --ifm-color-emphasis-500: #c3ad90;
+  --ifm-color-emphasis-600: #9c8d7e;
+  --ifm-color-emphasis-700: #7a6b5d;
+  --ifm-color-emphasis-800: #5a4e44;
+  --ifm-color-emphasis-900: #2c241d;
+
+  /* --- 主色阶（链接 / 激活态 / 按钮） --- */
+  --ifm-color-primary: #a85f28;
+  --ifm-color-primary-dark: #96531f;
+  --ifm-color-primary-darker: #8d4e1d;
+  --ifm-color-primary-darkest: #744018;
+  --ifm-color-primary-light: #bb6f33;
+  --ifm-color-primary-lighter: #c4793d;
+  --ifm-color-primary-lightest: #d18f57;
+
+  --ifm-link-color: var(--sand-accent-ink);
+  --ifm-link-hover-color: var(--sand-accent);
+  --ifm-link-decoration: none;
+
+  /* --- 次要色（标签计数、深色区块的链接） --- */
+  --ifm-color-secondary: #f2e7d9;
+
+  /* --- 圆角：柔和但不像气泡 --- */
+  --ifm-global-radius: 10px;
+  --ifm-card-border-radius: 20px;
+  --ifm-code-border-radius: 8px;
+  --ifm-alert-border-radius: 14px;
+  --ifm-badge-border-radius: 6px;
+  --ifm-button-border-radius: 999px;
+
+  /* --- 阴影：换成暖色投影 --- */
+  --ifm-global-shadow-lw: var(--sand-shadow-lw);
+  --ifm-global-shadow-md: var(--sand-shadow-md);
+  --ifm-global-shadow-tl: 0 12px 28px rgba(122, 84, 45, 0.12),
+    0 2px 4px rgba(122, 84, 45, 0.06);
+
+  /* --- 导航栏 --- */
+  --ifm-navbar-background-color: var(--sand-nav-bg);
+  --ifm-navbar-shadow: none;
+  --ifm-navbar-link-color: var(--sand-ink-2);
+  --ifm-navbar-link-hover-color: var(--sand-accent-ink);
+  --ifm-navbar-link-active-color: var(--sand-accent-ink);
+  --ifm-navbar-search-input-background-color: var(--sand-surface-2);
+  --ifm-navbar-search-input-color: var(--sand-ink);
+  --ifm-navbar-search-input-placeholder-color: var(--sand-ink-3);
+
+  /* --- 侧边栏与目录 --- */
+  --ifm-menu-color: var(--sand-ink-2);
+  --ifm-menu-color-active: var(--sand-accent-ink);
+  --ifm-menu-color-background-active: var(--sand-accent-soft);
+  --ifm-menu-color-background-hover: var(--sand-surface-2);
+  --ifm-menu-link-sublist-icon-filter: none;
+  --ifm-toc-border-color: var(--sand-hair);
+  --ifm-toc-link-color: var(--sand-ink-2);
+
+  /* --- 面包屑与分页 --- */
+  --ifm-breadcrumb-color-active: var(--sand-accent-ink);
+  --ifm-breadcrumb-item-background-active: var(--sand-accent-soft);
+  --ifm-breadcrumb-separator-filter: opacity(0.45);
+  --ifm-pagination-color-active: var(--sand-accent-ink);
+  --ifm-pagination-item-active-background: var(--sand-accent-soft);
+
+  /* --- 表格 --- */
+  --ifm-table-border-color: var(--sand-hair);
+  --ifm-table-stripe-background: var(--sand-surface-2);
+  --ifm-table-head-background: transparent;
+  --ifm-table-head-color: var(--sand-ink-2);
+  --ifm-table-cell-color: var(--sand-ink);
+
+  /* --- 引用块 --- */
+  --ifm-blockquote-color: var(--sand-ink-2);
+  --ifm-blockquote-border-color: var(--sand-accent);
+  --ifm-blockquote-border-left-width: 3px;
+
+  /* --- 行内代码与代码块 --- */
+  --ifm-code-background: var(--sand-surface-2);
+  --ifm-pre-background: #33291f; /* 与 prismThemes.warmSandTheme 保持一致 */
+  --ifm-pre-color: #f2e7da;
+
+  /* --- 提示框（admonition）配色：暖色系 --- */
+  --ifm-color-secondary-contrast-background: #fcf6ee;
+  --ifm-color-secondary-contrast-foreground: #5a4e44;
+  --ifm-color-info: #2e7060;
+  --ifm-color-info-dark: #296354;
+  --ifm-color-info-darker: #275d4f;
+  --ifm-color-info-darkest: #204c41;
+  --ifm-color-info-light: #337b69;
+  --ifm-color-info-lighter: #358170;
+  --ifm-color-info-lightest: #3c9280;
+  --ifm-color-info-contrast-background: #e7f3ef;
+  --ifm-color-info-contrast-foreground: #1f4a3f;
+  --ifm-color-success: #4f7a3a;
+  --ifm-color-success-contrast-background: #edf3e4;
+  --ifm-color-success-contrast-foreground: #2f4a21;
+  --ifm-color-warning: #a8762a;
+  --ifm-color-warning-contrast-background: #fbf1de;
+  --ifm-color-warning-contrast-foreground: #6b4a12;
+  --ifm-color-danger: #a8443a;
+  --ifm-color-danger-contrast-background: #faebe7;
+  --ifm-color-danger-contrast-foreground: #6e2a22;
+  --ifm-alert-border-width: 0;
+  --ifm-alert-border-left-width: 3px;
+  --ifm-alert-shadow: none;
+
+  /* --- 下拉菜单 --- */
+  --ifm-dropdown-background-color: var(--sand-surface);
+  --ifm-dropdown-link-color: var(--sand-ink);
+  --ifm-dropdown-hover-background-color: var(--sand-surface-2);
+
+  /* --- 页脚（配置里是 style: 'dark'，这里换成暖色深底） --- */
+  --ifm-footer-background-color: var(--sand-deep);
+  --ifm-footer-color: var(--sand-deep-muted);
+  --ifm-footer-link-color: var(--sand-deep-ink);
+  --ifm-footer-link-hover-color: #ffffff;
+  --ifm-footer-title-color: var(--sand-deep-muted);
+
+  /* --- 其他 --- */
+  --ifm-hr-background-color: var(--sand-hair-2);
+  --ifm-hover-overlay: rgba(201, 116, 52, 0.07);
+  --docusaurus-tag-list-border: var(--sand-hair-2);
+  --docusaurus-highlighted-code-line-bg: rgba(255, 214, 160, 0.1);
 }
 
-[data-theme='dark'] .docusaurus-highlight-code-line {
-  background-color: rgba(0, 0, 0, 0.3);
+/* --- 深色主题的 Infima 覆盖（灰阶方向与浅色相反） --- */
+html:root[data-theme='dark'] {
+  --ifm-color-emphasis-100: #241d17;
+  --ifm-color-emphasis-200: #2e261e;
+  --ifm-color-emphasis-300: #3b3126;
+  --ifm-color-emphasis-400: #4c4034;
+  --ifm-color-emphasis-500: #6b5b49;
+  --ifm-color-emphasis-600: #8e7e6d;
+  --ifm-color-emphasis-700: #b0a08c;
+  --ifm-color-emphasis-800: #d3c6b5;
+  --ifm-color-emphasis-900: #f4ebdf;
+
+  --ifm-color-primary: #e3a868;
+  --ifm-color-primary-dark: #dd9c54;
+  --ifm-color-primary-darker: #d9964a;
+  --ifm-color-primary-darkest: #c07f35;
+  --ifm-color-primary-light: #e9b47c;
+  --ifm-color-primary-lighter: #ecba86;
+  --ifm-color-primary-lightest: #f2cb9f;
+
+  --ifm-color-secondary: #3b3126;
+  --ifm-hover-overlay: rgba(232, 190, 140, 0.07);
+  --ifm-menu-link-sublist-icon-filter: invert(100%);
+  --ifm-breadcrumb-separator-filter: invert(60%);
+
+  --ifm-pre-background: #120e0a; /* 与 prismThemes.duneDuskTheme 保持一致 */
+  --ifm-pre-color: #efe2d3;
+  /* 第三级阴影在深色下换成黑色基，暖棕投影在暖黑底上完全不可见 */
+  --ifm-global-shadow-tl: 0 12px 28px rgba(0, 0, 0, 0.36),
+    0 2px 6px rgba(0, 0, 0, 0.3);
+  --docusaurus-highlighted-code-line-bg: rgba(255, 214, 160, 0.08);
+
+  --ifm-color-secondary-contrast-background: #2a231d;
+  --ifm-color-secondary-contrast-foreground: #d8ccbc;
+  --ifm-color-info: #7fbfab;
+  --ifm-color-info-dark: #73b29e;
+  --ifm-color-info-darker: #6cab97;
+  --ifm-color-info-darkest: #5a9682;
+  --ifm-color-info-light: #8bcab7;
+  --ifm-color-info-lighter: #93cfbd;
+  --ifm-color-info-lightest: #a2d8c9;
+  --ifm-color-info-contrast-background: #1f2e29;
+  --ifm-color-info-contrast-foreground: #cfe9e0;
+  --ifm-color-success: #9cc47e;
+  --ifm-color-success-contrast-background: #232c1e;
+  --ifm-color-success-contrast-foreground: #d4e3c7;
+  --ifm-color-warning: #e3a868;
+  --ifm-color-warning-contrast-background: #33281a;
+  --ifm-color-warning-contrast-foreground: #f2dfc2;
+  --ifm-color-danger: #e0908a;
+  --ifm-color-danger-contrast-background: #33211f;
+  --ifm-color-danger-contrast-foreground: #f0cfcb;
+}
+
+/* ==========================================================================
+   §3 组件级微调
+   只在变量表达不了的地方写选择器（形状、模糊、结构），不在这里写颜色。
+   ========================================================================== */
+
+/* --- 全局 --- */
+html {
+  background-color: var(--ifm-background-color);
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 选中文字用品牌浅底 */
+::selection {
+  background-color: var(--sand-accent-soft);
+  color: var(--sand-ink);
+}
+
+html:root[data-theme='dark'] ::selection {
+  background-color: #4a3a22;
+  color: #f4ebdf;
+}
+
+/* --- 导航栏：去掉默认投影，改为发丝描边 + 毛玻璃 --- */
+.navbar {
+  background-color: var(--sand-nav-bg);
+  backdrop-filter: saturate(180%) blur(12px);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  border-bottom: 1px solid var(--sand-hair);
+}
+
+.navbar--fixed-top,
+.navbar-sidebar {
+  box-shadow: none;
+}
+
+.navbar-sidebar {
+  background-color: var(--ifm-background-color);
+}
+
+.navbar__link {
+  border-radius: 8px;
+}
+
+.navbar__link--active {
+  font-weight: 500;
+}
+
+/* --- 侧边栏菜单：胶囊化的激活态 --- */
+.menu__link {
+  border-radius: 8px;
+  line-height: 1.5;
+}
+
+.menu__link--active:not(.menu__link--sublist) {
+  font-weight: 500;
+}
+
+.menu__list-item-collapsible {
+  border-radius: 8px;
+}
+
+.menu__list-item-collapsible:hover {
+  background-color: var(--sand-surface-2);
+}
+
+.theme-doc-sidebar-container {
+  border-right-color: var(--sand-hair);
+}
+
+/* --- 右侧目录：激活态加左侧指示条 --- */
+.table-of-contents__link {
+  border-left: 2px solid transparent;
+  padding-left: 0.5rem;
+  margin-left: -0.5rem;
+  transition: color var(--ifm-transition-fast), border-color var(--ifm-transition-fast);
+}
+
+.table-of-contents__link:hover,
+.table-of-contents__link:hover code {
+  color: var(--sand-accent-ink);
+}
+
+.table-of-contents__link--active {
+  border-left-color: var(--sand-accent);
+  font-weight: 500;
+}
+
+/* --- 正文 --- */
+.markdown a {
+  text-underline-offset: 3px;
+}
+
+.markdown a:hover {
+  text-decoration: underline;
+}
+
+/* 引用块：改成左侧琥珀竖线 + 浅底，比默认的双线更像"旁注" */
+.markdown blockquote {
+  background-color: var(--sand-accent-soft);
+  border-left: 3px solid var(--sand-accent);
+  border-radius: 0 12px 12px 0;
+  padding: 0.9rem 1.2rem;
+}
+
+.markdown blockquote > p:last-child {
+  margin-bottom: 0;
+}
+
+/* 行内代码：给一个描边，避免和底色糊在一起 */
+:not(pre) > code {
+  border: 1px solid var(--sand-hair);
+  border-radius: 6px;
+  color: var(--sand-code-ink);
+  padding: 0.12rem 0.4rem;
+  vertical-align: baseline;
+}
+
+/* 代码块：暖色深底 + 描边 + 暖投影 */
+div[class*='codeBlockContainer'] {
+  box-shadow: var(--sand-shadow-lw);
+  border: 1px solid var(--sand-code-hair);
+  overflow: hidden;
+}
+
+div[class*='codeBlockTitle'] {
+  border-bottom-color: var(--sand-hair);
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+/* 表格：圆角 + 单线，避免默认的粗双线 */
+.markdown table {
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--ifm-table-border-color);
+  border-radius: 14px;
+  background-color: var(--ifm-background-surface-color);
+}
+
+.markdown table thead tr {
+  border-bottom: 0;
+}
+
+.markdown table th,
+.markdown table td {
+  border: 0;
+  border-bottom: 1px solid var(--ifm-table-border-color);
+}
+
+.markdown table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.markdown table th {
+  background-color: var(--ifm-table-stripe-background);
+  font-size: var(--sand-text-sm);
+  letter-spacing: 0.02em;
+}
+
+/* 卡片（文档卡片 DocCard / 首页书架 / 随笔卡片共用 .card 的组件） */
+.card {
+  transition: transform var(--ifm-transition-fast),
+    box-shadow var(--ifm-transition-fast), border-color var(--ifm-transition-fast);
+}
+
+/* 标签：改成胶囊，和整体圆角语言一致 */
+a[class*='tagRegular'],
+span[class*='tagRegular'] {
+  border-radius: 999px;
+  padding: var(--sand-pill-pad);
+}
+
+[class*='tagWithCount'] span {
+  background-color: var(--ifm-color-emphasis-200);
+  color: var(--ifm-color-emphasis-800);
+}
+
+/* 上下篇导航卡片：悬停时描边点亮 */
+.pagination-nav__link {
+  border-color: var(--sand-hair-2);
+  border-radius: 14px;
+  transition: border-color var(--ifm-transition-fast),
+    box-shadow var(--ifm-transition-fast);
+}
+
+.pagination-nav__link:hover {
+  border-color: var(--sand-accent);
+  box-shadow: var(--sand-shadow-lw);
+}
+
+/* 分页页码 */
+.pagination__link {
+  border-radius: 8px;
+}
+
+/* --- 页脚：暖色深底 --- */
+.footer,
+.footer--dark {
+  --ifm-footer-background-color: var(--sand-deep);
+  --ifm-footer-color: var(--sand-deep-muted);
+  --ifm-footer-link-color: var(--sand-deep-ink);
+  --ifm-footer-link-hover-color: #ffffff;
+  --ifm-footer-title-color: var(--sand-deep-muted);
+}
+
+.footer__copyright {
+  color: var(--sand-deep-muted);
+}
+
+.footer__bottom {
+  border-top: 1px solid var(--sand-deep-hair);
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
 }
 
 /* 移动端 footer 链接和版权信息居中 */
@@ -45,5 +539,203 @@
   }
   .footer__bottom {
     text-align: center;
+  }
+}
+
+/* 代码行高亮（兼容新旧两种类名） */
+.docusaurus-highlight-code-line {
+  background-color: var(--docusaurus-highlighted-code-line-bg);
+  display: block;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding);
+}
+
+/* ==========================================================================
+   §4 滚动条（跟随主题，避免暗色下出现亮色滚动条）
+   ========================================================================== */
+
+* {
+  scrollbar-color: var(--sand-hair-2) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--sand-hair-2);
+  border-radius: 999px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--sand-ink-3);
+}
+
+/* ==========================================================================
+   §5 主题切换过渡
+   原理：CSS 变量本身不能过渡，但「引用了变量的属性」可以。
+   这里统一给容器类元素加上颜色过渡，切换时整站是渐变的而不是硬切。
+   用 :where() 把优先级压到 0 —— 这样组件自己声明的 transition
+   （例如卡片的悬停位移动画）不会被覆盖，只补上没人管的那部分。
+   ========================================================================== */
+
+@media (prefers-reduced-motion: no-preference) {
+  :where(
+      html,
+      body,
+      .navbar,
+      .navbar__inner,
+      .navbar-sidebar,
+      .navbar-sidebar__brand,
+      .navbar-sidebar__items,
+      .menu,
+      .theme-doc-sidebar-container,
+      .theme-doc-toc-desktop,
+      .table-of-contents,
+      .dropdown__menu,
+      .card,
+      .alert,
+      .footer,
+      .footer__bottom,
+      .pagination-nav__link,
+      .pagination__link,
+      .breadcrumbs__link,
+      .theme-doc-markdown,
+      .markdown,
+      blockquote,
+      pre,
+      code,
+      kbd,
+      table,
+      thead,
+      tbody,
+      tr,
+      th,
+      td,
+      hr,
+      input,
+      button,
+      select,
+      textarea,
+      [class*='codeBlockContainer'],
+      [class*='codeBlockTitle'],
+      [class*='codeBlockContent'],
+      [class*='tagRegular'],
+      [class*='cardContainer'],
+      [class*='tocCollapsible'],
+      [class*='DocSearch']
+    ) {
+    transition-property: background-color, border-color, color;
+    transition-duration: 320ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+/* 用户系统里关掉了动效就完全不过渡 */
+@media (prefers-reduced-motion: reduce) {
+  :where(html, body, .navbar, .card, .footer, .menu, pre, code, table) {
+    transition: none !important;
+  }
+}
+
+/* ==========================================================================
+   §6 排版与节奏
+   ---------------------------------------------------------------------------
+   这一节只写「字形、尺寸、间距」，一个颜色都不写。
+
+   【为什么必须显式声明字体栈】
+   Infima 默认是 system-ui 开头的英文栈，中文完全靠系统回退：
+   Windows 落到微软雅黑、macOS 落到苹方、Android 落到思源黑体 ——
+   三端的字重表现和字面大小差异明显。显式写一串中文回退之后，
+   桌面 / 平板 / 手机三端的观感会明显靠近。
+
+   【为什么行高要单独调】
+   中文没有西文那样的升部降部，同样的行高在中文字里会显得更挤。
+   正文 1.7、标题 1.35 是中文比较舒服的区间（Infima 默认 1.65 / 1.25）。
+
+   【关于字号与间距阶梯】
+   之前首页各处散落着 0.92/0.9/0.88/0.86/0.84/0.82/0.8rem 这类
+   「差不多但不相等」的字号，以及 1.35/1.15/0.9/0.88/0.84rem 这类
+   间距，视觉上会产生说不清的杂乱感。下面两套阶梯就是用来收敛它们的，
+   首页组件一律引用 --sand-text-* / --sand-space-*，不再写裸数值。
+   ========================================================================== */
+
+:root {
+  --ifm-font-family-base: system-ui, -apple-system, 'Segoe UI', 'PingFang SC',
+    'Hiragino Sans GB', 'Microsoft YaHei', 'Source Han Sans SC',
+    'Noto Sans CJK SC', sans-serif;
+  --ifm-font-family-monospace: ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo,
+    Consolas, 'Liberation Mono', 'PingFang SC', 'Microsoft YaHei', monospace;
+
+  --ifm-line-height-base: 1.75; /* 与 --sand-leading-body 对齐 */
+  --ifm-heading-line-height: 1.35;
+  --ifm-heading-font-weight: 700;
+
+  /* --- 字号阶梯 --- */
+  --sand-text-xs: 0.8125rem; /* 13px · 辅助信息：日期、计数 */
+  --sand-text-sm: 0.875rem; /* 14px · 次要信息：副标题、卡片描述、标签、入口 */
+  --sand-text-md: 0.9375rem; /* 15px · 卡片正文（随想） */
+  --sand-text-base: 1rem; /* 16px · 正文 */
+  --sand-text-lg: 1.125rem; /* 18px · 卡片标题 */
+  --sand-text-xl: 1.375rem; /* 22px · 区块标题（小屏） */
+  --sand-text-2xl: 1.5rem; /* 24px · 区块标题 */
+  --sand-text-3xl: 2.5rem; /* 40px · Hero 标题 */
+
+  /* --- 行高阶梯 ---
+     之前首页散落着 1.35 / 1.5 / 1.7 / 1.75 / 1.8 五种行高，
+     同样是"卡片标题"却一个 1.35 一个 1.5。这里收敛成四档，
+     组件一律引用，不再各自写数字。中文需要的行高比西文更松。 */
+  --sand-leading-tight: 1.35; /* 区块标题（与 --ifm-heading-line-height 同值） */
+  --sand-leading-snug: 1.5; /* 卡片标题：一行或两行都要紧实 */
+  --sand-leading-body: 1.75; /* 正文 / 摘要 / 描述 */
+  --sand-leading-loose: 1.85; /* 长句引述：随想卡片 */
+
+  /* --- 间距阶梯（4px 基准） --- */
+  --sand-space-1: 0.25rem; /* 4  */
+  --sand-space-2: 0.5rem; /* 8  */
+  --sand-space-3: 0.75rem; /* 12 */
+  --sand-space-4: 1rem; /* 16 */
+  --sand-space-5: 1.5rem; /* 24 */
+  --sand-space-6: 2rem; /* 32 */
+  --sand-space-7: 3rem; /* 48 */
+
+  /* 胶囊标签（书架书目 / 文档标签）统一内边距，避免两个组件各写一套 */
+  --sand-pill-pad: 0.2rem 0.7rem;
+
+  /* --- 随想卡片定高 ---
+     依据现有 16 条随想的正文长度统计：中位 4 行、最长 12 行、多数落在
+     1–5 行。定高取「5 行正文」，16 条中 13 条可完整显示，其余在整行
+     边界截断。卡片高度从此恒定，不再被最长的一条撑到 460px+ 高。
+     高度 = 5 行正文 + 段间距余量 + 固定开销（内边距 48 + 边框 2 + 日期行 38.75）。
+     段间距余量（4 × 8px）不能省：多段落卡片被裁处若正好压在某段的
+     行外间距上，卡片底部会露出一条半行的字。 */
+  --sand-thought-lines: 5;
+  --sand-thought-line: calc(
+    var(--sand-text-md) * var(--sand-leading-loose)
+  ); /* 27.75px */
+  --sand-thought-chrome: calc(
+    var(--sand-space-5) * 2 + 2px + var(--sand-space-4) +
+      var(--sand-text-xs) * var(--sand-leading-body)
+  ); /* 88.75px */
+  --sand-thought-h: calc(
+    var(--sand-thought-lines) * var(--sand-thought-line) + 4 *
+      var(--sand-space-2) + var(--sand-thought-chrome)
+  ); /* ≈259.5px */
+
+  /* 首页区块之间的纵向留白 */
+  --sand-section-y: 3rem;
+}
+
+/* 平板与手机：区块留白收紧，否则整页会被拉得很长 */
+@media (max-width: 996px) {
+  :root {
+    --sand-section-y: 2.25rem;
   }
 }

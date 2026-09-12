@@ -1,0 +1,152 @@
+/* ===== 知识书架：每行 2 个书目卡片，卡片含篇数与最近更新时间 ===== */
+
+.section {
+  padding: var(--sand-section-y) 0;
+}
+
+/* 每行 2 个。平板（768–996）也是 2 个 —— 之前用的是 900px 断点，
+   导致 iPad 竖屏整块书架变成一列、高度从 619px 涨到 1078px。
+   Infima 的平板分界是 996/768，这里跟着它走。 */
+.shelvesGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--sand-space-5);
+}
+
+@media (max-width: 768px) {
+  .shelvesGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.shelfCard {
+  display: flex;
+  flex-direction: column;
+  background: var(--ifm-card-background-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: var(--ifm-card-border-radius);
+  padding: var(--sand-space-5);
+  transition:
+    box-shadow var(--ifm-transition-fast) var(--ifm-transition-timing-default),
+    border-color var(--ifm-transition-fast) var(--ifm-transition-timing-default),
+    transform var(--ifm-transition-fast) var(--ifm-transition-timing-default);
+}
+
+.shelfCard:hover {
+  border-color: var(--sand-hair-2);
+  box-shadow: var(--ifm-global-shadow-md);
+  transform: translateY(-3px);
+}
+
+.shelfTitle {
+  font-size: var(--sand-text-lg);
+  line-height: var(--sand-leading-tight);
+  margin-bottom: var(--sand-space-2);
+}
+
+.shelfTitle a {
+  color: var(--ifm-heading-color);
+}
+
+.shelfTitle a:hover {
+  color: var(--sand-accent-ink);
+  text-decoration: none;
+}
+
+.shelfDesc {
+  font-size: var(--sand-text-sm);
+  line-height: var(--sand-leading-body);
+  color: var(--ifm-color-emphasis-700);
+  margin-bottom: var(--sand-space-4);
+}
+
+/* "书"排列在书架横板上（横板 = 下面这条线） */
+.shelfBooks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sand-space-2);
+  padding-bottom: var(--sand-space-3);
+  border-bottom: 2px solid var(--sand-hair-2);
+  margin-bottom: var(--sand-space-3);
+}
+
+.bookPill {
+  font-size: var(--sand-text-xs);
+  padding: var(--sand-pill-pad);
+  border: 1px solid var(--sand-hair-2);
+  border-radius: 999px;
+  color: var(--sand-ink-2);
+  background: var(--sand-surface-2);
+  transition:
+    background-color var(--ifm-transition-fast) var(--ifm-transition-timing-default),
+    border-color var(--ifm-transition-fast) var(--ifm-transition-timing-default),
+    color var(--ifm-transition-fast) var(--ifm-transition-timing-default);
+}
+
+.bookPill:hover {
+  background: var(--sand-accent-soft);
+  border-color: var(--sand-accent);
+  color: var(--sand-accent-ink);
+  text-decoration: none;
+}
+
+/* 底部一行：统计信息 + 入口。margin-top:auto 让它始终贴住卡片底边，
+   同一行的卡片高度对齐时不会上下错位 */
+.shelfFoot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--sand-space-2) var(--sand-space-4);
+  margin-top: auto;
+}
+
+.shelfStats {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--sand-space-2);
+  margin: 0;
+  font-size: var(--sand-text-xs);
+  color: var(--ifm-color-emphasis-600);
+}
+
+.statCount b {
+  font-size: var(--sand-text-base);
+  font-weight: 600;
+  color: var(--sand-accent-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.statDot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--sand-hair-2);
+}
+
+.statUpdated time {
+  font-variant-numeric: tabular-nums;
+}
+
+.shelfMore {
+  font-size: var(--sand-text-sm);
+  font-weight: 500;
+  white-space: nowrap;
+  color: var(--sand-accent-ink);
+}
+
+.shelfMore:hover {
+  color: var(--sand-accent);
+  text-decoration: none;
+}
+
+.moreArrow {
+  display: inline-block;
+  margin-left: var(--sand-space-1);
+  transition: transform var(--ifm-transition-fast) var(--ifm-transition-timing-default);
+}
+
+.shelfMore:hover .moreArrow {
+  transform: translateX(3px);
+}

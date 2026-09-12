@@ -14,7 +14,12 @@ jobs:
     name: Deploy to GitHub Pages
     runs-on: ubuntu-latest
     steps:
+      # fetch-depth: 0 = 拉取完整提交历史。
+      # 首页书架要显示"最近更新时间"（读的是 git 提交时间），
+      # 浅克隆（默认 depth 1）下取不到历史，会退化成构建当天。
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 20.x

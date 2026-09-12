@@ -1,23 +1,63 @@
 /**
- * CSS files with the .module.css suffix will be treated as CSS modules
- * and scoped locally.
+ * 首页样式：Hero 卡片 + 各内容区块
+ * 尺寸与间距一律引用 src/css/custom.css §6 的阶梯变量
  */
 
-.heroBanner {
-  padding: 4rem 0;
+.heroSection {
+  padding: var(--sand-space-7) 0 var(--sand-space-2);
+}
+
+/* 顶部 Hero：宽度收窄到 52rem 并居中。
+   原来的卡片铺满整个 container（最宽 1320px），
+   中间一段短文字被拉得很空；收窄后与整体比例更协调。
+   底色用「暖白 → 浅砂 → 琥珀浅底」的极淡渐变，呼应暖砂柔光主题。 */
+.heroCard {
+  max-width: 52rem;
+  margin: 0 auto;
+  padding: var(--sand-space-7) var(--sand-space-6);
   text-align: center;
-  position: relative;
-  overflow: hidden;
+  background: linear-gradient(
+    140deg,
+    var(--ifm-card-background-color) 0%,
+    var(--sand-surface-2) 55%,
+    var(--sand-accent-soft) 100%
+  );
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: var(--ifm-card-border-radius);
+  box-shadow: var(--ifm-global-shadow-lw);
+}
+
+/* Hero 标题改成流体缩放（clamp）：
+   小屏不再挤爆，大屏仍精确停在阶梯上限 --sand-text-3xl（40px），
+   这样就不用再在断点里写死一个 2rem —— 那是全站唯一绕过字号阶梯的字号。 */
+.heroTitle {
+  font-size: clamp(1.75rem, 1.15rem + 2.6vw, var(--sand-text-3xl));
+  letter-spacing: 0.02em;
+  margin-bottom: var(--sand-space-2);
+}
+
+.heroTagline {
+  font-size: var(--sand-text-lg);
+  font-weight: 400;
+  color: var(--ifm-color-emphasis-700);
+  margin-bottom: var(--sand-space-3);
+}
+
+.heroDesc {
+  font-size: var(--sand-text-base);
+  line-height: var(--sand-leading-body);
+  color: var(--ifm-color-emphasis-600);
+  max-width: 34rem;
+  margin: 0 auto;
 }
 
 @media screen and (max-width: 996px) {
-  .heroBanner {
-    padding: 2rem;
+  .heroSection {
+    padding: var(--sand-space-6) 0 var(--sand-space-2);
   }
-}
 
-.buttons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  .heroCard {
+    max-width: 100%;
+    padding: var(--sand-space-6) var(--sand-space-5);
+  }
 }

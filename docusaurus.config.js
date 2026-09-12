@@ -1,8 +1,14 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const lightCodeTheme = require('prism-react-renderer').themes.github;
-const darkCodeTheme = require('prism-react-renderer').themes.dracula;
+// 自定义代码高亮主题：暖砂柔光 / 沙丘暮色
+// 默认的 github + dracula 是冷调配色，与站点暖色主题冲突，
+// 详见 src/config/prismThemes.js
+const { warmSandTheme, duneDuskTheme } = require('./src/config/prismThemes');
+
+// 首页需要的构建期数据（书架统计、随笔摘要）
+// 在构建时扫描 docs / blog 目录算出，详见 src/config/homepageData.js
+const { buildHomepageData } = require('./src/config/homepageData');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -17,6 +23,10 @@ const config = {
   deploymentBranch: 'gh-pages',
   trailingSlash: false,
   noIndex: false,  // 设置为true表示告知搜索引擎不要索引您的站点
+  // 供前端读取的自定义字段（首页书架统计、随笔摘要等）
+  customFields: {
+    homepageData: buildHomepageData()
+  },
   i18n: {
     defaultLocale: 'zh-Hans',
     locales: ['zh-Hans']
@@ -61,6 +71,15 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      // 主题切换：默认「暖砂柔光」（浅色），用户可手动切到「沙丘暮色」（深色）
+      // 具体配色定义在 src/css/custom.css
+      colorMode: {
+        defaultMode: 'light',
+        disableSwitch: false,
+        // false = 首次访问固定用浅色，不跟随系统；
+        // 想让站点跟随系统深色设置，把这里改成 true 即可。
+        respectPrefersColorScheme: false
+      },
       navbar: {
         title: '倚码千言',
         logo: {
@@ -97,8 +116,8 @@ const config = {
         maxHeadingLevel: 5
       },
       prism: {
-        theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
+        theme: warmSandTheme,
+        darkTheme: duneDuskTheme,
         additionalLanguages: ['java', 'markdown', 'c', 'python', 'bash', 'git', 'sql']
       },
       algolia: {

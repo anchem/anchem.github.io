@@ -1,0 +1,75 @@
+/* 首页区块标题栏：主标题（带琥珀装饰条）+ 副标题 + 右侧「查看全部」
+   三个首页模块共用，字号 / 间距一律引用 §6 的阶梯变量 */
+
+.header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--sand-space-2) var(--sand-space-5);
+  margin-bottom: var(--sand-space-5);
+}
+
+.heading {
+  min-width: 0;
+}
+
+/* 标题左侧的琥珀短条：与引用块、目录激活态用的是同一套装饰语言 */
+.title {
+  position: relative;
+  margin: 0;
+  padding-left: var(--sand-space-3);
+  font-size: var(--sand-text-2xl);
+  line-height: var(--ifm-heading-line-height);
+  letter-spacing: 0.01em;
+}
+
+.title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.22em;
+  bottom: 0.22em;
+  width: var(--sand-space-1);
+  border-radius: 999px;
+  background: var(--sand-accent);
+}
+
+.subtitle {
+  margin: var(--sand-space-2) 0 0;
+  padding-left: var(--sand-space-3);
+  font-size: var(--sand-text-sm);
+  line-height: var(--ifm-line-height-base);
+  color: var(--ifm-color-emphasis-600);
+}
+
+.more {
+  font-size: var(--sand-text-sm);
+  font-weight: 500;
+  white-space: nowrap;
+  color: var(--sand-accent-ink);
+  transition: color var(--ifm-transition-fast) var(--ifm-transition-timing-default);
+}
+
+.more:hover {
+  color: var(--sand-accent);
+  text-decoration: none;
+}
+
+.arrow {
+  display: inline-block;
+  margin-left: var(--sand-space-1);
+  transition: transform var(--ifm-transition-fast) var(--ifm-transition-timing-default);
+}
+
+.more:hover .arrow {
+  transform: translateX(3px);
+}
+
+/* 断点与 Infima 保持一致（它的移动端分界是 576px），
+   不自己发明 640 这类中间值，避免和其他组件错位 */
+@media (max-width: 576px) {
+  .title {
+    font-size: var(--sand-text-xl);
+  }
+}
