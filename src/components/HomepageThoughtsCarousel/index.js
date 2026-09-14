@@ -76,7 +76,7 @@ export default function HomepageThoughtsCarousel() {
       <div className="container">
         <SectionHeader
           title="随想"
-          subtitle="随手记下的片段念头，持续追加"
+          subtitle="灵感稍纵即逝"
           moreLabel="全部随想"
           moreUrl="/thoughts"
         />

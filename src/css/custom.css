@@ -37,7 +37,7 @@ html:root {
   /* --- 文字 --- */
   --sand-ink: #2c241d; /* 主文字 · 暖黑而非纯黑 */
   --sand-ink-2: #6e6055; /* 次要文字 */
-  --sand-ink-3: #9c8d7e; /* 辅助文字 · 日期、面包屑 */
+  --sand-ink-3: #7a6b5c; /* 辅助文字 · 日期、面包屑（对比度 4.6:1，WCAG AA） */
 
   /* --- 描边 --- */
   --sand-hair: #f1e4d3; /* 发丝线 · 分隔线、卡片边 */
@@ -343,9 +343,18 @@ html:root[data-theme='dark'] ::selection {
 /* --- 导航栏：去掉默认投影，改为发丝描边 + 毛玻璃 --- */
 .navbar {
   background-color: var(--sand-nav-bg);
+  border-bottom: 1px solid var(--sand-hair);
+}
+
+/* backdrop-filter 必须放在 .navbar__inner 上而非 .navbar 上：
+   .navbar-sidebar 和 .navbar-sidebar__backdrop 是 .navbar 的直接子元素，
+   且使用 position:fixed。若父元素设了 backdrop-filter（或 transform/filter
+   等属性），会为 fixed 后代创建新的包含块，导致 sidebar 的 top:0;bottom:0
+   被限制在导航栏高度（60px）内，侧边栏菜单内容被裁剪为 0 高度而不可见。
+   .navbar__inner 不包含 sidebar，放这里不会触发该问题。 */
+.navbar__inner {
   backdrop-filter: saturate(180%) blur(12px);
   -webkit-backdrop-filter: saturate(180%) blur(12px);
-  border-bottom: 1px solid var(--sand-hair);
 }
 
 .navbar--fixed-top,

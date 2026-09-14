@@ -36,6 +36,21 @@
   }
 }
 
+/* 尊重 prefers-reduced-motion：停掉无限滚动，改为可手动横滑。
+   custom.css §5 只禁了 transition，animation 不受其覆盖，
+   所以这里单独把 marquee 关掉，并让容器可横向滚动以访问全部卡片。 */
+@media (prefers-reduced-motion: reduce) {
+  .carouselTrack {
+    animation: none;
+  }
+  .carousel {
+    overflow-x: auto;
+  }
+  .carousel:hover .carouselTrack {
+    animation-play-state: running;
+  }
+}
+
 /* 宽度自适应：桌面定 380px，小屏收到 78vw，
    这样卡片边缘不会被 container 裁掉，也能露出下一张的一角提示可横滑。
    高度则一律取 --sand-thought-h（≈260px），不再随内容长短变化：

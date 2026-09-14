@@ -37,7 +37,7 @@ export default function HomepageLatestPosts() {
       <div className="container">
         <SectionHeader
           title="最新随笔"
-          subtitle={`与生活有关的记录与思考，共 ${ALL_POSTS.length} 篇`}
+          subtitle={`给生命留下回忆，共 ${ALL_POSTS.length} 篇`}
           moreLabel="全部随笔"
           moreUrl="/blog"
         />

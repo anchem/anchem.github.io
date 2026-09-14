@@ -31,3 +31,10 @@
   color: var(--ifm-color-emphasis-600);
   margin: 0.1em;
 }
+
+.hintMsg {
+  text-align: center;
+  padding: var(--sand-space-6) 0;
+  font-size: var(--sand-text-sm);
+  color: var(--ifm-color-emphasis-600);
+}

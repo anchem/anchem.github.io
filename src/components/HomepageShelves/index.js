@@ -113,7 +113,7 @@ export default function HomepageShelves() {
       <div className="container">
         <SectionHeader
           title="知识书架"
-          subtitle="软件、成长、养育与生活四个方向的知识整理，持续更新中"
+          subtitle="持续积累，遇见新知"
         />
         <div className={styles.shelvesGrid}>
           {SHELVES.map((shelf) => (
