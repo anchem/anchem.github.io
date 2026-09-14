@@ -1,0 +1,10 @@
+{
+  "position": 2.3,
+  "label": "第三阶段：从6岁到12岁",
+  "collapsible": true,
+  "collapsed": false,
+  "className": "growthtree",
+  "customProps": {
+    "description": "This description can be used in the swizzled DocCard"
+  }
+}
