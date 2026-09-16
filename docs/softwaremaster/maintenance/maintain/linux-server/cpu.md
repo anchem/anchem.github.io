@@ -1660,7 +1660,7 @@ CPU speed:
 
 | 指标 | 含义 | 对应命令行 |
 | --- | --- | --- |
-| `node_cpu_seconds_total{mode="user|system|iowait"}` | CPU 各态累计时间（rate 取速率） | top 第三行 |
+| `node_cpu_seconds_total{mode="user\|system\|iowait"}` | CPU 各态累计时间（rate 取速率） | top 第三行 |
 | `node_load1 / node_load5 / node_load15` | 平均负载 | uptime |
 | `node_context_switches_total` | 上下文切换累计（rate 取速率） | vmstat cs |
 | `node_filefd_allocated` 等 | 文件句柄（排查资源耗尽） | — |
