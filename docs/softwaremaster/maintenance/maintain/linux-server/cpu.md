@@ -10,8 +10,6 @@ keywords: [linux, cpu, top, vmstat, mpstat, sar, pidstat, 高cpu, 排查]
 
 # Linux CPU 运维指南
 
-> 服务器又报警 CPU 高了？top 打开全是看不懂的数字？本手册用最通俗的语言，帮你从零建立 CPU 运维的知识体系：先搞懂概念，再学会命令，最后能独立定位和解决问题。内容围绕「CPU 消耗」这一主题，覆盖 **核心知识点 → 排查命令 → 成因与解法 → 实战案例 → 速查表** 完整链路。
-
 ## 开始之前
 
 ### 三大模块，按需学习
@@ -21,7 +19,7 @@ keywords: [linux, cpu, top, vmstat, mpstat, sar, pidstat, 高cpu, 排查]
 | 模块 | 内容 | 章节入口 |
 | --- | --- | --- |
 | 01 · 基础入门 | CPU 使用率、平均负载、上下文切换、运行队列、中断等指标的含义与常见误区 | [CPU 核心概念](#cpu-concepts) |
-| 02 · 命令实战 | top、htop、vmstat、mpstat、sar、pidstat 逐命令拆解：怎么用、输出每列代表什么 | [命令总览](#commands) |
+| 02 · 命令实战 | top、vmstat、mpstat、sar、pidstat 逐命令拆解：怎么用、输出每列代表什么 | [命令总览](#commands) |
 | 03 · 排查与解决 | 从「CPU 报警」到「找到根因」的完整排查流程、成因特征对照表、解法与预防 | [高 CPU 排查流程](#diagnosis) |
 | 04 · 实战提升 | 四个真实案例走完「报警 → 定位 → 处置」全流程；系统间交互案例专章；进阶工具与监控对接 | [典型案例库](#cases) · [交互型案例](#cases-interaction) · [进阶工具与实践](#advanced) |
 
@@ -30,22 +28,10 @@ keywords: [linux, cpu, top, vmstat, mpstat, sar, pidstat, 高cpu, 排查]
 如果完全没接触过服务器排查，建议按下面的顺序走一遍，大约半天到一天就能掌握核心思路：
 
 1. **先懂概念，不背命令** — 花一小时读「CPU 核心概念」，重点是理解「负载」和「使用率」的区别、什么是上下文切换。概念不懂，命令输出只是天书。
-2. **学 top，先会看全局** — top 是最常用的命令。学会读前五行统计和进程列表，再学 htop 的交互操作，日常 80% 的场景就够了。
+2. **学 top，先会看全局** — top 是最常用的命令。学会读前五行统计和进程列表，再学 top 的交互操作，日常 80% 的场景就够了。
 3. **再学 vmstat / mpstat / sar / pidstat** — 这些命令回答更细的问题：系统是 CPU 忙还是等 IO？哪个核在忙？哪个进程在吃 CPU？上下文切换有多频繁？
 4. **套用排查流程，动手解决** — 按「高 CPU 排查流程」里的步骤，拿一台测试机或低峰期服务器实操一遍。对照「常见成因分析」和「解决方案」，练会定位与处置。
 5. **把「速查表」收藏起来** — 上手后不需要整本翻阅，出问题时直接翻「速查表」，场景 → 命令 → 关注指标，一分钟找到下一步。
-
-:::info 目标读者
-
-本手册面向**软件维护 / 运维岗位的新手**，默认你：
-
-- 会用 Linux 基本命令（cd、ls、ps 等），但没系统学过性能排查；
-- 看到 CPU 报警会紧张，不知道从哪下手；
-- 希望能有一份「照着做就能用」的排查指南。
-
-手册里的命令在绝大多数 Linux 发行版（CentOS / Ubuntu / openEuler 等）上通用，输出格式大同小异。
-
-:::
 
 :::warning 阅读提醒
 
@@ -253,7 +239,6 @@ Java 应用线程池配了 500 个线程，实际干活只用 10 个，其余 49
 | 命令 | 一句话作用 | 最常看什么 | 安装/自带 |
 | --- | --- | --- | --- |
 | `top` | 动态刷新地看整机与进程 | 负载、%Cpu(s)、%CPU、TIME+ | 自带（procps） |
-| `htop` | top 的美化增强版 | 彩色条形图、进程树、交互操作 | `yum/apt install htop` |
 | `uptime` | 看一眼当前负载 | load average 三个数 | 自带 |
 | `vmstat` | 整机运行状态快照（含 CPU/队列） | r、b、cs、in、us/sy/wa | 自带（procps） |
 | `mpstat` | 按 CPU 核心看使用率 | 每个核的 us/sy/idle | sysstat 包 |
@@ -269,7 +254,7 @@ Java 应用线程池配了 500 个线程，实际干活只用 10 个，其余 49
 
 :::info 缺命令怎么办
 
-mpstat / sar / pidstat 属于 **sysstat** 包：`yum install -y sysstat`（CentOS 系）或 `apt install -y sysstat`（Ubuntu 系）。htop 同理单独安装。其他命令系统自带。
+mpstat / sar / pidstat 属于 **sysstat** 包：`yum install -y sysstat`（CentOS 系）或 `apt install -y sysstat`（Ubuntu 系）。其他命令系统自带。
 
 :::
 
@@ -294,14 +279,14 @@ mpstat / sar / pidstat 属于 **sysstat** 包：`yum install -y sysstat`（CentO
 
 命令家族的详细讲解分两批：
 
-- [top / htop](#top-htop)：最常用的全局视图，输出逐行解读 + 快捷键；
+- [top](#top)：最常用的全局视图，输出逐行解读 + 快捷键；
 - [vmstat / mpstat](#vmstat-mpstat)：判断是不是 CPU 的事、哪个核在忙；
 - [sar / pidstat](#sar-pidstat)：看历史趋势、精确定位到进程和线程；
 - [进阶工具与实践](#advanced)：USE 方法论、火焰图、strace、压测与监控对接（掌握基础后再看）。
 
-### top / htop {#top-htop}
+### top {#top}
 
-top 是排查 CPU 问题的**第一入口**：打开就能同时看到整机状态和进程排名。这一章把 top 的输出拆成一行一行讲透，再介绍几个高频用法和快捷键，最后说说更友好的 htop。
+top 是排查 CPU 问题的**第一入口**：打开就能同时看到整机状态和进程排名。这一章把 top 的输出拆成一行一行讲透，再介绍几个高频用法和快捷键。
 
 #### top 的基本用法
 
@@ -432,41 +417,6 @@ $ jstack 4321 | grep -A 20 "nid=0x1104"
 :::tip 记这个三连
 
 `top` 找进程 → `top -Hp PID` 找线程 → `jstack` 找代码。这是排查 Java 高 CPU 的黄金套路，其他语言用 `perf top` 替代第三步。
-
-:::
-
-#### htop：更好用的 top
-
-htop 是 top 的增强版：彩色显示、支持鼠标、有 CPU 条形图、支持树形视图和 F 键操作。安装后直接用：
-
-```bash
-$ yum install -y htop      # CentOS / openEuler
-$ apt install -y htop      # Ubuntu / Debian
-$ htop
-```
-
-| 功能 | 操作 |
-| --- | --- |
-| 按 CPU 排序 | `F6` 选择排序字段，选 PERCENT_CPU |
-| 搜索进程 | `F3` 输入关键字（如 java） |
-| 进程树视图 | `F5`（能看清父子关系，排查 fork 炸弹很有用） |
-| 杀进程 | 选中后 `F9`（注意先确认再杀） |
-| 只看某个进程 | `F4` 过滤 |
-| 显示/隐藏用户线程 | `Shift + H`（默认开启，按需切换） |
-| 线程树视图 | `Shift + K`（把每个进程的线程以树形展开） |
-| 显示/隐藏内核线程 | `K` |
-
-:::info htop 的颜色含义
-
-顶部 CPU 条形图里，**绿色 = us（业务）**，**红色 = sy（内核）**，**蓝色 = wa（等 IO）**，**黄色 = 其他（ni/irq）**。一眼扫过去，红色太多 → 内核层问题；蓝色太多 → IO 问题。
-
-:::
-
-htop 虽然好用，但很多老服务器没装。所以 **top 是必须熟练的底线技能**，htop 是锦上添花。
-
-:::note 本章小结
-
-top 输出四步读法：**第 1 行看负载趋势 → 第 3 行看忙的类型（us/sy/wa）→ 进程列表按 P 找嫌疑 PID → TIME+ 确认长期消耗者**。需要看线程时用 `top -Hp PID`。
 
 :::
 
@@ -731,7 +681,7 @@ perf 需要 root 或配置内核参数，部分容器环境不可用。Java 场�
 
 :::note 本章小结
 
-命令家族到此齐了：**top/htop 看全局 → vmstat 分诊 → mpstat 分核 → sar 回历史 → pidstat 锁进程线程 → perf/jstack 看代码**。下一章把这套工具串成一条完整的排查流程。
+命令家族到此齐了：**top 看全局 → vmstat 分诊 → mpstat 分核 → sar 回历史 → pidstat 锁进程线程 → perf/jstack 看代码**。下一章把这套工具串成一条完整的排查流程。
 
 :::
 
@@ -1254,5 +1204,607 @@ Kubernetes 下的具体对应关系（cgroup v2）：
 :::note 本章小结
 
 **应急保业务 → 按成因根治 → 监控防复发**，三步走完才算真正「解决」了一个 CPU 问题。最后附上[速查表](#cheatsheet)，把常用命令和指标浓缩成一页，出问题随翻随用。
+
+:::
+
+### 典型案例库 {#cases}
+
+把前面学的方法落到真实场景里。本章收录 4 个高频问题案例，每个案例都按「现象 → 排查过程（完整命令链）→ 判断依据 → 处置 → 复盘要点」展开，覆盖 Java 与 Python 技术栈、CPU 真忙与假忙、正常高峰与恶意进程。建议先自己推演一遍，再对照答案。如果你的问题是「别的系统拖累」——下游接口慢、被高频轮询、队列积压等，直接去看[系统间交互案例](#cases-interaction)专章。
+
+#### 案例一：发布后 Java 单线程烧满一个核
+
+**现象**：周二 14:30 发布新版本后，15 点监控报警：网关服务 `order-service` 所在 8 核机器 CPU 使用率持续 60%，接口 P99 延迟从 80ms 涨到 3s，部分请求超时。
+
+**排查过程**：
+
+```bash
+$ uptime
+ 15:02:01 up 30 days,  4:12,  3 users,  load average: 5.20, 3.10, 1.80
+# 负载 15 分钟前才 1.8，现在 5.2，问题从发布后开始 —— 时间线吻合
+
+$ top -d 1
+%Cpu(s): 55.0 us,  8.2 sy,  0.0 ni, 34.8 id,  1.5 wa,  0.0 hi,  0.5 si,  0.0 st
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+  COMMAND
+   4321 appuser   20   0 3421568   1.2g  24300 S  12.5   3.8  432:15.6 java
+   5200 appuser   20   0 3421568   1.2g  24300 S 103.5   3.8   45:12.3 java   ← 进程内某个线程烧满
+```
+
+注意：进程总 CPU 才 12.5%，但 TIME+ 在快速增长的 `5200` 是「进程内线程」——先锁定它是哪个线程：
+
+```bash
+$ top -Hp 4321 -d 1
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+  COMMAND
+  5200 appuser   20   0 3421568   1.2g  24300 R  98.2   3.8   44:58.7 java   ← 线程 PID 5200
+
+$ printf '%x\n' 5200
+1450
+
+$ jstack 4321 > /tmp/jstack1.txt; sleep 3; jstack 4321 > /tmp/jstack2.txt
+$ grep -A 12 "nid=0x1450" /tmp/jstack1.txt
+"batch-worker-3" ... nid=0x1450 runnable ...
+    at com.example.order.RuleEngine.match(RuleEngine.java:41)
+    at com.example.order.PriceService.calc(PriceService.java:88)
+$ grep -A 12 "nid=0x1450" /tmp/jstack2.txt   # 两次 dump 栈位置一样 → 死循环，不是正常计算
+"batch-worker-3" ... nid=0x1450 runnable ...
+    at com.example.order.RuleEngine.match(RuleEngine.java:41)
+```
+
+**判断依据**：
+
+- 单线程 %CPU≈100%、其他线程正常 → 不是并发压力，是单个任务失控；
+- 两次 jstack 栈顶停在同一个方法 → 典型死循环特征（正常计算会不断换栈位置）；
+- 时间线与 14:30 发布吻合 → 新版引入的代码问题。
+
+**处置与复盘**：
+
+1. **应急**：重启应用（止损），回滚到上一版本（根治）；
+2. **根因**：新版本 `RuleEngine.match` 的 while 循环缺少命中后的 break；
+3. **预防**：死循环类问题建议增加循环上限保护与单元测试；发布后 30 分钟内重点盯 CPU 曲线。
+
+#### 案例二：线程池 500 线程，全在抢一把锁
+
+**现象**：16 核机器，业务高峰时接口很慢，但 CPU 使用率只有 35%，负载却到了 18。监控显示上下文切换每秒 45 万次。
+
+**排查过程**：
+
+```bash
+$ vmstat 1 3
+procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+ r  b   swpd   free   buff  cache   si   so    bi    bo    in     cs us sy id wa st
+ 2  4      0 8120344 123456 14698456    0    0    12    18  5600 452000 20 42 35  3  0
+ 3  3      0 8119876 123456 14700123    0    0    10    16  5900 461000 18 44 36  2  0
+# r 只有 2~3（远小于 16 核），但 cs 45 万/秒、sy 42% —— 切换风暴！CPU 在空转
+
+$ pidstat -w 1 5
+14:23:06   UID       PID   cswch/s nvcswch/s  Command
+14:23:07  1001      4321   980.00    120.00    java        ← 单进程切换不算高？继续查子线程
+$ pidstat -t -p 4321 -w 1 3 | sort -k4 -rn | head -5
+14:23:07      UID       PID   cswch/s nvcswch/s  Command
+14:23:08    1001     52301  4200.00     10.00    |__java    ← 单个线程每秒切换 4200 次，可疑
+```
+
+```bash
+$ jstack 4321 | grep -c "java.lang.Thread.State: BLOCKED"
+487          ← 500 个线程里 487 个被阻塞
+$ jstack 4321 | grep -A 6 "pool-1-thread-300"
+"pool-1-thread-300" ... java.lang.Thread.State: BLOCKED (on object monitor)
+        at java.util.HashMap.putVal(HashMap.java:...)
+        - waiting to lock <0x00000007ff9d2ab0> (a java.util.HashMap)   ← 全堵在同一个 HashMap 上
+```
+
+**判断依据**：
+
+- `r` 低 + `cs` 高 + `sy` 高 → 不是 CPU 不够，是线程在疯狂切换；
+- 487/500 线程 BLOCKED 在同一把 HashMap 锁 → 全局共享可变 HashMap 未做并发保护；
+- 线程池配了 500 线程，实际并发能力远低于此，反而放大竞争。
+
+**处置与复盘**：
+
+1. **应急**：限流 + 摘除部分节点，减少涌入的并发；
+2. **根因**：缓存用的 HashMap 改为 ConcurrentHashMap（或加读写锁），线程池按「核数 × (1 + 等待/计算)」重新评估（该场景约 32~48 线程足够）；
+3. **预防**：代码评审关注共享可变结构；监控加「上下文切换」指标，与 CPU 使用率联合告警。
+
+#### 案例三：负载 30 的「假高峰」——其实是磁盘慢
+
+**现象**：凌晨 2 点告警：数据库从库机器负载 30（8 核），但业务无流量、CPU 使用率仅 10%。
+
+**排查过程**：
+
+```bash
+$ uptime
+ 02:15:01 up 90 days,  2:00,  1 user,  load average: 30.5, 28.1, 25.4   # 负载奇高
+$ top -d 1
+%Cpu(s):  1.5 us,  2.3 sy,  0.0 ni, 22.4 id, 73.6 wa,  0.0 hi,  0.2 si,  0.0 st
+# 关键信号：us/sy 极低，wa 73.6% —— 大量任务在等 IO，不是 CPU 忙
+
+$ vmstat 1 3
+procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+ r  b   swpd   free   buff  cache   si   so    bi    bo    in   cs us sy id wa st
+ 1 27      0 8120344  89000 14698456    0    0 120000  8800  5600 28900  2  2 22 74  0
+# b=27：27 个任务被阻塞在等 IO；bi=120000 块/秒 —— 磁盘读疯了
+```
+
+```bash
+$ iostat -x 1 3
+Device            r/s     w/s   rkB/s   wkB/s  %util
+sda            1800.0    20.0  112000    8600   99.5     ← 磁盘利用率 99.5%，彻底饱和
+$ pidstat -d 1 3 | grep -v "0.00" | head -5
+14:23:06   UID       PID    kB_rd/s   kB_wr/s  kB_ccwr/s  Command
+14:23:07   27       2101    88000.0      0.00       0.00  mysqld       ← mysqld 在疯狂读盘
+```
+
+再查是什么查询：慢查询日志里 2:00 开始大量 `SELECT ... FROM report WHERE create_time > DATE_SUB(NOW(), INTERVAL 1 DAY)` 全表扫描，正是凌晨定时报表任务触发的。
+
+**判断依据**：
+
+- 负载 30 但 us/sy 极低 + `wa` 74% + `b`=27 → **负载高 ≠ CPU 忙** 的教科书案例，根因是磁盘 IO；
+- iostat 确认磁盘饱和、pidstat -d 锁定 mysqld。
+
+**处置与复盘**：
+
+1. **应急**：暂停定时报表任务，负载 10 分钟内回落到正常；
+2. **根因**：报表 SQL 未走索引（create_time 无索引）+ 一次全表扫；加索引后磁盘 IO 下降 90%；
+3. **预防**：定时任务与高峰错开；慢查询监控告警；磁盘 %util 纳入监控。
+
+#### 案例四：CPU 报警揪出挖矿进程
+
+**现象**：某台测试服务器（无业务）连续 3 天 CPU 100% 报警，风扇声音异常。管理员以为有测试任务，未处理。
+
+**排查过程**：
+
+```bash
+$ top -d 1
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+  COMMAND
+  8123 root      20   0  156000  45000   8000 R 100.0   0.4  2880:01  systemd-uuidd   ← 进程名伪装，CPU 100% 累计 48 小时
+# 可疑点：1) 无业务机器 100%；2) systemd 系进程名 + 奇怪后缀；3) TIME+ 巨大
+
+$ ls -l /proc/8123/exe
+lrwxrwxrwx 1 root root 0 ... /proc/8123/exe -> /tmp/.X11-unix/miner  ← 可执行文件在 /tmp 隐藏目录！
+
+$ ls -l /proc/8123/cwd
+... /tmp/.X11-unix                                          ← 工作目录伪装
+
+$ ss -tnp | grep 8123
+ESTAB  192.168.1.10:45678  203.0.113.7:4444   users:(("systemd-uuidd",pid=8123))  ← 对外联到陌生 IP 4444 端口
+
+$ cat /proc/8123/status | grep -E "^(Name|State|PPid)"
+Name: systemd-uuidd
+State: R (running)
+PPid: 1            ← 被 init 收养，说明原父进程已被清理，典型的「脱壳」手法
+```
+
+**判断依据**：
+
+- 进程名仿系统组件、`/proc/PID/exe` 指向 `/tmp/.X11-unix/` 隐藏目录 → 强挖矿特征；
+- 异常外联（陌生 IP、非常规端口）→ 确认是外连矿池；
+- 无业务机器 100% + 累计时长巨大 → 长期潜伏。
+
+**处置与复盘**：
+
+1. **隔离**：立即断网（防火墙阻断外联 IP），停进程；
+2. **取证**：保存 `ls -l /proc/PID/exe cwd`、`ss -tnp`、crontab、ssh authorized_keys、系统日志后再清理文件；
+3. **溯源**：该机器 ssh 弱口令被爆破进入（auth.log 显示 root 暴力尝试成功）；
+4. **加固**：禁用密码登录改密钥、fail2ban、最小化暴露端口；把 CPU 100% + 陌生进程列入安全监控规则。
+
+:::note 四个案例的共同主线
+
+不管现象多吓人，都逃不出同一套路：**先用 uptime/top 看全局 → 用 vmstat 判断是 CPU、IO 还是切换 → 用 pidstat 锁进程线程 → 用 jstack/perf/iostat 挖根因**。案例一、二是 CPU 真忙（代码与线程问题），案例三是「负载假高」（IO），案例四是安全事件——四类场景覆盖了日常绝大多数 CPU 报警。如果排查一圈发现「本机不忙、却在等别人」——等下游接口、等连接池、被高频轮询或传输——这类系统间交互问题请见[交互型案例](#cases-interaction)。
+
+:::
+
+### 系统间交互案例 {#cases-interaction}
+
+上一章的案例都是「机器内部自己出问题」，本章换个视角：**CPU 高是别的系统「牵连」出来的**。应用在等下游接口、等数据库连接、等消息队列，或被动被 SNMP 轮询、被高频 SFTP 连——这些交互场景的共同特征是：**CPU 使用率不一定爆表，但 sy（系统态）/cs（上下文切换）偏高，大量线程阻塞在 IO 等待上**，表现为「机器很忙、业务却很慢」。排查这类问题的关键思路就一句话：**先看 CPU 在忙什么（us/sy/wa），再看线程在等谁（jstack + ss），最后看对端（下游）状态**。
+
+#### 案例一：REST 同步调用无超时，重试风暴烧掉 CPU
+
+**现象**：订单服务 `order-service` 调用库存服务 `stock-service`（HTTP/JSON），下午库存服务抖动 5 分钟，订单服务机器 CPU 反而先报警：sy 25%、cs 每秒 8 万次、线程数飙到 800，接口全部超时。
+
+**常见触发原因**：
+
+- **调用方没设超时（或设得过长）**：下游一卡，调用线程全部堆在等待上，越积越多；
+- **重试风暴**：超时后立刻原样重试，且每个业务请求重试 3 次，下游恢复前把 CPU、线程、连接都吃光；
+- **短连接频繁建连**：每次调用新建 TCP + TLS 握手，高 QPS 下建连本身就很耗 CPU；
+- **序列化/反序列化开销大**：超大 JSON 报文逐条解析，GC 频繁。
+
+**排查思路**：
+
+```bash
+$ top -d 1            # us 不高但 sy 偏高 → 系统调用/切换多，不是业务计算
+%Cpu(s): 12.0 us, 25.3 sy, 0.0 ni, 58.2 id, 3.5 wa, 0.0 hi, 1.0 si, 0.0 st
+$ vmstat 1 3          # cs 8 万/秒 —— 大量线程在阻塞-唤醒之间切换
+ r  b   swpd   free   buff  cache   si   so    bi    bo    in     cs us sy id wa st
+ 6  0      0 8120344 123456 14698456    0    0    12    18  5600 82000 12 25 60  3  0
+
+$ jstack PID | grep -c "java.lang.Thread.State: WAITING"
+712                       ← 800 个线程里 712 个在等
+$ jstack PID | grep -A 8 "http-nio-8080-exec-123"
+"http-nio-8080-exec-123" ... java.lang.Thread.State: WAITING (parking)
+        at java.util.concurrent.FutureTask.awaitDone(FutureTask.java:...)
+        - parking to wait for  <0x...> (a java.util.concurrent.CompletableFuture)
+        at com.example.order.client.StockClient.deduct(StockClient.java:52)  ← 卡在调库存的调用上
+$ jstack PID | grep -B 2 -A 4 "socketRead" | head -20   # 底层是 socket 读超时等待
+        at sun.nio.ch.SocketDispatcher.read0(Native Method)   ← 等下游回包，不是死循环
+$ ss -tn state established '( dport = :8081 )' | wc -l
+340                       ← 到库存服务 8081 端口的连接堆了 340 条
+```
+
+再配合「时间线」确认：库存服务抖动发生在 `14:02`，订单服务 CPU 从 `14:03` 开始涨、`14:08` 雪崩——典型的**下游故障被调用方放大**。
+
+**解决方法**：
+
+1. **超时必设，且按链路分级**：连接超时 1s、读超时按接口 SLA 设 2~5s，宁可超时失败也不要无限等；
+2. **重试必须「限次 + 退避 + 幂等」**：最多重试 1~2 次，用指数退避（如 100ms→500ms），且只对 GET 等幂等操作重试，写操作重试要防重复下单；
+3. **加熔断与限流**：下游错误率超阈值（如 50%）后快速失败（fail-fast），不进入调用；同时限流保护自身线程池；
+4. **连接池复用**：HTTP 客户端（如 HttpClient/OkHttp/RestTemplate）开启连接池、复用 Keep-Alive 连接，杜绝每次建连；
+5. **异步化**：非关键链路（如发通知、写日志）改成 MQ 异步，把「同步等待」从请求路径上摘掉；
+6. **监控下游**：把下游服务的延迟/错误率单独接入告警，谁的问题找谁，别等牵连到自己 CPU 才报警。
+
+#### 案例二：SNMP 轮询把被管设备 CPU 打满
+
+**现象**：一台 4 核的网络设备/服务器，业务流量很低，但 CPU 使用率持续 90%+，风扇狂转。查 `top` 发现 `snmpd` 进程占掉 60%+ 的 CPU，且 CPU 曲线与监控系统采集周期完全同步（每 30 秒一个尖峰）。
+
+**常见触发原因**：
+
+- **轮询频率过高**：监控系统默认 30s 一次，多套监控叠加后实际可能 5s 一次；
+- **几百个 OID 逐个 GET**：每个 OID 一次请求，N 个 OID = N 次处理开销，且串行等待；
+- **WALK 拉取大表**：对 `ifTable`（接口表，几百个接口 × 几十个指标）整表 WALK，一次拉几万行；
+- **多套监控系统重复轮询**：Zabbix、自研平台、网管系统各采一遍，同一指标被查 3 次。
+
+**排查思路**：
+
+```bash
+$ top -d 1 | grep -E "snmpd|sshd"
+  PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+  COMMAND
+ 1201 root      20   0  156000  45000   8000 S  63.2   0.4   420:11  snmpd   ← snmpd 吃满
+
+$ ss -unp | grep ':161'
+UNCONN  0 0  192.168.1.10:161    192.168.1.50:56789  users:(("snmpd",pid=1201))  ← 谁在查
+$ tcpdump -n -i any udp port 161 -c 20     # 看来源 IP 与请求频率
+14:00:00.001 IP 192.168.1.50.56789 > 192.168.1.10.161: C=monitor GET ...
+14:00:05.002 IP 192.168.1.50.56789 > 192.168.1.10.161: C=monitor GET ...   ← 5 秒一次
+14:00:05.003 IP 192.168.1.51.56789 > 192.168.1.10.161: C=ops GET ...        ← 另一套系统也在采
+
+$ time snmpwalk -v2c -c public 192.168.1.10 ifTable | wc -l
+12000    ← 一次整表 WALK 拉 1.2 万行，耗时数秒，期间 snmpd 单核 100%
+```
+
+**解决方法**：
+
+1. **降低轮询频率**：常规指标 60s~5min 一采足够，只有故障期间的「秒级诊断」才需要高频；
+2. **用 GETBULK / WALK 合并，别逐 OID GET**：连续 OID 用一次 GETBULK（批量 Get）取回，把几百次请求合并成几次；
+3. **收敛 OID 清单**：只保留真正要看的指标，去掉整表 WALK，大表用子表或索引过滤；
+4. **统一监控入口、错峰采集**：多套监控并存的，收敛到一套主采集，并给不同设备组配置不同的轮询时刻，避免同时打；
+5. **换采集方式**：能装 Agent 的机器优先用 Prometheus `node_exporter` 等主动推送式采集，比 SNMP 轮询开销低一个量级；
+6. **网络隔离**：管理网与业务网分离，限制 SNMP 只对监控服务器开放，防止被扫描/滥用。
+
+#### 案例三：SFTP 高频传输，SSH 握手把 CPU 耗光
+
+**现象**：文件同步程序每 5 分钟从 A 机 `sftp` 拉一批小文件到 B 机，白天业务高峰时 B 机 CPU 报警：`sshd` 与 `sftp-server` 进程几十个，sys 占比高，但文件量并不大（每次只有几百 KB）。
+
+**常见触发原因**：
+
+- **会话频率过高**：每 5 分钟一次完整 SSH 会话，每次都要做密钥交换（ECDH/RSA）与加密握手，开销比传输本身还大；
+- **加密/解密开销**：SSH 全程加密传输，CPU 弱的机器上加解密占大头；
+- **大量小文件逐个操作**：每个文件一次 `stat`/`open`，几百个小文件的元数据操作累积起来很可观；
+- **多任务并发连接**：多个同步任务同时发起，连接数翻倍，握手开销翻倍。
+
+**排查思路**：
+
+```bash
+$ top -d 1 | grep -E "sshd|sftp"
+  PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+  COMMAND
+ 2310 root      20   0  156000  45000   8000 S  18.5   0.4   120:11  sftp-server
+ 2309 root      20   0  156000  45000   8000 S  12.0   0.4    90:33  sshd
+ # 注意：%CPU 单看不高，但「进程数 × 时间」累积起来就是大头，且每个会话都在反复握手
+
+$ ss -tn state established '( dport = :22 )' | wc -l
+23            ← 同时 23 条 SSH 会话，正常业务不会这么多
+
+$ grep "session opened" /var/log/secure | tail -20
+Feb  3 14:00:01 sftp-server[2310]: session opened for local user syncuser   ← 每分钟都开新会话
+Feb  3 14:05:02 sftp-server[2330]: session opened for local user syncuser
+$ grep -o aes /proc/cpuinfo | wc -l
+0             ← 返回 0：CPU 不支持 AES-NI 指令，加解密全靠软件模拟，慢得多
+```
+
+**解决方法**：
+
+1. **降频合并**：把 5 分钟一次改成 30 分钟一次（或按文件变化事件触发），合并小文件为打包传输，会话数直接降一个量级；
+2. **单会话传多文件**：一个 SSH 会话里用 `put/get` 批量传输，不要每个文件都开新连接；
+3. **改用 rsync 增量**：文件变化少时用 `rsync -avz`（走 SSH，但只传差异部分），比全量 SFTP 省网络也省 CPU；
+4. **先压缩再传**：文本类文件先 `tar zcf`/`zip` 再传，传输字节数和加解密量都减少；
+5. **确认硬件加速**：CPU 支持 AES-NI（`grep -o aes /proc/cpuinfo`）时，SSH 可配 `Ciphers aes128-gcm@openssh.com` 走硬件加解密；不支持则考虑换传输协议或升级硬件；
+6. **错峰执行**：批处理任务避开业务高峰时段，并**不要为了省事降级成明文 FTP**——省下的 CPU 远抵不上数据泄露的风险。
+
+#### 案例四：消息队列消费积压，重试风暴打满 CPU
+
+**现象**：Kafka 消费者服务处理订单事件时，某条消息因依赖的接口不稳定反复失败，消费组 LAG（积压）持续上涨；消费者机器 CPU 冲高、GC 频繁，`top` 里 `java` 进程 us 60%+，但业务吞吐反而下降。
+
+**常见触发原因**：
+
+- **失败后无限重试**：消息处理抛异常就立刻放回队列重试，一条坏消息卡住后续所有消息，空转烧 CPU；
+- **poll 循环空转**：拉取批量太小（如每次 1 条）或没配 `max.poll.interval.ms`，反复 poll 空转；
+- **消费线程数失控**：线程数远超分区数，大部分线程在空等，白白切换；
+- **大消息反序列化**：超大 payload 反复解析 + 大对象进老年代，GC 压力大。
+
+**排查思路**：
+
+```bash
+$ top -Hp PID -d 1          # us 高 + 多次 dump 栈位置不变 → 在处理同一批消息
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+  COMMAND
+   5230 appuser   20   0 3421568   1.2g  24300 R  95.2   3.8   45:12.3 java
+
+$ jstack PID | grep -A 8 "kafka-consumer" | head -30
+"consumer-1" ... java.lang.Thread.State: RUNNABLE
+        at com.example.order.MqConsumer.onMessage(MqConsumer.java:77)   ← 反复停在处理逻辑
+        at com.example.order.MqConsumer.process(MqConsumer.java:41)
+
+$ kafka-consumer-groups.sh --bootstrap-server kafka:9092 \
+    --describe --group order-group
+TOPIC        PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG
+order-events     0          100200         100300         100
+order-events     1          100100         100800         700   ← LAG 在涨，不是偶发
+$ grep -c "Retry attempt" /tmp/app.log    # 或看失败日志频率
+3420     ← 每分钟几千次重试日志，重试风暴实锤
+```
+
+**解决方法**：
+
+1. **有限重试 + 退避 + 死信队列**：最多重试 3~5 次，退避递增（1s→5s→30s），超限消息进 `DLQ`（死信主题）人工排查，别让一条坏消息卡死整个队列；
+2. **批量拉取**：配 `max.poll.records`（如 500）与合理的 `max.poll.interval.ms`，一次拉一批处理，避免 poll 空转；
+3. **消费线程数 ≈ 分区数**：一个分区一个线程即可，线程多了反而空转切换；
+4. **处理逻辑幂等 + 降级**：对依赖不可用时走降级路径（本地缓存/默认值），保证消息能消费掉不积压；
+5. **扩容**：真实高峰积压时，先加分区 + 加消费实例横向扩容，再回头查代码；
+6. **LAG 监控告警**：消费积压是「业务事故的前兆」，LAG 超阈值（如 1 万条）就应报警，而不是等 CPU 报警才发现。
+
+#### 案例五：数据库长连接堆积，应用卡在等连接上
+
+**现象**：16 核应用机器 CPU 只有 30%，但接口 P99 涨到 4s；`top` 显示 `java` 线程大量 WAITING，数据库机器上 `show processlist` 全是 `Sleep` 状态的空闲连接，`Threads_connected` 顶到 900（上限 1000），新请求抢不到连接只能排队干等。
+
+**常见触发原因**：
+
+- **连接池配置过大**：maxPoolSize 配了 300，实际业务峰值只需要 50，300 条空闲连接占着数据库连接数；
+- **连接池被打满**：一条慢查询把 100 个连接占 20 秒，池耗尽，其余线程全部 BLOCKED 在 `getConnection`；
+- **心跳 SQL 高频执行**：连接池验证查询（`validationQuery`）每次 checkout 都执行，或定时 `SELECT 1` 过密，白白消耗 CPU；
+- **频繁建连/断连**：连接未复用、空闲即回收又立刻再建，MySQL 建连握手本身耗 CPU；
+- **慢查询占住连接**：SQL 没索引，一条全表扫 30s，连接被长占。
+
+**排查思路**：
+
+```bash
+$ top -d 1            # CPU 不高，但业务卡 → 怀疑「等资源」，不是「CPU 忙」
+$ jstack PID | grep -A 6 "getConnection"
+"http-nio-8080-exec-45" ... java.lang.Thread.State: WAITING (parking)
+        at java.util.concurrent.LinkedTransferQueue...await  (HikariPool.java:...)
+        at com.zaxxer.hikari.pool.HikariPool.getConnection   ← 卡在等连接池放行
+
+$ ss -tn state established '( dport = :3306 )' | wc -l
+300            ← 应用侧到数据库的 TCP 连接 300 条
+# MySQL 侧看连接状态：
+mysql> SHOW GLOBAL STATUS LIKE 'Threads_connected';   -- 当前连接数
+mysql> SHOW PROCESSLIST;                              -- 大量 Sleep = 空闲连接占位
+mysql> SHOW GLOBAL STATUS LIKE 'Max_used_connections';-- 历史峰值，评估连接池是否过大
+# 慢查询：
+mysql> SET GLOBAL slow_query_log = ON;                -- 开启后查慢日志确认占连接的 SQL
+```
+
+**解决方法**：
+
+1. **连接池合理化**：maxPoolSize 按「业务并发峰值」设置（经验：核数 × 2~4 已足够，HikariCP 官方甚至建议 `最大 = 核数 × 2 + 磁盘转数` 量级），并设 `connectionTimeout` 获取超时（如 3s），宁可快速失败也不无限排队；
+2. **空闲回收**：设 `minimumIdle`、`idleTimeout`（如 10 分钟）、`maxLifetime`（小于数据库 wait_timeout），把「占了不用的」连接收回去；
+3. **数据库侧配合**：调大 `max_connections` 只是治标，更重要是设 `wait_timeout`（空闲连接自动断开）与 `max_connections * 1.1` 留余量；
+4. **治理慢查询**：慢日志里揪出全表扫，加索引或改写 SQL，从根上减少「连接被长占」；
+5. **心跳降频**：连接池验证改为「空闲时验证」而不是每次 checkout 都查，`validationTimeout` 调大，去掉高频 `SELECT 1`；
+6. **监控连接池**：把连接池活跃数/使用率、数据库 Threads_connected 纳入告警，池使用率 ≥80% 就报警，别等卡死才看。
+
+#### 交互型问题的共性排查与预防 {#interaction-common}
+
+**三步排查法（记住这个顺序）**：
+
+1. **先回答「CPU 在忙什么」** — `top` 看 us/sy/wa 分布：us 高是业务计算；**sy 高 + cs 高是「等外部资源导致的阻塞-唤醒切换」，交互型问题最常见**；wa 高要往 IO 查。
+2. **再看「线程在等谁」** — `jstack` 看线程状态：大量 WAITING（parking）多半在等连接池/锁；`socketRead`/`socketAccept` 说明在等对端回包。**配合 `ss -tn` 数出到每个下游端口的连接数**，锁定是哪个系统在拖。
+3. **最后看「对端状态」** — 下游服务延迟/错误率、数据库 `processlist`、MQ 的 LAG、被轮询设备的 `snmpd`——CPU 问题常常是「上游的锅」，到对端去看一眼就破案。
+
+**共性预防清单（每条都对应一个案例）**：
+
+| 预防措施 | 防的是 | 对应案例 |
+| --- | --- | --- |
+| 所有外部调用**必设超时**（连接 + 读），分级设置 | 线程无限等待堆积 | REST、数据库 |
+| 重试**限次 + 指数退避 + 仅幂等操作** | 重试风暴放大下游故障 | REST、MQ |
+| 连接**复用 + 上限 + 空闲回收** | 连接堆积、握手开销 | REST、数据库、SFTP |
+| 交互频率**匹配业务需要**，批量代替逐个 | 高频轮询/会话烧 CPU | SNMP、SFTP |
+| 失败走**熔断/限流/死信队列**，快速失败 | 雪崩传导 | REST、MQ |
+| 下游**独立监控与告警**，按依赖关系报警 | 问题被「牵连报警」掩盖 | 全部案例 |
+
+:::info 一句话总结本章
+
+交互型高 CPU 十有八九不是「算不动」，而是**「等不起」——等下游、等连接、等队列，加上不合理的重试与频率，把 CPU 和线程都耗在等待与切换上**。把「超时、退避、连接复用、频率控制、下游监控」这五件事做对，这类问题能消灭一大半。
+
+:::
+
+## 附录 {#appendix}
+
+### 进阶工具与实践 {#advanced}
+
+前面的章节解决「能不能用」，这一章解决「用得专业」。内容分四块：**方法论**（USE 框架）、**深挖工具**（火焰图、strace）、**硬件与拓扑**（降频、NUMA）、**验证与监控**（压测、Prometheus 指标对接）。按需选读，遇到对应场景再翻回来即可。
+
+#### USE 方法论：排查的思维框架 {#use}
+
+Brendan Gregg（性能领域公认专家）提出的 USE 方法，是所有资源排查的通用框架：对每个资源，依次回答三个问题：
+
+| 问题 | 含义 | CPU 上的落地指标 |
+| --- | --- | --- |
+| **U**tilization（利用率） | 资源有多忙？ | us/sy/wa/st、mpstat 各核 |
+| **S**aturation（饱和度） | 资源有没有排队、排队多长？ | 负载、vmstat r、sar runq-sz |
+| **E**rrors（错误） | 有没有报错？ | dmesg 的 CPU 相关错误、软锁、NMI watchdog 报错 |
+
+对照我们的[排查流程](#diagnosis)：第 1~2 步查的是 U（使用率）+ S（负载/r），第 5 步的 perf/jstack 回答的是更深层的「谁导致的饱和」。USE 的价值是**防止漏项**——比如只看利用率、漏了饱和度，就会漏掉「wa 高导致负载高」这类假象。
+
+:::tip 错误检查别忘
+
+查 CPU 问题时顺手看一眼 `dmesg | grep -iE "soft lockup|nmi|mce|thermal"`。出现过 `soft lockup`（内核态长时间不释放 CPU）或 MCE（内存/CPU 硬件错误），说明问题可能不在业务代码，而在内核或硬件。
+
+:::
+
+#### 火焰图：让热点「一目了然」 {#flame}
+
+火焰图是分析 CPU 热点的事实标准：横轴是时间占比、纵轴是调用栈，**图形越宽的函数越耗 CPU**。生成三步走：
+
+```bash
+# 1. 采样（root 权限；-F 采样频率，-g 记录调用栈）
+$ perf record -F 99 -g -p 4321 -- sleep 30
+[ perf record: Captured and wrote 5.812 MB perf.data ]
+
+# 2. 生成火焰图（需要 Brendan Gregg 的 FlameGraph 脚本）
+$ git clone https://github.com/brendangregg/FlameGraph /opt/FlameGraph
+$ perf script > out.perf
+$ /opt/FlameGraph/stackcollapse-perf.pl out.perf > out.folded
+$ /opt/FlameGraph/flamegraph.pl out.folded > cpu.svg
+
+# 3. 浏览器打开 cpu.svg，看最宽的矩形
+```
+
+:::info 怎么读火焰图
+
+- **顶部是当前正在执行的函数**，下面的矩形是它的调用链；
+- 最宽的一条「山脊」就是主热点路径；
+- 平顶（顶部一排等宽的窄条）说明热点分散在大量函数上，常见于「到处都在忙」，而不是单个 bug；
+- 注意看 `[kernel]` 前缀的函数——热点在内核（如锁、调度）时，火焰图会告诉你别去优化业务代码。
+
+:::
+
+Java 场景也可以用 `-XX:+PreserveFramePointer` 让火焰图直接显示 Java 方法名（需 JVM 参数支持），比 jstack 采样更全面。
+
+#### CPU 降频与热节流：看不见的性能杀手 {#throttle}
+
+CPU 温度过高时，系统会**自动降频**来降温（thermal throttling）。现象很迷惑：负载不高、进程也正常，但整体性能就是差。物理机和部分独享云主机会遇到。
+
+识别与确认：
+
+```bash
+$ sensors                      # 看温度（需安装 lm_sensors，部分云环境无此接口）
+coretemp-isa-0000
+Package id 0:  +88.0°C  (high = +80.0°C, crit = +100.0°C)   ← 已超过 high 阈值
+
+$ cat /proc/cpuinfo | grep -E "^cpu MHz" | sort -u | head -5   # 各核当前频率
+cpu MHz		: 2100.000
+cpu MHz		: 1200.000    ← 频率只有标称的一半，明显被压低
+
+$ cpupower frequency-info     # 查看调速器与当前频率（安装 cpupower）
+```
+
+| 情况 | 处理 |
+| --- | --- |
+| 温度高 + 频率被压 | 清灰/检查散热、改善机房通风；负载高的机器别和其他高温机器放一起 |
+| 频率低但温度正常 | 看调速器是否为省电模式：`cpupower frequency-set -g performance`（按需，注意功耗） |
+| 云主机 | 一般无此问题；如有异常降频联系云厂商核查宿主机 |
+
+#### NUMA 与 CPU 亲和性：多路服务器的讲究 {#numa}
+
+多路（多颗物理 CPU）服务器上，每个 CPU 有自己**本地内存**（NUMA 节点）。CPU 访问本地内存快、访问远端内存慢——跨节点访问内存是性能杀手。
+
+```bash
+$ numactl --hardware      # 查看 NUMA 拓扑：几个节点、各节点内存
+available: 2 nodes (0-1)
+node 0 cpus: 0 1 2 3 4 5 6 7
+node 0 size: 128 MB / 252 GB   ← 简化示意
+node 1 cpus: 8 9 10 11 12 13 14 15
+$ numastat                # 看各进程内存落在哪个节点（node 偏差大说明跨节点访问多）
+```
+
+什么时候需要关心：
+
+- 应用**独占整台物理机**且对延迟敏感 → 用 `numactl --cpunodebind=0 --membind=0 启动命令` 绑节点，避免内存跨节点；
+- 高并发 Java 服务 → 开启 NUMA 感知（JVM 的 `UseNUMA`）；
+- **普通场景不要乱绑**：绑核/绑节点会限制调度灵活性，多数业务（尤其容器环境）默认即可。
+
+#### strace：sy 高时看系统调用 {#strace}
+
+当 top/vmstat 显示 `sy` 偏高、但 us 不高时，进程在频繁做内核操作。strace 可以看它到底调用了什么：
+
+```bash
+$ strace -c -p 4321 --timeout 5    # 统计 5 秒内系统调用次数与耗时
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ----------------
+ 89.32    2.350123        1176      1999           futex      ← 大量 futex = 线程锁/等待
+  5.10    0.134200          10     13400           write
+  ...
+$ strace -p 4321 -e trace=futex    # 跟踪某个具体调用
+```
+
+常见结论：
+
+- `futex` 占大头 → 锁竞争/线程调度（对应[锁竞争](#cause-lock)）；
+- `read/write` 海量小 IO → 读写模式问题；
+- `epoll_wait` 占大头属正常（事件循环在等待）。
+
+:::warning strace 的代价
+
+strace 会让目标进程**慢 10 倍以上**，只适合低峰期、短时间采样，绝不用于生产高峰。
+
+:::
+
+#### sysbench：压测与容量评估 {#bench}
+
+「CPU 到底够不够」最好用数据说话。sysbench 可以压 CPU 算力、评估扩容效果：
+
+```bash
+$ sysbench cpu --threads=8 --time=30 run        # 8 线程压 30 秒（按机器核数设线程数）
+CPU speed:
+    events per second:  4821.56                # 每秒完成的事件数，作为算力基线
+
+# 扩容/优化前后各跑一次，对比 events per second：涨了多少就是真实提升
+```
+
+用法建议：
+
+- 同一台机器、同样参数、固定时段（避开高峰）测 3 次取平均，作为容量基线；
+- 发布前评估「新版本算力开销」：同一压测场景下对比旧版/新版，量化性能回归；
+- 压测时配合 `top`/`vmstat`，观察 r 与负载曲线，确定「这台机器还能扛多少并发」。
+
+#### 监控对接：Prometheus 指标与告警 {#monitor}
+
+命令行解决「当下」，监控解决「一直」。现代运维普遍用 node_exporter 采集指标，Prometheus 存储、告警。与本章相关的关键指标：
+
+| 指标 | 含义 | 对应命令行 |
+| --- | --- | --- |
+| `node_cpu_seconds_total{mode="user|system|iowait"}` | CPU 各态累计时间（rate 取速率） | top 第三行 |
+| `node_load1 / node_load5 / node_load15` | 平均负载 | uptime |
+| `node_context_switches_total` | 上下文切换累计（rate 取速率） | vmstat cs |
+| `node_filefd_allocated` 等 | 文件句柄（排查资源耗尽） | — |
+
+一条可直接用的告警规则（PromQL）：
+
+```yaml
+# 示例：CPU 使用率持续 5 分钟超过 85%（按机器核数归一）
+- alert: HighCpuUsage
+  expr: |
+    (100 - avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 85
+  for: 5m
+  labels: { severity: warning }
+  annotations:
+    summary: "{{ $labels.instance }} CPU 使用率超 85%"
+
+# 示例：上下文切换速率相对基线翻倍（用最近 15 分钟与 24 小时前对比）
+- alert: ContextSwitchSpike
+  expr: |
+    rate(node_context_switches_total[5m])
+    / clamp_min(rate(node_context_switches_total[5m] offset 1d), 1) > 2
+  for: 10m
+  labels: { severity: critical }
+```
+
+:::tip 监控的正确姿势
+
+- 告警阈值用**相对基线**（如「比昨天同期高 1 倍」）比固定值更可靠，业务高峰/低谷差异很大；
+- CPU 指标要和业务指标（响应时间、错误率）放一起看，避免「指标告警但业务无恙」的空警；
+- node_exporter 采集本身开销极小（约 1% 一个核），可放心开启。
+
+:::
+
+:::note 进阶路线建议
+
+先掌握 USE 框架让排查不漏项；遇到「知道是热点但找不到在哪」用火焰图；物理机性能异常先排除降频；多路服务器留意 NUMA；最后用 sysbench 和 Prometheus 把「感觉」变成「数据」。
 
 :::
