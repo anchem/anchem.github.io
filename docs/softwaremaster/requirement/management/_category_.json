@@ -1,0 +1,10 @@
+{
+  "position": 3,
+  "label": "需求管理",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "softwaremaster",
+  "customProps": {
+    "description": "需求会变化：生命周期、变更控制与追踪"
+  }
+}

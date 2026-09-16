@@ -1,0 +1,10 @@
+{
+  "position": 2,
+  "label": "安全设计",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "softwaremaster",
+  "customProps": {
+    "description": "在设计阶段消除威胁：威胁建模与安全边界"
+  }
+}

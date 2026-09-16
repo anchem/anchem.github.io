@@ -1,10 +1,10 @@
 {
   "position": 3,
-  "label": "2. 需求：做什么东西",
+  "label": "需求：做什么",
   "collapsible": true,
-  "collapsed": false,
+  "collapsed": true,
   "className": "softwaremaster",
   "customProps": {
-    "description": "This description can be used in the swizzled DocCard"
+    "description": "需求分析、需求建模与需求管理"
   }
 }

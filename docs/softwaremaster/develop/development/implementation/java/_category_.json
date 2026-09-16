@@ -1,0 +1,10 @@
+{
+  "position": 3,
+  "label": "Java",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "softwaremaster",
+  "customProps": {
+    "description": "Java 语言的核心机制与工程实践要点"
+  }
+}

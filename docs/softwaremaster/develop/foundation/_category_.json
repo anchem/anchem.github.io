@@ -1,10 +1,10 @@
 {
-  "position": 2,
-  "label": "3.1. ICT理论基础",
+  "position": 1,
+  "label": "ICT 理论基础",
   "collapsible": true,
-  "collapsed": false,
+  "collapsed": true,
   "className": "softwaremaster",
   "customProps": {
-    "description": "This description can be used in the swizzled DocCard"
+    "description": "支撑软件开发的底层原理：数学、算法、系统、网络、数据、分布式、云与 AI"
   }
 }

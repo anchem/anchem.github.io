@@ -1,0 +1,10 @@
+{
+  "position": 4,
+  "label": "计算机网络",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "softwaremaster",
+  "customProps": {
+    "description": "数据如何跨越主机边界传递，以及由此产生的成本与风险"
+  }
+}

@@ -1,10 +1,10 @@
 {
-  "position": 2,
-  "label": "3.2.1. 软件工程",
+  "position": 1,
+  "label": "软件工程",
   "collapsible": true,
-  "collapsed": false,
+  "collapsed": true,
   "className": "softwaremaster",
   "customProps": {
-    "description": "This description can be used in the swizzled DocCard"
+    "description": "多人协作的过程组织：生命周期、方法论、版本与配置、自动化交付与文档"
   }
 }

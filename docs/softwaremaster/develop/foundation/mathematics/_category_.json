@@ -1,0 +1,10 @@
+{
+  "position": 1,
+  "label": "数学基础",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "softwaremaster",
+  "customProps": {
+    "description": "离散数学、线性代数与概率统计：算法与模型的语言"
+  }
+}

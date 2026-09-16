@@ -1,0 +1,10 @@
+{
+  "position": 1,
+  "label": "交付",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "softwaremaster",
+  "customProps": {
+    "description": "把新版本安全地送达用户：发布、部署与环境治理"
+  }
+}

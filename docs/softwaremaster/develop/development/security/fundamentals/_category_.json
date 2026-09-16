@@ -1,0 +1,10 @@
+{
+  "position": 1,
+  "label": "安全基础",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "softwaremaster",
+  "customProps": {
+    "description": "密码学应用与常见漏洞类别"
+  }
+}

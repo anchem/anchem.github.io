@@ -1,0 +1,10 @@
+{
+  "position": 6,
+  "label": "Linux 服务器维护",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "softwaremaster",
+  "customProps": {
+    "description": "生产环境 Linux 服务器的运维实践：资源观测、问题定位与处置"
+  }
+}

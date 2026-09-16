@@ -1,0 +1,10 @@
+{
+  "position": 3,
+  "label": "用户价值",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "softwaremaster",
+  "customProps": {
+    "description": "对使用者而言的价值：需求洞察与价值主张"
+  }
+}

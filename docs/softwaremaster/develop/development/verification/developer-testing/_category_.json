@@ -1,0 +1,10 @@
+{
+  "position": 4,
+  "label": "开发者测试",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "softwaremaster",
+  "customProps": {
+    "description": "由开发者编写维护的自动化测试：单元测试、测试替身与测试驱动开发"
+  }
+}

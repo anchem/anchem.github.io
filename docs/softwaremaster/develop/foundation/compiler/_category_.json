@@ -1,0 +1,10 @@
+{
+  "position": 6,
+  "label": "汇编及编译原理",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "softwaremaster",
+  "customProps": {
+    "description": "代码如何变成机器指令：语言实现与性能的边界"
+  }
+}

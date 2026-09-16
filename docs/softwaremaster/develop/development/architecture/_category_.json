@@ -1,10 +1,10 @@
 {
-  "position": 3,
-  "label": "3.2.2. 软件架构",
+  "position": 2,
+  "label": "软件架构",
   "collapsible": true,
-  "collapsed": false,
+  "collapsed": true,
   "className": "softwaremaster",
   "customProps": {
-    "description": "This description can be used in the swizzled DocCard"
+    "description": "系统骨架与边界：分析方法、领域驱动、演进式架构与质量属性"
   }
 }

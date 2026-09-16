@@ -1,0 +1,10 @@
+{
+  "position": 7,
+  "label": "分布式及并行开发",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "softwaremaster",
+  "customProps": {
+    "description": "多节点协作的固有难题：并发、一致性与共识"
+  }
+}

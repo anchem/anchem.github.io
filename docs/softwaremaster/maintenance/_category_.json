@@ -1,10 +1,10 @@
 {
   "position": 5,
-  "label": "4. 运维：交付使用",
+  "label": "运维：交付使用",
   "collapsible": true,
-  "collapsed": false,
+  "collapsed": true,
   "className": "softwaremaster",
   "customProps": {
-    "description": "This description can be used in the swizzled DocCard"
+    "description": "交付、运营与维护：让软件在真实环境中持续产生价值"
   }
 }

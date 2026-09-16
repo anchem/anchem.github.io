@@ -1,0 +1,10 @@
+{
+  "position": 3,
+  "label": "操作系统",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "softwaremaster",
+  "customProps": {
+    "description": "进程、内存、文件系统：程序运行的真实环境"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "position": 8,
+  "label": "大数据",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "softwaremaster",
+  "customProps": {
+    "description": "数据量超出单机能力后的组织方式：批处理与流处理"
+  }
+}

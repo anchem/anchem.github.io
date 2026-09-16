@@ -1,0 +1,10 @@
+{
+  "position": 2,
+  "label": "算法与数据结构",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "softwaremaster",
+  "customProps": {
+    "description": "数据的组织方式、问题的求解范式与代价的衡量方法"
+  }
+}

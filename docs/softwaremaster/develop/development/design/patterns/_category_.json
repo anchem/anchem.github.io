@@ -1,0 +1,10 @@
+{
+  "position": 4,
+  "label": "设计模式",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "softwaremaster",
+  "customProps": {
+    "description": "可复用的结构方案：创建型、结构型与行为型"
+  }
+}

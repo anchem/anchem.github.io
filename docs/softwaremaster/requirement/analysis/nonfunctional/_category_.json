@@ -1,0 +1,10 @@
+{
+  "position": 6,
+  "label": "非功能性需求",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "softwaremaster",
+  "customProps": {
+    "description": "系统要做得多好：性能、安全、可靠、可维护等质量属性"
+  }
+}

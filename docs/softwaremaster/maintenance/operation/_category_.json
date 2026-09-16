@@ -1,0 +1,10 @@
+{
+  "position": 2,
+  "label": "运营",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "softwaremaster",
+  "customProps": {
+    "description": "让服务持续稳定运行：监控、日志、服务级别、故障处置与容量"
+  }
+}

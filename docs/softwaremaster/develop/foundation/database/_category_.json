@@ -1,0 +1,10 @@
+{
+  "position": 5,
+  "label": "数据库及存储",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "softwaremaster",
+  "customProps": {
+    "description": "关系模型、事务、非关系型数据库与存储引擎"
+  }
+}

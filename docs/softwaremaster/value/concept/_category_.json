@@ -1,0 +1,10 @@
+{
+  "position": 1,
+  "label": "价值认知",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "softwaremaster",
+  "customProps": {
+    "description": "价值的定义与生成机制：价值链、增值与损耗"
+  }
+}

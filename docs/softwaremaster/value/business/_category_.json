@@ -1,0 +1,10 @@
+{
+  "position": 2,
+  "label": "商业价值",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "softwaremaster",
+  "customProps": {
+    "description": "对组织而言的价值：商业模式与盈利能力"
+  }
+}

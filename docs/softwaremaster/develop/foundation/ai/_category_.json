@@ -1,0 +1,10 @@
+{
+  "position": 11,
+  "label": "人工智能",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "softwaremaster",
+  "customProps": {
+    "description": "从数据中学习规律：机器学习基础与大语言模型工程"
+  }
+}

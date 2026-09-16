@@ -1,10 +1,10 @@
 {
   "position": 2,
-  "label": "1. 价值：为什么要做",
+  "label": "价值：为什么做",
   "collapsible": true,
-  "collapsed": false,
+  "collapsed": true,
   "className": "softwaremaster",
   "customProps": {
-    "description": "This description can be used in the swizzled DocCard"
+    "description": "价值的定义、商业价值、用户价值与价值度量"
   }
 }

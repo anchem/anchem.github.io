@@ -1,0 +1,10 @@
+{
+  "position": 9,
+  "label": "云计算",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "softwaremaster",
+  "customProps": {
+    "description": "计算资源如何被抽象成服务：服务模型与云原生"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "position": 2,
+  "label": "需求建模",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "softwaremaster",
+  "customProps": {
+    "description": "把需求固化为可讨论的形式：用例、用户故事与领域模型"
+  }
+}

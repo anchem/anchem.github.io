@@ -1,0 +1,10 @@
+{
+  "position": 6,
+  "label": "重构",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "softwaremaster",
+  "customProps": {
+    "description": "在不改变外在行为的前提下改善内部结构"
+  }
+}

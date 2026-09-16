@@ -1,0 +1,10 @@
+{
+  "position": 4,
+  "label": "价值度量",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "softwaremaster",
+  "customProps": {
+    "description": "把价值主张变成可验证的指标：成本收益与度量"
+  }
+}

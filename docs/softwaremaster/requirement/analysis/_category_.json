@@ -1,0 +1,10 @@
+{
+  "position": 1,
+  "label": "需求分析",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "softwaremaster",
+  "customProps": {
+    "description": "从相关方与来源获取需求，区分功能性与非功能性并排定优先级"
+  }
+}
