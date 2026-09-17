@@ -1010,13 +1010,20 @@ div[class*='codeBlockTitle'] {
   background-color: rgba(255, 255, 255, 0.03);
 }
 
-/* 表格：圆角 + 单线，避免默认的粗双线 */
+/* 表格：圆角 + 单线，避免默认的粗双线。
+   Infima 全局把 table 设成 display:block（为了超宽时能 overflow 横向滚动），
+   块级元素默认宽度撑满父容器，列少时右侧会留出一大片空白。
+   这里用 width:fit-content 让表格按实际列宽收缩，max-width:100% 兜底：
+   列少 → 表格只占内容宽度；列多/内容长 → 封顶在容器宽度内，
+   配合 Infima 自带的 overflow:auto 出横向滚动条，不会撑破版面。 */
 .markdown table {
   border-collapse: separate;
   border-spacing: 0;
   border: 1px solid var(--ifm-table-border-color);
   border-radius: 14px;
   background-color: var(--ifm-background-surface-color);
+  width: fit-content;
+  max-width: 100%;
 }
 
 .markdown table thead tr {
