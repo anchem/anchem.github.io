@@ -3,6 +3,9 @@
 
 # Production
 /build
+# 构建前用 Rename-Item 把旧产物挪到这里（安全守卫不允许直接删除 build/），
+# 属于临时备份，验证完可手动清理
+/build_old*
 
 # Generated files
 .docusaurus

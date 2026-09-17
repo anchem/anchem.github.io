@@ -1,10 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import parse from 'html-react-parser';
+import {useThoughts} from '@site/src/hooks/useThoughts';
 import styles from './styles.module.css';
-
-const THOUGHTS_API =
-  'https://api.github.com/repos/anchem/anchem.github.io/issues/7/comments';
 
 /**
  * 日期格式与首页轮播（HomepageThoughtsCarousel）保持一致：
@@ -21,36 +19,7 @@ function formatDate(isoStr) {
 }
 
 export default function Thoughts() {
-  const [items, setItems] = useState([]);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetch(THOUGHTS_API, {
-      headers: {Accept: 'application/vnd.github.full+json'},
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(
-            `请求失败（HTTP ${res.status}），可能是 GitHub API 访问频率受限，请稍后再试`,
-          );
-        }
-        return res.json();
-      })
-      .then((result) => {
-        if (!Array.isArray(result)) {
-          throw new Error('返回数据格式异常');
-        }
-        setItems(
-          result.sort((a, b) => (b.updated_at > a.updated_at ? 1 : -1)),
-        );
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError(err);
-        setLoading(false);
-      });
-  }, []);
+  const {items, error, loading} = useThoughts();
 
   if (error) {
     return (

@@ -1,4 +1,13 @@
-/* ===== 知识书架：每行 2 个书目卡片，卡片含篇数与最近更新时间 ===== */
+/* ===== 知识书架：每行 2 个书目卡片，卡片含篇数与最近更新时间 =====
+   v4：卡片的全部颜色来自该板块的植物色族，由 index.js 从 shelves.js 取到
+   色族名后用 tintVars() 拼成变量名内联下发：
+       --shelf-wash  卡片底（该板块的植物色）
+       --shelf-soft  书目胶囊
+       --shelf-line  顶轨、书架横板、悬停描边
+       --shelf-ink   篇数、入口链接（可承载文字的一档）
+       --shelf-accent / --shelf-dot  板块中间调与加深档（Hero 圆点、年轮徽记）
+   取值全部在 custom.css §1（浅深各一份），本文件不写任何色值。
+   对比度按 wash / soft 两种底分别验过，见 .workbuddy/audit/tint-tune.txt。 */
 
 .section {
   padding: var(--sand-section-y) 0;
@@ -19,74 +28,106 @@
   }
 }
 
+/* 卡片底 = 该板块的 wash。
+   wash 与纯白卡片的明度差只有 1.10–1.17:1，所以它一眼看过去仍然是
+   「浅色卡片」，只是带上了自己的色相 —— 这正是要的效果：
+   四张卡片彼此可辨，但没有一张跑出浅色主题的明度带。
+   兜底值给 --sand-raised，万一变量没下发也还是白卡而不是透明。 */
 .shelfCard {
+  position: relative;
+  overflow: hidden; /* 让顶部色轨被圆角裁切 */
   display: flex;
   flex-direction: column;
-  background: var(--ifm-card-background-color);
-  border: 1px solid var(--ifm-color-emphasis-200);
+  background: var(--shelf-wash, var(--sand-raised));
+  border: 1px solid var(--sand-line);
   border-radius: var(--ifm-card-border-radius);
-  padding: var(--sand-space-5);
-  transition:
-    box-shadow var(--ifm-transition-fast) var(--ifm-transition-timing-default),
+  padding: calc(var(--sand-space-5) + var(--sand-space-1)) var(--sand-space-5)
+    var(--sand-space-5);
+  transition: box-shadow var(--ifm-transition-fast) var(--ifm-transition-timing-default),
     border-color var(--ifm-transition-fast) var(--ifm-transition-timing-default),
     transform var(--ifm-transition-fast) var(--ifm-transition-timing-default);
 }
 
+/* 顶部 3px 板块色轨：卡片「属于哪个板块」的第一顺位提示。
+   用 line 档（饱和/压深），压在自家 wash 上 3.2–6.5:1，
+   是这张卡片上最明确的一笔颜色。默认半透明，悬停时点亮。 */
+.shelfCard::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: var(--shelf-line, var(--sand-brand));
+  opacity: 0.55;
+  transition: opacity var(--ifm-transition-fast) var(--ifm-transition-timing-default);
+}
+
 .shelfCard:hover {
-  border-color: var(--sand-hair-2);
-  box-shadow: var(--ifm-global-shadow-md);
-  transform: translateY(-3px);
+  border-color: var(--sand-line-strong);
+  box-shadow: var(--sand-shadow-lift);
+  transform: translateY(-4px);
+}
+
+.shelfCard:hover::before {
+  opacity: 1;
 }
 
 .shelfTitle {
   font-size: var(--sand-text-lg);
+  font-weight: 700;
   line-height: var(--sand-leading-tight);
   margin-bottom: var(--sand-space-2);
 }
 
 .shelfTitle a {
-  color: var(--ifm-heading-color);
+  color: var(--sand-ink);
 }
 
 .shelfTitle a:hover {
-  color: var(--sand-accent-ink);
+  color: var(--shelf-ink, var(--sand-accent-ink));
   text-decoration: none;
 }
 
 .shelfDesc {
   font-size: var(--sand-text-sm);
   line-height: var(--sand-leading-body);
-  color: var(--ifm-color-emphasis-700);
+  color: var(--sand-ink-3);
   margin-bottom: var(--sand-space-4);
 }
 
-/* "书"排列在书架横板上（横板 = 下面这条线） */
+/* 「书」排列在书架横板上（下面这条线就是那块板）。
+   板用 line 档，和顶轨同一支颜色 —— 一张卡片上下各一笔，
+   合起来读作「一个用这个板块的颜色做的书架」。
+   2px 是刻意的：再粗就变成色块，卡片会从「轻盈」掉到「厚重」。 */
 .shelfBooks {
   display: flex;
   flex-wrap: wrap;
   gap: var(--sand-space-2);
   padding-bottom: var(--sand-space-3);
-  border-bottom: 2px solid var(--sand-hair-2);
+  border-bottom: 2px solid var(--shelf-line, var(--sand-line-strong));
   margin-bottom: var(--sand-space-3);
 }
 
+/* 书目胶囊：底用 soft。
+   soft 上的文字必须用 ink-3 而不是 ink-4 —— ink-4 压在 soft 上只有 4.5 出头，
+   刚好卡在 AA 边缘（见 tint-tune 报告里的「soft 上改用 ink-3」）。 */
 .bookPill {
   font-size: var(--sand-text-xs);
   padding: var(--sand-pill-pad);
-  border: 1px solid var(--sand-hair-2);
+  border: 1px solid var(--sand-line);
   border-radius: 999px;
-  color: var(--sand-ink-2);
-  background: var(--sand-surface-2);
-  transition:
-    background-color var(--ifm-transition-fast) var(--ifm-transition-timing-default),
+  color: var(--sand-ink-3);
+  background: var(--shelf-soft, var(--sand-sunken));
+  transition: background-color var(--ifm-transition-fast) var(--ifm-transition-timing-default),
     border-color var(--ifm-transition-fast) var(--ifm-transition-timing-default),
     color var(--ifm-transition-fast) var(--ifm-transition-timing-default);
 }
 
+/* 悬停：胶囊浮回卡片白、描边点亮成 line、文字压到 ink。
+   三个变化加在一起才够「被指到」的反馈量。 */
 .bookPill:hover {
-  background: var(--sand-accent-soft);
-  border-color: var(--sand-accent);
-  color: var(--sand-accent-ink);
+  background: var(--sand-raised);
+  border-color: var(--shelf-line, var(--sand-brand));
+  color: var(--shelf-ink, var(--sand-accent-ink));
   text-decoration: none;
 }
 
@@ -108,13 +149,16 @@
   gap: var(--sand-space-2);
   margin: 0;
   font-size: var(--sand-text-xs);
-  color: var(--ifm-color-emphasis-600);
+  color: var(--sand-ink-4);
 }
 
+/* 篇数：卡片的「结论数字」，字号与色重都提一档。
+   颜色用该板块的 ink 档 —— 它在自家 wash 上有 5.0–7.5:1，
+   是这个版面上唯一「又大又带色」还读得清的文字。 */
 .statCount b {
   font-size: var(--sand-text-base);
-  font-weight: 600;
-  color: var(--sand-accent-ink);
+  font-weight: 700;
+  color: var(--shelf-ink, var(--sand-ink));
   font-variant-numeric: tabular-nums;
 }
 
@@ -122,7 +166,7 @@
   width: 3px;
   height: 3px;
   border-radius: 50%;
-  background: var(--sand-hair-2);
+  background: var(--sand-line-strong);
 }
 
 .statUpdated time {
@@ -131,13 +175,15 @@
 
 .shelfMore {
   font-size: var(--sand-text-sm);
-  font-weight: 500;
+  font-weight: 600;
   white-space: nowrap;
-  color: var(--sand-accent-ink);
+  color: var(--shelf-ink, var(--sand-accent-ink));
 }
 
+/* 悬停往「更强调」的方向走：浅色下压到 --sand-ink（更深），
+   深色下 --sand-ink 更亮 —— 一支令牌，两套主题都成立。 */
 .shelfMore:hover {
-  color: var(--sand-accent);
+  color: var(--sand-ink);
   text-decoration: none;
 }
 

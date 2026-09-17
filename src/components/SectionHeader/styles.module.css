@@ -1,65 +1,126 @@
-/* 首页区块标题栏：主标题（带琥珀装饰条）+ 副标题 + 右侧「查看全部」
-   三个首页模块共用，字号 / 间距一律引用 §6 的阶梯变量 */
+/* 首页区块标题栏：染色眉标胶囊 + 主标题（左侧染色条）+ 副标题 + 右侧入口
+   + 一条全宽染色底线。
+   三个首页模块共用，字号 / 间距一律引用 §6 的阶梯变量。
+   颜色不写在本文件里：由 index.js 按 tone 下发
+   --section-wash / --section-soft / --section-line / --section-ink 四个变量，
+   取值全部来自 custom.css §1 的 --sand-tint-* 一族（浅深各一份）。 */
 
 .header {
   display: flex;
-  align-items: baseline;
+  align-items: flex-end;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: var(--sand-space-2) var(--sand-space-5);
-  margin-bottom: var(--sand-space-5);
+  gap: var(--sand-space-3) var(--sand-space-5);
+  padding-bottom: var(--sand-space-4);
+  /* 区块之间的分隔线：一条全宽的染色发丝线。
+     v3 把「给区块收尾」这件事交给右端那一簇植物，v4 植物没了，
+     改成这条线 —— 它是颜色、不占位，窄屏上也不会被挤掉。 */
+  border-bottom: 1px solid var(--section-soft);
+  margin-bottom: var(--sand-space-6);
 }
 
+/* flex: 1 —— 让标题块吃掉剩余宽度，把右侧「查看全部」推到端上。
+   不写它的话 space-between 会把两者均分，链接就会飘到中间来。 */
 .heading {
   min-width: 0;
+  flex: 1 1 auto;
 }
 
-/* 标题左侧的琥珀短条：与引用块、目录激活态用的是同一套装饰语言 */
+/* 等宽英文标签：做成一颗染色胶囊（底 wash / 描边 line / 文字 ink）。
+   与 Hero 里的窗口栏 `~/hackerleon`、代码注释式标语是同一套语言，
+   作用是给每个区块一个稳定的「识别标签」，扫一眼就知道自己在哪一段。
+   用 inline-flex 让它自然收成胶囊宽，而不是撑满整行。
+   左右内边距刻意不等（右小左大）：letter-spacing 会在最后一个字母后面
+   也加一档字距，右边补小一点，视觉上才是居中的。 */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 0 var(--sand-space-3);
+  padding: 0.26rem 0.58rem 0.26rem 0.7rem;
+  border: 1px solid var(--section-line);
+  border-radius: 999px;
+  background-color: var(--section-wash);
+  font-family: var(--ifm-font-family-monospace);
+  font-size: var(--sand-text-xs);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--section-ink);
+}
+
+/* 标题左侧的短条：上端取 line（饱和）、下端取 ink（压深），
+   与眉标胶囊、区块底线是同一支颜色的不同档 ——
+   一条 4px 的线就能把「这一段是什么颜色」说完。
+   外面那圈 wash 外环把它从页面底上「垫」起来，和 v3 的品牌绿外环同一个作用，
+   只是颜色跟着区块走了。 */
 .title {
   position: relative;
   margin: 0;
-  padding-left: var(--sand-space-3);
+  padding-left: calc(var(--sand-space-1) + var(--sand-space-3));
   font-size: var(--sand-text-2xl);
+  font-weight: 700;
   line-height: var(--ifm-heading-line-height);
   letter-spacing: 0.01em;
+  color: var(--sand-ink);
 }
 
 .title::before {
   content: '';
   position: absolute;
   left: 0;
-  top: 0.22em;
-  bottom: 0.22em;
-  width: var(--sand-space-1);
+  top: 0.14em;
+  bottom: 0.14em;
+  width: 4px;
   border-radius: 999px;
-  background: var(--sand-accent);
+  background: linear-gradient(
+    180deg,
+    var(--section-line) 0%,
+    var(--section-ink) 100%
+  );
+  box-shadow: 0 0 0 3px var(--section-wash);
 }
 
 .subtitle {
   margin: var(--sand-space-2) 0 0;
-  padding-left: var(--sand-space-3);
+  padding-left: calc(var(--sand-space-1) + var(--sand-space-3));
   font-size: var(--sand-text-sm);
   line-height: var(--ifm-line-height-base);
-  color: var(--ifm-color-emphasis-600);
+  color: var(--sand-ink-3);
 }
 
+/* 「查看全部」：描边胶囊，描边与文字都走该区块的 ink 档。
+   ink 在 --sand-raised 上 ≥5.4:1、在 wash 上 ≥5.0:1，所以底怎么换都读得清。 */
 .more {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sand-space-1);
+  padding: 0.35rem 0.9rem;
+  border: 1px solid var(--section-line);
+  border-radius: 999px;
   font-size: var(--sand-text-sm);
-  font-weight: 500;
+  font-weight: 600;
   white-space: nowrap;
-  color: var(--sand-accent-ink);
-  transition: color var(--ifm-transition-fast) var(--ifm-transition-timing-default);
+  color: var(--section-ink);
+  background-color: var(--sand-raised);
+  transition: background-color var(--ifm-transition-fast)
+      var(--ifm-transition-timing-default),
+    border-color var(--ifm-transition-fast) var(--ifm-transition-timing-default),
+    color var(--ifm-transition-fast) var(--ifm-transition-timing-default);
 }
 
+/* 悬停填 wash、描边压到 ink：
+   不填 line —— 那会把 14px 的字压在饱和绿上，反而更难读。 */
 .more:hover {
-  color: var(--sand-accent);
+  color: var(--section-ink);
+  background-color: var(--section-wash);
+  border-color: var(--section-ink);
   text-decoration: none;
 }
 
 .arrow {
   display: inline-block;
-  margin-left: var(--sand-space-1);
-  transition: transform var(--ifm-transition-fast) var(--ifm-transition-timing-default);
+  transition: transform var(--ifm-transition-fast)
+    var(--ifm-transition-timing-default);
 }
 
 .more:hover .arrow {
@@ -67,9 +128,14 @@
 }
 
 /* 断点与 Infima 保持一致（它的移动端分界是 576px），
-   不自己发明 640 这类中间值，避免和其他组件错位 */
+   不自己发明 640 这类中间值，避免和其他组件错位。
+   v4 不再需要「窄屏撤掉植物簇」那条规则 —— 染色方案本来就不占位。 */
 @media (max-width: 576px) {
   .title {
     font-size: var(--sand-text-xl);
+  }
+
+  .header {
+    margin-bottom: var(--sand-space-5);
   }
 }

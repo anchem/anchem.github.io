@@ -36,10 +36,12 @@ export default function HomepageLatestPosts() {
     <section className={styles.section}>
       <div className="container">
         <SectionHeader
+          eyebrow="LATEST NOTES"
           title="最新随笔"
           subtitle={`给生命留下回忆，共 ${ALL_POSTS.length} 篇`}
           moreLabel="全部随笔"
           moreUrl="/blog"
+          tone="grass"
         />
 
         <div className={styles.postsGrid}>

@@ -1,10 +1,10 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-// 自定义代码高亮主题：暖砂柔光 / 沙丘暮色
-// 默认的 github + dracula 是冷调配色，与站点暖色主题冲突，
+// 自定义代码高亮主题：春晓 / 夜幕
+// 默认的 github + dracula 是冷调配色，与站点「天空 + 植物」的调性冲突，
 // 详见 src/config/prismThemes.js
-const { warmSandTheme, duneDuskTheme } = require('./src/config/prismThemes');
+const { springDawnTheme, nightSkyTheme } = require('./src/config/prismThemes');
 
 // 首页需要的构建期数据（书架统计、随笔摘要）
 // 在构建时扫描 docs / blog 目录算出，详见 src/config/homepageData.js
@@ -71,8 +71,9 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      // 主题切换：默认「暖砂柔光」（浅色），用户可手动切到「沙丘暮色」（深色）
-      // 具体配色定义在 src/css/custom.css
+      // 主题切换：默认「春晓」（浅色，晴空 + 云 + 青草绿植），
+      // 用户可手动切到「夜幕」（深色，星空 + 月亮 + 彩云）
+      // 具体配色定义在 src/css/custom.css §1；全站的天空层见 src/theme/Root.js
       colorMode: {
         defaultMode: 'light',
         disableSwitch: false,
@@ -117,8 +118,8 @@ const config = {
         maxHeadingLevel: 5
       },
       prism: {
-        theme: warmSandTheme,
-        darkTheme: duneDuskTheme,
+        theme: springDawnTheme,
+        darkTheme: nightSkyTheme,
         additionalLanguages: ['java', 'markdown', 'c', 'python', 'bash', 'git', 'sql']
       },
       algolia: {

@@ -1,23 +1,85 @@
 /**
  * ============================================================================
- *  倚码千言 · 主题系统
+ *  倚码千言 · 主题系统  v4「春晓 / 夜幕」
  *  ---------------------------------------------------------------------------
- *  浅色（默认） = 暖砂柔光  Warm Sand Soft Light
- *  深色（切换） = 沙丘暮色  Dune Dusk
+ *  浅色（默认） = 春晓 Spring Dawn   春天白昼：淡蓝天空 + 白云 + 青草绿植
+ *  深色（切换） = 夜幕 Night         夏夜：深邃星空 + 月亮 + 彩云
  *
  *  【切换逻辑】
- *  1. Docusaurus 在 <html> 上写 data-theme="light" | "dark"，
+ *  1. Docusaurus 在 <html> 上写 data-theme="light" | "dark」，
  *     首屏渲染前由内联脚本写入，不会闪白；
- *  2. 本文件用两组同名 CSS 变量承载两套主题，组件只引用变量、不写死颜色，
+ *  2. 本文件用两组同名 CSS 变量承载两套主题，组件只引用变量、不写死颜色；
  *     所以新增组件只要用 --ifm-* 变量就会自动跟随换肤；
- *  3. 颜色过渡统一由文末的 transition 规则负责（见 §5）。
+ *  3. 「天空层」两块（春晓云 / 夜幕星）同时存在于 DOM 中，
+ *     靠 §7 的 opacity 交叉淡入淡出完成切换，不是整块替换，所以过渡自然；
+ *  4. 其余颜色过渡统一由 §5 的 transition 规则负责。
  *
- *  【改动这个文件时的三条规矩】
+ *  ============================================================================
+ *  v3 相对 v2「青林」改了什么、为什么
+ *  ---------------------------------------------------------------------------
+ *  v2 的骨架是对的（三条轴：明度台阶 / 饱和度分离 / 语义角色），v3 全部保留，
+ *  只把「配色基调」从单一绿色换成「天空 + 植物」的两层结构：
+ *
+ *    页面底 = 天空（浅色淡蓝 → 白色，深色深空蓝）
+ *    内容面 = 云朵（纯白卡片 / 夜色卡片）
+ *    装饰   = 植物（四叶草、青草、松柏、小花）与天体（日、月、星、彩云）
+ *
+ *  这样两套主题共享同一套「天空在上、植物在下」的结构，
+ *  切换时变的是「时间」而不是「版式」—— 这就是风格统一感的来源。
+ *
+ *  ============================================================================
+ *  v4 相对 v3 改了什么、为什么
+ *  ---------------------------------------------------------------------------
+ *  改的是「植物的表达方式」，不是配色本身。
+ *
+ *  v3 把四叶草、青草、松柏、白花黄花画成了 SVG，压在卡片边角与 Hero 底边。
+ *  问题有两个，都是结构性的：
+ *    1. 一屏几十个元素，每张卡片都长一簇草，页面很快变吵；
+ *       「春天」这件事被重复了太多次，反而没有重点；
+ *    2. 图形是贴上去的，和版面无关 —— 换主题要换图形的颜色，
+ *       换版式又要重算每个图形的位置，两件事互相牵制。
+ *
+ *  v4 不再画植物，只留它们的**颜色**，并把颜色交给内容面本身：
+ *
+ *    页面底 = 天空（不变）
+ *    内容面 = 云朵（不变，纯白 / 夜色卡片仍是基底）
+ *    植物色 = 内容面的「染色」：卡片底、色带、胶囊、左边条、水彩晕染
+ *
+ *  于是同一株植物从「一个图形」变成「一支色族」：
+ *
+ *    --sand-tint-clover  四叶草嫩绿 → 知识书架 · 软件大师之路
+ *    --sand-tint-pine    松柏翠绿   → 随想区块、个人成长
+ *    --sand-tint-grass   青草黄绿   → 最新随笔色带、阿不成长树
+ *    --sand-tint-lily    睡莲蓝     → Hero 水彩、为乐而生
+ *    --sand-tint-bloom   小花黄     → Hero 暖光、计数与悬停的点睛
+ *    --sand-tint-petal   小花白     → 不该染色的那块「浮起面」＝ 卡片白
+ *
+ *  每支给四档，用途固定（wash 底 / soft 次级块 / line 强调 / ink 文字）。
+ *  这样「植物」既没有消失，又不再是一个需要单独摆放的元素 ——
+ *  它变成了配色系统本身，改主题不用动任何组件。
+ *
+ *  【v2 留下的两个隐患，v3 一并修掉】
+ *  1. `--ifm-link-hover-color` 用的是 --sand-brand-bright（浅色下 #3fb26f），
+ *     压在白底上只有 2.1:1，悬停时链接会瞬间变「糊」。
+ *     v3 单独给出 --sand-link-hover：浅色走同族更深的青绿 #0c7a52（4.7:1），
+ *     深色走更亮的 #b6f5d2（11.4:1），两端都过 AA。
+ *  2. 导航栏搜索框底原是 --sand-sunken，而占位文字用 --sand-ink-4，
+ *     在凹陷底上只有 4.0:1。v3 把搜索框底改成 --sand-raised（卡片白），
+ *     对比升到 5.25:1，顺带在天空色导航栏上多出一块「云」。
+ *
+ *  【改动这个文件时的三条规矩（沿用 v2，必须遵守）】
  *  1. 只在 §1 里加颜色。§2 之后一律引用变量。
  *  2. 新增颜色必须浅深两套都给，否则深色下会失配。
- *  3. 强调色分两个：--sand-accent 只做装饰（描边、图标、点），
- *     --sand-accent-ink 才可承载文字（链接、激活态）——
- *     因为 #C97434 在暖白底上对比度只有 3.4:1，达不到可读标准。
+ *  3. 装饰色分三级：--sand-accent 系只做装饰（描边、图标、圆点），
+ *     --sand-accent-ink 才可承载文字（链接、激活态）。
+ *     v4 起不再有「只画图形、永不承载文字」的 --sand-decor-* 一族 ——
+ *     植物改成了 --sand-tint-*，它本身就是内容面的底色，
+ *     所以它**必须**能承载文字：每支的 ink 档就是为这件事准备的。
+ *
+ *  【颜色不是拍的，是算出来的】
+ *  每个色值都由 .workbuddy/audit/palette-contrast.js 验过：
+ *  明度台阶 ≥1.12:1、文字四级全过 WCAG AA、板块色在卡片与 Hero 上都 ≥2.4:1。
+ *  改色请重跑该脚本，不要凭眼睛调。
  * ============================================================================
  */
 
@@ -28,55 +90,314 @@
 html:root {
   color-scheme: light;
 
-  /* --- 背景与表面 --- */
-  --sand-bg: #fdf8f1; /* 页面底色 · 暖米砂 */
-  --sand-bg-alt: #fbf1e4; /* 次级底色 · 用于正文页外区 */
-  --sand-surface: #ffffff; /* 卡片 / 面板表面 */
-  --sand-surface-2: #fcf6ee; /* 更浅的表面 · 表头、行内代码底 */
+  /* --- 背景三级台阶（明度轴：100 / 94.9 / 90.3） ---
+     浅色下这一组就是「天空」：卡片是云（纯白），页面底是淡蓝天。 */
+  --sand-raised: #ffffff; /* 卡片 / 浮层 · 云朵白 · L*100 */
+  --sand-canvas: #e7f2fb; /* 页面底色 · 晴空淡蓝 · L* 94.9 */
+  --sand-sunken: #d3e6f4; /* 凹陷区：行内代码底、表头、色带 · L* 90.3 */
 
-  /* --- 文字 --- */
-  --sand-ink: #2c241d; /* 主文字 · 暖黑而非纯黑 */
-  --sand-ink-2: #6e6055; /* 次要文字 */
-  --sand-ink-3: #7a6b5c; /* 辅助文字 · 日期、面包屑（对比度 4.6:1，WCAG AA） */
+  /* 兼容旧名（组件里已大量引用，保留别名以免逐个改） */
+  --sand-bg: var(--sand-canvas);
+  --sand-bg-alt: var(--sand-sunken);
+  --sand-surface: var(--sand-raised);
+  --sand-surface-2: var(--sand-sunken);
 
-  /* --- 描边 --- */
-  --sand-hair: #f1e4d3; /* 发丝线 · 分隔线、卡片边 */
-  --sand-hair-2: #e6d3bc; /* 稍重的描边 · 悬停、强调分隔 */
+  /* --- 文字四级（墨蓝调，和天空底同源；四级全部满足 WCAG AA） ---
+     两个容易忽略的约束：
+     1. ink-4 在 --sand-sunken 上只有 4.0:1，所以它只能压在卡片底与
+        页面底上。色带（sunken）内的次要文字请用 --sand-ink-3（5.7:1）。
+     2. --sand-canvas 只是「名义页面底」，真正的页面底是 §7 那层天空渐变，
+        它最深处是 #d6ebfa，比 canvas 还深一点。文字对比度必须按那个最深点
+        算，否则顶部导航栏一带的小字会悄悄掉到 AA 以下。
+        ink-4 就是按 #d6ebfa 定的：4.80:1（若按 canvas 算则是 5.23:1）。 */
+  --sand-ink: #0f2231; /* 标题 · 页面底 14.3:1 */
+  --sand-ink-2: #2b3f4d; /* 正文 · 9.6:1 */
+  --sand-ink-3: #405868; /* 次要：描述、副标题 · 6.0:1 */
+  --sand-ink-4: #506675; /* 辅助：日期、计数 · 4.8:1（禁压 sunken） */
 
-  /* --- 强调色 --- */
-  --sand-accent: #c97434; /* 琥珀 · 只做装饰 */
-  --sand-accent-ink: #a85f28; /* 可读琥珀 · 链接与激活态（对比度 4.6:1） */
-  --sand-accent-soft: #fbeee0; /* 琥珀浅底 · 激活态背景 */
-  --sand-accent-2: #2e7060; /* 青绿辅色 · 标签 */
-  --sand-accent-2-soft: #e7f3ef;
+  /* --- 描边 ---
+     取值同样受天空渐变牵制：发丝线最浅的一端压在 #d6ebfa 上，
+     1.42:1 是下限，再浅就变成「看不见的边框」。 */
+  --sand-line: #a9c8db; /* 发丝线 · 卡片边、分隔线 */
+  --sand-line-strong: #8fb8d2; /* 悬停 / 强调分隔 */
+  --sand-hair: var(--sand-line); /* 兼容旧名 */
+  --sand-hair-2: var(--sand-line-strong);
 
-  /* --- 深色区块（页脚） --- */
-  --sand-deep: #33291f;
-  --sand-deep-ink: #e0d2c0;
-  --sand-deep-muted: #b9a794;
-  --sand-deep-hair: #4a3d30;
+  /* --- 品牌绿四档（春草绿；饱和度轴的高端） --- */
+  --sand-brand: #12804a; /* 主品牌 · 描边 / 图标 / 圆点 / 按钮填充 */
+  --sand-brand-strong: #0b6b3e; /* 可读绿 · 链接与激活态（页面底 5.8:1） */
+  --sand-brand-deep: #073b25; /* 深林绿 · 深色区块底 */
+  --sand-brand-bright: #2fbf72; /* 亮绿高光 · 悬停、进度感元素 */
+  --sand-brand-wash: #d5f0e0; /* 浅底 · 激活态背景、引用块 */
+  --sand-on-brand: #ffffff; /* 压在主品牌绿上的文字（4.99:1） */
+  --sand-brand-ring: rgba(18, 128, 74, 0.1); /* 品牌色外发光环 */
+
+  --sand-accent: var(--sand-brand); /* 兼容旧名 */
+  --sand-accent-ink: var(--sand-brand-strong);
+  --sand-accent-soft: var(--sand-brand-wash);
+
+  /* 链接悬停色单独一档（v2 误用 -bright，2.1:1 不合格） */
+  --sand-link-hover: #0c7a52;
+
+  /* ==========================================================================
+     板块标识色 —— v4 起是「植物色族」的别名，不再是一组独立的色值
+     ---------------------------------------------------------------------------
+     v3 这里有四支中间调（#38b874 / #2cb9a1 / #8cb02f / #41abdb），
+     取 L*≈66 是为了「同时压在纯白卡片与 Hero 胶囊上」都 ≥2.4:1。
+
+     v4 把植物变成内容面的颜色之后，这套分法不够用了：
+     同一个板块现在需要「底色 / 次级块 / 强调 / 可承载文字」四档，
+     而且底色一变（卡片底铺了 wash），中间调压在自家 wash 上只剩 2.2:1，
+     连原来那 2.4:1 的底线都守不住。
+
+     所以 v4 的做法是：四个板块各自认领一支植物色族（--sand-tint-clover /
+     pine / grass / lily，见下面那一段），
+     下面这八个名字只是**语义别名** —— 让「这是在用第 1 个板块的颜色」
+     在读代码时还看得见，而不是让人去猜 clover 是第几个板块。
+
+     两个容易踩的点：
+       1. 别名不写主题覆盖。var() 是在使用处解析的，
+          --sand-tint-* 在浅深两块里各有一份，所以一份别名两套主题都成立，
+          不需要（也不该）在深色块里再抄一遍。
+       2. 只用 line 档与 ink 档，不要 alias 到 wash / soft ——
+          那两档是「面」，写进组件时直接用色族名更清楚
+          （见 shelves.js 的 tintVars）。
+     ========================================================================== */
+  /* 1 软件大师之路 · 四叶草嫩绿 */
+  --sand-shelf-1-line: var(--sand-tint-clover-line);
+  --sand-shelf-1-ink: var(--sand-tint-clover-ink);
+  /* 2 个人成长     · 松柏翠绿 */
+  --sand-shelf-2-line: var(--sand-tint-pine-line);
+  --sand-shelf-2-ink: var(--sand-tint-pine-ink);
+  /* 3 阿不成长树   · 青草黄绿 */
+  --sand-shelf-3-line: var(--sand-tint-grass-line);
+  --sand-shelf-3-ink: var(--sand-tint-grass-ink);
+  /* 4 为乐而生     · 睡莲湖蓝（全局唯一偏蓝的一支） */
+  --sand-shelf-4-line: var(--sand-tint-lily-line);
+  --sand-shelf-4-ink: var(--sand-tint-lily-ink);
+
+  /* --- 辅助色（沿用，降低存在感，避免和板块色抢） --- */
+  --sand-accent-2: #3a7b8a;
+  --sand-accent-2-soft: #dbe9ed;
+
+  /* --- 深色区块（页脚 = 春天林子最深处） --- */
+  --sand-deep: #07301f;
+  --sand-deep-ink: #dcece3;
+  --sand-deep-muted: #a9c2b4;
+  --sand-deep-hair: #17402a;
+
+  /* ==========================================================================
+     天空层（§7 使用）
+     ---------------------------------------------------------------------------
+     春晓：自上而下「深一点的蓝 → 近白 → 极淡的绿」，像抬头看天到远处草地。
+     夜幕那份在深色块里另给一份。
+     ========================================================================== */
+  --sand-sky-grad: linear-gradient(
+    180deg,
+    #d6ebfa 0%,
+    #e6f3fd 34%,
+    #f5fbfe 64%,
+    #eef8f1 100%
+  );
+  /* 云：春晓用纯白低透明，叠在天空上像被阳光打亮的积云 */
+  --sand-cloud: rgba(255, 255, 255, 0.92);
+  --sand-cloud-soft: rgba(255, 255, 255, 0.55);
+  --sand-cloud-shadow: rgba(160, 196, 222, 0.35);
+  /* 地平线的绿色薄雾：把「天」和「地」接起来，避免天空渐变突然断掉。 */
+  --sand-sky-horizon: linear-gradient(
+    0deg,
+    rgba(178, 224, 190, 0.5) 0%,
+    rgba(178, 224, 190, 0) 100%
+  );
+  /* 日晕 */
+  --sand-sky-glow: radial-gradient(
+    circle,
+    rgba(255, 240, 190, 0.85) 0%,
+    rgba(255, 240, 190, 0) 68%
+  );
+
+  /* ==========================================================================
+     植物色 → 内容面色（v4）
+     ---------------------------------------------------------------------------
+     v3 把四叶草 / 青草 / 松柏 / 小花画成 SVG 贴在卡片角上；
+     v4 不再画它们，改为把这五支颜色交给「内容展示框」自己用：
+     卡片、面板、列表项拿它们的淡染做背景，拿它们的深色做强调。
+
+     为什么这样更成立：
+       1. 图形是「贴上去的」，和版面无关；颜色是「长出来的」，
+          它天然跟着卡片走，主题一换整块内容面就换季；
+       2. 一屏几十张卡片，图形越多越吵，颜色再多也不吵；
+       3. 配色从此只有一处（本节），不用再维护 SVG 里的取色。
+
+     每支给四档，职责严格分开：
+       wash   卡片 / 面板主体上的有色底（斜向淡染的那一端）
+       soft   卡片内部的次级块：书目胶囊、列表项、标签；也用于整条色带
+       line   强调色：顶轨、左边条、悬停描边（纯装饰，1–3px）
+       ink    可承载文字的一档（眉标、小标题、计数、链接）
+
+     六支各自的去处（不许有没人用的色 —— 上色之前先看这张表）：
+       clover  四叶草嫩绿  知识书架区块眉标；shelf-1 卡片
+       pine    松柏翠绿    随想区块眉标、随想卡片；shelf-2 卡片
+       grass   青草黄绿    最新随笔区块眉标、色带、随笔卡片；shelf-3 卡片
+       lily    睡莲蓝      莫奈花园的水色（Hero 水彩）；shelf-4 卡片
+       bloom   小花黄      最新随笔的暖色强调（小花＝点睛，所以只用在小面积上）
+       petal   小花白      「不该染色的那块浮起面」，即卡片白本身（§2 引用它）
+
+     约束（由 .workbuddy/audit/tint-tune.js 验过，改色请重跑）：
+       · ink 档在本族 wash 上 ≥5.0:1、在 soft 上 ≥4.5:1；
+       · line 档在本族 wash / soft 上 ≥3.2:1；
+       · --sand-ink-4 不得压在 soft 上（那里只剩 4.5 出头），soft 内的次要文字用 ink-3；
+       · 浅色五支 wash 之间最小色相差 15°（深色按 line 判，需 25°），
+         四张卡片才各认得出自己那一支。
+     ========================================================================== */
+  /* 四叶草绿 —— 主调：知识书架、shelf-1 */
+  --sand-tint-clover: #e4f4ea;
+  --sand-tint-clover-soft: #d8ecdf;
+  --sand-tint-clover-line: #2b8f50;
+  --sand-tint-clover-ink: #1b6840;
+  /* 松柏翠绿 —— 最深的一支：随想、shelf-2 */
+  --sand-tint-pine: #e2f2ec;
+  --sand-tint-pine-soft: #d5eae0;
+  --sand-tint-pine-line: #17604a;
+  --sand-tint-pine-ink: #14563b;
+  /* 青草黄绿 —— 最新随笔色带、shelf-3 */
+  --sand-tint-grass: #f0f7d9;
+  --sand-tint-grass-soft: #e2eec2;
+  --sand-tint-grass-line: #6f8a1c;
+  --sand-tint-grass-ink: #5d7018;
+  /* 睡莲蓝 —— 莫奈花园的水色，与 shelf-4 的湖蓝同源 */
+  --sand-tint-lily: #e3eefa;
+  --sand-tint-lily-soft: #d7e7f6;
+  --sand-tint-lily-line: #2f7ba8;
+  --sand-tint-lily-ink: #26678f;
+  /* 小花黄 —— 点睛：只出现在眉标、计数、悬停这类小面积上 */
+  --sand-tint-bloom: #fbf1d8;
+  --sand-tint-bloom-soft: #f5e7c4;
+  --sand-tint-bloom-line: #a07208;
+  --sand-tint-bloom-ink: #84600f;
+  /* 小花白 —— 「浮起面」本身就是它，所以直接取卡片底（§2 会引用它） */
+  --sand-tint-petal: var(--sand-raised);
+  --sand-tint-petal-soft: #f4f9fc;
+  --sand-tint-petal-line: var(--sand-line);
+  --sand-tint-petal-ink: var(--sand-ink-3);
+
+  /* ==========================================================================
+     Hero 专属令牌（浅色 · 莫奈花园）
+     ---------------------------------------------------------------------------
+     v3 的浅色面板是「林荫深绿」，是全页唯一的强对比区。
+     v4 把它换成莫奈花园：一层薄雾似的浅底，靠「低饱和的植物色晕染」
+     立住标题区，而不是靠一块深色。
+
+     为什么现在可以不靠对比：
+       v3 之所以要那么深，是因为当时植物都是深绿剪影 —— 面板若也浅，
+       全页就糊成一片绿。v4 把植物换成内容面上的色块之后，「重量」已经
+       分散到三块色带与四张板块色卡片上，Hero 只需要做全页**最轻**的一块。
+       它与页面底的分界改由描边（#bfdcd0）+ 阴影承担，两者都是发丝级
+       （vs 面板 1.36:1 / vs 天空 1.19:1），够「看得出是两块」，
+       又不会在首屏压出一块重色 —— 这正是「有呼吸感」的来源。
+
+     文字方向反过来：v3 是浅字压深底，v4 是深字压浅底。
+     四级文字压在最亮端 #f2f8f4 上分别 12.8 / 8.6 / 6.3:1，全部过 AA。
+     ========================================================================== */
+  --sand-hero-grad: linear-gradient(
+    128deg,
+    #eaf4ee 0%,
+    #f2f8f4 36%,
+    #eef2f8 68%,
+    #f7f2e6 100%
+  ); /* 薄荷绿 → 近白 → 极淡天蓝 → 淡奶黄：水塘、天光、暖阳三段 */
+  /* 花园晕染：四团低饱和植物色像水彩在湿纸上化开。
+     这是 v4「不画花、只留花的颜色」最直接的一处 ——
+     绿（四叶草）/ 蓝（睡莲）/ 黄绿（青草）/ 暖黄（小花）各占一角，
+     彼此相交处自然产生第五、第六种颜色，正是印象派的做法。 */
+  --sand-hero-wash: radial-gradient(
+      ellipse 46% 62% at 12% 16%,
+      rgba(176, 226, 198, 0.5) 0%,
+      rgba(176, 226, 198, 0) 70%
+    ),
+    radial-gradient(
+      ellipse 40% 54% at 86% 10%,
+      rgba(196, 220, 244, 0.52) 0%,
+      rgba(196, 220, 244, 0) 72%
+    ),
+    radial-gradient(
+      ellipse 54% 48% at 70% 94%,
+      rgba(240, 226, 178, 0.42) 0%,
+      rgba(240, 226, 178, 0) 74%
+    ),
+    radial-gradient(
+      ellipse 46% 42% at 24% 98%,
+      rgba(220, 234, 176, 0.46) 0%,
+      rgba(220, 234, 176, 0) 74%
+    );
+  --sand-hero-sheen: linear-gradient(
+    104deg,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(255, 255, 255, 0) 46%
+  ); /* 左上斜向扫光：浅底上必须更淡，重一分就成塑料膜 */
+  --sand-hero-glow: rgba(255, 250, 226, 0.62); /* 右上角暖光（画里的那束阳光） */
+  --sand-hero-ray: rgba(255, 255, 255, 0.4); /* 极淡的光柱 */
+  --sand-hero-title-grad: linear-gradient(
+    116deg,
+    #13372a 0%,
+    #1d5c3e 42%,
+    #2b8053 100%
+  ); /* 标题渐变字 · 最深处 12.1:1、最浅处 4.5:1（大字 AA 需 3:1） */
+  --sand-hero-accent: #12804a; /* 光标、状态点：浅底上必须用深绿才看得见 */
+  --sand-hero-grid: rgba(18, 51, 38, 0.055); /* 编辑器网格线：浅底改用深色线 */
+  --sand-hero-border: #bfdcd0; /* 面板描边 · vs 面板 1.36:1 / vs 天空 1.19:1 */
+  --sand-hero-ink: #123326; /* 标题 · 面板最亮端 12.8:1 */
+  --sand-hero-ink-2: #2f4c40; /* 正文 · 8.6:1 */
+  --sand-hero-ink-3: #446055; /* mono 小字 · 6.3:1 */
+  /* 顶栏专用的文字色。为什么要单开一支：顶栏（窗口栏）是横贯整行的，
+     它的右端（在线状态）落在面板偏亮的一角，而眉标/标语在左侧暗一点的地方 ——
+     同一个「muted 档」在两处其实是两种背景。浅色面板四周都是浅底，用 ink-3 就够；
+     深色面板的右上角是渐变 + 晕染 + 暖光三样叠加的地方，只有 ink-2 档才压得住。
+     所以这一支在两套主题里指向不同档位（见深色块），组件只认这个名字。 */
+  --sand-hero-chrome-ink: var(--sand-hero-ink-3);
+  --sand-hero-chip-bg: #eef6f1;
+  --sand-hero-chip-bg-hover: #ffffff;
+  --sand-hero-chip-line: #cfe0d5;
+  /* 底部雾化：v3 这层是把植物压成剪影、顺势给胶囊一个够深的底；
+     v4 植物没了，它改成一层向上的白色薄雾 ——
+     既让胶囊所在的底更亮（深色文字对比反而升到 12.5:1），
+     又正好是水面上那层雾气，是莫奈画里最常出现的东西。 */
+  --sand-hero-scrim: linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.42) 0%,
+    rgba(255, 255, 255, 0.16) 40%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  --sand-hero-cloud: rgba(255, 255, 255, 0.78); /* 面板里的薄云 */
+  --sand-hero-shadow: 0 26px 54px -26px rgba(56, 96, 76, 0.3),
+    0 2px 6px rgba(56, 96, 76, 0.06);
 
   /* --- 代码 --- */
-  --sand-code-ink: #a2521f; /* 行内代码文字 */
-  --sand-code-hair: #ecdcc6; /* 代码块外描边 */
+  --sand-code-ink: #0b6b3e; /* 行内代码文字（压 sunken 5.2:1） */
+  --sand-code-hair: #93bdd6; /* 代码块外描边（压 sunken 1.57:1） */
 
-  /* --- 阴影：带暖色调，不用纯黑 --- */
-  --sand-shadow-lw: 0 1px 2px rgba(122, 84, 45, 0.05),
-    0 4px 14px rgba(122, 84, 45, 0.05);
-  --sand-shadow-md: 0 2px 4px rgba(122, 84, 45, 0.05),
-    0 12px 32px rgba(122, 84, 45, 0.08);
+  /* --- 阴影：带蓝绿调，不用纯黑；三级明显拉开，让「浮起」可感知 --- */
+  --sand-shadow-lw: 0 1px 2px rgba(24, 62, 92, 0.06),
+    0 4px 12px rgba(24, 62, 92, 0.05);
+  --sand-shadow-md: 0 2px 6px rgba(24, 62, 92, 0.07),
+    0 14px 32px rgba(24, 62, 92, 0.1);
+  --sand-shadow-lift: 0 4px 10px rgba(24, 62, 92, 0.08),
+    0 22px 46px rgba(24, 62, 92, 0.14);
 
-  /* --- 导航栏半透明底 --- */
-  --sand-nav-bg: rgba(253, 248, 241, 0.88);
+  /* --- 导航栏半透明底（毛玻璃后面透出天空） --- */
+  --sand-nav-bg: rgba(231, 242, 251, 0.78);
 
   /* --- 主题切换过渡时长（§5 使用） --- */
   --sand-theme-ease: 320ms cubic-bezier(0.4, 0, 0.2, 1);
+  /* 天空层交叉淡出用的时长：比普通元素长，因为它是整屏面积 */
+  --sand-sky-ease: 700ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* ---------------------------------------------------------------------------
-   深色主题 · 沙丘暮色
-   关键判断：深色底用「暖黑」而不是 #1b1b1d 这类冷灰，
-   正文用暖白而不是纯白 —— 否则暖砂的调性在暗色下会完全丢掉。
+   深色主题 · 夜幕 Night
+   关键判断：深色底用「深空蓝」而不是中性黑，
+   正文用带蓝的浅白而不是纯白 —— 否则「星空」的调性会完全丢掉。
+   台阶方向与浅色相反：raised 比 canvas 亮，sunken 比 canvas 暗。
    --------------------------------------------------------------------------- */
 /* 选择器用 html:root[data-theme='dark']（0,2,1）：
    既压过 Infima 的 html[data-theme=dark]（0,1,1），也压过本文件 §2 的
@@ -84,36 +405,221 @@ html:root {
 html:root[data-theme='dark'] {
   color-scheme: dark;
 
-  --sand-bg: #1c1611;
-  --sand-bg-alt: #221b15;
-  --sand-surface: #26201a;
-  --sand-surface-2: #2e271f;
+  /* --- 背景三级台阶（暗底方向相反：卡片比页面底亮，像被灯照到的云） --- */
+  --sand-raised: #1e2a4d; /* 卡片 · 夜色云 · L*17.8 */
+  --sand-canvas: #111a33; /* 页面底 · 深空 · L* 9.8 */
+  --sand-sunken: #070b16; /* 凹陷 · L* 3.1（深色下凹陷靠描边表达，见 §3） */
 
-  --sand-ink: #f4ebdf;
-  --sand-ink-2: #bcab98;
-  --sand-ink-3: #8e7e6d;
+  /* --- 文字四级 --- */
+  --sand-ink: #eaf0fc;
+  --sand-ink-2: #c3cde6;
+  --sand-ink-3: #9aa8ca;
+  --sand-ink-4: #8593b5;
 
-  --sand-hair: #372e25;
-  --sand-hair-2: #4c4034;
+  /* --- 描边 --- */
+  --sand-line: #333f63;
+  --sand-line-strong: #4a5880;
 
-  --sand-accent: #e3a868;
-  --sand-accent-ink: #e3a868; /* 暗底上浅琥珀本身就是可读色（8.7:1） */
-  --sand-accent-soft: #33261a;
-  --sand-accent-2: #7fbfab;
-  --sand-accent-2-soft: #1f2e29;
+  /* --- 品牌绿（暗底上整体提亮一档，否则发灰） ---
+     深色下这一支读作「月光照在春草上的绿」，是两套主题之间最直接的呼应。 */
+  --sand-brand: #4fd18f;
+  --sand-brand-strong: #8ce6b6; /* 暗底上浅绿本身就是可读色（9.5:1） */
+  --sand-brand-deep: #0a1a2e;
+  --sand-brand-bright: #6fe0a6;
+  --sand-brand-wash: #18293d;
+  /* 暗底上的品牌绿更亮，压在上面的文字反过来要用深色才够对比 */
+  --sand-on-brand: #06180e;
+  --sand-brand-ring: rgba(79, 209, 143, 0.16);
 
-  --sand-deep: #15100c;
-  --sand-deep-ink: #e5d8c9;
-  --sand-deep-muted: #a6957f;
-  --sand-deep-hair: #332a21;
+  --sand-link-hover: #b6f5d2;
 
-  --sand-code-ink: #f0be86;
-  --sand-code-hair: #2b2622;
+  /* 板块标识色不在这里给：它已经是 --sand-tint-* 的语义别名，
+     而别名在使用处解析，会自动取到下面夜色版的四支植物色。见浅色块里的说明。 */
 
-  --sand-shadow-lw: 0 1px 2px rgba(0, 0, 0, 0.3), 0 4px 14px rgba(0, 0, 0, 0.24);
-  --sand-shadow-md: 0 2px 6px rgba(0, 0, 0, 0.3), 0 16px 40px rgba(0, 0, 0, 0.36);
+  --sand-accent-2: #6fb5c9;
+  --sand-accent-2-soft: #1e2a2e;
 
-  --sand-nav-bg: rgba(28, 22, 17, 0.88);
+  /* --- 深色区块（页脚 = 夜空最深的地方） --- */
+  --sand-deep: #05080f;
+  --sand-deep-ink: #dbe4f7;
+  --sand-deep-muted: #93a1c0;
+  --sand-deep-hair: #16203a;
+
+  /* --- 天空层：夜幕 --- */
+  --sand-sky-grad: linear-gradient(
+    180deg,
+    #05080f 0%,
+    #0a1128 30%,
+    #142247 62%,
+    #0d1730 100%
+  );
+  --sand-cloud: rgba(196, 214, 255, 0.14);
+  --sand-cloud-soft: rgba(196, 214, 255, 0.07);
+  --sand-cloud-shadow: rgba(10, 16, 40, 0.5);
+  /* 地平线：一层极淡的青色薄雾，像远处山脊后的余光 */
+  --sand-sky-horizon: linear-gradient(
+    0deg,
+    rgba(74, 122, 160, 0.28) 0%,
+    rgba(74, 122, 160, 0) 100%
+  );
+  --sand-sky-glow: radial-gradient(
+    circle,
+    rgba(247, 236, 201, 0.32) 0%,
+    rgba(247, 236, 201, 0) 68%
+  );
+
+  /* --- 星星与月亮 --- */
+  --sand-star: #eef3ff;
+  --sand-star-glow: rgba(190, 214, 255, 0.55);
+  --sand-moon: #f7ecc9;
+  --sand-moon-shade: #e6d6ab;
+  --sand-moon-glow: rgba(247, 236, 201, 0.3);
+  /* 彩云：三支低饱和的紫 / 玫瑰 / 青，叠在深空上像极光与夜云 */
+  --sand-aurora-1: rgba(180, 154, 224, 0.2);
+  --sand-aurora-2: rgba(240, 166, 184, 0.15);
+  --sand-aurora-3: rgba(127, 216, 208, 0.13);
+
+  /* ==========================================================================
+     植物色内容面（夜色版）
+     ---------------------------------------------------------------------------
+     与浅色同一支色族、同一套四档职责，只把明度压到夜色的位置：
+     wash 比 raised 只低一点点（1.03–1.06:1），所以卡片仍然是「浮起的云」，
+     不是「陷下去的坑」—— 深色下的身份不靠底色，靠 line。
+     夜色里 wash 明度都压得很低、色相噪声大，五支的区分度按 line 判（最小 25°）。
+     ========================================================================== */
+  /* 四叶草绿 */
+  --sand-tint-clover: #182a41;
+  --sand-tint-clover-soft: #1e3145;
+  --sand-tint-clover-line: #57dc86;
+  --sand-tint-clover-ink: #9fe9bd;
+  /* 松柏翠绿 */
+  --sand-tint-pine: #152b3c;
+  --sand-tint-pine-soft: #1b3548;
+  --sand-tint-pine-line: #35b39b;
+  --sand-tint-pine-ink: #8fd9bd;
+  /* 青草黄绿 */
+  --sand-tint-grass: #1f2840;
+  --sand-tint-grass-soft: #27334e;
+  --sand-tint-grass-line: #c9e070;
+  --sand-tint-grass-ink: #dcf094;
+  /* 睡莲蓝 */
+  --sand-tint-lily: #182742;
+  --sand-tint-lily-soft: #1f3152;
+  --sand-tint-lily-line: #57b8e8;
+  --sand-tint-lily-ink: #a8d6f2;
+  /* 小花黄 */
+  --sand-tint-bloom: #26243f;
+  --sand-tint-bloom-soft: #2e2c4e;
+  --sand-tint-bloom-line: #e8c33a;
+  --sand-tint-bloom-ink: #f5dd94;
+  /* 小花白（＝夜色卡片白，同样直接取 raised） */
+  --sand-tint-petal: var(--sand-raised);
+  --sand-tint-petal-soft: #263257;
+  --sand-tint-petal-line: #52608a;
+  --sand-tint-petal-ink: var(--sand-ink-2);
+
+
+  /* --- Hero：暗色下仍是「比页面底亮 + 满饱和」的一档（月照夜空），
+         否则深蓝面板会陷进同样深的页面底里，对比反而比浅色下更弱） --- */
+  --sand-hero-grad: linear-gradient(
+    135deg,
+    #1a2148 0%,
+    #25325f 38%,
+    #5568ab 100%
+  ); /* 深靛 → 更深的靛蓝 → 月光下的长石紫。
+       中段从 #3c4c88 挪到 #25325f、并把它的位置从 50% 提前到 38%：
+       135deg 的渐变里，顶栏那一行的右端落在整条渐变线的第 69% 处，
+       原来那里已经是 #465795（偏亮），而顶栏是要放 12px 小字的。
+       把「变亮」压到右下最后四成之后，顶栏整行都落在暗的一半里，
+       同时月亮与年轮徽记所在的右下角反而更亮 —— 结构更干净。 */
+  /* 夜色晕染：与浅色同一套「四团色化开」的结构，换成月光下的四支。
+     四团统一压到 0.07 —— 再多就变成极光秀，会把月亮与星星抢掉。
+     更要紧的是**右上那团睡莲蓝的椭圆中心（86% 12%）正好落在顶栏那一行里**：
+     顶栏是 12px 等宽小字，它每亮一分，那一行的对比度就掉一分。
+     实测 0.13 → 顶栏 4.2:1；0.07（连同下面的暖光一起压）→ 4.9:1，过 AA。
+     所以这一档不是审美偏好，是算出来的上限，改色请重跑 palette-contrast.js。 */
+  --sand-hero-wash: radial-gradient(
+      ellipse 46% 62% at 14% 18%,
+      rgba(87, 220, 134, 0.07) 0%,
+      rgba(87, 220, 134, 0) 70%
+    ),
+    radial-gradient(
+      ellipse 40% 54% at 86% 12%,
+      rgba(87, 184, 232, 0.07) 0%,
+      rgba(87, 184, 232, 0) 72%
+    ),
+    radial-gradient(
+      ellipse 52% 46% at 70% 92%,
+      rgba(232, 195, 58, 0.07) 0%,
+      rgba(232, 195, 58, 0) 74%
+    ),
+    radial-gradient(
+      ellipse 44% 40% at 24% 96%,
+      rgba(201, 224, 112, 0.07) 0%,
+      rgba(201, 224, 112, 0) 74%
+    );
+  --sand-hero-sheen: linear-gradient(
+    104deg,
+    rgba(255, 255, 255, 0.07) 0%,
+    rgba(255, 255, 255, 0) 46%
+  );
+  /* 右上角月光。0.3 → 0.22：它的圆心在 (75.5% 34%)、半径约 0.8 个面板宽，
+     顶栏那一行正好落在它半径的三分之一处，是这块面板上除渐变之外**最主要的**
+     提亮来源（顶栏那一点它贡献约 0.11 的白）。压到 0.22 之后月亮本身
+     与面板中段的对比仍有 10.5:1，光晕看起来只是更收了一点。 */
+  --sand-hero-glow: rgba(168, 190, 255, 0.22);
+  --sand-hero-ray: rgba(214, 226, 255, 0.13);
+  --sand-hero-title-grad: linear-gradient(
+    116deg,
+    #ffffff 0%,
+    #eef3ff 30%,
+    #cdd9ff 66%,
+    #a8c0ff 100%
+  );
+  --sand-hero-accent: #cfe0ff;
+  --sand-hero-grid: rgba(255, 255, 255, 0.04);
+  --sand-hero-border: rgba(150, 175, 255, 0.28);
+  --sand-hero-ink: #eef3ff;
+  --sand-hero-ink-2: #ccd8f5;
+  /* v4 把这一档从 #a9b8e0 提亮到 #b9c6e8。
+     原因：它是 mono 小字的颜色，而最不利的那一处落在面板偏亮的一角，
+     原来的 #a9b8e0 只有 4.1:1，差一点点过不了 AA；提亮一档后是 4.75:1。
+     同一档在面板左半（#1a2148）上是 11:1，两处都成立。
+     注意：顶栏（窗口栏）并不用这一支，它用 --sand-hero-chrome-ink（见下）。 */
+  --sand-hero-ink-3: #b9c6e8;
+  /* 深色的顶栏改用 ink-2 档。原因见浅色块里 --sand-hero-chrome-ink 的注释。
+     这一处是 v4 审计（.workbuddy/audit/palette-contrast.js）抓出来的真错：
+     顶栏是横贯整行的一行 12px 等宽小字，它的右端在 135deg 的渐变里
+     可以到第 69% 处，而右上那团睡莲蓝晕染（rgba(87,184,232)）的椭圆中心
+     （86% 12%）**正好就落在这一行里**，再加上暖光 —— 三样叠起来
+     那一小块背景的亮度相当于 L*40（浅色面板才 L*95，可见它有多亮）。
+     ink-3 #b9c6e8 压上去只有 4.2:1，换成 ink-2 #ccd8f5 是 4.9:1。
+     配套的两处调整在 --sand-hero-grad（中段提前到 38%）
+     与 --sand-hero-wash / --sand-hero-glow（各压一档），
+     三处一起才把这个数从 4.2 抬到 4.9。 */
+  --sand-hero-chrome-ink: var(--sand-hero-ink-2);
+  --sand-hero-chip-bg: rgba(255, 255, 255, 0.07);
+  --sand-hero-chip-bg-hover: rgba(255, 255, 255, 0.16);
+  --sand-hero-chip-line: rgba(255, 255, 255, 0.16);
+  --sand-hero-scrim: linear-gradient(
+    0deg,
+    rgba(6, 9, 24, 0.55) 0%,
+    rgba(6, 9, 24, 0.24) 42%,
+    rgba(6, 9, 24, 0) 100%
+  );
+  --sand-hero-cloud: rgba(214, 228, 255, 0.12);
+  --sand-hero-shadow: 0 30px 60px -22px rgba(0, 0, 0, 0.62),
+    0 0 0 1px rgba(150, 175, 255, 0.1);
+
+  --sand-code-ink: #8ce6b6;
+  --sand-code-hair: #2a3552;
+
+  --sand-shadow-lw: 0 1px 2px rgba(0, 0, 0, 0.32), 0 4px 14px rgba(0, 0, 0, 0.26);
+  --sand-shadow-md: 0 2px 6px rgba(0, 0, 0, 0.34), 0 16px 40px rgba(0, 0, 0, 0.4);
+  --sand-shadow-lift: 0 4px 10px rgba(0, 0, 0, 0.4),
+    0 24px 52px rgba(0, 0, 0, 0.5);
+
+  --sand-nav-bg: rgba(17, 26, 51, 0.78);
 }
 
 /* ==========================================================================
@@ -123,75 +629,83 @@ html:root[data-theme='dark'] {
 
 html:root {
   /* --- 表面与文字 --- */
-  --ifm-background-color: var(--sand-bg);
-  --ifm-background-surface-color: var(--sand-surface);
-  --ifm-card-background-color: var(--sand-surface);
-  --ifm-font-color-base: var(--sand-ink);
+  --ifm-background-color: var(--sand-canvas);
+  --ifm-background-surface-color: var(--sand-raised);
+  /* 卡片底走「小花白」那一支 —— 它是六支植物色里唯一不染色的，
+     所以全站的中性卡片都属于它。这里用别名而不是直接写 --sand-raised，
+     是为了让「哪一支色族管哪些面」这件事在 §2 也读得出来；
+     两者的值是同一个，改 --sand-raised 会一起变。 */
+  --ifm-card-background-color: var(--sand-tint-petal);
+  --ifm-font-color-base: var(--sand-ink-2);
   --ifm-heading-color: var(--sand-ink);
-  --ifm-color-content: var(--sand-ink);
-  --ifm-color-content-secondary: var(--sand-ink-2);
-  --ifm-color-primary-contrast-background: var(--sand-surface-2);
+  --ifm-color-content: var(--sand-ink-2);
+  --ifm-color-content-secondary: var(--sand-ink-3);
+  --ifm-color-primary-contrast-background: var(--sand-sunken);
   --ifm-color-primary-contrast-foreground: var(--sand-ink);
 
-  /* --- 灰色阶（emphasis-100 → 900 由浅到深 / 深色下反向） --- */
-  --ifm-color-emphasis-100: #fbf3e8;
-  --ifm-color-emphasis-200: #f5eadb; /* 卡片描边、次级背景 */
-  --ifm-color-emphasis-300: #eddfcb; /* 分隔线、表格线 */
-  --ifm-color-emphasis-400: #dcc8ae;
-  --ifm-color-emphasis-500: #c3ad90;
-  --ifm-color-emphasis-600: #9c8d7e;
-  --ifm-color-emphasis-700: #7a6b5d;
-  --ifm-color-emphasis-800: #5a4e44;
-  --ifm-color-emphasis-900: #2c241d;
+  /* --- 灰色阶（emphasis-100 → 900 由浅到深 / 深色下反向）· 蓝绿调 ---
+     emphasis-200 同时是卡片默认描边色，所以它必须与 --sand-line 同值，
+     否则卡片边界又会回到「看不见」的状态。 */
+  --ifm-color-emphasis-100: var(--sand-canvas);
+  --ifm-color-emphasis-200: var(--sand-line); /* 卡片描边、次级背景 */
+  --ifm-color-emphasis-300: #9dbccf; /* 分隔线、表格线 */
+  --ifm-color-emphasis-400: #7d9fb4;
+  --ifm-color-emphasis-500: #63849a;
+  --ifm-color-emphasis-600: var(--sand-ink-3);
+  --ifm-color-emphasis-700: #33485a;
+  --ifm-color-emphasis-800: #22323f;
+  --ifm-color-emphasis-900: var(--sand-ink);
 
-  /* --- 主色阶（链接 / 激活态 / 按钮） --- */
-  --ifm-color-primary: #a85f28;
-  --ifm-color-primary-dark: #96531f;
-  --ifm-color-primary-darker: #8d4e1d;
-  --ifm-color-primary-darkest: #744018;
-  --ifm-color-primary-light: #bb6f33;
-  --ifm-color-primary-lighter: #c4793d;
-  --ifm-color-primary-lightest: #d18f57;
+  /* --- 主色阶（链接 / 激活态 / 按钮）· 品牌绿 --- */
+  --ifm-color-primary: var(--sand-brand-strong);
+  --ifm-color-primary-dark: #0a5f37;
+  --ifm-color-primary-darker: #095831;
+  --ifm-color-primary-darkest: #064023;
+  --ifm-color-primary-light: #0f7a47;
+  --ifm-color-primary-lighter: #12834c;
+  --ifm-color-primary-lightest: #169355;
 
   --ifm-link-color: var(--sand-accent-ink);
-  --ifm-link-hover-color: var(--sand-accent);
+  --ifm-link-hover-color: var(--sand-link-hover);
   --ifm-link-decoration: none;
 
   /* --- 次要色（标签计数、深色区块的链接） --- */
-  --ifm-color-secondary: #f2e7d9;
+  --ifm-color-secondary: var(--sand-brand-wash);
 
   /* --- 圆角：柔和但不像气泡 --- */
   --ifm-global-radius: 10px;
-  --ifm-card-border-radius: 20px;
+  --ifm-card-border-radius: 18px;
   --ifm-code-border-radius: 8px;
   --ifm-alert-border-radius: 14px;
   --ifm-badge-border-radius: 6px;
   --ifm-button-border-radius: 999px;
 
-  /* --- 阴影：换成暖色投影 --- */
+  /* --- 阴影：换成蓝绿投影 --- */
   --ifm-global-shadow-lw: var(--sand-shadow-lw);
   --ifm-global-shadow-md: var(--sand-shadow-md);
-  --ifm-global-shadow-tl: 0 12px 28px rgba(122, 84, 45, 0.12),
-    0 2px 4px rgba(122, 84, 45, 0.06);
+  --ifm-global-shadow-tl: var(--sand-shadow-lift);
 
   /* --- 导航栏 --- */
   --ifm-navbar-background-color: var(--sand-nav-bg);
   --ifm-navbar-shadow: none;
-  --ifm-navbar-link-color: var(--sand-ink-2);
+  --ifm-navbar-link-color: var(--sand-ink-3);
   --ifm-navbar-link-hover-color: var(--sand-accent-ink);
   --ifm-navbar-link-active-color: var(--sand-accent-ink);
-  --ifm-navbar-search-input-background-color: var(--sand-surface-2);
+  /* 搜索框底用卡片白而不是凹陷色：
+     占位文字用 ink-4，压在凹陷色上只有 4.0:1（v2 的隐患），
+     放在卡片白上是 5.25:1；顺带在天空色导航栏上多出一小块「云」。 */
+  --ifm-navbar-search-input-background-color: var(--sand-raised);
   --ifm-navbar-search-input-color: var(--sand-ink);
-  --ifm-navbar-search-input-placeholder-color: var(--sand-ink-3);
+  --ifm-navbar-search-input-placeholder-color: var(--sand-ink-4);
 
   /* --- 侧边栏与目录 --- */
-  --ifm-menu-color: var(--sand-ink-2);
+  --ifm-menu-color: var(--sand-ink-3);
   --ifm-menu-color-active: var(--sand-accent-ink);
   --ifm-menu-color-background-active: var(--sand-accent-soft);
-  --ifm-menu-color-background-hover: var(--sand-surface-2);
+  --ifm-menu-color-background-hover: var(--sand-sunken);
   --ifm-menu-link-sublist-icon-filter: none;
-  --ifm-toc-border-color: var(--sand-hair);
-  --ifm-toc-link-color: var(--sand-ink-2);
+  --ifm-toc-border-color: var(--sand-line);
+  --ifm-toc-link-color: var(--sand-ink-3);
 
   /* --- 面包屑与分页 --- */
   --ifm-breadcrumb-color-active: var(--sand-accent-ink);
@@ -201,25 +715,30 @@ html:root {
   --ifm-pagination-item-active-background: var(--sand-accent-soft);
 
   /* --- 表格 --- */
-  --ifm-table-border-color: var(--sand-hair);
-  --ifm-table-stripe-background: var(--sand-surface-2);
+  --ifm-table-border-color: var(--sand-line);
+  --ifm-table-stripe-background: var(--sand-sunken);
   --ifm-table-head-background: transparent;
-  --ifm-table-head-color: var(--sand-ink-2);
-  --ifm-table-cell-color: var(--sand-ink);
+  --ifm-table-head-color: var(--sand-ink);
+  --ifm-table-cell-color: var(--sand-ink-2);
 
   /* --- 引用块 --- */
-  --ifm-blockquote-color: var(--sand-ink-2);
-  --ifm-blockquote-border-color: var(--sand-accent);
+  --ifm-blockquote-color: var(--sand-ink-3);
+  --ifm-blockquote-border-color: var(--sand-brand);
   --ifm-blockquote-border-left-width: 3px;
 
-  /* --- 行内代码与代码块 --- */
-  --ifm-code-background: var(--sand-surface-2);
-  --ifm-pre-background: #33291f; /* 与 prismThemes.warmSandTheme 保持一致 */
-  --ifm-pre-color: #f2e7da;
+  /* --- 行内代码与代码块 ---
+     pre 底色与 prismThemes.springDawnTheme 的 plain.backgroundColor 保持一致，
+     改一处必须改另一处，否则会出现「块内一块色、块外一块色」的接缝。
+     浅色下这块用「松柏最深的绿」：天空蓝页面里唯一的大面积深色；
+     既是节奏停顿，也呼应「翠绿松柏」的意象。 */
+  --ifm-code-background: var(--sand-sunken);
+  --ifm-pre-background: #0b2b1e;
+  --ifm-pre-color: #e6f0ea;
 
-  /* --- 提示框（admonition）配色：暖色系 --- */
-  --ifm-color-secondary-contrast-background: #fcf6ee;
-  --ifm-color-secondary-contrast-foreground: #5a4e44;
+  /* --- 提示框（admonition）配色 ---
+     浅底整体加深一档，否则在纯白卡片上只有 1.06:1，完全看不出「这是一条提示」。 --- */
+  --ifm-color-secondary-contrast-background: var(--sand-sunken);
+  --ifm-color-secondary-contrast-foreground: #2b3f4d;
   --ifm-color-info: #2e7060;
   --ifm-color-info-dark: #296354;
   --ifm-color-info-darker: #275d4f;
@@ -227,27 +746,27 @@ html:root {
   --ifm-color-info-light: #337b69;
   --ifm-color-info-lighter: #358170;
   --ifm-color-info-lightest: #3c9280;
-  --ifm-color-info-contrast-background: #e7f3ef;
-  --ifm-color-info-contrast-foreground: #1f4a3f;
-  --ifm-color-success: #4f7a3a;
-  --ifm-color-success-contrast-background: #edf3e4;
-  --ifm-color-success-contrast-foreground: #2f4a21;
-  --ifm-color-warning: #a8762a;
-  --ifm-color-warning-contrast-background: #fbf1de;
-  --ifm-color-warning-contrast-foreground: #6b4a12;
-  --ifm-color-danger: #a8443a;
-  --ifm-color-danger-contrast-background: #faebe7;
-  --ifm-color-danger-contrast-foreground: #6e2a22;
+  --ifm-color-info-contrast-background: #d8ecf3;
+  --ifm-color-info-contrast-foreground: #17404b;
+  --ifm-color-success: #437a2f;
+  --ifm-color-success-contrast-background: #dcefd9;
+  --ifm-color-success-contrast-foreground: #234f2c;
+  --ifm-color-warning: #a06f1c;
+  --ifm-color-warning-contrast-background: #fbeecb;
+  --ifm-color-warning-contrast-foreground: #5e450c;
+  --ifm-color-danger: #9c3b32;
+  --ifm-color-danger-contrast-background: #f9ded9;
+  --ifm-color-danger-contrast-foreground: #61241d;
   --ifm-alert-border-width: 0;
   --ifm-alert-border-left-width: 3px;
   --ifm-alert-shadow: none;
 
   /* --- 下拉菜单 --- */
-  --ifm-dropdown-background-color: var(--sand-surface);
-  --ifm-dropdown-link-color: var(--sand-ink);
-  --ifm-dropdown-hover-background-color: var(--sand-surface-2);
+  --ifm-dropdown-background-color: var(--sand-raised);
+  --ifm-dropdown-link-color: var(--sand-ink-2);
+  --ifm-dropdown-hover-background-color: var(--sand-sunken);
 
-  /* --- 页脚（配置里是 style: 'dark'，这里换成暖色深底） --- */
+  /* --- 页脚（配置里用 style: 'dark'，这里换成春天林子深处） --- */
   --ifm-footer-background-color: var(--sand-deep);
   --ifm-footer-color: var(--sand-deep-muted);
   --ifm-footer-link-color: var(--sand-deep-ink);
@@ -255,63 +774,62 @@ html:root {
   --ifm-footer-title-color: var(--sand-deep-muted);
 
   /* --- 其他 --- */
-  --ifm-hr-background-color: var(--sand-hair-2);
-  --ifm-hover-overlay: rgba(201, 116, 52, 0.07);
-  --docusaurus-tag-list-border: var(--sand-hair-2);
-  --docusaurus-highlighted-code-line-bg: rgba(255, 214, 160, 0.1);
+  --ifm-hr-background-color: var(--sand-line-strong);
+  --ifm-hover-overlay: rgba(18, 128, 74, 0.07);
+  --docusaurus-tag-list-border: var(--sand-line-strong);
+  --docusaurus-highlighted-code-line-bg: rgba(120, 200, 160, 0.1);
 }
 
-/* --- 深色主题的 Infima 覆盖（灰阶方向与浅色相反） --- */
+/* --- 深色主题的 Infima 覆盖（灰阶方向与浅色相反）· 蓝绿调 --- */
 html:root[data-theme='dark'] {
-  --ifm-color-emphasis-100: #241d17;
-  --ifm-color-emphasis-200: #2e261e;
-  --ifm-color-emphasis-300: #3b3126;
-  --ifm-color-emphasis-400: #4c4034;
-  --ifm-color-emphasis-500: #6b5b49;
-  --ifm-color-emphasis-600: #8e7e6d;
-  --ifm-color-emphasis-700: #b0a08c;
-  --ifm-color-emphasis-800: #d3c6b5;
-  --ifm-color-emphasis-900: #f4ebdf;
+  --ifm-color-emphasis-100: var(--sand-canvas);
+  --ifm-color-emphasis-200: var(--sand-line);
+  --ifm-color-emphasis-300: #3a4668;
+  --ifm-color-emphasis-400: #4d5a80;
+  --ifm-color-emphasis-500: #67739a;
+  --ifm-color-emphasis-600: var(--sand-ink-4);
+  --ifm-color-emphasis-700: var(--sand-ink-3);
+  --ifm-color-emphasis-800: var(--sand-ink-2);
+  --ifm-color-emphasis-900: var(--sand-ink);
 
-  --ifm-color-primary: #e3a868;
-  --ifm-color-primary-dark: #dd9c54;
-  --ifm-color-primary-darker: #d9964a;
-  --ifm-color-primary-darkest: #c07f35;
-  --ifm-color-primary-light: #e9b47c;
-  --ifm-color-primary-lighter: #ecba86;
-  --ifm-color-primary-lightest: #f2cb9f;
+  --ifm-color-primary: var(--sand-brand-strong);
+  --ifm-color-primary-dark: #7adfa8;
+  --ifm-color-primary-darker: #71dba2;
+  --ifm-color-primary-darkest: #5ccb90;
+  --ifm-color-primary-light: #9decc1;
+  --ifm-color-primary-lighter: #a5eec7;
+  --ifm-color-primary-lightest: #b6f5d2;
 
-  --ifm-color-secondary: #3b3126;
-  --ifm-hover-overlay: rgba(232, 190, 140, 0.07);
+  --ifm-color-secondary: #232f4d;
+  --ifm-hover-overlay: rgba(79, 209, 143, 0.07);
   --ifm-menu-link-sublist-icon-filter: invert(100%);
   --ifm-breadcrumb-separator-filter: invert(60%);
 
-  --ifm-pre-background: #120e0a; /* 与 prismThemes.duneDuskTheme 保持一致 */
-  --ifm-pre-color: #efe2d3;
-  /* 第三级阴影在深色下换成黑色基，暖棕投影在暖黑底上完全不可见 */
-  --ifm-global-shadow-tl: 0 12px 28px rgba(0, 0, 0, 0.36),
-    0 2px 6px rgba(0, 0, 0, 0.3);
-  --docusaurus-highlighted-code-line-bg: rgba(255, 214, 160, 0.08);
+  --ifm-pre-background: #080e1c; /* 与 prismThemes.nightSkyTheme 保持一致 */
+  --ifm-pre-color: #d5e0f2;
+  /* 第三级阴影在深色下换成黑色基，蓝绿投影在深空底上完全不可见 */
+  --ifm-global-shadow-tl: var(--sand-shadow-lift);
+  --docusaurus-highlighted-code-line-bg: rgba(120, 200, 160, 0.08);
 
-  --ifm-color-secondary-contrast-background: #2a231d;
-  --ifm-color-secondary-contrast-foreground: #d8ccbc;
-  --ifm-color-info: #7fbfab;
-  --ifm-color-info-dark: #73b29e;
-  --ifm-color-info-darker: #6cab97;
-  --ifm-color-info-darkest: #5a9682;
-  --ifm-color-info-light: #8bcab7;
-  --ifm-color-info-lighter: #93cfbd;
-  --ifm-color-info-lightest: #a2d8c9;
-  --ifm-color-info-contrast-background: #1f2e29;
-  --ifm-color-info-contrast-foreground: #cfe9e0;
-  --ifm-color-success: #9cc47e;
-  --ifm-color-success-contrast-background: #232c1e;
-  --ifm-color-success-contrast-foreground: #d4e3c7;
-  --ifm-color-warning: #e3a868;
-  --ifm-color-warning-contrast-background: #33281a;
-  --ifm-color-warning-contrast-foreground: #f2dfc2;
+  --ifm-color-secondary-contrast-background: #1a2440;
+  --ifm-color-secondary-contrast-foreground: #c8d4ec;
+  --ifm-color-info: #8fc6e0;
+  --ifm-color-info-dark: #82bcd9;
+  --ifm-color-info-darker: #7bb7d5;
+  --ifm-color-info-darkest: #64a5c6;
+  --ifm-color-info-light: #9ccfe6;
+  --ifm-color-info-lighter: #a2d3e9;
+  --ifm-color-info-lightest: #b3dcee;
+  --ifm-color-info-contrast-background: #16243a;
+  --ifm-color-info-contrast-foreground: #cfe4f5;
+  --ifm-color-success: #9cd47e;
+  --ifm-color-success-contrast-background: #16281f;
+  --ifm-color-success-contrast-foreground: #cfe8d6;
+  --ifm-color-warning: #d9b070;
+  --ifm-color-warning-contrast-background: #2a2314;
+  --ifm-color-warning-contrast-foreground: #f0e2c2;
   --ifm-color-danger: #e0908a;
-  --ifm-color-danger-contrast-background: #33211f;
+  --ifm-color-danger-contrast-background: #2c1c20;
   --ifm-color-danger-contrast-foreground: #f0cfcb;
 }
 
@@ -320,34 +838,48 @@ html:root[data-theme='dark'] {
    只在变量表达不了的地方写选择器（形状、模糊、结构），不在这里写颜色。
    ========================================================================== */
 
-/* --- 全局 --- */
+/* --- 首页：收窄内容区域宽度，使布局更紧凑、视觉更平衡 --- */
+.homepage {
+  --ifm-container-width: 1140px;
+  --ifm-container-width-xl: 1140px;
+}
+
+/* --- 全局 ---
+   body 底色必须透明：天空层是挂在 body 内部、z-index:-1 的固定层。
+   它只能画在「画布底色之上、正文内容之下」。
+   若 body 还留着不透明底色，天空层会被它整个盖住。
+   基础色仍然给在 html 上，所以没有任何一层渲染时也不会露白。 */
 html {
   background-color: var(--ifm-background-color);
 }
 
 body {
+  background-color: transparent;
   -webkit-font-smoothing: antialiased;
+  /* 中文字重在 400 下偏「虚」，尤其浅底上。
+     显式给一个略实的基础字重，配合下面的抗锯齿，正文不再发灰。 */
+  font-weight: 400;
 }
 
 /* 选中文字用品牌浅底 */
 ::selection {
-  background-color: var(--sand-accent-soft);
+  background-color: var(--sand-brand-wash);
   color: var(--sand-ink);
 }
 
 html:root[data-theme='dark'] ::selection {
-  background-color: #4a3a22;
-  color: #f4ebdf;
+  background-color: #26375a;
+  color: #eaf0fc;
 }
 
-/* --- 导航栏：去掉默认投影，改为发丝描边 + 毛玻璃 --- */
+/* --- 导航栏：去掉默认投影，改为发丝描边 + 毛玻璃（后面透出天空） --- */
 .navbar {
   background-color: var(--sand-nav-bg);
-  border-bottom: 1px solid var(--sand-hair);
+  border-bottom: 1px solid var(--sand-line);
 }
 
 /* backdrop-filter 必须放在 .navbar__inner 上而非 .navbar 上：
-   .navbar-sidebar 和 .navbar-sidebar__backdrop 是 .navbar 的直接子元素，
+   .navbar-sidebar 与 .navbar-sidebar__backdrop 是 .navbar 的直接子元素，
    且使用 position:fixed。若父元素设了 backdrop-filter（或 transform/filter
    等属性），会为 fixed 后代创建新的包含块，导致 sidebar 的 top:0;bottom:0
    被限制在导航栏高度（60px）内，侧边栏菜单内容被裁剪为 0 高度而不可见。
@@ -366,12 +898,34 @@ html:root[data-theme='dark'] ::selection {
   background-color: var(--ifm-background-color);
 }
 
-.navbar__link {
-  border-radius: 8px;
+/* 站名：与 Hero 标题同一套「字重 + 字距」语言，弱化但保持存在感 */
+.navbar__title {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--sand-ink);
 }
 
+.navbar__brand:hover .navbar__title {
+  color: var(--sand-accent-ink);
+}
+
+.navbar__link {
+  border-radius: 999px;
+  padding: 0.3rem 0.7rem;
+  font-size: var(--sand-text-sm);
+  transition: background-color var(--ifm-transition-fast),
+    color var(--ifm-transition-fast);
+}
+
+.navbar__link:hover {
+  background-color: var(--sand-raised);
+}
+
+/* 激活态：不再是「换一个绿字」，而是一个品牌色胶囊，位置一眼可见 */
 .navbar__link--active {
-  font-weight: 500;
+  color: var(--sand-accent-ink);
+  background-color: var(--sand-brand-wash);
+  font-weight: 600;
 }
 
 /* --- 侧边栏菜单：胶囊化的激活态 --- */
@@ -381,7 +935,7 @@ html:root[data-theme='dark'] ::selection {
 }
 
 .menu__link--active:not(.menu__link--sublist) {
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .menu__list-item-collapsible {
@@ -389,11 +943,11 @@ html:root[data-theme='dark'] ::selection {
 }
 
 .menu__list-item-collapsible:hover {
-  background-color: var(--sand-surface-2);
+  background-color: var(--sand-sunken);
 }
 
 .theme-doc-sidebar-container {
-  border-right-color: var(--sand-hair);
+  border-right-color: var(--sand-line);
 }
 
 /* --- 右侧目录：激活态加左侧指示条 --- */
@@ -410,8 +964,8 @@ html:root[data-theme='dark'] ::selection {
 }
 
 .table-of-contents__link--active {
-  border-left-color: var(--sand-accent);
-  font-weight: 500;
+  border-left-color: var(--sand-brand);
+  font-weight: 600;
 }
 
 /* --- 正文 --- */
@@ -423,10 +977,10 @@ html:root[data-theme='dark'] ::selection {
   text-decoration: underline;
 }
 
-/* 引用块：改成左侧琥珀竖线 + 浅底，比默认的双线更像"旁注" */
+/* 引用块：改成品牌绿竖线 + 浅底，比默认的双线更像"旁注" */
 .markdown blockquote {
-  background-color: var(--sand-accent-soft);
-  border-left: 3px solid var(--sand-accent);
+  background-color: var(--sand-brand-wash);
+  border-left: 3px solid var(--sand-brand);
   border-radius: 0 12px 12px 0;
   padding: 0.9rem 1.2rem;
 }
@@ -437,22 +991,22 @@ html:root[data-theme='dark'] ::selection {
 
 /* 行内代码：给一个描边，避免和底色糊在一起 */
 :not(pre) > code {
-  border: 1px solid var(--sand-hair);
+  border: 1px solid var(--sand-code-hair);
   border-radius: 6px;
   color: var(--sand-code-ink);
   padding: 0.12rem 0.4rem;
   vertical-align: baseline;
 }
 
-/* 代码块：暖色深底 + 描边 + 暖投影 */
+/* 代码块：松林深绿底 + 描边 + 投影 */
 div[class*='codeBlockContainer'] {
-  box-shadow: var(--sand-shadow-lw);
+  box-shadow: var(--sand-shadow-md);
   border: 1px solid var(--sand-code-hair);
   overflow: hidden;
 }
 
 div[class*='codeBlockTitle'] {
-  border-bottom-color: var(--sand-hair);
+  border-bottom-color: rgba(255, 255, 255, 0.09);
   background-color: rgba(255, 255, 255, 0.03);
 }
 
@@ -481,7 +1035,9 @@ div[class*='codeBlockTitle'] {
 
 .markdown table th {
   background-color: var(--ifm-table-stripe-background);
+  color: var(--ifm-table-head-color);
   font-size: var(--sand-text-sm);
+  font-weight: 600;
   letter-spacing: 0.02em;
 }
 
@@ -499,21 +1055,22 @@ span[class*='tagRegular'] {
 }
 
 [class*='tagWithCount'] span {
-  background-color: var(--ifm-color-emphasis-200);
+  background-color: var(--sand-sunken);
   color: var(--ifm-color-emphasis-800);
 }
 
 /* 上下篇导航卡片：悬停时描边点亮 */
 .pagination-nav__link {
-  border-color: var(--sand-hair-2);
+  border-color: var(--sand-line);
   border-radius: 14px;
   transition: border-color var(--ifm-transition-fast),
-    box-shadow var(--ifm-transition-fast);
+    box-shadow var(--ifm-transition-fast), background-color var(--ifm-transition-fast);
 }
 
 .pagination-nav__link:hover {
-  border-color: var(--sand-accent);
-  box-shadow: var(--sand-shadow-lw);
+  border-color: var(--sand-brand);
+  background-color: var(--sand-raised);
+  box-shadow: var(--sand-shadow-md);
 }
 
 /* 分页页码 */
@@ -521,7 +1078,7 @@ span[class*='tagRegular'] {
   border-radius: 8px;
 }
 
-/* --- 页脚：暖色深底 --- */
+/* --- 页脚：春林深处 / 夜空最深处 --- */
 .footer,
 .footer--dark {
   --ifm-footer-background-color: var(--sand-deep);
@@ -564,7 +1121,7 @@ span[class*='tagRegular'] {
    ========================================================================== */
 
 * {
-  scrollbar-color: var(--sand-hair-2) transparent;
+  scrollbar-color: var(--sand-line-strong) transparent;
 }
 
 ::-webkit-scrollbar {
@@ -577,14 +1134,14 @@ span[class*='tagRegular'] {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--sand-hair-2);
+  background-color: var(--sand-line-strong);
   border-radius: 999px;
   border: 3px solid transparent;
   background-clip: content-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: var(--sand-ink-3);
+  background-color: var(--sand-ink-4);
 }
 
 /* ==========================================================================
@@ -593,6 +1150,10 @@ span[class*='tagRegular'] {
    这里统一给容器类元素加上颜色过渡，切换时整站是渐变的而不是硬切。
    用 :where() 把优先级压到 0 —— 这样组件自己声明的 transition
    （例如卡片的悬停位移动画）不会被覆盖，只补上没人管的那部分。
+
+   注意：天空层（§7）不放进这个列表。它要过渡的是 opacity，
+   而这里是 transition-property: background-color, border-color, color；
+   放进去反而会把它自己的 opacity 过渡挤掉。天空层单独在下一条规则里声明。
    ========================================================================== */
 
 @media (prefers-reduced-motion: no-preference) {
@@ -601,6 +1162,7 @@ span[class*='tagRegular'] {
       body,
       .navbar,
       .navbar__inner,
+      .navbar__title,
       .navbar-sidebar,
       .navbar-sidebar__brand,
       .navbar-sidebar__items,
@@ -639,17 +1201,44 @@ span[class*='tagRegular'] {
       [class*='tagRegular'],
       [class*='cardContainer'],
       [class*='tocCollapsible'],
+      /* 首页组件（CSS Modules 会哈希类名，只能按子串匹配） */
+      [class*='heroPanel'],
+      [class*='heroInner'],
+      [class*='heroChip'],
+      [class*='heroCloud'],
+      [class*='heroRay'],
+      [class*='heroStars'],
+      [class*='shelfCard'],
+      [class*='bookPill'],
+      [class*='postCard'],
+      [class*='thoughtCard'],
+      [class*='section_'],
       [class*='DocSearch']
     ) {
-    transition-property: background-color, border-color, color;
+    transition-property: background-color, border-color, color, fill, stroke;
     transition-duration: 320ms;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+/* 天空层：两块同时在 DOM 里，用 opacity 交叉淡出（见 §7）。
+   时长比普通元素长一档，因为它是整屏面积，跟着 320ms 一起变会显「闪」。 */
+@media (prefers-reduced-motion: no-preference) {
+  [class*='skyLayer'] {
+    transition: opacity var(--sand-sky-ease);
   }
 }
 
 /* 用户系统里关掉了动效就完全不过渡 */
 @media (prefers-reduced-motion: reduce) {
   :where(html, body, .navbar, .card, .footer, .menu, pre, code, table) {
+    transition: none !important;
+  }
+
+  /* 天空层的淡入淡出也一并关掉：直接切换，不做整块的 opacity 动画。
+     这里必须显式写选择器（不能用 :where 里的通用列表），
+     否则上一条的 `transition: none !important` 与它的 opacity 过渡会打架。 */
+  [class*='skyLayer'] {
     transition: none !important;
   }
 }
@@ -667,12 +1256,12 @@ span[class*='tagRegular'] {
 
    【为什么行高要单独调】
    中文没有西文那样的升部降部，同样的行高在中文字里会显得更挤。
-   正文 1.7、标题 1.35 是中文比较舒服的区间（Infima 默认 1.65 / 1.25）。
+   正文 1.75、标题 1.35 是中文比较舒服的区间（Infima 默认 1.65 / 1.25）。
 
    【关于字号与间距阶梯】
    之前首页各处散落着 0.92/0.9/0.88/0.86/0.84/0.82/0.8rem 这类
    「差不多但不相等」的字号，以及 1.35/1.15/0.9/0.88/0.84rem 这类
-   间距，视觉上会产生说不清的杂乱感。下面两套阶梯就是用来收敛它们的，
+   间距，视觉上会产生说不清的杂乱感。下面两套阶梯就是用来收敛它们的。
    首页组件一律引用 --sand-text-* / --sand-space-*，不再写裸数值。
    ========================================================================== */
 
@@ -692,13 +1281,17 @@ span[class*='tagRegular'] {
   --sand-text-sm: 0.875rem; /* 14px · 次要信息：副标题、卡片描述、标签、入口 */
   --sand-text-md: 0.9375rem; /* 15px · 卡片正文（随想） */
   --sand-text-base: 1rem; /* 16px · 正文 */
-  --sand-text-lg: 1.125rem; /* 18px · 卡片标题 */
+  --sand-text-lg: 1.1875rem; /* 19px · 卡片标题（v1 是 18px，标题需要再压摘要一头） */
   --sand-text-xl: 1.375rem; /* 22px · 区块标题（小屏） */
-  --sand-text-2xl: 1.5rem; /* 24px · 区块标题 */
-  --sand-text-3xl: 2.5rem; /* 40px · Hero 标题 */
+  --sand-text-2xl: clamp(1.5rem, 1.28rem + 0.7vw, 1.75rem); /* 24–28px · 区块标题 */
+  --sand-text-3xl: 2.5rem; /* 40px · 正文页大标题 */
+
+  /* 首页 Hero 标题：v1 封顶 40px，在深色面板里撑不住版面。
+     深面板需要更大的字号差才显得「有冲击力」，所以单独给一档。 */
+  --sand-text-hero: clamp(2.5rem, 1.7rem + 3.6vw, 4.5rem); /* 40–72px */
 
   /* --- 行高阶梯 ---
-     之前首页散落着 1.35 / 1.5 / 1.7 / 1.75 / 1.8 五种行高，
+     之前首页散落着 1.35 / 1.5 / 1.7 / 1.75 / 1.8 五种行高：
      同样是"卡片标题"却一个 1.35 一个 1.5。这里收敛成四档，
      组件一律引用，不再各自写数字。中文需要的行高比西文更松。 */
   --sand-leading-tight: 1.35; /* 区块标题（与 --ifm-heading-line-height 同值） */
@@ -706,7 +1299,7 @@ span[class*='tagRegular'] {
   --sand-leading-body: 1.75; /* 正文 / 摘要 / 描述 */
   --sand-leading-loose: 1.85; /* 长句引述：随想卡片 */
 
-  /* --- 间距阶梯（4px 基准） --- */
+  /* --- 间距阶梯：4px 基准 --- */
   --sand-space-1: 0.25rem; /* 4  */
   --sand-space-2: 0.5rem; /* 8  */
   --sand-space-3: 0.75rem; /* 12 */
@@ -714,15 +1307,16 @@ span[class*='tagRegular'] {
   --sand-space-5: 1.5rem; /* 24 */
   --sand-space-6: 2rem; /* 32 */
   --sand-space-7: 3rem; /* 48 */
+  --sand-space-8: 4rem; /* 64 */
 
-  /* 胶囊标签（书架书目 / 文档标签）统一内边距，避免两个组件各写一套 */
-  --sand-pill-pad: 0.2rem 0.7rem;
+  /* 胶囊标签（书架书目 / 文档标签 / Hero 入口）统一内边距 */
+  --sand-pill-pad: 0.24rem 0.72rem;
 
   /* --- 随想卡片定高 ---
      依据现有 16 条随想的正文长度统计：中位 4 行、最长 12 行、多数落在
      1–5 行。定高取「5 行正文」，16 条中 13 条可完整显示，其余在整行
      边界截断。卡片高度从此恒定，不再被最长的一条撑到 460px+ 高。
-     高度 = 5 行正文 + 段间距余量 + 固定开销（内边距 48 + 边框 2 + 日期行 38.75）。
+     高度 = 5 行正文 + 段间距余量 + 固定开销（内边距 48 + 边框 2 + 日期 38.75）。
      段间距余量（4 × 8px）不能省：多段落卡片被裁处若正好压在某段的
      行外间距上，卡片底部会露出一条半行的字。 */
   --sand-thought-lines: 5;
@@ -736,15 +1330,77 @@ span[class*='tagRegular'] {
   --sand-thought-h: calc(
     var(--sand-thought-lines) * var(--sand-thought-line) + 4 *
       var(--sand-space-2) + var(--sand-thought-chrome)
-  ); /* ≈259.5px */
+  ); /* ≈ 259.5px */
 
-  /* 首页区块之间的纵向留白 */
-  --sand-section-y: 3rem;
+  /* 首页区块之间的纵向留白：
+     v1 是 3rem，三个区块首尾相接后像一条连续的长条，区块边界全靠标题撑着；
+     拉到 4rem 后每个区块才真正「独立成段」，配合随笔区的色带一起划分结构。 */
+  --sand-section-y: var(--sand-space-8);
 }
 
-/* 平板与手机：区块留白收紧，否则整页会被拉得很长 */
+/* 平板与手机：区块留白收紧，否则整页会被拉得很长。 */
 @media (max-width: 996px) {
   :root {
-    --sand-section-y: 2.25rem;
+    --sand-section-y: 2.75rem;
   }
+}
+
+/* ==========================================================================
+   §7 天空层的排布（只写结构，颜色全在 §1）
+   ---------------------------------------------------------------------------
+   两块天空层（春晓云 / 夜幕星）同时存在于 DOM，靠 opacity 交叉淡出。
+   为什么不做成「一块背景 + 换 data-uri」：
+     背景图切换是硬切，无法过渡；两块叠着做 opacity 才是真正的交叉淡入。
+   为什么用 position: fixed：
+     天空是「环境」，不是「内容」。滚到文档第 3000 行时天空还在原处，
+     才不会读着读着发现云飘走了。
+   为什么 z-index: -1：
+     负层级元素的绘制位置在「根背景之上、文档内容之下」，
+     正好是天空该在的地方 —— 不用给正文加任何 position 就能压住它。
+   ========================================================================== */
+
+/* 承载层：固定 + 视口铺满 + 负层级 + 不吃鼠标事件。
+   z-index: -1 的元素绘制在「根背景之上、文档内容之下」，
+   正好是天空该在的位置 —— 这样不用给正文加任何 position 就能压住它。 */
+[class*='skyHost'] {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* 两块天空层完全叠合，各自铺满视口。
+   刻意不写 will-change: opacity ——那会把两块整屏元素常驻提升为独立合成层，
+   而真正的过渡只发生在用户点切换的那 700ms 里，为此常驻占一份显存不划算。 */
+[class*='skyLayer'] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+/* 哪一块亮，由 html 上的 data-theme 决定。
+   首屏渲染前 Docusaurus 的内联脚本已经把它写好，所以不存在中间态。 */
+html:root[data-theme='light'] [class*='skyDay'],
+html:root:not([data-theme]) [class*='skyDay'] {
+  opacity: 1;
+}
+
+html:root[data-theme='dark'] [class*='skyNight'] {
+  opacity: 1;
+}
+
+/* 天空渐变本体 */
+[class*='skyGrad'] {
+  position: absolute;
+  inset: 0;
+  background-image: var(--sand-sky-grad);
+}
+
+/* 地平线薄雾：贴视口底，把天空渐变的末端收住 */
+[class*='skyHorizon'] {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 34vh;
+  background-image: var(--sand-sky-horizon);
 }

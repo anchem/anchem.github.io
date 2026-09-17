@@ -1,7 +1,7 @@
 /**
  * 随想页样式
- * 颜色一律引用 custom.css 里的变量，保证浅色（暖砂柔光）
- * 与深色（沙丘暮色）下自动跟随主题，不写死具体色值。
+ * 颜色一律引用 custom.css 里的变量，保证浅色（清风嫩绿）
+ * 与深色（深林暮色）下自动跟随主题，不写死具体色值。
  */
 
 .thoughtTitle {
@@ -11,24 +11,33 @@
   padding: 2em 1em 1em;
 }
 
+/* 单条随想：左侧品牌绿竖线 + 白卡。
+   v1 的竖线是 --ifm-color-primary（深绿），压在浅底上偏重；
+   这里换成装饰用的 --sand-brand、加粗到 4px，
+   再把左侧圆角收掉，让它明确读作「引述」而不是「一张卡片」。 */
 .thoughtItem {
-  margin: 1em;
-  padding: 1em 1em 0.5em;
-  border-style: none none none solid;
-  border-width: 0.38em;
-  border-color: var(--ifm-color-primary);
-  background-color: var(--ifm-background-surface-color);
-  box-shadow: var(--ifm-global-shadow-lw);
-  border-radius: 0.6em;
+  margin: 1em 0;
+  padding: var(--sand-space-5) var(--sand-space-5) var(--sand-space-3);
+  border-left: 4px solid var(--sand-brand);
+  background-color: var(--sand-raised);
+  border-radius: 0 14px 14px 0;
+  box-shadow: var(--sand-shadow-lw);
+  transition: border-color var(--ifm-transition-fast),
+    box-shadow var(--ifm-transition-fast);
+}
+
+.thoughtItem:hover {
+  border-left-color: var(--sand-brand-bright);
+  box-shadow: var(--sand-shadow-md);
 }
 
 .thoughtItem p {
-  color: var(--ifm-font-color-base);
+  color: var(--sand-ink-2);
 }
 
 .thoughtItem span {
-  font-size: 0.8em;
-  color: var(--ifm-color-emphasis-600);
+  font-size: var(--sand-text-xs);
+  color: var(--sand-ink-4);
   margin: 0.1em;
 }
 
@@ -36,5 +45,5 @@
   text-align: center;
   padding: var(--sand-space-6) 0;
   font-size: var(--sand-text-sm);
-  color: var(--ifm-color-emphasis-600);
+  color: var(--sand-ink-3);
 }

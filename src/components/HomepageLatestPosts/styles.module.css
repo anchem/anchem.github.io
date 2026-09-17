@@ -1,7 +1,30 @@
-/* ===== 最新随笔：卡片分四层信息 —— 元信息 / 标题 / 摘要 / 入口 ===== */
+/* ===== 最新随笔：卡片分四层信息 —— 元信息 / 标题 / 摘要 / 入口 =====
+   v2 把整块做成一条「沉色带」（section 铺满 --sand-sunken 并上下加发丝线），
+   目的是让三个区块之间有「深 — 浅」的节奏，不连成一条没有段落的长条。
+   v4 保留这个判断，只是把「沉色」换成了「有色」：
+   色带改铺该区块的植物色（青草黄绿），于是它不但分段，还承担了「春晓」的调性。
+
+   v3 在这条色带下沿还贴了一道草甸剪影（--sand-decor-hedge），
+   v4 删掉 —— 色带本身就是那片草地，不需要再画一遍。
+
+   整节的四档颜色定义在 .section 里（--posts-*），
+   下面所有规则只引用它们，所以想换一支植物色只改那四行。 */
 
 .section {
+  /* 本节的植物色族：青草黄绿（与「阿不成长树」同一支） */
+  --posts-wash: var(--sand-tint-grass);
+  --posts-soft: var(--sand-tint-grass-soft);
+  --posts-line: var(--sand-tint-grass-line);
+  --posts-ink: var(--sand-tint-grass-ink);
+
   padding: var(--sand-section-y) 0;
+  /* 色带用 soft 档而不是 wash：
+     wash 太白（#f0f7d9），铺满整屏宽之后几乎看不出是一条带子；
+     soft（#e2eec2）与页面天空 1.12:1、与纯白卡片 1.22:1，
+     两边都刚好「看得出是两块」，正是这条带子要的强度。 */
+  background-color: var(--posts-soft);
+  border-top: 1px solid var(--sand-line);
+  border-bottom: 1px solid var(--sand-line);
 }
 
 .postsGrid {
@@ -23,29 +46,35 @@
   }
 }
 
+/* 色带上用纯白卡片：card 与带底 1.22:1，「卡片浮在带上」一眼可辨。
+   左边 3px 是该区块色族的 line 档 —— 卡片落在色带里，
+   靠这一笔和带子「接上」，而不是靠再铺一层色。 */
 .postCard {
+  position: relative;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  background: var(--ifm-card-background-color);
-  border: 1px solid var(--ifm-color-emphasis-200);
+  background: var(--sand-raised);
+  border: 1px solid var(--sand-line);
+  border-left: 3px solid var(--posts-line);
   border-radius: var(--ifm-card-border-radius);
   padding: var(--sand-space-5);
-  transition:
-    box-shadow var(--ifm-transition-fast) var(--ifm-transition-timing-default),
+  transition: box-shadow var(--ifm-transition-fast) var(--ifm-transition-timing-default),
     border-color var(--ifm-transition-fast) var(--ifm-transition-timing-default),
     transform var(--ifm-transition-fast) var(--ifm-transition-timing-default);
 }
 
 .postCard:hover {
-  border-color: var(--sand-hair-2);
-  box-shadow: var(--ifm-global-shadow-md);
-  transform: translateY(-3px);
+  border-color: var(--sand-line-strong);
+  border-left-color: var(--posts-ink);
+  box-shadow: var(--sand-shadow-lift);
+  transform: translateY(-4px);
 }
 
 /* --- 第一层：元信息 --- */
 .postMeta {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: var(--sand-space-3);
   margin-bottom: var(--sand-space-3);
@@ -53,33 +82,56 @@
 
 .postDate {
   font-size: var(--sand-text-xs);
-  letter-spacing: 0.02em;
-  color: var(--sand-ink-3);
+  letter-spacing: 0.06em;
+  color: var(--sand-ink-4);
   font-variant-numeric: tabular-nums;
+  /* 日期行与右上角的大号序号顶部对齐 */
+  padding-top: 0.55rem;
 }
 
-/* 序号：用极淡的砂色，只做结构提示，不抢标题 */
+/* 序号：v1 是 14px 的小字，除了占位没有作用；
+   这里放到 2.5rem 并压到很淡，变成一个真正的版面装饰 ——
+   它是卡片里唯一「大而不抢」的元素，负责给三张卡建立统一的结构。
+
+   配色注意：这里不能用板块标识色，也不能用本的 line 档。
+   那四支是给「3px 线、8px 点」这种小面积用的，画成 40px 粗体数字
+   就会喧宾夺主。所以取本节的 soft 档（#e2eec2）——
+   与卡片白只差 1.22:1，大字压上去是一个「浅色影子」，
+   悬停时才换到 line 档并压到半透明，只做「卡片被指到了」的弱提示。
+   v3 这一处用的是中性描边绿 --sand-line，v4 换成带色相的那一支，
+   让「这一节是青草色」连水印都成立。 */
 .postIndex {
-  font-size: var(--sand-text-sm);
-  font-weight: 600;
-  line-height: 1;
-  color: var(--ifm-color-emphasis-400);
+  position: relative;
+  z-index: 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  color: var(--posts-soft);
   font-variant-numeric: tabular-nums;
+  transition: color var(--ifm-transition-fast) var(--ifm-transition-timing-default),
+    opacity var(--ifm-transition-fast) var(--ifm-transition-timing-default);
+}
+
+.postCard:hover .postIndex {
+  color: var(--posts-line);
+  opacity: 0.45;
 }
 
 /* --- 第二层：标题 --- */
 .postTitle {
   font-size: var(--sand-text-lg);
+  font-weight: 700;
   line-height: var(--sand-leading-snug);
   margin-bottom: var(--sand-space-3);
 }
 
 .postTitle a {
-  color: var(--ifm-heading-color);
+  color: var(--sand-ink);
 }
 
 .postTitle a:hover {
-  color: var(--sand-accent-ink);
+  color: var(--posts-ink);
   text-decoration: none;
 }
 
@@ -87,7 +139,7 @@
 .postExcerpt {
   font-size: var(--sand-text-sm);
   line-height: var(--sand-leading-body);
-  color: var(--ifm-color-emphasis-600);
+  color: var(--sand-ink-3);
   margin-bottom: var(--sand-space-4);
   flex-grow: 1;
   display: -webkit-box;
@@ -100,18 +152,18 @@
 .postFoot {
   display: flex;
   align-items: center;
-  border-top: 1px solid var(--sand-hair);
+  border-top: 1px solid var(--sand-line);
   padding-top: var(--sand-space-3);
 }
 
 .postMore {
   font-size: var(--sand-text-sm);
-  font-weight: 500;
-  color: var(--sand-accent-ink);
+  font-weight: 600;
+  color: var(--posts-ink);
 }
 
 .postMore:hover {
-  color: var(--sand-accent);
+  color: var(--sand-ink);
   text-decoration: none;
 }
 

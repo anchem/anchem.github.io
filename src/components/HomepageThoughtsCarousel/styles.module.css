@@ -1,6 +1,16 @@
-/* ===== 随想：横向滚动的完整内容卡片 ===== */
+/* ===== 随想：横向滚动的完整内容卡片 =====
+   v4：卡片用「松柏翠绿」那一支植物色的四档（--thoughts-*，见下），
+   v3 右下角的那小丛草删掉了 —— 列表复制两遍做无缝滚动，
+   16 张卡就是 32 份同样的图形，是整页重复最多的装饰，而信息量为零。
+   现在换成「底色 + 左边条 + 水印」三处颜色，一张图形都不需要。 */
 
 .section {
+  /* 本节的植物色族：松柏翠绿（与「个人成长」同一支） */
+  --thoughts-wash: var(--sand-tint-pine);
+  --thoughts-soft: var(--sand-tint-pine-soft);
+  --thoughts-line: var(--sand-tint-pine-line);
+  --thoughts-ink: var(--sand-tint-pine-ink);
+
   padding: var(--sand-section-y) 0 calc(var(--sand-section-y) + var(--sand-space-2));
 }
 
@@ -8,7 +18,7 @@
    只做硬裁切，不再用渐隐遮罩 —— 边界和其他模块一样是清晰的 */
 .carousel {
   overflow: hidden;
-  /* 留一点纵向空间，卡片悬停时的暖色投影不会被 overflow 裁掉 */
+  /* 留一点纵向空间，卡片悬停时的投影不会被 overflow 裁掉 */
   padding: var(--sand-space-3) 0;
 }
 
@@ -55,29 +65,58 @@
    这样卡片边缘不会被 container 裁掉，也能露出下一张的一角提示可横滑。
    高度则一律取 --sand-thought-h（≈260px），不再随内容长短变化：
    随想字数跨度 14–232 字，若交给内容撑高，最长的一条会把整条滚动画布
-   拉到 460px 以上，而多数卡只有 1–4 行，对比之下整排看着又高又空。 */
+   拉到 460px 以上，而多数卡只有 1–4 行，对比之下整排看着又高又空。
+
+   注意：padding 与上下边框宽度参与 --sand-thought-h 的换算
+   （见 custom.css §6 的 --sand-thought-chrome），改这里必须同步改那边。
+   左侧 4px 色条不影响纵向高度，可以自由调。
+
+   v4 配色：底色 wash、左边条 line。
+   这里给 wash 打底是有必要的 —— 随想卡片直接坐在天空层上（本节没有色带），
+   纯白 + 1px 描边在浅蓝天底上边界很弱；铺一层松柏绿之后，
+   「这一排是深绿的那一支」一眼可辨，卡片边界也跟着清楚了。
+   文字全部按 wash 验过（ink-2 最差 9.3:1），过 AA 有大量余量。 */
 .thoughtCard {
+  position: relative;
   display: flex;
   flex-direction: column;
   width: clamp(16rem, 78vw, 23.75rem);
   height: var(--sand-thought-h);
   flex-shrink: 0;
   margin-right: var(--sand-space-5);
-  background: var(--ifm-card-background-color);
-  border: 1px solid var(--ifm-color-emphasis-200);
-  border-left: 3px solid var(--sand-accent);
+  background: var(--thoughts-wash);
+  border: 1px solid var(--sand-line);
+  border-left: 4px solid var(--thoughts-line);
   border-radius: var(--ifm-card-border-radius);
   padding: var(--sand-space-5);
   /* 兜底：万一有内容（长图、不可断词）撑破内容区，也不会影响卡片尺寸 */
   overflow: hidden;
-  transition:
-    box-shadow var(--ifm-transition-fast) var(--ifm-transition-timing-default),
+  transition: box-shadow var(--ifm-transition-fast) var(--ifm-transition-timing-default),
     border-color var(--ifm-transition-fast) var(--ifm-transition-timing-default);
 }
 
 .thoughtCard:hover {
-  border-color: var(--sand-hair-2);
-  box-shadow: var(--ifm-global-shadow-md);
+  border-color: var(--sand-line-strong);
+  border-left-color: var(--thoughts-ink);
+  box-shadow: var(--sand-shadow-lift);
+}
+
+/* 右下角的巨型引号水印：定高卡片里内容长短差异很大，
+   这个水印负责在「只有一行」的卡片上补住下半张的空白，
+   同时给整排卡片一个统一的视觉符号（而不是靠边框区分）。
+   颜色取本节的 soft 档（比 wash 深一档），压在 wash 上 1.12:1 ——
+   它是「影子」，只在余光里成立，凑近看才认得出是个引号。 */
+.thoughtCard::after {
+  content: '\201D';
+  position: absolute;
+  right: var(--sand-space-4);
+  bottom: -0.35em;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 6.5rem;
+  line-height: 1;
+  color: var(--thoughts-soft);
+  pointer-events: none;
+  user-select: none;
 }
 
 /* 内容区：最多 --sand-thought-lines 行，超出部分在整行边界截断。
@@ -85,6 +124,8 @@
    overflow: hidden 是第二道保险；min-height: 0 让它在 flex 列里
    真的能被压缩，两个属性才会生效。 */
 .thoughtContent {
+  position: relative;
+  z-index: 1; /* 压在水印之上 */
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: var(--sand-thought-lines);
@@ -92,7 +133,7 @@
   min-height: 0;
   font-size: var(--sand-text-md);
   line-height: var(--sand-leading-loose);
-  color: var(--ifm-color-emphasis-700);
+  color: var(--sand-ink-2);
   overflow-wrap: anywhere;
 }
 
@@ -118,6 +159,8 @@
 
 /* 时间行：margin-top:auto 把它压在卡片底部 */
 .thoughtMeta {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   margin-top: auto;
@@ -126,7 +169,8 @@
 
 .thoughtDate {
   font-size: var(--sand-text-xs);
-  color: var(--ifm-color-emphasis-600);
+  letter-spacing: 0.04em;
+  color: var(--sand-ink-4);
   font-variant-numeric: tabular-nums;
 }
 
@@ -134,5 +178,5 @@
   text-align: center;
   padding: var(--sand-space-6) 0;
   font-size: var(--sand-text-sm);
-  color: var(--ifm-color-emphasis-600);
+  color: var(--sand-ink-3);
 }

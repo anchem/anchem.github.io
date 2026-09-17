@@ -1,0 +1,141 @@
+/**
+ * SkyBackdrop 布局
+ * 只写「放哪、多大、多糊」，颜色一律在 custom.css §1。
+ *
+ * 尺寸全部用 vw/vh/clamp 而不是 px：
+ * 天空是视口的函数，不是版面的函数。用 px 会在宽屏上变成一小团。
+ */
+
+/* ===== 承载层 =====
+   fixed / inset:0 / z-index:-1 / opacity 交叉淡出都由 custom.css §7 给出
+   （那里要用 [class*='skyHost'] 这类子串选择器命中哈希后的类名），
+   本文件只管「画什么、摆在哪」。 */
+.skyHost {
+  /* 无需额外声明，保留类名以承载 §7 的 fixed 定位 */
+}
+
+/* ===== 白昼：云 =====
+   position/layout 全部绝对定位，互不影响。
+   三朵云各有尺寸与位置，形成「左上大、右中中、左下小」的纵深，
+   而不是三条平行飘带。 */
+.cloudLayer {
+  position: absolute;
+  inset: 0;
+}
+
+.cloud {
+  position: absolute;
+  height: auto;
+}
+
+/* 飘动：白昼的云要真的「飘」，所以幅度比彩云大，周期也更长。
+   只动 transform，不动 left/top —— 后者每帧都要重新排版。 */
+@keyframes cloudFloat {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(6%, -2%, 0);
+  }
+}
+
+.cloudFloat {
+  animation: cloudFloat 92s ease-in-out infinite alternate;
+}
+
+.cloudFloatSlow {
+  animation: cloudFloat 138s ease-in-out infinite alternate-reverse;
+}
+
+/* 大朵：压在左上，出血到视口外，看起来像云从画面外飘进来 */
+.cloudA {
+  top: 6vh;
+  left: -8vw;
+  width: min(46vw, 620px);
+  /* 近处的云更清晰 */
+  filter: blur(5px);
+  opacity: 0.95;
+}
+
+/* 中朵：右侧中部，比大朵更糊更淡 —— 越远越糊，这是空气透视 */
+.cloudB {
+  top: 26vh;
+  right: -4vw;
+  width: min(30vw, 400px);
+  filter: blur(9px);
+  opacity: 0.72;
+}
+
+/* 小朵：左下，最远最淡 */
+.cloudC {
+  bottom: 16vh;
+  left: 8vw;
+  width: min(20vw, 260px);
+  filter: blur(12px);
+  opacity: 0.5;
+}
+
+/* ===== 白昼：日晕 =====
+   只做一团暖光，位置刻意偏到视口右上角外，让页面主要阅读区保持干净。 */
+.sunGlow {
+  position: absolute;
+  top: -22vh;
+  right: -8vw;
+  width: min(58vw, 780px);
+  height: min(58vw, 780px);
+  border-radius: 50%;
+  background-image: var(--sand-sky-glow);
+}
+
+/* ===== 夜幕：星空 =====
+   星空铺满整个视口。它是 1px 量级的点，压在 15:1 的正文下面
+   不会影响阅读，却能把「满天」这件事说清楚。 */
+.stars {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ===== 夜幕：彩云 =====
+   整块做大半径模糊，铺成横贯画面的低饱和飘带。
+   模糊半径必须远大于形状半径，否则能看出是「几个椭圆」。 */
+.aurora {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  filter: blur(34px);
+  opacity: 0.9;
+}
+
+/* ===== 手机 =====
+   窄屏上云朵按 vw 算会小到看不出形状，改成按视口高度给一个下限；
+   同时把中部让出来，避免云正好压在正文上。 */
+@media (max-width: 768px) {
+  .cloudA {
+    top: 5vh;
+    left: -18vw;
+    width: 78vw;
+  }
+
+  .cloudB {
+    top: 34vh;
+    right: -16vw;
+    width: 58vw;
+  }
+
+  .cloudC {
+    bottom: 12vh;
+    left: 2vw;
+    width: 44vw;
+  }
+}
+
+/* ===== 降级 ===== */
+@media (prefers-reduced-motion: reduce) {
+  .cloudFloat,
+  .cloudFloatSlow {
+    animation: none;
+  }
+}

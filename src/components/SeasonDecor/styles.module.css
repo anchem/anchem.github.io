@@ -1,0 +1,79 @@
+/**
+ * SeasonDecor 动画（v4 起只作用于天体：星、月、彩云）
+ * 只写「怎么动」，颜色一律在 custom.css §1 的 --sand-* 令牌里。
+ * 所有动画都在 prefers-reduced-motion: reduce 下关闭。
+ */
+
+/* ===== 星空 =====
+   三组错相闪烁。周期取 3.6s / 5.2s / 7.4s 这种互质差不多的值，
+   叠起来才不会出现明显的「整片一起呼吸」的拍频。 */
+@keyframes twinkle1 {
+  0%,
+  100% {
+    opacity: 0.9;
+  }
+  50% {
+    opacity: 0.42;
+  }
+}
+
+@keyframes twinkle2 {
+  0%,
+  100% {
+    opacity: 0.72;
+  }
+  46% {
+    opacity: 0.32;
+  }
+}
+
+@keyframes twinkle3 {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  54% {
+    opacity: 0.96;
+  }
+}
+
+.twinkle1 {
+  animation: twinkle1 5.2s ease-in-out infinite;
+}
+
+.twinkle2 {
+  animation: twinkle2 7.4s ease-in-out infinite;
+}
+
+.twinkle3 {
+  animation: twinkle3 3.6s ease-in-out infinite;
+}
+
+/* ===== 彩云 =====
+   极慢的横向漂移 + 呼吸，幅度很小（±2.5%）。
+   夜晚的东西应该是「几乎不动」的，动得明显就成了动画片。 */
+@keyframes auroraDrift {
+  0%,
+  100% {
+    transform: translateX(-2.5%);
+    opacity: 0.82;
+  }
+  50% {
+    transform: translateX(2.5%);
+    opacity: 1;
+  }
+}
+
+.auroraDrift {
+  animation: auroraDrift 46s ease-in-out infinite;
+}
+
+/* ===== 降级 ===== */
+@media (prefers-reduced-motion: reduce) {
+  .twinkle1,
+  .twinkle2,
+  .twinkle3,
+  .auroraDrift {
+    animation: none;
+  }
+}

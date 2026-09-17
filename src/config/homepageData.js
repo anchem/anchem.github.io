@@ -71,7 +71,13 @@ function gitLastCommitDate(relativeDir) {
       },
     );
     return parseDateString(output);
-  } catch {
+  } catch (err) {
+    // git 不在 PATH 或仓库无提交历史时，调用方会降级到文件 mtime（= checkout 当天）。
+    // 这里显式提示，避免「最近更新」悄悄变成今天却没人察觉。
+    console.warn(
+      `[homepageData] git 不可用，"${relativeDir}" 的最近更新时间将降级为文件 mtime（通常是 checkout 当天）。` +
+        ` 原因：${err.message}`,
+    );
     return null;
   }
 }
