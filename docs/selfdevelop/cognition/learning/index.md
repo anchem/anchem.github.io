@@ -103,6 +103,7 @@ sidebar_position: 1
 #### 学习之术
 
 - [项目式学习](projectbasedlearning.md)
+- [从知道到做到](fromknow2done.md)：知行合一之间的五大差距（知识、动机、技能、习惯、障碍）
 
 ## 参考资料
 

@@ -1,7 +1,7 @@
 ---
 id: energymanagement
 title: 精力管理
-sidebar_position: 6
+sidebar_position: 5
 tags:
   - '精力管理'
 ---

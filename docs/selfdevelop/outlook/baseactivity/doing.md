@@ -1,5 +1,5 @@
 ---
-id: getthingsdone
+id: doing
 title: 做事
 sidebar_position: 2
 tags:
