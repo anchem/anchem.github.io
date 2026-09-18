@@ -255,7 +255,7 @@ I'll also send you an email with the details.
 **周报邮件模板示例**
 
 ```text
-Subject: Weekly Report – [Li Ming], [2026-12-18]
+Subject: Weekly Report – [Li Ming], [日期]
 
 Hi Tom,
 

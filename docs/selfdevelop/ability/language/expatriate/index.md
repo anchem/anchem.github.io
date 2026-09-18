@@ -59,14 +59,14 @@ keywords: [英语, 学习计划, B2, C1, TOEIC, 听力, 口语, 阅读, 罗马�
 
 ### 六阶段路线图 {#roadmap}
 
-| 阶段 | 时间 | 主题 | 标志性标准 |
-| --- | --- | --- | --- |
-| [一 摸底与定档](#phase-1) | 9 月中～10 月中 | 基线测试、语音补漏、习惯固化 | 常速新闻听写 ≥ 90%，3 分钟自我介绍 |
-| [二 听力攻坚](#phase-2) | 10 月中～11 月中 | 整句听懂、倍速、口音初体验 | 听写 ≥ 90%，1.2 倍速抓 8 成要点 |
-| [三 口语输出](#phase-3) | 11 月中～12 月中 | 影子跟读、PREP、外部反馈启动 | 同步率 ≥ 80%，每 2 周 1 次真人反馈 |
-| [四 场景实战](#phase-4) | 12 月中～1 月中 | 18 张场景卡全真模拟 | 每卡 2 分钟输出，卡顿点 ≤ 2 |
-| [五 高压模拟](#phase-5) | 1 月中～2 月中 | 会议/电话/口音/突发 | 会议跟得上且发言 ≥ 2 次 |
-| [六 临行冲刺](#phase-6) | 2 月中～3 月中 | 外部测评、补漏、素材定稿 | TOEIC ≥ 900 或 CEFR 口语达 C1 |
+| 阶段 | 主题 | 标志性标准 |
+| --- | --- | --- |
+| [一 摸底与定档](#phase-1) | 基线测试、语音补漏、习惯固化 | 常速新闻听写 ≥ 90%，3 分钟自我介绍 |
+| [二 听力攻坚](#phase-2) | 整句听懂、倍速、口音初体验 | 听写 ≥ 90%，1.2 倍速抓 8 成要点 |
+| [三 口语输出](#phase-3) | 影子跟读、PREP、外部反馈启动 | 同步率 ≥ 80%，每 2 周 1 次真人反馈 |
+| [四 场景实战](#phase-4) | 18 张场景卡全真模拟 | 每卡 2 分钟输出，卡顿点 ≤ 2 |
+| [五 高压模拟](#phase-5) | 会议/电话/口音/突发 | 会议跟得上且发言 ≥ 2 次 |
+| [六 临行冲刺](#phase-6) | 外部测评、补漏、素材定稿 | TOEIC ≥ 900 或 CEFR 口语达 C1 |
 
 ### 每日核心公式（三档）{#daily}
 
@@ -254,7 +254,7 @@ keywords: [英语, 学习计划, B2, C1, TOEIC, 听力, 口语, 阅读, 罗马�
 | P1 | 与本地团队/客户电话 | [卡 3](#work-card-3) 延伸 |
 | P1 | 英文邮件（周报/请假/请求） | [邮件模板](#work-email) |
 
-**技术词汇表（先过一遍，工作场景的地基）{#work-vocab}**
+#### 技术词汇表（先过一遍，工作场景的地基）{#work-vocab}
 
 | 词汇 | 含义 | 词汇 | 含义 |
 | --- | --- | --- | --- |
@@ -267,7 +267,7 @@ keywords: [英语, 学习计划, B2, C1, TOEIC, 听力, 口语, 阅读, 罗马�
 | patch / fix | 补丁 / 修复 | handover | 交接 |
 | upgrade / rollout | 升级 / 发布 | monitoring | 监控 |
 
-**卡 1 · 入职与团队自我介绍（Day 1 讲稿）{#work-card-1}**
+#### 卡 1 · 入职与团队自我介绍（Day 1 讲稿） {#work-card-1}
 
 ```text
 Hi everyone, I'm [姓名] from China. I'll be joining the [团队] as a
@@ -282,7 +282,7 @@ with the local team and learning from everyone.
 Please feel free to grab me for a chat. Thanks!
 ```
 
-**卡 2 · 例会发言与周报 {#work-card-2}**
+#### 卡 2 · 例会发言与周报 {#work-card-2}
 
 - Since last week, I've been working on [任务/问题单].
 - I've finished [成果] — here's a quick update.
@@ -291,7 +291,7 @@ Please feel free to grab me for a chat. Thanks!
 - For next week, I'll focus on [下一步].
 - Does anyone have feedback on this approach?
 
-**卡 3 · 故障处理与变更沟通 {#work-card-3}**
+#### 卡 3 · 故障处理与变更沟通 {#work-card-3}
 
 - We have an active alarm on [网元/设备]，severity is [级别].
 - Let me confirm the fault description — could you provide the error log?
@@ -309,7 +309,7 @@ Please feel free to grab me for a chat. Thanks!
 - 「Let's circle back on this later.」——这个回头再议。
 - 「To summarize what we agreed: ...」——总结一下共识……
 
-**邮件模板 {#work-email}**
+#### 邮件模板 {#work-email}
 
 ```text
 主题：Weekly Report – [姓名], [日期]
@@ -347,7 +347,7 @@ Best regards,
 | P0 | 国际学校沟通（女儿） | [卡 8](#life-card-8) |
 | P1 | 物业报修 / 邻居社交 | 核心句（见下） |
 
-**卡 4 · 租房安家 {#life-card-4}**
+#### 卡 4 · 租房安家 {#life-card-4}
 
 - I'm looking for a two-bedroom apartment near [学校/区域].
 - What's the monthly rent, and what does it include?
@@ -357,7 +357,7 @@ Best regards,
 - Could I take a look at the contract before signing?
 - When can we move in?
 
-**卡 5 · 银行开户 {#life-card-5}**
+#### 卡 5 · 银行开户 {#life-card-5}
 
 - I'd like to open a personal account.
 - What documents do I need to bring?
@@ -365,14 +365,14 @@ Best regards,
 - Can you set up online banking for me?
 - What are the fees for international transfers?
 
-**卡 6 · 超市购物与退换货 {#life-card-6}**
+#### 卡 6 · 超市购物与退换货 {#life-card-6}
 
 - Where can I find the dairy / bakery section?
 - Do you have this in a different size / brand?
 - I'd like to return this — I have the receipt.
 - Can I get a refund instead of a replacement?
 
-**卡 7 · 医疗与药房 {#life-card-7}**
+#### 卡 7 · 医疗与药房 {#life-card-7}
 
 - I'd like to book an appointment with a doctor.
 - What's the earliest available slot?
@@ -380,7 +380,7 @@ Best regards,
 - My daughter has a fever of 38.5.
 - Could you recommend something for a cough?
 
-**卡 8 · 国际学校沟通（英文授课）{#life-card-8}**
+#### 卡 8 · 国际学校沟通（英文授课） {#life-card-8}
 
 - How is she settling in at school?
 - She said she had a great day — thank you.
@@ -391,7 +391,7 @@ Best regards,
 
 **物业 / 邻居核心句**：「There's a leak in the bathroom.」「Could you send someone to fix the heating?」「Hi, we just moved in next door. We're from China — nice to meet you.」
 
-**家庭协同模块 {#life-family}**
+#### 家庭协同模块 {#life-family}
 
 | 时段档位 | 安排 | 适用 |
 | --- | --- | --- |
@@ -414,7 +414,7 @@ Best regards,
 | P1 | 问路与公共交通 | [卡 13](#travel-card-13) |
 | P1 | 紧急求助 | [卡 14](#travel-card-14) |
 
-**卡 9 · 机场值机 / 转机 {#travel-card-9}**
+#### 卡 9 · 机场值机 / 转机 {#travel-card-9}
 
 - Where is the check-in counter for [航空公司]?
 - Could we get seats together, please?
@@ -422,14 +422,14 @@ Best regards,
 - How long is the layover?
 - My luggage hasn't arrived — where should I report it?
 
-**卡 10 · 入境边检 {#travel-card-10}**
+#### 卡 10 · 入境边检 {#travel-card-10}
 
 - Here are our passports.
 - We're here for work / a family visit.
 - We're staying for [时长] — here's our return ticket.
 - This is my wife, and this is my daughter.
 
-**卡 11 · 酒店入住 / 退房 {#travel-card-11}**
+#### 卡 11 · 酒店入住 / 退房 {#travel-card-11}
 
 - I have a reservation under [姓名].
 - Could we get a room with two beds, please?
@@ -437,7 +437,7 @@ Best regards,
 - What time is check-out?
 - Could we check out an hour later?
 
-**卡 12 · 餐厅点餐 {#travel-card-12}**
+#### 卡 12 · 餐厅点餐 {#travel-card-12}
 
 - Could we see the menu, please?
 - What do you recommend?
@@ -445,14 +445,14 @@ Best regards,
 - Could we get the bill, please?
 - Could we get this to go?
 
-**卡 13 · 问路与交通 {#travel-card-13}**
+#### 卡 13 · 问路与交通 {#travel-card-13}
 
 - How do I get to [地点]?
 - Which bus goes to the city center?
 - How much is a ticket to [地点]?
 - Could you show me on the map?
 
-**卡 14 · 紧急求助 {#travel-card-14}**
+#### 卡 14 · 紧急求助 {#travel-card-14}
 
 - I need help.
 - Call an ambulance, please.
@@ -497,7 +497,7 @@ Best regards,
 | 词汇量 | testyourvocab 月度记录 + Anki 每日 10 分钟 | 6000 → 8500+ |
 | 语法准确度 | 录音复盘数语法错误处数 | ≤ 3 处/次 |
 
-**场景语法对照表（每周 1 点，绑定场景）{#grammar}**
+#### 场景语法对照表（每周 1 点，绑定场景） {#grammar}
 
 | 语法点 | 绑定场景 | 例句 |
 | --- | --- | --- |

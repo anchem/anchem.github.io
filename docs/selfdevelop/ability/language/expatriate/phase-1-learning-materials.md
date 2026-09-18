@@ -343,7 +343,7 @@ keywords: [英语, 阶段一, 学习材料, 基线测试, 句子重音, 连读, 
 关键词（12 个）：software maintenance / core network / network management /
 fault / ticket / alarm / team / local / newcomer / expat / colleague / project
 
-2 分钟角色扮演录音：完成（2026-10-15）
+2 分钟角色扮演录音：完成（日期）
 自评：卡顿点 2；待改进：语速偏快、句尾吞音
 ```
 
