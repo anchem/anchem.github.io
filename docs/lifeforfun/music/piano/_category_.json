@@ -1,0 +1,10 @@
+{
+  "position": 2,
+  "label": "钢琴",
+  "collapsible": true,
+  "collapsed": false,
+  "className": "lifeforfun",
+  "customProps": {
+    "description": "This description can be used in the swizzled DocCard"
+  }
+}
