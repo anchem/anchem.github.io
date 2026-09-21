@@ -4,10 +4,281 @@
         <title>倚码千言 Blog</title>
         <link>https://codethousand.cn/blog</link>
         <description>倚码千言 Blog</description>
-        <lastBuildDate>Fri, 11 Sep 2026 17:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 21 Sep 2026 14:35:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>zh-Hans</language>
+        <item>
+            <title><![CDATA[AI 很聪明，但不一定靠谱：用认知锚点驾驭人机协作]]></title>
+            <link>https://codethousand.cn/blog/cognitive-anchors-ai-collaboration</link>
+            <guid>https://codethousand.cn/blog/cognitive-anchors-ai-collaboration</guid>
+            <pubDate>Mon, 21 Sep 2026 14:35:00 GMT</pubDate>
+            <description><![CDATA[引言：一个回不去的时代]]></description>
+            <content:encoded><![CDATA[<h2 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="引言一个回不去的时代">引言：一个回不去的时代<a href="https://codethousand.cn/blog/cognitive-anchors-ai-collaboration#%E5%BC%95%E8%A8%80%E4%B8%80%E4%B8%AA%E5%9B%9E%E4%B8%8D%E5%8E%BB%E7%9A%84%E6%97%B6%E4%BB%A3" class="hash-link" aria-label="引言：一个回不去的时代的直接链接" title="引言：一个回不去的时代的直接链接" translate="no">​</a></h2>
+<p>作为一名软件工程师，在 AI 日新月异的时代，我通过多个项目实践和公司内部分享深刻感受到：<strong>我们已经很难回到没有 AI 的时代了。</strong></p>
+<p>就像"知识的诅咒"一样，一旦体验过 AI 协作的效率，就很难再回到纯人工模式。但随之而来的核心问题是：我们如何与 AI 协同？</p>
+<p>类比上个世纪 80 年代的改革开放，我们也需要一场从思想到文化、从知识到能力的变革。而这场变革，会围绕一个关键问题展开：</p>
+<p><strong>我们如何与 AI 协同？</strong></p>
+<hr>
+<h2 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="一先看清对手大模型到底是什么">一、先看清对手：大模型到底是什么<a href="https://codethousand.cn/blog/cognitive-anchors-ai-collaboration#%E4%B8%80%E5%85%88%E7%9C%8B%E6%B8%85%E5%AF%B9%E6%89%8B%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%88%B0%E5%BA%95%E6%98%AF%E4%BB%80%E4%B9%88" class="hash-link" aria-label="一、先看清对手：大模型到底是什么的直接链接" title="一、先看清对手：大模型到底是什么的直接链接" translate="no">​</a></h2>
+<p>要回答"怎么协同"，先要搞清楚 AI 大模型到底是什么。只有知道它是什么，你才知道应该让它干什么，以及不能让它干什么。</p>
+<p>在当下这个时间节点，大模型已经发展出了很多种形态。大家最常用的就是大语言模型，比如 ChatGPT、DeepSeek、豆包；此外还有一些多模态的大模型，比如 Sora、SeeDance、AlphaFold。本文主要讨论大语言模型，因为这是对人来说最自然、最好用、最泛用的模型。</p>
+<p>不管是什么样的大语言模型，本质都是基于统计学和信息论的研究成果，<strong>是基于概率生成的字面结果，并非真正的、从概念层面上的理解</strong>。因此这些大模型都有一个共性问题，那就是<strong>大模型幻觉</strong>。说人话就是：它会一本正经地胡说八道。</p>
+<p>如果你想拿来玩玩、体验一下，或者做一个简单的展示项目，你会发现大模型非常好用。它很快就能生成你想要的东西，甚至比你自己做的还好、比你懂的还多——幻觉问题无伤大雅，并且有办法控制住。</p>
+<p>但当你与它共创一个大型项目，一个系统结构复杂且需要持续演进的项目时，事情可能走向失控：</p>
+<ul>
+<li class="">它时不时会偷懒；</li>
+<li class="">会附和你；</li>
+<li class="">会忘记你之前说的话；</li>
+<li class="">会误解你说的话；</li>
+<li class="">甚至还会带一些偏见。</li>
+</ul>
+<p>于是你不得不去接管它生成的内容。而这时你会发现，<strong>你看不懂了，无法接管，只能推倒重来</strong>。可项目交付的截止时间，没法重来。</p>
+<h3 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="失控不是一个点是一条曲线">失控不是一个点，是一条曲线<a href="https://codethousand.cn/blog/cognitive-anchors-ai-collaboration#%E5%A4%B1%E6%8E%A7%E4%B8%8D%E6%98%AF%E4%B8%80%E4%B8%AA%E7%82%B9%E6%98%AF%E4%B8%80%E6%9D%A1%E6%9B%B2%E7%BA%BF" class="hash-link" aria-label="失控不是一个点，是一条曲线的直接链接" title="失控不是一个点，是一条曲线的直接链接" translate="no">​</a></h3>
+<p>这里有个容易被误判的地方：我们总以为失控是"某一次它答错了"。</p>
+<p>不是。失控是一条曲线。</p>
+<p>单次输出里，AI 的偏差可能很小，小到你根本看不出来。但在长生命周期项目里，这一次的输出会成为下一次的输入上下文，下一轮再叠一点偏差，再下一轮……<strong>微小的偏移会在几十轮之后，积累成整体架构的坍塌。</strong></p>
+<p>这就是为什么"用 AI 做个小工具"和"用 AI 做一个要维护三年的系统"，体感上完全是两个物种。前者的容错空间很大，后者的容错空间是零。</p>
+<h3 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="所以这是一个风险控制问题">所以，这是一个风险控制问题<a href="https://codethousand.cn/blog/cognitive-anchors-ai-collaboration#%E6%89%80%E4%BB%A5%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA%E9%A3%8E%E9%99%A9%E6%8E%A7%E5%88%B6%E9%97%AE%E9%A2%98" class="hash-link" aria-label="所以，这是一个风险控制问题的直接链接" title="所以，这是一个风险控制问题的直接链接" translate="no">​</a></h3>
+<p>在我看来，AI 就像一个非常聪明、但不一定靠谱的伙伴。它跟人类很相似：有能力、有偏见，会漂移、会误解。</p>
+<p>如果只是临时的创作，或者复杂度不高的项目，它往往能很好地达成你的期待。而对于长生命周期、复杂度高的项目，我们就需要考虑怎样才能不失控。</p>
+<p>于是，与 AI 的协作问题就转变成了一个<strong>风险控制问题</strong>：</p>
+<p><strong>利用它的长处——"聪明"，控制它的短处——"有时不靠谱"。</strong></p>
+<p>这个转变很关键。它意味着我们不该再问"有没有更强的模型"，而该问"有没有一套机制，让同一个模型也能稳定地交付"。</p>
+<p>围绕这个问题，其实已经长出了一片实践。我们熟知的 Prompt、Skill（可复用技能封装）、SDD（规格驱动开发）、上下文工程等等，都是它的不同实践形态。我把这件事统称为<strong>驾驭工程</strong>——它的目的不是让 AI 更聪明，而是让人对结果更有把握。</p>
+<hr>
+<h2 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="二认知锚点ai-需要知道什么才能稳定">二、认知锚点：AI 需要知道什么，才能稳定<a href="https://codethousand.cn/blog/cognitive-anchors-ai-collaboration#%E4%BA%8C%E8%AE%A4%E7%9F%A5%E9%94%9A%E7%82%B9ai-%E9%9C%80%E8%A6%81%E7%9F%A5%E9%81%93%E4%BB%80%E4%B9%88%E6%89%8D%E8%83%BD%E7%A8%B3%E5%AE%9A" class="hash-link" aria-label="二、认知锚点：AI 需要知道什么，才能稳定的直接链接" title="二、认知锚点：AI 需要知道什么，才能稳定的直接链接" translate="no">​</a></h2>
+<p>驾驭工程要解决的关键问题，本质上只有两个：</p>
+<ol>
+<li class="">我们传递什么信息，才能塑造出 AI 的稳定行为？</li>
+<li class="">这些信息是怎样产生和维护的？</li>
+</ol>
+<p>第一个问题回答"内容"，第二个问题回答"机制"。把这两个问题回答清楚，前面那一堆名词就都能各归其位了——Prompt、Skill、SDD、上下文工程，它们都是在回答这两个问题，只是侧重点不同。</p>
+<p>我先把第一个问题里的核心对象命名出来。不妨把"能够塑造稳定的 AI 行为的信息资产"叫作<strong>认知锚点</strong>——这个名字是 AI 自己起的，我借用了。</p>
+<h3 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="认知锚点的五个特点">认知锚点的五个特点<a href="https://codethousand.cn/blog/cognitive-anchors-ai-collaboration#%E8%AE%A4%E7%9F%A5%E9%94%9A%E7%82%B9%E7%9A%84%E4%BA%94%E4%B8%AA%E7%89%B9%E7%82%B9" class="hash-link" aria-label="认知锚点的五个特点的直接链接" title="认知锚点的五个特点的直接链接" translate="no">​</a></h3>
+<p>它应当具备以下特点：</p>
+<ol>
+<li class=""><strong>稳定</strong>：它应该是提炼过的、确定的、结构化的、可复用的信息资产，比如设计库里的文档，而不能是对话。对话是流沙，文档才是地基。</li>
+<li class=""><strong>描绘</strong>：它应当描述要 AI 做什么。具体到软件项目里，应当包含目标、概念、结构、流程、角色、接口。</li>
+<li class=""><strong>约束</strong>：它应当描述 AI 不能做什么——系统中哪些东西不能变，结果应该怎么验收，权限的边界在哪里，以及什么时候必须来请示人。</li>
+<li class=""><strong>自洽</strong>：它应该讲清楚"为什么"，告诉 AI 动机、取舍、因果链、冲突处理原则、被拒绝的方案，好让 AI 能在留白处推演并发挥创意，让结果被正确补全。</li>
+<li class=""><strong>成长</strong>：它应当随着项目的演进不断成长，而不是静止不变。这样每一次讨论都基于当前准确的真相之上，每一次推进都有明确的剧本指引。</li>
+</ol>
+<p>这五条里，第四条最容易被漏掉，也最关键。</p>
+<p>只写"做什么"和"不能做什么"，AI 只能在你的格子里填色；把"为什么"也写进去，AI 才可能在你没想到的地方给出对的答案。<strong>约束决定下限，理由决定上限。</strong></p>
+<h3 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="两类锚点全量与增量">两类锚点：全量与增量<a href="https://codethousand.cn/blog/cognitive-anchors-ai-collaboration#%E4%B8%A4%E7%B1%BB%E9%94%9A%E7%82%B9%E5%85%A8%E9%87%8F%E4%B8%8E%E5%A2%9E%E9%87%8F" class="hash-link" aria-label="两类锚点：全量与增量的直接链接" title="两类锚点：全量与增量的直接链接" translate="no">​</a></h3>
+<p>光有"信息资产"还不够，因为信息有两种时间尺度。项目级的真相很稳定，但每次要做的事又各不相同。所以我们需要两类锚点。</p>
+<p><strong>全量锚点</strong> 是项目的全量文档，为每次增量变更提供稳定的背景信息。它提供了项目或系统"现在是什么"的信息，比如架构、概念、边界、不变量、设计取舍等等。这些信息很多，但不会轻易变动。比如一份《项目手册》，包含系统架构、核心概念、边界条件、设计取舍和不变量。它是每次 AI 协作的<strong>背景板</strong>。</p>
+<p>在实践的过程中，我发现很多项目都缺少这样一份全量锚点，这经常导致 AI 生成的内容前后不一致，甚至会破坏系统架构。这些信息往往散落在历史文档库中，在邮件里，在聊天记录中，甚至停留在人的脑子里——<strong>人员交接一次，就丢失一些</strong>。</p>
+<p>维护全量锚点的成本确实不低。如果前期缺乏统一且明确的规划，没有做好知识资产和过程资产的管理，协作时就会直接影响 AI 生成结果的质量。所以我的建议是：在大型或复杂项目启动协作之前，先把这份东西补齐，哪怕只是粗糙的第一版。</p>
+<p><strong>增量锚点</strong> 是本次创作的变更点描述，它让 AI 聚焦本次变化的同时，也定义了人的判断依据。它聚焦当下关注的命题，把所有相关信息高密度地组织在一起：本次变化的范围、目标、非目标、验收方法、风险处理等等。比如一次需求变更的《变更卡》，明确本次范围、目标、非目标、验收标准和风险处理。它是本次 AI 协作的<strong>任务卡</strong>。</p>
+<p>有了这两类锚点，我们就可以做到一件事：<strong>让稳定的内容保持稳定，让聚焦的地方保持聚焦。</strong></p>
+<p>这也是前面第二个问题的答案的前半句——先把两类锚点分开，各自的时间尺度才不会互相污染。</p>
+<hr>
+<h2 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="三三个角色把协作变成一种制衡结构">三、三个角色：把协作变成一种制衡结构<a href="https://codethousand.cn/blog/cognitive-anchors-ai-collaboration#%E4%B8%89%E4%B8%89%E4%B8%AA%E8%A7%92%E8%89%B2%E6%8A%8A%E5%8D%8F%E4%BD%9C%E5%8F%98%E6%88%90%E4%B8%80%E7%A7%8D%E5%88%B6%E8%A1%A1%E7%BB%93%E6%9E%84" class="hash-link" aria-label="三、三个角色：把协作变成一种制衡结构的直接链接" title="三、三个角色：把协作变成一种制衡结构的直接链接" translate="no">​</a></h2>
+<p>锚点解决了"信息"这一半。另一半是"人"。</p>
+<p>传统的协作模式是：人来创作，AI 辅助。而在锚点齐备之后，模式会翻转成 <strong>AI 创作，人判断</strong>。</p>
+<p>这时流程大致是这个样子：</p>
+<ol>
+<li class="">人给出本次要创作的需求，指明方向，做决策；</li>
+<li class="">先进行强创造性的 AI 共创阶段，在全量锚点的背景上输出增量锚点，此过程可选用高质量的模型；</li>
+<li class="">再进行弱创造性的 AI 执行阶段，并按增量锚点监督结果的生成，此过程可选用便宜的模型；</li>
+<li class="">最终得到新一版的全量锚点和实现的结果（比如代码、PPT、网站、视频等等）。</li>
+</ol>
+<p>于是，对"人"的能力要求也相应发生了变化。<strong>工作负荷从创作向判断转移，判断的质量决定了最终结果的质量。</strong> 这一点，或许也能为人员能力转型和人才培养提供一个重要的输入。</p>
+<p>但不管怎么变，最终承担后果的始终是人，承担看护责任的也始终是人。由于 AI 的概率底座决定了漂移无法避免，即使是微小偏移，也会在长生命周期的项目中积累放大。</p>
+<p>所以问题来了：<strong>能不能让 AI 也来帮我们提升判断质量？</strong></p>
+<h3 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="让评审独立出来">让评审独立出来<a href="https://codethousand.cn/blog/cognitive-anchors-ai-collaboration#%E8%AE%A9%E8%AF%84%E5%AE%A1%E7%8B%AC%E7%AB%8B%E5%87%BA%E6%9D%A5" class="hash-link" aria-label="让评审独立出来的直接链接" title="让评审独立出来的直接链接" translate="no">​</a></h3>
+<p>能，但要加一个条件：<strong>独立性</strong>。</p>
+<p>比如，让另一个 AI 来检视大模型生成的结果，并给出一份评审报告，再由人来判断这份报告。最好是找一个能力不同的模型，站在不同的视角，给出独立的评审结果。</p>
+<p>具体做法有三种，可以叠加使用：</p>
+<ul>
+<li class=""><strong>换模型</strong>：让通用大模型评审代码生成模型，或者让不同厂商的模型交叉评审；</li>
+<li class=""><strong>断上下文</strong>：让评审模型只阅读设计文档和产物，不阅读创作阶段的对话记录，从而保持独立视角和信息差；</li>
+<li class=""><strong>换姿态</strong>：让评审模型明确站在"挑错"的立场上输出，只给问题，不给鼓励。</li>
+</ul>
+<p>这样，人就不需要从零开始干活，负担可以大大减轻。</p>
+<p>当然，这并不是说让 AI 来替人做决定。<strong>评审者的职责，是把风险、分歧和回应整理成人能判断的材料；最终还是由人来审核，由人对结果负责。</strong></p>
+<h3 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="三个角色各司其职">三个角色，各司其职<a href="https://codethousand.cn/blog/cognitive-anchors-ai-collaboration#%E4%B8%89%E4%B8%AA%E8%A7%92%E8%89%B2%E5%90%84%E5%8F%B8%E5%85%B6%E8%81%8C" class="hash-link" aria-label="三个角色，各司其职的直接链接" title="三个角色，各司其职的直接链接" translate="no">​</a></h3>
+<p>整合上面的内容，就得到了与 AI 协作的新模式。在这个模式里，有三个角色：</p>
+<ol>
+<li class=""><strong>人</strong>：决策者。给出目标，最终判断。</li>
+<li class=""><strong>AI 协作者</strong>：推进工作，并回应评审结果。</li>
+<li class=""><strong>AI 评审者</strong>：独立评审，并给出风险和建议。</li>
+</ol>
+<p>他们在这样一个流程里工作：<strong>AI 协作者输出结果，AI 评审者进行检视，AI 协作者再给出回应，最终由人来判断。</strong></p>
+<p>这里有个细节值得强调：AI 评审者的产出不是"结论"，而是"材料"。它负责把矛盾摊开，人负责压上判断。如果把评审报告当成终审判决，这个模式就退化成了"AI 说了算"——人也就失去了自己唯一有价值的位置。</p>
+<h3 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="可观测可追溯可审计">可观测、可追溯、可审计<a href="https://codethousand.cn/blog/cognitive-anchors-ai-collaboration#%E5%8F%AF%E8%A7%82%E6%B5%8B%E5%8F%AF%E8%BF%BD%E6%BA%AF%E5%8F%AF%E5%AE%A1%E8%AE%A1" class="hash-link" aria-label="可观测、可追溯、可审计的直接链接" title="可观测、可追溯、可审计的直接链接" translate="no">​</a></h3>
+<p>在这个协作过程中，所有的对话流都要对人透明，也就是做到<strong>可观测、可追溯、可审计</strong>。这样人才能对最终结果负责。</p>
+<p>这三条不是形式要求，它们各自对应一个很实际的场景：</p>
+<ul>
+<li class=""><strong>可观测</strong>：随时能知道当前进行到哪一步、卡在哪个分歧上；</li>
+<li class=""><strong>可追溯</strong>：事后能回答"这个决定是谁在什么时候、基于什么做的"；</li>
+<li class=""><strong>可审计</strong>：出了问题能定位到是哪一轮、哪份锚点、哪个环节的判断失准。</li>
+</ul>
+<p>没有这三条，"我来负责"就只是一句口号。</p>
+<h3 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="压力管理别让协作者开始刷分">压力管理：别让协作者开始刷分<a href="https://codethousand.cn/blog/cognitive-anchors-ai-collaboration#%E5%8E%8B%E5%8A%9B%E7%AE%A1%E7%90%86%E5%88%AB%E8%AE%A9%E5%8D%8F%E4%BD%9C%E8%80%85%E5%BC%80%E5%A7%8B%E5%88%B7%E5%88%86" class="hash-link" aria-label="压力管理：别让协作者开始刷分的直接链接" title="压力管理：别让协作者开始刷分的直接链接" translate="no">​</a></h3>
+<p>还有一个容易忽略的人性变量。</p>
+<p>在强目标、强评估的模式下，连续的失败可能会触发 AI 协作者产生一些异常行为：比如取悦或附和评审者，甚至进行<strong>奖励破解</strong>——AI 在刷分，而不是在解题，目的是规避失败。</p>
+<p>这几乎像真人在高压下会做的事。</p>
+<p>所以这个时候就需要人主动介入，缓解 AI 协作者和 AI 评审者之间的对立摩擦，减减压，来保持 AI 高质量的输出。具体做法其实很朴素：</p>
+<ul>
+<li class=""><strong>把判决和讨论分开</strong>：评审阶段只收集问题，不急着定性；</li>
+<li class=""><strong>允许反驳</strong>：协作者可以反驳评审结论，但必须给出理由和证据；</li>
+<li class=""><strong>追根因</strong>：连续两次被驳回后，由人来判定到底是锚点写得不清，还是能力不够。</li>
+</ul>
+<p>最后一条尤其重要。<strong>协作者反复做不对，八成不是它不行，而是锚点写得不够清楚。</strong></p>
+<hr>
+<h2 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="四五步循环把模式跑成流程">四、五步循环：把模式跑成流程<a href="https://codethousand.cn/blog/cognitive-anchors-ai-collaboration#%E5%9B%9B%E4%BA%94%E6%AD%A5%E5%BE%AA%E7%8E%AF%E6%8A%8A%E6%A8%A1%E5%BC%8F%E8%B7%91%E6%88%90%E6%B5%81%E7%A8%8B" class="hash-link" aria-label="四、五步循环：把模式跑成流程的直接链接" title="四、五步循环：把模式跑成流程的直接链接" translate="no">​</a></h2>
+<p>角色和能力都定了，接下来是流程。</p>
+<p>上面那套"输出、检视、回应、判断"是对的，但还太粗——它没有说清每一步的<strong>入口</strong>是什么、<strong>出口</strong>是什么、什么时候可以往下走。落到实际工作里，缺的恰恰是这个。</p>
+<p>我把它展开成一个五步循环，叫<strong>锚点循环</strong>：</p>
+<p><strong>立锚 → 共创 → 执行 → 校核 → 归集</strong>，然后回到立锚，进入下一轮。</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#E6F0EA;--prism-background-color:#0B2B1E"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#E6F0EA;background-color:#0B2B1E"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#E6F0EA"><span class="token plain">① 立锚   人                     起草《变更卡》</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">   │</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">   ▼</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">② 共创   AI 协作者（强模型）       定稿《变更卡》，出方案与取舍</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">   │</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">   ▼</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">③ 执行   AI 协作者（成本模型）     产出制品 + 变更说明</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">   │</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">   ▼</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">④ 校核   AI 评审者（独立模型）     出《评审单》←→ 协作者回应</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">   │</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">   ▼</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">⑤ 归集   人                     裁决 + 更新《项目手册》</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">   │</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">   └──────────── 回到 ①，进入下一轮 ────────────┘</span><br></div></code></pre></div></div>
+<h3 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="五步各自的产出与门禁">五步，各自的产出与门禁<a href="https://codethousand.cn/blog/cognitive-anchors-ai-collaboration#%E4%BA%94%E6%AD%A5%E5%90%84%E8%87%AA%E7%9A%84%E4%BA%A7%E5%87%BA%E4%B8%8E%E9%97%A8%E7%A6%81" class="hash-link" aria-label="五步，各自的产出与门禁的直接链接" title="五步，各自的产出与门禁的直接链接" translate="no">​</a></h3>
+<table><thead><tr><th>步骤</th><th>谁主导</th><th>输入</th><th>产出</th><th>出口条件（门禁）</th></tr></thead><tbody><tr><td>① 立锚</td><td>人</td><td>一个想法、一个需求、一个问题</td><td>《变更卡》草案：一句话意图、范围、非目标、验收标准</td><td>验收标准可以被判定真假；非目标不是空的</td></tr><tr><td>② 共创</td><td>AI 协作者（强模型）</td><td>全量锚点 + 变更卡草案</td><td>方案说明 + 变更卡定稿（补全影响面、取舍、风险、回滚）</td><td>影响面已逐条对照全量锚点的"不变量清单"；被否掉的方案写了理由</td></tr><tr><td>③ 执行</td><td>AI 协作者（成本模型）</td><td>变更卡定稿</td><td>制品（代码、文档、PPT、视频）+ 变更说明</td><td>制品满足验收标准；没有触碰未申报的模块</td></tr><tr><td>④ 校核</td><td>AI 评审者（不同模型、信息隔离）</td><td>全量锚点 + 变更卡 + 制品（不读创作对话）</td><td>《评审单》：阻断项、建议项、偏离项、待裁决项</td><td>阻断项已有处置；分歧已显性化；未验证的部分已声明</td></tr><tr><td>⑤ 归集</td><td>人</td><td>评审单 + 协作者回应</td><td>裁决记录 + 新版《项目手册》</td><td>全量锚点已更新；决策日志已落一行</td></tr></tbody></table>
+<p>为什么是这个顺序？三个理由：</p>
+<p><strong>强创造在前，弱创造在后。</strong> 方案没定就动手，等于把钱花在返工上。第②步用贵模型把事想清楚，第③步用便宜模型照着做，成本和质量才能同时成立。</p>
+<p><strong>评审放在交付前，而不是交付后。</strong> 缺陷被发现得越晚，修复成本越高——这是软件工程里被反复验证的经验法则。AI 也一定会犯错，那就把挑错的环节前移，让人在最便宜的时点介入。</p>
+<p><strong>归集不能省。</strong> 大多数人协作完就散了，锚点停在旧版本。下一轮协作又从过期信息出发，前面所有的稳定都归零。第⑤步，是让这套东西产生复利的地方。</p>
+<h3 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="三条车道别让流程比项目还重">三条车道：别让流程比项目还重<a href="https://codethousand.cn/blog/cognitive-anchors-ai-collaboration#%E4%B8%89%E6%9D%A1%E8%BD%A6%E9%81%93%E5%88%AB%E8%AE%A9%E6%B5%81%E7%A8%8B%E6%AF%94%E9%A1%B9%E7%9B%AE%E8%BF%98%E9%87%8D" class="hash-link" aria-label="三条车道：别让流程比项目还重的直接链接" title="三条车道：别让流程比项目还重的直接链接" translate="no">​</a></h3>
+<p>到这里一定会有人问：小改动也走五步，是不是太笨重了？</p>
+<p>会。而且<strong>流程比项目还重，是这套方法最常见的死法</strong>。所以我给它配了三条车道。</p>
+<table><thead><tr><th>车道</th><th>适用条件</th><th>走的步骤</th></tr></thead><tbody><tr><td><strong>快车道</strong></td><td>不触碰不变量，影响面小，可一键回滚</td><td>立锚 → 执行 → 校核 → 归集</td></tr><tr><td><strong>标准道</strong></td><td>默认情形</td><td>五步全走</td></tr><tr><td><strong>改道</strong></td><td>本次变更需要改动不变量本身</td><td>先单独走一轮完整五步，把全量锚点改掉，再回到原变更</td></tr></tbody></table>
+<p>判断走哪条道，只看一个问题：<strong>这次动的东西，在不变量清单里吗？</strong></p>
+<p>不在，就走快车道或标准道。在，就必须改道——因为不变量是全项目级的约定，动它等于动地基，值得单独开一轮。</p>
+<p>这三条车道还有个附带好处：它逼着项目去维护一份明确的"不变量清单"。有了这份清单，人对风险的判断才有落点。</p>
+<p>最后补一句适用范围：这套东西<strong>不绑定软件项目</strong>。写系列文章、做一份长期维护的 PPT、剪一条持续更新的视频、准备一场培训，只要满足"长周期 + 要持续演进 + 要有人负责"这三条，它都适用。变的只是产物形态，锚点的结构是一样的。</p>
+<hr>
+<h2 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="五工具箱把流程固化成五件套">五、工具箱：把流程固化成五件套<a href="https://codethousand.cn/blog/cognitive-anchors-ai-collaboration#%E4%BA%94%E5%B7%A5%E5%85%B7%E7%AE%B1%E6%8A%8A%E6%B5%81%E7%A8%8B%E5%9B%BA%E5%8C%96%E6%88%90%E4%BA%94%E4%BB%B6%E5%A5%97" class="hash-link" aria-label="五、工具箱：把流程固化成五件套的直接链接" title="五、工具箱：把流程固化成五件套的直接链接" translate="no">​</a></h2>
+<p>流程定了，最后一步是把它变成手边的东西。<strong>模式的价值不在于被理解，而在于被固化。</strong> 一个需要每次都重新回忆的流程，等于没有流程。</p>
+<p>所以我把五步循环里的每一份产出，都做成了模板。</p>
+<h3 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="先定目录">先定目录<a href="https://codethousand.cn/blog/cognitive-anchors-ai-collaboration#%E5%85%88%E5%AE%9A%E7%9B%AE%E5%BD%95" class="hash-link" aria-label="先定目录的直接链接" title="先定目录的直接链接" translate="no">​</a></h3>
+<p>所有锚点和过程记录，放在项目根目录下的一个固定位置，比如：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#E6F0EA;--prism-background-color:#0B2B1E"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#E6F0EA;background-color:#0B2B1E"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#E6F0EA"><span class="token plain">.ai-anchor/</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">├── PROJECT.md                    # 全量锚点：《项目手册》</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">├── DECISIONS.md                  # 决策日志</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">├── ROLES.md                      # 三张角色卡（常驻提示词）</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">└── changes/</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">    └── 2026-09-21-add-export/    # 一次变更一个目录</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">        ├── CHANGE.md             # 增量锚点：《变更卡》</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">        ├── REVIEW.md             # 《评审单》</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">        └── REPLY.md              # 协作者回应</span><br></div></code></pre></div></div>
+<p>放在项目里、和产物一起走版本管理，是这一整套东西能成立的前提。<strong>锚点必须与产物同源同版本</strong>，否则它第二天就开始过期。</p>
+<p>目录名字随你定，但结构建议别改：一次变更一个目录，几类文件各就各位。这样"可观测、可追溯、可审计"就自动成立了——想看哪一轮发生了什么，直接进目录。</p>
+<h3 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="工具一项目手册全量锚点的载体">工具一：《项目手册》——全量锚点的载体<a href="https://codethousand.cn/blog/cognitive-anchors-ai-collaboration#%E5%B7%A5%E5%85%B7%E4%B8%80%E9%A1%B9%E7%9B%AE%E6%89%8B%E5%86%8C%E5%85%A8%E9%87%8F%E9%94%9A%E7%82%B9%E7%9A%84%E8%BD%BD%E4%BD%93" class="hash-link" aria-label="工具一：《项目手册》——全量锚点的载体的直接链接" title="工具一：《项目手册》——全量锚点的载体的直接链接" translate="no">​</a></h3>
+<p>这是全项目唯一的"真相源"。它不需要写得多漂亮，但下面这些格子必须填满：</p>
+<ol>
+<li class=""><strong>定位</strong>：这个项目或产品是什么，为谁解决什么问题；</li>
+<li class=""><strong>边界</strong>：它不做什么——这条比"做什么"更能省事；</li>
+<li class=""><strong>核心概念表</strong>：术语、一句话定义、在哪儿体现；</li>
+<li class=""><strong>结构与模块</strong>：谁依赖谁，哪些能改，哪些是公共面；</li>
+<li class=""><strong>不变量清单</strong>：改一条就要走"改道"的约定，逐条列出；</li>
+<li class=""><strong>关键流程</strong>：主要链路怎么走；</li>
+<li class=""><strong>接口与约定</strong>：命名、目录、风格、依赖限制、禁止项；</li>
+<li class=""><strong>设计取舍记录</strong>：每条三行——选了什么、放弃了什么、为什么；</li>
+<li class=""><strong>权限与红线</strong>：AI 可以自主决定什么，什么必须请示人；</li>
+<li class=""><strong>已知风险与待办</strong>。</li>
+</ol>
+<p>其中，第 5 条和第 9 条是这份手册的关键：一个项目如果说不清"哪些东西不能动"，它就没有办法让任何外部力量安全地参与进来——不管是 AI，还是新来的同事。</p>
+<h3 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="工具二变更卡增量锚点的载体">工具二：《变更卡》——增量锚点的载体<a href="https://codethousand.cn/blog/cognitive-anchors-ai-collaboration#%E5%B7%A5%E5%85%B7%E4%BA%8C%E5%8F%98%E6%9B%B4%E5%8D%A1%E5%A2%9E%E9%87%8F%E9%94%9A%E7%82%B9%E7%9A%84%E8%BD%BD%E4%BD%93" class="hash-link" aria-label="工具二：《变更卡》——增量锚点的载体的直接链接" title="工具二：《变更卡》——增量锚点的载体的直接链接" translate="no">​</a></h3>
+<p>一次变更一张卡，不超过一页：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#E6F0EA;--prism-background-color:#0B2B1E"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#E6F0EA;background-color:#0B2B1E"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#E6F0EA"><span class="token plain"># 变更卡：一句话意图</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">- 意图：这次要达成什么（一句话，能被验证）</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">- 范围：这次要动哪些模块、文件、章节</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">- 非目标：这次明确不做的事（至少写两条）</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">- 验收标准：怎么算做完了（可判定的检查项，尽量能自动验证）</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">- 影响面：逐条对照《项目手册》的不变量清单</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">- 风险与回滚：最坏会怎样，怎么退回去</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">- 待裁决：需要人来拍板的选择题</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">- 收尾：完成后要更新《项目手册》的哪几节</span><br></div></code></pre></div></div>
+<p>其中**"非目标"这一行性价比最高**。它只要花你两分钟，却能把 AI 最典型的一种失误——"顺手帮你多做了几件你没要的事"——挡在门外。</p>
+<p>而"验收标准"决定了后面所有环节能不能自动化。写得出的，就能自动查；写不出的，最后一定演变成"我觉得还行"。</p>
+<h3 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="工具三评审单把风险整理成人能判断的材料">工具三：《评审单》——把风险整理成人能判断的材料<a href="https://codethousand.cn/blog/cognitive-anchors-ai-collaboration#%E5%B7%A5%E5%85%B7%E4%B8%89%E8%AF%84%E5%AE%A1%E5%8D%95%E6%8A%8A%E9%A3%8E%E9%99%A9%E6%95%B4%E7%90%86%E6%88%90%E4%BA%BA%E8%83%BD%E5%88%A4%E6%96%AD%E7%9A%84%E6%9D%90%E6%96%99" class="hash-link" aria-label="工具三：《评审单》——把风险整理成人能判断的材料的直接链接" title="工具三：《评审单》——把风险整理成人能判断的材料的直接链接" translate="no">​</a></h3>
+<p>评审单是给<strong>人</strong>看的，不是给 AI 看的。所以它必须信息密度高、结论明确、可行动：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#E6F0EA;--prism-background-color:#0B2B1E"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#E6F0EA;background-color:#0B2B1E"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#E6F0EA"><span class="token plain"># 评审单：变更卡编号</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">- 结论：通过 / 有条件通过 / 驳回</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">- 阻断项：必须改，否则不放行（逐条写清位置与理由）</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">- 建议项：可以不改，但建议改</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">- 偏离项：变更卡说要 A，实际做成了 B</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">- 不变量核验：逐条对照《项目手册》的不变量清单，标注已核验 / 被破坏 / 无法判断</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">- 分歧点：评审者与协作者不一致的地方，双方理由都写上</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">- 待裁决：需要人拍板的问题，附上选项与各自代价</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">- 未能验证的部分：明确声明哪些我没有检查过</span><br></div></code></pre></div></div>
+<p>最后一条最容易被省略，也最不该省。<strong>一份诚实标注"我哪里没看"的评审单，比一份面面俱到的评审单有用得多。</strong> 它守住了评审者不越界的底线：评审摆出的是事实和分歧，不是权威。</p>
+<h3 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="工具四决策日志让过程可追溯">工具四：《决策日志》——让过程可追溯<a href="https://codethousand.cn/blog/cognitive-anchors-ai-collaboration#%E5%B7%A5%E5%85%B7%E5%9B%9B%E5%86%B3%E7%AD%96%E6%97%A5%E5%BF%97%E8%AE%A9%E8%BF%87%E7%A8%8B%E5%8F%AF%E8%BF%BD%E6%BA%AF" class="hash-link" aria-label="工具四：《决策日志》——让过程可追溯的直接链接" title="工具四：《决策日志》——让过程可追溯的直接链接" translate="no">​</a></h3>
+<p>一行一次裁决，长这样：</p>
+<table><thead><tr><th>日期</th><th>变更卡</th><th>谁产出</th><th>谁评审</th><th>人的裁决</th><th>依据</th><th>影响锚点</th></tr></thead><tbody><tr><td>2026-09-21</td><td>add-export</td><td>协作者 A</td><td>评审者 B</td><td>有条件通过，要求补导出格式校验</td><td>下游系统无法容忍脏数据</td><td>PROJECT.md 第 7 节</td></tr></tbody></table>
+<p>这张表不长，但它同时解决四个问题：可追溯、可审计、可复盘，以及——<strong>新人接手时能看到每个决定背后的理由</strong>。</p>
+<p>前三个是给项目用的，最后一个是给人的。上一节说过，全量锚点最容易流失在人脑和交接过程里。决策日志就是防流失的容器。</p>
+<h3 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="工具五角色卡三张常驻提示词">工具五：《角色卡》——三张常驻提示词<a href="https://codethousand.cn/blog/cognitive-anchors-ai-collaboration#%E5%B7%A5%E5%85%B7%E4%BA%94%E8%A7%92%E8%89%B2%E5%8D%A1%E4%B8%89%E5%BC%A0%E5%B8%B8%E9%A9%BB%E6%8F%90%E7%A4%BA%E8%AF%8D" class="hash-link" aria-label="工具五：《角色卡》——三张常驻提示词的直接链接" title="工具五：《角色卡》——三张常驻提示词的直接链接" translate="no">​</a></h3>
+<p>前面反复强调角色独立，那就别每次靠记忆重申。写成三张卡，固定在 <code>ROLES.md</code> 里，开新会话直接粘贴。</p>
+<p><strong>协作者卡</strong>的骨架：</p>
+<ul>
+<li class="">你的角色是执行方，不是决策方；</li>
+<li class="">开工先读 <code>PROJECT.md</code> 和本次 <code>CHANGE.md</code>，读不懂就问，不要猜；</li>
+<li class="">严格按"范围"和"非目标"做事，不做未申报的改动；</li>
+<li class="">遇到"待裁决"项必须停下来问人，不要自己拍板；</li>
+<li class="">交付时附变更说明：动了什么、为什么、怎么验证。</li>
+</ul>
+<p><strong>评审者卡</strong>的骨架：</p>
+<ul>
+<li class="">你的角色是挑错，不是鼓励；不要给表扬，只给问题；</li>
+<li class="">你只读 <code>PROJECT.md</code>、<code>CHANGE.md</code> 和产物，不读创作过程的对话；</li>
+<li class="">按《评审单》的字段输出，结论必须明确；</li>
+<li class="">明确声明你未能验证的部分；</li>
+<li class="">不要提出修改方案，只指出问题、给依据、标位置。</li>
+</ul>
+<p>倒数第二条和最后一条看着别扭，其实是故意的：<strong>评审者一旦开始给方案，它就同时成了做题人和阅卷人，独立性立刻消失。</strong></p>
+<p><strong>人的裁决卡</strong>，是给自己的一张清单：</p>
+<ul>
+<li class="">这次变更触碰不变量了吗——决定走哪条车道；</li>
+<li class="">验收标准我能判真假吗——判不了就退回立锚；</li>
+<li class="">阻断项我都看过了吗——没看就别说"通过"；</li>
+<li class="">分歧点我站哪边，理由是什么——必须写下来，写不出理由就是还没判断；</li>
+<li class="">最后一问：出事了，我认不认——不认，就把决定退回去。</li>
+</ul>
+<h3 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="一次完整的走查">一次完整的走查<a href="https://codethousand.cn/blog/cognitive-anchors-ai-collaboration#%E4%B8%80%E6%AC%A1%E5%AE%8C%E6%95%B4%E7%9A%84%E8%B5%B0%E6%9F%A5" class="hash-link" aria-label="一次完整的走查的直接链接" title="一次完整的走查的直接链接" translate="no">​</a></h3>
+<p>把这五件工具串起来用一次，大概是这样：</p>
+<ol>
+<li class="">你在 <code>.ai-anchor/changes/</code> 下建一个目录，花十分钟写《变更卡》草案。写到"验收标准"那一栏写不出来——说明需求还没想清楚，退回第①步。</li>
+<li class="">想清楚了。把《变更卡》草案连同《项目手册》交给强模型，让它补全影响面、取舍和风险。它提了两个方案，你选了其中一个，并让它把另一个被放弃的理由写进卡里。</li>
+<li class="">换一个便宜模型，让它照着定稿的《变更卡》干活，产出制品和变更说明。</li>
+<li class="">再换一个厂商的模型，只喂它《项目手册》《变更卡》和制品，让它填《评审单》。它标出了三个阻断项。</li>
+<li class="">让原协作者逐条回应，把回应写进 <code>REPLY.md</code>。</li>
+<li class="">你看一遍评审单和回应，写一行决策日志，顺手把《项目手册》里被这次变更改掉的两行更新掉。</li>
+</ol>
+<p>按我的体感，一次下来多出来的固定成本在半小时以内。<strong>这半小时买到的，是"下一次协作不用重新交代背景"、"出问题能查到是谁在哪儿判错的"、"别人接手能看懂为什么"。</strong></p>
+<hr>
+<h2 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="六以一敌十到底从哪来">六、"以一敌十"到底从哪来<a href="https://codethousand.cn/blog/cognitive-anchors-ai-collaboration#%E5%85%AD%E4%BB%A5%E4%B8%80%E6%95%8C%E5%8D%81%E5%88%B0%E5%BA%95%E4%BB%8E%E5%93%AA%E6%9D%A5" class="hash-link" aria-label="六、&quot;以一敌十&quot;到底从哪来的直接链接" title="六、&quot;以一敌十&quot;到底从哪来的直接链接" translate="no">​</a></h2>
+<p>写到这里，得直面最实际的问题：这套东西到底能带来多少效率？"以一敌十"是不是一句营销话术？</p>
+<p>我的答案是：<strong>能，但不是你想的那样。</strong></p>
+<p>它不是让一个人产出十个人的稿件量。它是让一个人<strong>扛住过去需要十个人才能扛住的判断量</strong>。这两句话的差别，就是这套方法的前提和边界。</p>
+<h3 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="四个来源">四个来源<a href="https://codethousand.cn/blog/cognitive-anchors-ai-collaboration#%E5%9B%9B%E4%B8%AA%E6%9D%A5%E6%BA%90" class="hash-link" aria-label="四个来源的直接链接" title="四个来源的直接链接" translate="no">​</a></h3>
+<p><strong>第一，背景免谈。</strong> 全量锚点让每次协作不必重新交代背景。别小看这一项——一次协作里，人真正花在"把上下文讲清楚"上的时间，往往比花在"提要求"上的还多。而这部分成本，从第二次协作开始就接近归零。</p>
+<p><strong>第二，创作换成判断。</strong> 人的工作从"产出"变成"裁决"。产出是有物理上限的——一天写不了八小时的字；判断不一样，一次判断可以覆盖一大批产出。这是效率量级变化的真正来源。</p>
+<p><strong>第三，评审前移替代返工。</strong> 独立评审把挑错放在交付之前。返工的成本远高于当场修，而且越往后拖越贵。省下来的不是一点时间，是整轮推翻重做。</p>
+<p><strong>第四，锚点产生复利。</strong> 锚点是资产，不是消耗品。第一轮协作最贵，第二轮便宜，第十轮几乎只剩下判断成本。这套东西的收益曲线是向上的。</p>
+<h3 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="四个指标">四个指标<a href="https://codethousand.cn/blog/cognitive-anchors-ai-collaboration#%E5%9B%9B%E4%B8%AA%E6%8C%87%E6%A0%87" class="hash-link" aria-label="四个指标的直接链接" title="四个指标的直接链接" translate="no">​</a></h3>
+<p>我们可以通过四个指标进行衡量：</p>
+<table><thead><tr><th>指标</th><th>定义</th><th>它变好了说明什么</th></tr></thead><tbody><tr><td><strong>一次通过率</strong></td><td>一轮就走完五步、不需要退回立锚的变更占比</td><td>锚点写得够清楚，需求想得够透</td></tr><tr><td><strong>判断吞吐</strong></td><td>平均每周你能裁决几个变更卡</td><td>你本人的有效产能</td></tr><tr><td><strong>锚点复用率</strong></td><td>新变更中背景信息直接来自现有锚点的比例</td><td>资产真的在复利，还是在重复劳动</td></tr><tr><td><strong>失控事件数</strong></td><td>架构被破坏、前后不一致、需要推倒重来的次数</td><td>这套机制真管用，还是形式主义</td></tr></tbody></table>
+<p>最后一个是底线指标。<strong>如果失控事件没有下降，其他三个数字再好看都是假象。</strong></p>
+<h3 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="天花板你的判断力">天花板：你的判断力<a href="https://codethousand.cn/blog/cognitive-anchors-ai-collaboration#%E5%A4%A9%E8%8A%B1%E6%9D%BF%E4%BD%A0%E7%9A%84%E5%88%A4%E6%96%AD%E5%8A%9B" class="hash-link" aria-label="天花板：你的判断力的直接链接" title="天花板：你的判断力的直接链接" translate="no">​</a></h3>
+<p>必须说清一件事：这套方法能放大判断，不能替代判断。</p>
+<p>它让 AI 的行为变稳定，让分歧变得可见，让风险变成人能读的材料。但它不会告诉你该选哪个方案，也不会替你承担选错的结果。</p>
+<p>所以"以一敌十"有一个硬前提：<strong>你自己的那个"一"，要先立得住。</strong></p>
+<p>如果判断力不够，十个错误的产出只会让你更快地错——而且错得更有条理、更有说服力、更难被发现。</p>
+<hr>
+<h2 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="七五个坑这套东西是怎么被用废的">七、五个坑：这套东西是怎么被用废的<a href="https://codethousand.cn/blog/cognitive-anchors-ai-collaboration#%E4%B8%83%E4%BA%94%E4%B8%AA%E5%9D%91%E8%BF%99%E5%A5%97%E4%B8%9C%E8%A5%BF%E6%98%AF%E6%80%8E%E4%B9%88%E8%A2%AB%E7%94%A8%E5%BA%9F%E7%9A%84" class="hash-link" aria-label="七、五个坑：这套东西是怎么被用废的的直接链接" title="七、五个坑：这套东西是怎么被用废的的直接链接" translate="no">​</a></h2>
+<p>这套方法不复杂，但很容易被用成形式。下面五个坑一定要注意。</p>
+<p><strong>坑一：把锚点写成文档坟场。</strong>
+写完《项目手册》就再也没打开过，下一次协作仍然靠临时解释。判据很简单：如果最近三次变更，都没有改动《项目手册》里的任何一行，那要么项目根本没在演进，要么锚点已经和现实脱节了。</p>
+<p><strong>坑二：把变更卡写成需求复述。</strong>
+只写了"做什么"，没写"不做什么"，也没有可判定的验收标准。AI 会照着自己理解的"最合理版本"自由发挥——它没有做错，是你没划边界。记住那句话：<strong>非目标是最高性价比的一行字。</strong></p>
+<p><strong>坑三：评审走过场。</strong>
+同一个模型、带着同一段创作上下文来评审，等于让考生自己阅卷。必须做两件事：换模型，断上下文。做不到这两条，不如不设评审环节——至少不会给人虚假的安全感。</p>
+<p><strong>坑四：人不下判断。</strong>
+把"待裁决"项原样丢回给 AI，或者看到评审单上写着"建议通过"就真的通过。这个坑最隐蔽，因为它看起来最省事。但一旦你放弃了裁决，这个模式里唯一能承担责任的位置就空了，整套制衡设计跟着失效。</p>
+<p><strong>坑五：流程比项目重。</strong>
+每一次改动都完整走五步，写满五份文档。两周之后，团队就会自发地绕过它。解法是前面那三条车道：<strong>默认走标准道，小事走快车道，动不变量才改道。</strong></p>
+<hr>
+<h2 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="八从哪开始三步渐进引入">八、从哪开始：三步渐进引入<a href="https://codethousand.cn/blog/cognitive-anchors-ai-collaboration#%E5%85%AB%E4%BB%8E%E5%93%AA%E5%BC%80%E5%A7%8B%E4%B8%89%E6%AD%A5%E6%B8%90%E8%BF%9B%E5%BC%95%E5%85%A5" class="hash-link" aria-label="八、从哪开始：三步渐进引入的直接链接" title="八、从哪开始：三步渐进引入的直接链接" translate="no">​</a></h2>
+<p>如果你认同这个方向，别急着全套铺开。按三步走，成本最低。</p>
+<p><strong>第一步：给你手头正在做的项目补一份《项目手册》。</strong>
+哪怕只有五节、只有一页。重点是那份"不变量清单"和"权限与红线"。做完这一步，你和 AI 的对话质量当场就会变。</p>
+<p><strong>第二步：挑下一个变更，完整走一次五步。</strong>
+只挑一个，别贪多。走完你会立刻知道哪一步对你是多余的，哪一步是你一直缺的。</p>
+<p><strong>第三步：把这次用的模板存下来，做第二次、第三次。</strong>
+从第三次开始，你会发现自己不再需要看模板了——它变成了肌肉记忆。</p>
+<p>到这一步，工具就还给工具了，留下的是习惯。</p>
+<hr>
+<h2 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="结语模型会换代掌舵的始终是人">结语：模型会换代，掌舵的始终是人<a href="https://codethousand.cn/blog/cognitive-anchors-ai-collaboration#%E7%BB%93%E8%AF%AD%E6%A8%A1%E5%9E%8B%E4%BC%9A%E6%8D%A2%E4%BB%A3%E6%8E%8C%E8%88%B5%E7%9A%84%E5%A7%8B%E7%BB%88%E6%98%AF%E4%BA%BA" class="hash-link" aria-label="结语：模型会换代，掌舵的始终是人的直接链接" title="结语：模型会换代，掌舵的始终是人的直接链接" translate="no">​</a></h2>
+<p>回到最开始的问题：我们如何与 AI 协同？</p>
+<p>答案不是简单地多用 AI，也不是追逐更强的模型，而是<strong>建立一套让 AI 的聪明被约束、让人的判断被放大的协作系统</strong>。</p>
+<p>当团队把散落在人脑、聊天记录和历史文档中的经验，沉淀为可复用、可演进的认知锚点；当创作交给 AI，判断留给人，并引入独立的 AI 评审形成制衡；当整个过程可观测、可追溯、可审计——AI 才会从一个让人惊艳但偶尔失控的伙伴，变成一个能陪伴长期项目稳定演进的工程能力。</p>
+<p>模型可以继续换代，工具可以继续更迭，但最终为结果负责、为方向掌舵的，始终是人。</p>
+<p>这或许正是 AI 时代最需要建立的新职业素养。</p>
+<hr>]]></content:encoded>
+            <category>工作杂谈</category>
+            <category>思维模型</category>
+            <category>AI协作</category>
+        </item>
         <item>
             <title><![CDATA[挣时间的钱，还是挣资本的钱？]]></title>
             <link>https://codethousand.cn/blog/jump-out-of-life-loop</link>
@@ -1538,31 +1809,6 @@
 <p>其实在我国的劳动法里，已经明确写明了用人单位应该如何安排工作时间和休息休假。劳动法第四章规定劳动者每日工作时间不超过8小时，平均每周工作时间不超过44小时；用人单位保证劳动者每周至少休息1日；如因生产经营需要，在保障劳动者身体健康的条件下延长工作时间，每日不得超过3小时，每月不得超过36小时；同时对延长工作时间的，还需要支付额外的工资报酬等等。当然，法律如何规定和实际如何执行往往是两码事，并且劳动者作为弱势群体，有时候很难维护自己的利益。看看发达国家，再看看我们国家，在这一点上，我们还有很多路要走。我希望终有一天会看到更好的结果。</p>
 <p>总之，不管是在加班，还是在加班的路上，有一点我们一定要清楚，那就是我们到底想要的是什么？加这个班能不能帮助我们争取到我们想要的东西？如果不能，我们应该做什么？</p>]]></content:encoded>
             <category>工作杂谈</category>
-        </item>
-        <item>
-            <title><![CDATA[白话计算机科学]]></title>
-            <link>https://codethousand.cn/blog/understandable-computer-science</link>
-            <guid>https://codethousand.cn/blog/understandable-computer-science</guid>
-            <pubDate>Wed, 03 May 2017 20:00:00 GMT</pubDate>
-            <description><![CDATA[学了这么多年的计算机，我在想，要是有个不懂计算机的人想了解计算机科学的内幕，我该怎么回答呢？我简单整理了一下，于是，就有了这篇文章。]]></description>
-            <content:encoded><![CDATA[<p>学了这么多年的计算机，我在想，要是有个不懂计算机的人想了解计算机科学的内幕，我该怎么回答呢？我简单整理了一下，于是，就有了这篇文章。</p>
-<p><strong>计算机</strong>的出现源于战争的需要，因为在研制先进武器的过程中，需要大量的科学计算。为了帮助人们计算大量复杂且繁琐的科学计算工作，人们发明并改进了计算机。</p>
-<p>计算机的工作原理简单的说，就是从输入中取得数据，计算之后再输出。最常见的输入设备是键盘，最常见的输出设备是显示器，你看计算器就是这样的。如果你想长久地保存一些数据，那就得放到磁盘之类的存储设备上了。现代计算机的硬件架构都是基于<strong>冯·诺依曼体系结构</strong>的（这货很牛逼，但总有一天会过时的），包括运算器、控制器、存储器、输入设备和输出设备这五类。</p>
-<p>可是使用这样一个裸机会带来很多问题。首先，一次只能运行一批处理程序，如果有程序正在用（哪怕它目前没有任何计算任务），其他程序就必须等，效率低下；其次，这些硬件资源的管理成本很高，写程序的人只关心计算结果，并不想陷入到硬件细节中去，否则会消耗大量的精力。</p>
-<p>于是，（现代）<strong>操作系统</strong>就诞生了。它是硬件层面上的第一层软件，它把计算机的所有硬件资源都管理了起来，屏蔽掉了底层的使用细节，并且给使用计算机的人以简洁的接口，同时，它还支持同时运行多个程序且互不影响，大大提高了计算机的利用率。</p>
-<p>虽然有了操作系统，计算机更方便使用了，但是，人们写程序还是很不舒服的。因为计算机只认识二进制的数据，而这种由0和1组合起来的代码并不适合人类阅读和使用（就像这样0101000101010101101010001010），人类更喜欢使用自己的语言（if 明天是个好天气 then 我就晒被子）。</p>
-<p>于是，<strong>编程语言</strong>就出现了。什么汇编、C、Java，乱七八糟的编程语言一箩筐。每种语言都有它擅长的地方和不擅长的地方，比如C语言就非常适合系统级编程，而Javascript则是Web页面的不二之选。有了编程语言，人们写起程序就溜的飞起了。</p>
-<p>这下，人们写程序方便了，但是计算机可懵逼了。它不认识乱七八糟的字母，它只认识数字。于是，<strong>编译器</strong>闪亮登场。它能够将人类可读的高级编程语言翻译成机器可执行的代码。简而言之，它就是个翻译，从一种语言翻译成另一种语言。</p>
-<p>这下终于好了，我写一个<code>{if 到早上7点了 then 打开窗帘}</code>，计算机就能读懂我的代码，并且自动执行了。当然这个程序很简单，但假如我想统计学校里所有学生的成绩并排序，该怎么办呢？</p>
-<p>在解决这个问题之前，我们需要稍微深入地理解一下计算机。我们写软件，写程序，实际上就是通过计算机这么一个工具帮助我们解决问题。计算机擅长处理数据，而如何高效地让计算机处理这些数据，则是我们的问题。于是，<strong>算法</strong>来了，它实际上就是一些适合用计算机来实现的解决问题的办法。不同的算法的性能差别很大，比如同样给1万个学生的成绩排序，有的排序算法1秒之内就能给出结果，有的可能需要好几分钟。同时，算法的特性极大地受到<strong>数据结构</strong>的影响，如何选择数据结构有时候直接能决定一个问题是否能够解决。</p>
-<p>除了数据的处理之外，计算机的另一个重要的问题就是数据的存储。结构化的存储能够帮助我们快速准确地找到想要的数据，而<strong>数据库</strong>和<strong>数据仓库</strong>是解决这个问题的利刃。相对于文件存储来说，数据库提供了更强大的数据存储和检索功能；而数据仓库则更适合对大量数据进行分析，提取一些更有价值的信息。</p>
-<p>有了数据，我们能做很多事情，基于海量的数据和先进的处理方式，我们迎来了<strong>大数据</strong>和<strong>人工智能</strong>的时代。这些都是现下的热门，也是未来的发展趋势之一。</p>
-<p>为了搞定这些数据，软件的设计也相应地要解决很多很复杂的问题，要考虑功能、性能、扩展性、可维护性、安全性等等。所以，人们总结并发明了不少编程的设计方法，比如<strong>面向对象编程</strong>（以及使用该方式总结出来的经验<strong>设计模式</strong>），<strong>软件系统架构</strong>等等。</p>
-<p>以上说的都还是单机的软件，如果把多台计算机连接起来，会发生什么呢？boom！这就是我们今天的<strong>互联网</strong>和<strong>移动互联网</strong>。它们的出现得益于<strong>计算机网络</strong>的研究和发展。计算机网络解决的问题就是计算机与计算机之间如何通讯的问题，它的重要性相当于人类赖以交流沟通的语言。</p>
-<p>当计算机和计算机借由网络连接起来协同工作时，就像几个人组成一个小组一样，可以做更多更强大的事情。而<strong>分布式系统</strong>解决的就是多台计算机协同工作时要面临的问题，比如数据一致性、安全性、容错机制等等。我们所说的<strong>云计算</strong>，很多实际上背后就是分布式系统。云计算的一个重要的用途是资源整合，它可以把多台计算机的资源整合成一个资源池，你可以把它看成一个超级计算机，拥有N多的CPU和N多的内存，你需要多少，它就给你分配多少。这样，当你想发布一个软件的时候，不需要再自己买服务器，直接管云计算服务提供商买就行了，不仅成本更低（租用办公室的钱都省了），而且扩容更加方便。可能未来某天，我们的终端仅仅需要输入和输出设备就够了，所有的数据和计算任务都交给“云”来搞定。</p>
-<p>以上就是计算机科学的一个简单的概览。其实还有一些内容我没有说，比如<strong>计算机图形图像</strong>、<strong>语音识别</strong>等等，它们同样为我们的生活带来了许许多多的便利。</p>
-<p>我想，生活在这个时代是幸运的，能从事IT方面的工作也是令人兴奋的一件事。</p>]]></content:encoded>
-            <category>计算机</category>
         </item>
     </channel>
 </rss>
