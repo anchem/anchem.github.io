@@ -16,6 +16,6 @@ tags:
 
 【实例】：
 
-- [Beijing Is Still Playing the Long Game on Taiwan:Why China Isn’t Poised to Invade](https://www.foreignaffairs.com/articles/china/2022-06-23/beijing-still-playing-long-game-taiwan), By Andrew J. Nathan
+- [Beijing Is Still Playing the Long Game on Taiwan:Why China Isn't Poised to Invade](https://www.foreignaffairs.com/articles/china/2022-06-23/beijing-still-playing-long-game-taiwan), By Andrew J. Nathan
 
 ## 方法
