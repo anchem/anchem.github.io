@@ -594,7 +594,7 @@ AI 把产出的成本压到接近零，于是新的瓶颈不再是“能不能�
 - [AI 协作方法论：锚点循环与五件套工具箱](../../ability/ai/ai-collaboration-methodology.md)：判断力怎么用在长周期项目上，以及怎么把说不清的手感变成可复用的流程
 - [从知道到做到](../../cognition/learning/fromknow2done.md)：五个差距，本文 4.1 节拿它当诊断工具
 - [项目式学习](../../cognition/learning/projectbasedlearning.md)：真实项目为什么是唯一的载体
-- [批判性思维](../../cognition/thinking/criticalthinking.md)：判断力的具体检查清单
+- [批判性思维](../../cognition/thinking/criticalthinking/index.md)：判断力的具体检查清单
 - [《斯坦福商业决策课》笔记](../../ability/decisionmaking/decisionquality.md)：做重要决定时的六个要素
 - [目标管理](../../ability/management/targetmanagement.md)：把三层能力落成有截止期的目标
 - [精力管理](../../ability/management/energymanagement.md)：注意力主权与精力的关系

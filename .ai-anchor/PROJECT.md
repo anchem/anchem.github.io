@@ -112,19 +112,41 @@ anchem.github.io/
 ### 6.2 校验与构建（本机操作口径）
 
 ```bash
-# 链接与锚点体检（递归，当前 225 篇）
+# 链接与锚点体检（递归，当前 238 篇）
 node .workbuddy/check-doc-links.js docs
 
 # 单文件文风体检（非行首加粗 / 正文 ASCII 直引号 / 破折号数 / admonition 数）
 node .workbuddy/check-style-one.js docs/selfdevelop/outlook/humanity/human-abilities-in-ai-era.md
 
-# 构建：先把旧产物移开，不要直接删 build/
-Rename-Item build build_old
+# 可读性指标（引用密度 / 长句 / 段落 / 最宽表；口径写死在脚本头部，新旧并排）
+node .workbuddy/an-metrics.js --both
+
+# 文风与标点断言式体检（9 条断言，任一失败即退出码 1；取代 check-style-one.js 的恒真 ok）
+node .workbuddy/an-compliance.js [目录]
+
+# 构建：先把旧产物改名移开，再带官方开关跳过 server bundle 清理
+Rename-Item build build_old                                     # PowerShell
+$env:DOCUSAURUS_KEEP_SERVER_BUNDLE='true'                       # PowerShell（bash 写 VAR=true 前置）
 node node_modules/@docusaurus/core/bin/docusaurus.mjs build
 ```
 
-**为什么先改名**：本机的 safe-delete 守卫会拦住构建清空 `build/` 的动作并挂住进程。
-移开旧产物是唯一合规的绕法；`build_old*` 删不掉就留着，**不要绕过守卫**。
+**构建会被本机守卫拦住两处，都要在触发之前避开**：
+
+1. **清空旧产物**（`buildLocale.js` 的 `clearPath(outDir)`，构建第一步）→ 先把 `build/` 改名移开。
+2. **清理 SSR 包**（`cleanupServerBundle`，删 `build/__server` 的 891 个文件）→ 这一步在 **SSG 之后、`postBuild` 之前**。
+   被拦下的后果很隐蔽：**`sitemap.xml` 根本不会生成**（它由 sitemap 插件在 `postBuild` 阶段写），
+   静态页却已经齐全，产物看着成功实则缺件，`exit 0` 也拿不到。
+   对策是 Docusaurus 官方开关 `DOCUSAURUS_KEEP_SERVER_BUNDLE=true`——不是绕守卫，是让这次删除**不需要发生**。
+   代价：`build/__server` 会留下，构建后用**移动**（`Rename-Item` / `fs.renameSync`，不是删除）挪进 `.workbuddy/` 即可。
+
+`build_old*` 删不掉就留着，**不要绕过守卫**。
+
+**构建成功的判据（两条都要满足）**：日志末尾出现 `[SUCCESS] Generated static files in "build"`，
+**且** `build/sitemap.xml` 存在。只看 `exit 0` 会被上面第 2 条骗过。
+
+**产物核对基线**（2026-09-22 实测）：`build/` 顶层 16 项、html 401 个。
+CI 在 ubuntu 上全新构建后经 `peaceiris/actions-gh-pages` 发到 `gh-pages`（`.github/workflows/deploy.yml`），
+`publish_dir: ./build` —— 所以 `__server` 残留只影响本机，不会上传；但仍应挪走，避免下次误判产物形态。
 
 **验链最便宜的办法**：不跑构建，直接在 `build/sitemap.xml` 里查目标路径是否存在。
 
@@ -160,9 +182,11 @@ node node_modules/@docusaurus/core/bin/docusaurus.mjs build
 | `_category_.json` | 必含 `position` / `label` / `className`（等于板块名）；顶层 `collapsed: false`，第 2 层及以下 `true` |
 | docs 内互链 | 相对 `.md` 路径，可带 `#锚点` |
 | blog → docs | 绝对路径 `/docs/...` |
-| 长文标题锚点 | 用 `{#custom-id}` 自定义 ID，方便被别处稳定引用 |
+| 长文标题锚点 | 用 `{#custom-id}` 自定义 ID，方便被别处稳定引用。注意 **Docusaurus 不为 H1 生成锚点**（页面首个 H1 被提为标题，不落在正文里），所以 `{#custom-id}` 只能挂在 H2 及以下；**别把锚点写在 H1 上** |
+| 长文拆章 | 单篇正文超过约 600 行、或各主题已能独立取用时，拆成目录：`index.md` 承载目录 URL（作为本节目录页），其余各篇独立成页；手册还需要一篇导览时，导览单独写 `overview.md`。拆章时锚点要重挂到新页的 H2 上（见上一行的限制）；原章节级锚点会随「章节变成整页」而退役，属已声明代价 |
+| 目录与同名文件 | **同一层不能同时存在 `x.md` 与 `x/`**：`x.md`（URL = `…/x`）与 `x/index.md`（URL 也是 `…/x`）会抢同一个 URL，而 `onBrokenLinks: 'warn'` 只会告警不会失败，表现是有一页被**静默覆盖**。把 `x.md` 收进 `x/` 时，必须先决定它是 `x/index.md`（占目录首页）还是另起文件名 |
 | 中文标点 | 正文用中文全角标点；代码、路径、配置项用 ASCII 直引号 |
-| 引号 | 按语境判，不按引号内的内容判：中文句子（含表格、提示框）里的引号一律全角 `“ ”` `‘ ’`，哪怕引号内只是一个英文词或数字；纯英文句子、行内代码、代码围栏、front matter、路径、配置项一律 ASCII `"` `'`。正文英文里的撇号（`I'm`、`can't`、`we'll`）属 ASCII，不转全角 |
+| 引号 | 按语境判，不按引号内的内容判：中文句子（含表格、提示框）里的引号一律全角 `“ ”` `‘ ’`，哪怕引号内只是一个英文词或数字；纯英文句子、行内代码、代码围栏、front matter、路径、配置项一律 ASCII `"` `'`。正文英文里的撇号（`I'm`、`can't`、`we'll`）属 ASCII，不转全角。**`「 」` 在本站只用于栏目名、专名与版本名（如 `「春晓」`、`「倚码千言」`），不用于正文引用** |
 | 加粗 | 列表项行首字段名用加粗（如 `- **养育重心**`）；句中强调允许加粗，这是本站长文的既有做法；表格单元格内不加粗；加粗与引号相邻时，加粗加在引号内（写 `“**重点**”`，不写 `**“重点”**`）。`bold-normalize.js` 的“只保留行首加粗”规则只适用于 `phase-*` 阶段材料，不可用来校验 docs 长文 |
 | 字词口径 | 中国香港 / 中国台湾 / 中国澳门，不得写成独立国家 |
 
@@ -243,9 +267,11 @@ node node_modules/@docusaurus/core/bin/docusaurus.mjs build
 | 3 | 根目录残留 `build_old_piano/` 等构建备份 | 占用磁盘、混淆目录树 | 确认无用后由人手动清理 |
 | 4 | 随笔目录中部分早期文章没有 `<!--truncate-->` | 列表页摘要截断行为不一致 | 逐篇补齐 |
 | 5 | 记录中引用的助手工作件（评审归档、蓝图目录、部分本地 skill）在本机已不存在 | 追不回当初的评审依据 | 已在 2026-09-22 的变更中落地：评审单与回应归档进 `changes/<目录>/`；后续评审继续照此执行 |
-| 6 | 站点内容规模已超出人工巡检能力（225 篇 docs + 27 篇 blog） | 断链与口径冲突会缓慢积累 | 每次发布前跑链接体检；新增长文走多角色评审 |
-| 7 | 全站引号已于 2026-09-22 按 §7 的口径统一过一遍（20 篇内容文件由脚本转换 1401 处，另修 2 篇既有标点错误），口径写死在 §7 | 下次有人按旧习惯写 ASCII 引号，站内会重新出现两套做法 | 改动前后跑 `.workbuddy/punct-unify.js`（默认只读普查，`--apply` 才写盘）；它已把代码围栏、行内代码、front matter、import 语句、英文撇号排除在外 |
-| 8 | `docs/selfdevelop/cognition/thinking/critical-thinking-playbook.md` 单篇 **800 行**，是全站最长的一页；按需求单篇承载了七个板块（五张清单、六个维度、18 条动作、30 天计划、复盘模板、避坑、书目地图） | 首屏过长，读者只能靠 TOC 导航；同类主题若继续单篇承载会更难读；另有两张宽表（§6.2 六列、§7 五列）在窄屏下只能横向滚动 | 拆章要新建目录（§9 须请示人）。已连续两轮记录此事，**下一轮应优先处理**：拆章时一并把 §7 由五列表改成八个小节。已用 `{#custom-id}` 给全部标题锚点，为拆章预留了稳定引用入口 |
+| 6 | 站点内容规模已超出人工巡检能力（238 篇 docs + 27 篇 blog） | 断链与口径冲突会缓慢积累 | 每次发布前跑链接体检；新增长文走多角色评审 |
+| 7 | 全站引号已于 2026-09-22 按 §7 的口径统一过一遍（20 篇内容文件由脚本转换 1401 处，另修 2 篇既有标点错误），口径写死在 §7 | 下次有人按旧习惯写 ASCII 引号，站内会重新出现两套做法 | 改动前后跑 `.workbuddy/punct-unify.js`（默认只读普查，`--apply` 才写盘）；它已把代码围栏、行内代码、front matter、import 语句、英文撇号排除在外。**同日复评中发现的另一类偏差**：拆章后的新目录曾把正文引用整体写成 `「」`（265 处），与 §7 不符，已回改 264 处（`「」` 260 + `『』` 4）；`「」` 在本站只用于栏目名与专名。`punct-unify.js` 不管 `「」`，所以**改完长文要另跑 `an-compliance.js` 的断言 1** |
+| 8 | 批判性思维内容已于 2026-09-22 全部收进目录 **`docs/selfdevelop/cognition/thinking/criticalthinking/`**（14 篇 md + `_category_.json`）：`index.md` 是原「批判性思维」清单页（承载 `.../thinking/criticalthinking` 这个 URL），`overview.md` 是手册导览，其余 12 篇为正文；原单篇 800 行文件与独立的 `thinking/criticalthinking.md` 均已迁移删除，git 历史保留 | 已解决：首屏过长、主题单篇承载、八个误用五列密文表、清单页与手册分处两地 | 遗留项：① 该目录两张**填写型空表**（判断准确率 6 列、季度热力图 5 列）按原文列数保留，窄屏下横向滚动——这是原文既有版式，要压列数须同时改模板字段，另开变更。② 六个原章节级锚点（`#background`/`#core`/`#actions`/`#plan`/`#review`/`#pitfalls`）已随「章节变成整页」退役。③ 目录改名使 13 个手册页的 URL 由 `/critical-thinking-playbook/...` 变为 `/criticalthinking/...`，**站外旧深链会 404**（人已裁决不改、不加跳转，已声明为接受的代价） |
+| 9 | 同级目录的 `_category_.json` 多为 `collapsed: false`（`selfdevelop/`、`cognition/`、`thinking/`、`learning/` 实测均如此），与 §7「第 2 层及以下 `true`」不符；新建的 §10-8 那个目录写了 `true`，反而与现状不一致 | 侧边栏展开行为在同级之间不统一 | 另开变更统一：先定「§7 的层数从哪一层算起」，再一次性改齐；**不要在别的变更里顺手改** |
+| 10 | §9 必请示的三类操作（新增/移动/删除目录、批量重构 5 个文件以上、删除已发布文件）在 2026-09-22 曾获会话内口头授权，但当时未落纸 | 事后无法自证合规 | 后续凡属请示项，**人在会话中拍板后当场写进变更卡抬头**（含授权内容与时点），不再事后补记 |
 
 ---
 

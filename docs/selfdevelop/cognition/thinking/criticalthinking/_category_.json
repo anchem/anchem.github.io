@@ -1,0 +1,10 @@
+{
+  "position": 2,
+  "label": "批判性思维",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "selfdevelop",
+  "customProps": {
+    "description": "This description can be used in the swizzled DocCard"
+  }
+}
