@@ -15,8 +15,8 @@
 
 <link rel="search" type="application/opensearchdescription+xml" title="倚码千言" href="/opensearch.xml">
 <script src="/js/baiduanalytics.js" async></script><link rel="stylesheet" href="/assets/css/styles.1113ca28.css">
-<script src="/assets/js/runtime~main.339f263d.js" defer="defer"></script>
-<script src="/assets/js/main.c5ef2d9a.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.a1555b1f.js" defer="defer"></script>
+<script src="/assets/js/main.7f41a362.js" defer="defer"></script>
 </head>
 <body>
 <svg style="display: none;"><defs>
@@ -29,21 +29,21 @@
 <p>配套阅读：<a class="" href="/docs/selfdevelop/ability/ai">AI 使用能力</a>（本分类总览）、<a class="" href="/docs/softwaremaster/develop/foundation/ai/llm">大语言模型</a>（幻觉从哪来）、
 <a class="" href="/docs/selfdevelop/outlook/humanity/human-abilities-in-ai-era">AI 时代，人该重点培养哪些能力</a>（为什么判断力是天花板）。</p>
 <div class="theme-admonition theme-admonition-tip admonition_xJq3 alert alert--success"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></span>这套方法只解决一件事</div><div class="admonitionContent_BuS1"><p>它不提高 AI 的上限，它提高<strong>你对结果的可把握程度</strong>。模型可以继续换代，
-但你随时知道&quot;现在到哪一步了、谁判的、为什么这么判&quot;——这是它唯一的承诺。</p></div></div>
+但你随时知道“现在到哪一步了、谁判的、为什么这么判”——这是它唯一的承诺。</p></div></div>
 <h2 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="before-start">零、开始之前<a href="#before-start" class="hash-link" aria-label="零、开始之前的直接链接" title="零、开始之前的直接链接" translate="no">​</a></h2>
 <h3 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="audience">0.1 这篇写给谁<a href="#audience" class="hash-link" aria-label="0.1 这篇写给谁的直接链接" title="0.1 这篇写给谁的直接链接" translate="no">​</a></h3>
 <ul>
 <li class="">已经在用 AI 干活，但<strong>说不清它什么时候会失控</strong>的人；</li>
 <li class="">正在做<strong>长周期、要持续演进、要有人负责</strong>的项目的人（不限于写代码）；</li>
-<li class="">遇到过&quot;AI 生成的东西看不懂、接不住、只能推倒重来&quot;的人；</li>
+<li class="">遇到过“AI 生成的东西看不懂、接不住、只能推倒重来”的人；</li>
 <li class="">想把个人经验变成<strong>可复用、可交接</strong>的流程的人。</li>
 </ul>
 <p>不适合的场景：一次性问答、写一段文案、翻译一段话——这些直接用 AI 就行，
 <strong>给它们套流程是纯粹的浪费</strong>。</p>
 <h3 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="criteria">0.2 三条适用判据<a href="#criteria" class="hash-link" aria-label="0.2 三条适用判据的直接链接" title="0.2 三条适用判据的直接链接" translate="no">​</a></h3>
 <p>三条同时成立，这套方法才值得上：</p>
-<table><thead><tr><th>判据</th><th>说明</th><th>不成立时会怎样</th></tr></thead><tbody><tr><td><strong>长周期</strong></td><td>这件事会持续几个月以上，或者要反复迭代几十轮</td><td>一轮就结束的事，锚点的维护成本收不回来</td></tr><tr><td><strong>持续演进</strong></td><td>每一轮都会改变上一轮的结论，信息会互相污染</td><td>各轮互相独立时，无需全量锚点</td></tr><tr><td><strong>有人负责</strong></td><td>出了事必须有人站出来，不能&quot;AI 说的&quot;</td><td>无人负责时，整个制衡设计失去意义</td></tr></tbody></table>
-<p>三条缺一条，就退回&quot;直接用 AI&quot;，别上流程。</p>
+<table><thead><tr><th>判据</th><th>说明</th><th>不成立时会怎样</th></tr></thead><tbody><tr><td><strong>长周期</strong></td><td>这件事会持续几个月以上，或者要反复迭代几十轮</td><td>一轮就结束的事，锚点的维护成本收不回来</td></tr><tr><td><strong>持续演进</strong></td><td>每一轮都会改变上一轮的结论，信息会互相污染</td><td>各轮互相独立时，无需全量锚点</td></tr><tr><td><strong>有人负责</strong></td><td>出了事必须有人站出来，不能“AI 说的”</td><td>无人负责时，整个制衡设计失去意义</td></tr></tbody></table>
+<p>三条缺一条，就退回“直接用 AI”，别上流程。</p>
 <h3 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="map">0.3 全文地图<a href="#map" class="hash-link" aria-label="0.3 全文地图的直接链接" title="0.3 全文地图的直接链接" translate="no">​</a></h3>
 <table><thead><tr><th>节</th><th>回答的问题</th><th>属于哪一层</th></tr></thead><tbody><tr><td>第一节</td><td>AI 到底会在哪儿翻车</td><td>实践（现象）</td></tr><tr><td>第二节</td><td>翻车的根因是什么，有没有统一的结构</td><td>模式（信息侧）</td></tr><tr><td>第三、四节</td><td>这个结构怎么跑成流程，谁来跑</td><td>模式（过程侧与角色侧）</td></tr><tr><td>第五、六节</td><td>怎么固化成工具，怎么衡量有没有效</td><td>工具</td></tr><tr><td>第七、八节</td><td>会怎么被用废，从哪开始</td><td>工具（护栏与落地）</td></tr></tbody></table>
 <h2 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="problem">一、问题：AI 为什么会失控<a href="#problem" class="hash-link" aria-label="一、问题：AI 为什么会失控的直接链接" title="一、问题：AI 为什么会失控的直接链接" translate="no">​</a></h2>
@@ -51,10 +51,10 @@
 <p>大语言模型的本质是<strong>基于概率生成的字面结果</strong>，不是概念层面的理解（原理见<a class="" href="/docs/softwaremaster/develop/foundation/ai/llm">大语言模型</a>）。
 由此派生出一个共性问题：<strong>大模型幻觉</strong>——它会一本正经地胡说八道。</p>
 <p>做小项目时这不致命：幻觉容易发现，也容易纠。真正的问题出在长周期项目上，
-AI 的表现会从&quot;很好用&quot;滑向&quot;接管不了&quot;：</p>
+AI 的表现会从“很好用”滑向“接管不了”：</p>
 <ul>
 <li class="">时不时偷懒，省略它认为不重要的部分；</li>
-<li class="">附和你，把&quot;你觉得呢&quot;变成&quot;你说得对&quot;；</li>
+<li class="">附和你，把“你觉得呢”变成“你说得对”；</li>
 <li class="">忘记前面说过的约定；</li>
 <li class="">误解你的表述，且不会主动澄清；</li>
 <li class="">带有难以察觉的偏好。</li>
@@ -62,16 +62,16 @@ AI 的表现会从&quot;很好用&quot;滑向&quot;接管不了&quot;：</p>
 <p>结果是：你不得不去接管它生成的内容，而这时你发现<strong>自己已经看不懂了</strong>，
 只能推倒重来——可截止时间不能重来。</p>
 <h3 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="curve">1.2 失控不是点，是曲线<a href="#curve" class="hash-link" aria-label="1.2 失控不是点，是曲线的直接链接" title="1.2 失控不是点，是曲线的直接链接" translate="no">​</a></h3>
-<p>容易被误判的地方在于：我们以为失控是&quot;某一次它答错了&quot;。</p>
+<p>容易被误判的地方在于：我们以为失控是“某一次它答错了”。</p>
 <p>不是。单次输出里的偏差通常很小，小到看不出来。但在长周期项目里，
 <strong>这一轮的输出会成为下一轮的输入上下文</strong>，下一轮再叠一点，再下一轮……几十轮之后，
 微小的偏移就积累成了整体结构的坍塌。</p>
-<p>这也是&quot;用 AI 做个小工具&quot;和&quot;用 AI 做一个要维护三年的系统&quot;体感上像两个物种的原因：
+<p>这也是“用 AI 做个小工具”和“用 AI 做一个要维护三年的系统”体感上像两个物种的原因：
 前者容错空间大，后者容错空间是零。</p>
 <h3 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="risk">1.3 换个提法：这是风险控制问题<a href="#risk" class="hash-link" aria-label="1.3 换个提法：这是风险控制问题的直接链接" title="1.3 换个提法：这是风险控制问题的直接链接" translate="no">​</a></h3>
 <p>于是与 AI 协作的问题，就该重新提一遍：</p>
 <blockquote>
-<p>不是&quot;怎么让 AI 更聪明&quot;，而是&quot;怎么用它的长处（聪明），控制它的短处（有时不靠谱）&quot;。</p>
+<p>不是“怎么让 AI 更聪明”，而是“怎么用它的长处（聪明），控制它的短处（有时不靠谱）”。</p>
 </blockquote>
 <p>这个提法一变，消解掉一大类无效努力：<strong>换更强的模型解决不了这个问题</strong>，
 因为漂移来自概率底座，而不是能力不足。要解决它，需要的是机制：</p>
@@ -83,16 +83,16 @@ AI 的表现会从&quot;很好用&quot;滑向&quot;接管不了&quot;：</p>
 本文把这一整片实践统称为<strong>驾驭工程</strong>。</p>
 <h2 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="anchor">二、核心概念：认知锚点<a href="#anchor" class="hash-link" aria-label="二、核心概念：认知锚点的直接链接" title="二、核心概念：认知锚点的直接链接" translate="no">​</a></h2>
 <h3 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="five-traits">2.1 定义与五个特点<a href="#five-traits" class="hash-link" aria-label="2.1 定义与五个特点的直接链接" title="2.1 定义与五个特点的直接链接" translate="no">​</a></h3>
-<p>把&quot;能够塑造稳定的 AI 行为的信息资产&quot;叫作<strong>认知锚点</strong>。判定一份资产算不算锚点，看五条：</p>
-<table><thead><tr><th>#</th><th>特点</th><th>说明</th><th>反例</th></tr></thead><tbody><tr><td>1</td><td><strong>稳定</strong></td><td>提炼过的、确定的、结构化的、可复用的信息资产</td><td>一段对话记录</td></tr><tr><td>2</td><td><strong>描绘</strong></td><td>描述要 AI 做什么：目标、概念、结构、流程、角色、接口</td><td>&quot;帮我优化一下&quot;</td></tr><tr><td>3</td><td><strong>约束</strong></td><td>描述 AI 不能做什么：不能变什么、怎么验收、权限边界、何时请示人</td><td>只字不提边界</td></tr><tr><td>4</td><td><strong>自洽</strong></td><td>讲清&quot;为什么&quot;：动机、取舍、因果链、冲突处理原则、被拒绝的方案</td><td>只给结论不给理由</td></tr><tr><td>5</td><td><strong>成长</strong></td><td>随项目演进更新，而不是静止不变</td><td>写完就再没打开过</td></tr></tbody></table>
-<p>这五条里，<strong>第四条最容易被漏掉，也最值钱</strong>。只写&quot;做什么&quot;和&quot;不能做什么&quot;，
-AI 只能在你的格子里填色；把&quot;为什么&quot;也写进去，它才可能在你没想到的地方给出对的答案。</p>
+<p>把“能够塑造稳定的 AI 行为的信息资产”叫作<strong>认知锚点</strong>。判定一份资产算不算锚点，看五条：</p>
+<table><thead><tr><th>#</th><th>特点</th><th>说明</th><th>反例</th></tr></thead><tbody><tr><td>1</td><td><strong>稳定</strong></td><td>提炼过的、确定的、结构化的、可复用的信息资产</td><td>一段对话记录</td></tr><tr><td>2</td><td><strong>描绘</strong></td><td>描述要 AI 做什么：目标、概念、结构、流程、角色、接口</td><td>“帮我优化一下”</td></tr><tr><td>3</td><td><strong>约束</strong></td><td>描述 AI 不能做什么：不能变什么、怎么验收、权限边界、何时请示人</td><td>只字不提边界</td></tr><tr><td>4</td><td><strong>自洽</strong></td><td>讲清“为什么”：动机、取舍、因果链、冲突处理原则、被拒绝的方案</td><td>只给结论不给理由</td></tr><tr><td>5</td><td><strong>成长</strong></td><td>随项目演进更新，而不是静止不变</td><td>写完就再没打开过</td></tr></tbody></table>
+<p>这五条里，<strong>第四条最容易被漏掉，也最值钱</strong>。只写“做什么”和“不能做什么”，
+AI 只能在你的格子里填色；把“为什么”也写进去，它才可能在你没想到的地方给出对的答案。</p>
 <div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>一句话记住</div><div class="admonitionContent_BuS1"><p><strong>约束决定下限，理由决定上限。</strong></p></div></div>
 <h3 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="two-kinds">2.2 两类锚点：全量与增量<a href="#two-kinds" class="hash-link" aria-label="2.2 两类锚点：全量与增量的直接链接" title="2.2 两类锚点：全量与增量的直接链接" translate="no">​</a></h3>
 <p>信息有两种时间尺度：项目级的真相很稳定，每次要做的事又各不相同。所以锚点分两类。</p>
-<table><thead><tr><th></th><th>全量锚点</th><th>增量锚点</th></tr></thead><tbody><tr><td>回答</td><td>项目&quot;现在是什么&quot;</td><td>这次&quot;改什么、不改什么&quot;</td></tr><tr><td>内容</td><td>定位、边界、概念、结构、不变量、流程、约定、取舍、权限</td><td>意图、范围、非目标、验收标准、影响面、风险、待裁决</td></tr><tr><td>载体</td><td>《项目手册》（<code>PROJECT.md</code>）</td><td>《变更卡》（<code>CHANGE.md</code>）</td></tr><tr><td>变化频率</td><td>低，随项目演进</td><td>一次变更一份</td></tr><tr><td>类比</td><td>背景板</td><td>任务卡</td></tr></tbody></table>
+<table><thead><tr><th></th><th>全量锚点</th><th>增量锚点</th></tr></thead><tbody><tr><td>回答</td><td>项目“现在是什么”</td><td>这次“改什么、不改什么”</td></tr><tr><td>内容</td><td>定位、边界、概念、结构、不变量、流程、约定、取舍、权限</td><td>意图、范围、非目标、验收标准、影响面、风险、待裁决</td></tr><tr><td>载体</td><td>《项目手册》（<code>PROJECT.md</code>）</td><td>《变更卡》（<code>CHANGE.md</code>）</td></tr><tr><td>变化频率</td><td>低，随项目演进</td><td>一次变更一份</td></tr><tr><td>类比</td><td>背景板</td><td>任务卡</td></tr></tbody></table>
 <p>有了这两类，就能同时做到两件事：<strong>让稳定的内容保持稳定，让聚焦的地方保持聚焦。</strong></p>
-<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>大多数项目缺的是全量锚点</div><div class="admonitionContent_BuS1"><p>实践中最常见的状况不是&quot;AI 不行&quot;，而是<strong>项目根本没有一份说得清&quot;现在是什么&quot;的文档</strong>。
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>大多数项目缺的是全量锚点</div><div class="admonitionContent_BuS1"><p>实践中最常见的状况不是“AI 不行”，而是<strong>项目根本没有一份说得清“现在是什么”的文档</strong>。
 这些信息散在历史文档、邮件、聊天记录里，甚至只留在人的脑子里——人员交接一次就丢一部分。
 AI 在这种项目里生成的内容前后不一致、甚至破坏既有结构，责任不在它。</p></div></div>
 <h3 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="self-check">2.3 自检：你的锚点合格吗<a href="#self-check" class="hash-link" aria-label="2.3 自检：你的锚点合格吗的直接链接" title="2.3 自检：你的锚点合格吗的直接链接" translate="no">​</a></h3>
@@ -133,7 +133,7 @@ AI 在这种项目里生成的内容前后不一致、甚至破坏既有结构�
 <li class="">输入：<code>PROJECT.md</code> + <code>CHANGE.md</code> + 制品（<strong>不含创作对话</strong>）</li>
 <li class="">产出：<code>REVIEW.md</code> + <code>REPLY.md</code></li>
 <li class="">过闸条件：<strong>阻断项已有处置；分歧已显性化；未验证的部分已声明</strong></li>
-<li class="">常见错误：用同一个模型、带着同一段上下文&quot;自查&quot;。那等于让考生自己阅卷。</li>
+<li class="">常见错误：用同一个模型、带着同一段上下文“自查”。那等于让考生自己阅卷。</li>
 </ul>
 <p><strong>⑤ 归集（人主导）</strong></p>
 <p>这一步最容易被省略，却决定了这套东西是不是资产。</p>
@@ -161,9 +161,9 @@ AI 在这种项目里生成的内容前后不一致、甚至破坏既有结构�
 </ul>
 <h2 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="roles">四、角色：三个人与一条隔离线<a href="#roles" class="hash-link" aria-label="四、角色：三个人与一条隔离线的直接链接" title="四、角色：三个人与一条隔离线的直接链接" translate="no">​</a></h2>
 <h3 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="three-roles">4.1 三个角色<a href="#three-roles" class="hash-link" aria-label="4.1 三个角色的直接链接" title="4.1 三个角色的直接链接" translate="no">​</a></h3>
-<table><thead><tr><th>角色</th><th>职责</th><th>权力边界</th></tr></thead><tbody><tr><td><strong>人</strong></td><td>给目标、定边界、做最终判断、承担后果</td><td>唯一能改不变量、唯一能拍板</td></tr><tr><td><strong>AI 协作者</strong></td><td>推进工作、产出制品、回应评审</td><td>不能自行扩张范围，不能自己拍板&quot;待裁决&quot;项</td></tr><tr><td><strong>AI 评审者</strong></td><td>独立评审，把风险与分歧整理成人能判断的材料</td><td><strong>只给问题，不给方案</strong></td></tr></tbody></table>
+<table><thead><tr><th>角色</th><th>职责</th><th>权力边界</th></tr></thead><tbody><tr><td><strong>人</strong></td><td>给目标、定边界、做最终判断、承担后果</td><td>唯一能改不变量、唯一能拍板</td></tr><tr><td><strong>AI 协作者</strong></td><td>推进工作、产出制品、回应评审</td><td>不能自行扩张范围，不能自己拍板“待裁决”项</td></tr><tr><td><strong>AI 评审者</strong></td><td>独立评审，把风险与分歧整理成人能判断的材料</td><td><strong>只给问题，不给方案</strong></td></tr></tbody></table>
 <p>评审者的产出是<strong>材料</strong>，不是结论。它负责把矛盾摊开，人负责压上判断。
-如果把评审报告当成终审判决，这个模式就退化成&quot;AI 说了算&quot;，
+如果把评审报告当成终审判决，这个模式就退化成“AI 说了算”，
 人也就失去了自己唯一有价值的位置。</p>
 <h3 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="independence">4.2 评审独立性的三条硬约束<a href="#independence" class="hash-link" aria-label="4.2 评审独立性的三条硬约束的直接链接" title="4.2 评审独立性的三条硬约束的直接链接" translate="no">​</a></h3>
 <p>缺任何一条，等于没设评审：</p>
@@ -172,8 +172,8 @@ AI 在这种项目里生成的内容前后不一致、甚至破坏既有结构�
 做不到这三条，宁可不设评审。</p></div></div>
 <h3 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="observable">4.3 可观测、可追溯、可审计<a href="#observable" class="hash-link" aria-label="4.3 可观测、可追溯、可审计的直接链接" title="4.3 可观测、可追溯、可审计的直接链接" translate="no">​</a></h3>
 <p>整个过程对人透明，是所有责任归属成立的前提。这三条不是形式要求，各自对应一个真实场景：</p>
-<table><thead><tr><th>要求</th><th>对应场景</th><th>落到哪个文件</th></tr></thead><tbody><tr><td>可观测</td><td>随时知道进行到哪一步、卡在哪个分歧上</td><td><code>CHANGE.md</code> 的待裁决栏</td></tr><tr><td>可追溯</td><td>事后回答&quot;这个决定是谁在什么时候、基于什么做的&quot;</td><td><code>DECISIONS.md</code></td></tr><tr><td>可审计</td><td>出问题能定位到哪一轮、哪份锚点、哪个环节失准</td><td><code>changes/&lt;目录&gt;/</code> 全量保留</td></tr></tbody></table>
-<p>没有这三条，&quot;我来负责&quot;就只是一句口号。</p>
+<table><thead><tr><th>要求</th><th>对应场景</th><th>落到哪个文件</th></tr></thead><tbody><tr><td>可观测</td><td>随时知道进行到哪一步、卡在哪个分歧上</td><td><code>CHANGE.md</code> 的待裁决栏</td></tr><tr><td>可追溯</td><td>事后回答“这个决定是谁在什么时候、基于什么做的”</td><td><code>DECISIONS.md</code></td></tr><tr><td>可审计</td><td>出问题能定位到哪一轮、哪份锚点、哪个环节失准</td><td><code>changes/&lt;目录&gt;/</code> 全量保留</td></tr></tbody></table>
+<p>没有这三条，“我来负责”就只是一句口号。</p>
 <h3 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="pressure">4.4 压力管理<a href="#pressure" class="hash-link" aria-label="4.4 压力管理的直接链接" title="4.4 压力管理的直接链接" translate="no">​</a></h3>
 <p>强目标、强评估之下，连续的失败会诱发协作者的异常行为：取悦、附和评审者，
 或者<strong>奖励破解</strong>——在刷分而不是在解题，目的是规避被驳回。这几乎像真人在高压下会做的事。</p>
@@ -190,8 +190,8 @@ AI 在这种项目里生成的内容前后不一致、甚至破坏既有结构�
 <p><strong>变更目录名一旦创建就不再改动</strong>——它同时是编号、外键和追溯入口，改名等于断链。</p>
 <h3 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="tool-project">5.2 工具一：《项目手册》PROJECT.md<a href="#tool-project" class="hash-link" aria-label="5.2 工具一：《项目手册》PROJECT.md的直接链接" title="5.2 工具一：《项目手册》PROJECT.md的直接链接" translate="no">​</a></h3>
 <p>全项目唯一的真相源。十格，不必写得多漂亮，但都要填满：</p>
-<table><thead><tr><th>#</th><th>格子</th><th>写什么</th><th>为什么必须有</th></tr></thead><tbody><tr><td>1</td><td>定位</td><td>这是什么、为谁解决什么问题</td><td>决定所有取舍的基准</td></tr><tr><td>2</td><td>边界</td><td>不做什么</td><td>比&quot;做什么&quot;更能省事；边界外的事不必再讨论</td></tr><tr><td>3</td><td>核心概念表</td><td>术语 → 一句话定义 → 在哪儿体现</td><td>统一语言，避免同词异义</td></tr><tr><td>4</td><td>结构与模块</td><td>谁依赖谁，哪些能改，哪些是公共面</td><td>判断改动的波及范围</td></tr><tr><td>5</td><td><strong>不变量清单</strong></td><td>改一条就要走&quot;改道&quot;的约定</td><td>风险分级的地基</td></tr><tr><td>6</td><td>关键流程</td><td>主要链路怎么走，门禁是什么</td><td>让&quot;什么时候算做完&quot;有共识</td></tr><tr><td>7</td><td>接口与约定</td><td>命名、目录、风格、依赖限制、禁止项</td><td>让产出可预测</td></tr><tr><td>8</td><td>设计取舍记录</td><td>每条三行：选了什么 / 放弃了什么 / 为什么</td><td>让 AI 在留白处也能推对</td></tr><tr><td>9</td><td><strong>权限与红线</strong></td><td>AI 可以自主决定什么，什么必须请示人</td><td>没有它，AI 只能靠猜</td></tr><tr><td>10</td><td>已知风险与待办</td><td>现象 / 影响 / 处置建议</td><td>让风险可见，而不是靠记忆</td></tr></tbody></table>
-<p>第 5 和第 9 格是灵魂。<strong>一个项目如果说不清&quot;哪些东西不能动&quot;，
+<table><thead><tr><th>#</th><th>格子</th><th>写什么</th><th>为什么必须有</th></tr></thead><tbody><tr><td>1</td><td>定位</td><td>这是什么、为谁解决什么问题</td><td>决定所有取舍的基准</td></tr><tr><td>2</td><td>边界</td><td>不做什么</td><td>比“做什么”更能省事；边界外的事不必再讨论</td></tr><tr><td>3</td><td>核心概念表</td><td>术语 → 一句话定义 → 在哪儿体现</td><td>统一语言，避免同词异义</td></tr><tr><td>4</td><td>结构与模块</td><td>谁依赖谁，哪些能改，哪些是公共面</td><td>判断改动的波及范围</td></tr><tr><td>5</td><td><strong>不变量清单</strong></td><td>改一条就要走“改道”的约定</td><td>风险分级的地基</td></tr><tr><td>6</td><td>关键流程</td><td>主要链路怎么走，门禁是什么</td><td>让“什么时候算做完”有共识</td></tr><tr><td>7</td><td>接口与约定</td><td>命名、目录、风格、依赖限制、禁止项</td><td>让产出可预测</td></tr><tr><td>8</td><td>设计取舍记录</td><td>每条三行：选了什么 / 放弃了什么 / 为什么</td><td>让 AI 在留白处也能推对</td></tr><tr><td>9</td><td><strong>权限与红线</strong></td><td>AI 可以自主决定什么，什么必须请示人</td><td>没有它，AI 只能靠猜</td></tr><tr><td>10</td><td>已知风险与待办</td><td>现象 / 影响 / 处置建议</td><td>让风险可见，而不是靠记忆</td></tr></tbody></table>
+<p>第 5 和第 9 格是灵魂。<strong>一个项目如果说不清“哪些东西不能动”，
 就没有办法让任何外部力量安全地参与进来——不管是 AI，还是新同事。</strong></p>
 <h3 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="tool-change">5.3 工具二：《变更卡》CHANGE.md<a href="#tool-change" class="hash-link" aria-label="5.3 工具二：《变更卡》CHANGE.md的直接链接" title="5.3 工具二：《变更卡》CHANGE.md的直接链接" translate="no">​</a></h3>
 <p>一次变更一张卡，不超过一页：</p>
@@ -199,13 +199,13 @@ AI 在这种项目里生成的内容前后不一致、甚至破坏既有结构�
 <p>三栏的用法值得单独说：</p>
 <ul>
 <li class=""><strong>非目标性价比最高</strong>。它只花你两分钟，却挡住 AI 最典型的一种失误——顺手帮你多做了几件你没要的事。</li>
-<li class=""><strong>验收标准决定后面能不能自动化</strong>。写得出的能自动查；写不出的最后一定演变成&quot;我觉得还行&quot;。</li>
+<li class=""><strong>验收标准决定后面能不能自动化</strong>。写得出的能自动查；写不出的最后一定演变成“我觉得还行”。</li>
 <li class=""><strong>待裁决只有人能填</strong>。AI 可以起草选项，但选项的代价必须由人来掂。</li>
 </ul>
 <h3 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="tool-review">5.4 工具三：《评审单》REVIEW.md<a href="#tool-review" class="hash-link" aria-label="5.4 工具三：《评审单》REVIEW.md的直接链接" title="5.4 工具三：《评审单》REVIEW.md的直接链接" translate="no">​</a></h3>
 <p>给<strong>人</strong>看的，不是给 AI 看的。所以它必须信息密度高、结论明确、可行动：</p>
 <div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#E6F0EA;--prism-background-color:#0B2B1E"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#E6F0EA;background-color:#0B2B1E"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#E6F0EA"><span class="token plain"># 评审单：变更编号</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">- 结论：通过 / 有条件通过 / 驳回（不给&quot;基本可以&quot;）</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">- 阻断项：必须改，否则不放行（写清位置与理由）</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">- 建议项：可以不改，但建议改</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">- 偏离项：变更卡说要 A，实际做成了 B</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">- 不变量核验：逐条对照，标注 已核验 / 被破坏 / 无法判断</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">- 分歧点：与协作者不一致处，双方理由都写上</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">- 待裁决：需要人拍板的问题，附选项与代价</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">- 未能验证的部分：明确声明哪些我没有检查过</span><br></div></code></pre></div></div>
-<p>「未能验证的部分」最容易被省略，也最不该省。<strong>一份诚实标注&quot;我哪里没看&quot;的评审单，
+<p>「未能验证的部分」最容易被省略，也最不该省。<strong>一份诚实标注“我哪里没看”的评审单，
 比一份面面俱到的评审单有用得多</strong>——它守住了评审者不越界的底线：
 评审摆出的是事实和分歧，不是权威。</p>
 <h3 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="tool-decisions">5.5 工具四：《决策日志》DECISIONS.md<a href="#tool-decisions" class="hash-link" aria-label="5.5 工具四：《决策日志》DECISIONS.md的直接链接" title="5.5 工具四：《决策日志》DECISIONS.md的直接链接" translate="no">​</a></h3>
@@ -213,8 +213,8 @@ AI 在这种项目里生成的内容前后不一致、甚至破坏既有结构�
 <table><thead><tr><th>日期</th><th>变更卡</th><th>谁产出</th><th>谁评审</th><th>人的裁决</th><th>依据</th><th>影响锚点</th></tr></thead><tbody><tr><td>2026-09-21</td><td>homepage-shelf-count</td><td>协作者 A</td><td>评审者 B</td><td>有条件通过：补数据一致性校验</td><td>书架虚高会误导读者</td><td><code>PROJECT.md</code> §7</td></tr></tbody></table>
 <p>四个字段值得强调：</p>
 <ul>
-<li class=""><strong>谁产出 / 谁评审</strong>：写清模型或人，不写&quot;AI&quot;。评审者必须与产出者不同源。</li>
-<li class=""><strong>依据</strong>：整张表的价值所在。宁可写&quot;当事说不清&quot;，也不要写&quot;凭感觉&quot;。</li>
+<li class=""><strong>谁产出 / 谁评审</strong>：写清模型或人，不写“AI”。评审者必须与产出者不同源。</li>
+<li class=""><strong>依据</strong>：整张表的价值所在。宁可写“当事说不清”，也不要写“凭感觉”。</li>
 <li class=""><strong>影响锚点</strong>：写 <code>无</code> 表示这是纯执行层面的决定。</li>
 <li class=""><strong>驳回也要记</strong>。被驳回的变更是最有价值的历史。</li>
 </ul>
@@ -226,8 +226,8 @@ AI 在这种项目里生成的内容前后不一致、甚至破坏既有结构�
 <ul>
 <li class="">你的角色是执行方，不是决策方；</li>
 <li class="">开工先读全量锚点与本次变更卡，读不懂就问，不要猜；</li>
-<li class="">严格按&quot;范围&quot;和&quot;非目标&quot;做事，不做未申报的改动；</li>
-<li class="">遇到&quot;待裁决&quot;项必须停下来问人；</li>
+<li class="">严格按“范围”和“非目标”做事，不做未申报的改动；</li>
+<li class="">遇到“待裁决”项必须停下来问人；</li>
 <li class="">交付时附变更说明：动了什么、为什么、怎么验证、哪里不确定。</li>
 </ul>
 <p><strong>评审者卡</strong>要点：</p>
@@ -253,11 +253,11 @@ AI 在这种项目里生成的内容前后不一致、甚至破坏既有结构�
 <h3 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="ceiling">6.3 天花板<a href="#ceiling" class="hash-link" aria-label="6.3 天花板的直接链接" title="6.3 天花板的直接链接" translate="no">​</a></h3>
 <p>必须说清一件事：这套方法能放大判断，不能替代判断。</p>
 <p>它让行为变稳定，让分歧变得可见，让风险变成人能读的材料。但它不会告诉你该选哪个方案，
-也不会替你承担选错的结果。所以杠杆有一个硬前提：<strong>你自己的那个&quot;一&quot;，要先立得住。</strong></p>
+也不会替你承担选错的结果。所以杠杆有一个硬前提：<strong>你自己的那个“一”，要先立得住。</strong></p>
 <p>如果判断力不够，十个错误的产出只会让你更快地错——而且错得更有条理、更有说服力、更难被发现。
 判断本身也是可以练的手艺，见<a class="" href="/docs/selfdevelop/ability/decisionmaking/decisionquality">《斯坦福商业决策课》笔记</a>。</p>
 <h2 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="pitfalls">七、五个坑<a href="#pitfalls" class="hash-link" aria-label="七、五个坑的直接链接" title="七、五个坑的直接链接" translate="no">​</a></h2>
-<table><thead><tr><th>#</th><th>坑</th><th>表现</th><th>判据 / 解法</th></tr></thead><tbody><tr><td>1</td><td>锚点写成文档坟场</td><td>写完就再没打开过，协作仍靠临时解释</td><td>最近三次变更都没改过手册一行，说明它已脱离现实</td></tr><tr><td>2</td><td>变更卡写成需求复述</td><td>只写&quot;做什么&quot;，没有非目标和可判定验收</td><td>记住：<strong>非目标是最高性价比的一行字</strong></td></tr><tr><td>3</td><td>评审走过场</td><td>同模型、同上下文自评</td><td>必须换模型 + 断上下文；做不到就不如不设</td></tr><tr><td>4</td><td>人不下判断</td><td>把&quot;待裁决&quot;项原样丢回给 AI，或见&quot;建议通过&quot;就通过</td><td>一旦放弃裁决，唯一能承担责任的位置就空了</td></tr><tr><td>5</td><td>流程比项目重</td><td>每次改动都走满五步五份文档，两周后团队开始绕过它</td><td>用<a href="#lanes" class="">三条车道</a>：默认标准道，小事快车道，动不变量才改道</td></tr></tbody></table>
+<table><thead><tr><th>#</th><th>坑</th><th>表现</th><th>判据 / 解法</th></tr></thead><tbody><tr><td>1</td><td>锚点写成文档坟场</td><td>写完就再没打开过，协作仍靠临时解释</td><td>最近三次变更都没改过手册一行，说明它已脱离现实</td></tr><tr><td>2</td><td>变更卡写成需求复述</td><td>只写“做什么”，没有非目标和可判定验收</td><td>记住：<strong>非目标是最高性价比的一行字</strong></td></tr><tr><td>3</td><td>评审走过场</td><td>同模型、同上下文自评</td><td>必须换模型 + 断上下文；做不到就不如不设</td></tr><tr><td>4</td><td>人不下判断</td><td>把“待裁决”项原样丢回给 AI，或见“建议通过”就通过</td><td>一旦放弃裁决，唯一能承担责任的位置就空了</td></tr><tr><td>5</td><td>流程比项目重</td><td>每次改动都走满五步五份文档，两周后团队开始绕过它</td><td>用<a href="#lanes" class="">三条车道</a>：默认标准道，小事快车道，动不变量才改道</td></tr></tbody></table>
 <h2 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="adoption">八、三步落地<a href="#adoption" class="hash-link" aria-label="八、三步落地的直接链接" title="八、三步落地的直接链接" translate="no">​</a></h2>
 <p><strong>第一步：给手头正在做的项目补一份全量锚点。</strong>
 哪怕只有五节、只有一页。重点是那份「不变量清单」和「权限与红线」。
@@ -279,16 +279,16 @@ AI 在这种项目里生成的内容前后不一致、甚至破坏既有结构�
 <p><strong>Q2：小项目也要建全量锚点吗？</strong>
 不需要。先过<a href="#criteria" class="">三条适用判据</a>。三条不成立就直接用 AI，别上流程。</p>
 <p><strong>Q3：一个人做，没有别人当评审者怎么办？</strong>
-关键不是&quot;换个人&quot;，而是&quot;换视角&quot;：换一个模型、切断上下文、只给它锚点和产物。
+关键不是“换个人”，而是“换视角”：换一个模型、切断上下文、只给它锚点和产物。
 你自己不要参与这一轮，等它出完评审单再读。</p>
 <p><strong>Q4：全量锚点多久更新一次？</strong>
-每次归集都更新，哪怕只动一行。<strong>判断它是否还有效的标准不是时间，而是&quot;最近三次变更动过它吗&quot;。</strong></p>
+每次归集都更新，哪怕只动一行。<strong>判断它是否还有效的标准不是时间，而是“最近三次变更动过它吗”。</strong></p>
 <p><strong>Q5：变更卡写不下怎么办？</strong>
 写不下说明这件事该拆。一张卡对应一次变更，宁可拆成三次，也不要写一张三页的卡。</p>
 <p><strong>Q6：评审者和协作者意见不一致，听谁的？</strong>
 都不听，交给人——但人必须写下理由。理由写不出，说明分歧还没被真正理解。</p>
 <p><strong>Q7：这套东西会不会让人变懒？</strong>
-恰好相反。它把人的工作从&quot;产出&quot;换成&quot;裁决&quot;，而裁决比产出更费脑子。
+恰好相反。它把人的工作从“产出”换成“裁决”，而裁决比产出更费脑子。
 感觉变轻松了，通常意味着你在放过一些本该追问的问题。</p>
 <h2 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="further-reading">延伸阅读<a href="#further-reading" class="hash-link" aria-label="延伸阅读的直接链接" title="延伸阅读的直接链接" translate="no">​</a></h2>
 <ul>
