@@ -16,3 +16,4 @@ sidebar_position: 1
 
 - [跑步运动](./runningexercise.md)：心率等核心知识与训练方法
 - [力量：俯卧撑](./pushup.md)：动作要点与辅助训练
+- [健身计划](./fitnessplan/index.md)：一套面向长期主义的徒手训练手册，含下肢、上肢、核心、足踝握力、伤病预防与周计划

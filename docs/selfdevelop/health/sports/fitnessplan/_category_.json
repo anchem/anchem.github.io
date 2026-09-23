@@ -1,0 +1,10 @@
+{
+  "position": 4,
+  "label": "健身计划",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "selfdevelop",
+  "customProps": {
+    "description": "This description can be used in the swizzled DocCard"
+  }
+}
