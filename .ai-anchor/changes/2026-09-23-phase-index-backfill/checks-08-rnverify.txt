@@ -1,0 +1,35 @@
+=== (a) docs/ + blog/ 全量链接解析 ===
+链接共 795 条（其中站点绝对路径 1 条），失败 0 条
+
+=== (b) live 源文件里的旧名残留 ===
+旧目录名 0 处残留
+旧清单页是否已移除：是
+
+=== (c) 新目录结构 ===
+      _category_.json
+      actions.md
+      appendix.md
+      background.md
+      checks.md
+      creativity-ai.md
+      decide.md
+      foundations.md
+      guards.md
+      index.md
+      judgment-flow.md
+      overview.md
+      pitfalls.md
+      plan.md
+      review.md
+  —— md 14 篇，其他 1 项
+
+=== (d) 关键文件 ===
+  OK  应存在  docs/selfdevelop/cognition/thinking/index.md
+  OK  应存在  docs/selfdevelop/cognition/thinking/responsibilitycycle.md
+  OK  应存在  docs/selfdevelop/cognition/thinking/criticalthinking/_category_.json
+  OK  应存在  docs/selfdevelop/cognition/thinking/criticalthinking/index.md
+  OK  应存在  docs/selfdevelop/cognition/thinking/criticalthinking/overview.md
+  OK  应不存在  docs/selfdevelop/cognition/thinking/critical-thinking-playbook
+  OK  应不存在  docs/selfdevelop/cognition/thinking/criticalthinking.md
+
+结论：全部通过

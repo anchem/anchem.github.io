@@ -1,7 +1,7 @@
 ---
 id: 18th-months-examination
 title: 18个月体检记录
-sidebar_position: 1
+sidebar_position: 2
 ---
 
 ## 背景

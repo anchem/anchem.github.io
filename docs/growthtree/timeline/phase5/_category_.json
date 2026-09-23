@@ -1,0 +1,10 @@
+{
+  "position": 2.5,
+  "label": "第五阶段：从15岁到18岁",
+  "collapsible": true,
+  "collapsed": false,
+  "className": "growthtree",
+  "customProps": {
+    "description": "This description can be used in the swizzled DocCard"
+  }
+}

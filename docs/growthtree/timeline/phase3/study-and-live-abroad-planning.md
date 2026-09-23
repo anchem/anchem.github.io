@@ -2,7 +2,7 @@
 id: study-and-live-abroad-planning
 title: 海外派遣与子女教育综合规划
 sidebar_label: 布加勒斯特外派规划
-sidebar_position: 1
+sidebar_position: 2
 description: 布加勒斯特三年外派：英语小学就学方案 × 家庭财务统筹 × 教育衔接 × 独立评审 × 四维优化
 tags:
   - 外派规划

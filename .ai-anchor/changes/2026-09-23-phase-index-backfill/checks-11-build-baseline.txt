@@ -1,0 +1,23 @@
+﻿top-level=16  html=479  sitemap=True  __serverLeft=False
+-- top-level items:
+assets
+blog
+docs
+img
+js
+.nojekyll
+404.html
+about.html
+baidu_verify_code-NFNssSoDLA.html
+blog.html
+index.html
+opensearch.xml
+robots.txt
+search.html
+sitemap.xml
+thoughts.html
+-- phase1/2/3 landing pages in build:
+False
+False
+False
+-- old fitness dir in build: False

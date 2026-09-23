@@ -1,0 +1,10 @@
+{
+  "position": 4,
+  "label": "运动与体能",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "growthtree",
+  "customProps": {
+    "description": "This description can be used in the swizzled DocCard"
+  }
+}

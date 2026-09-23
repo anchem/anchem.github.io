@@ -1,0 +1,30 @@
+total=477
+timeline=14
+phase123=8
+oldFitness=0
+
+-- phase123 URLs:
+https://codethousand.cn/docs/growthtree/timeline/phase1
+https://codethousand.cn/docs/growthtree/timeline/phase1/18th-months-examination
+https://codethousand.cn/docs/growthtree/timeline/phase2
+https://codethousand.cn/docs/growthtree/timeline/phase2/promotion-plan
+https://codethousand.cn/docs/growthtree/timeline/phase3
+https://codethousand.cn/docs/growthtree/timeline/phase3/fitness-6-9
+https://codethousand.cn/docs/growthtree/timeline/phase3/fitness-9-12
+https://codethousand.cn/docs/growthtree/timeline/phase3/study-and-live-abroad-planning
+
+-- timeline URLs:
+https://codethousand.cn/docs/growthtree/timeline
+https://codethousand.cn/docs/growthtree/timeline/fitness-overview
+https://codethousand.cn/docs/growthtree/timeline/phase1
+https://codethousand.cn/docs/growthtree/timeline/phase1/18th-months-examination
+https://codethousand.cn/docs/growthtree/timeline/phase2
+https://codethousand.cn/docs/growthtree/timeline/phase2/promotion-plan
+https://codethousand.cn/docs/growthtree/timeline/phase3
+https://codethousand.cn/docs/growthtree/timeline/phase3/fitness-6-9
+https://codethousand.cn/docs/growthtree/timeline/phase3/fitness-9-12
+https://codethousand.cn/docs/growthtree/timeline/phase3/study-and-live-abroad-planning
+https://codethousand.cn/docs/growthtree/timeline/phase4
+https://codethousand.cn/docs/growthtree/timeline/phase4/fitness-12-15
+https://codethousand.cn/docs/growthtree/timeline/phase5
+https://codethousand.cn/docs/growthtree/timeline/phase5/fitness-15-18

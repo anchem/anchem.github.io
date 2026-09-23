@@ -1,0 +1,18 @@
+﻿== .workbuddy\retired now:
+build-gf2-__server
+== docs\growthtree\timeline:
+phase1
+phase2
+phase3
+phase4
+phase5
+fitness-overview.md
+index.md
+_category_.json
+== docs\growthtree\timeline\fitness exists: False
+== phase dirs:
+phase1
+phase2
+phase3
+phase4
+phase5
