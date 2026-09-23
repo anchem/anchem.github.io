@@ -15,8 +15,8 @@
 
 <link rel="search" type="application/opensearchdescription+xml" title="倚码千言" href="/opensearch.xml">
 <script src="/js/baiduanalytics.js" async></script><link rel="stylesheet" href="/assets/css/styles.1113ca28.css">
-<script src="/assets/js/runtime~main.9376c148.js" defer="defer"></script>
-<script src="/assets/js/main.16d21d26.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.3f1bf009.js" defer="defer"></script>
+<script src="/assets/js/main.6a9b880e.js" defer="defer"></script>
 </head>
 <body>
 <svg style="display: none;"><defs>
@@ -26,7 +26,7 @@
 <p>测试驱动开发（TDD）的核心主张是：<strong>先写测试，再写实现</strong>。它的主要收益不在测试本身，而在<strong>它迫使设计在编码前被想清楚</strong>。</p>
 <h2 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="红---绿---重构">红 - 绿 - 重构<a href="#红---绿---重构" class="hash-link" aria-label="红 - 绿 - 重构的直接链接" title="红 - 绿 - 重构的直接链接" translate="no">​</a></h2>
 <div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#E6F0EA;--prism-background-color:#0B2B1E"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#E6F0EA;background-color:#0B2B1E"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#E6F0EA"><span class="token plain">红：写一个失败的测试，定义期望行为</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">绿：用最简单的方式让它通过</span><br></div><div class="token-line" style="color:#E6F0EA"><span class="token plain">重构：在测试保护下改善结构</span><br></div></code></pre></div></div>
-<p>三步必须严格轮转，尤其是**「用最简单的方式让它通过」**——跳过这一步会导致一次性写出复杂实现，失去 TDD 的主要价值。</p>
+<p>三步必须严格轮转，尤其是「<strong>用最简单的方式让它通过」</strong>——跳过这一步会导致一次性写出复杂实现，失去 TDD 的主要价值。</p>
 <h2 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="真正的收益">真正的收益<a href="#真正的收益" class="hash-link" aria-label="真正的收益的直接链接" title="真正的收益的直接链接" translate="no">​</a></h2>
 <table><thead><tr><th>收益</th><th>说明</th></tr></thead><tbody><tr><td>设计反馈前置</td><td>不可测试的设计在写第一行实现前就暴露</td></tr><tr><td>需求澄清</td><td>写测试时必须明确输入输出与边界</td></tr><tr><td>防护网自然形成</td><td>测试是先写的，不会「以后补」</td></tr><tr><td>调试成本降低</td><td>失败范围小，原因明确</td></tr><tr><td>避免过度设计</td><td>只实现让测试通过所需的代码</td></tr></tbody></table>
 <p>其中前两条最容易被低估。<strong>「这个类怎么测」这个问题本身就等价于「这个类的职责是否清晰」</strong>。</p>

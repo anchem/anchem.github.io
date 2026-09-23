@@ -15,8 +15,8 @@
 
 <link rel="search" type="application/opensearchdescription+xml" title="倚码千言" href="/opensearch.xml">
 <script src="/js/baiduanalytics.js" async></script><link rel="stylesheet" href="/assets/css/styles.1113ca28.css">
-<script src="/assets/js/runtime~main.9376c148.js" defer="defer"></script>
-<script src="/assets/js/main.16d21d26.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.3f1bf009.js" defer="defer"></script>
+<script src="/assets/js/main.6a9b880e.js" defer="defer"></script>
 </head>
 <body>
 <svg style="display: none;"><defs>
@@ -31,7 +31,7 @@
 <li class=""><strong>成本随规模上升</strong>：每次重构都要全量手工回归，实践中会选择跳过。</li>
 <li class=""><strong>不敢重构</strong>：风险不可控时，理性的选择是不改，于是债务持续累积。</li>
 </ol>
-<p>因此**「这个模块没有测试」实际上是「这个模块不能安全重构」**。</p>
+<p>因此「<strong>这个模块没有测试」实际上是「这个模块不能安全重构」</strong>。</p>
 <h2 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="重构需要什么样的测试">重构需要什么样的测试<a href="#重构需要什么样的测试" class="hash-link" aria-label="重构需要什么样的测试的直接链接" title="重构需要什么样的测试的直接链接" translate="no">​</a></h2>
 <p>不是所有测试都对重构友好：</p>
 <table><thead><tr><th>测试类型</th><th>对重构的作用</th></tr></thead><tbody><tr><td>单元测试</td><td>定位精确、执行快，最适合支撑重构</td></tr><tr><td>集成测试</td><td>覆盖跨模块协作，数量可以少但要关键</td></tr><tr><td>契约测试</td><td>保证对外行为不变，重构时的安全边界</td></tr><tr><td>端到端测试</td><td>覆盖面广但慢且脆，不适合高频运行</td></tr></tbody></table>

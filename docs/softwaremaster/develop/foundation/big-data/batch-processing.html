@@ -15,8 +15,8 @@
 
 <link rel="search" type="application/opensearchdescription+xml" title="倚码千言" href="/opensearch.xml">
 <script src="/js/baiduanalytics.js" async></script><link rel="stylesheet" href="/assets/css/styles.1113ca28.css">
-<script src="/assets/js/runtime~main.9376c148.js" defer="defer"></script>
-<script src="/assets/js/main.16d21d26.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.3f1bf009.js" defer="defer"></script>
+<script src="/assets/js/main.6a9b880e.js" defer="defer"></script>
 </head>
 <body>
 <svg style="display: none;"><defs>
@@ -26,7 +26,7 @@
 <p>批处理对<strong>一批已经落地的数据</strong>做全量或增量计算，特点是高吞吐、可重算、延迟较高。</p>
 <h2 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="基本模型">基本模型<a href="#基本模型" class="hash-link" aria-label="基本模型的直接链接" title="基本模型的直接链接" translate="no">​</a></h2>
 <div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#E6F0EA;--prism-background-color:#0B2B1E"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#E6F0EA;background-color:#0B2B1E"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#E6F0EA"><span class="token plain">读取 → 切分 → 并行处理 → 洗牌聚合 → 写出</span><br></div></code></pre></div></div>
-<p>其中**洗牌（shuffle）**是性能关键点：它需要把数据按 key 重新分布到不同节点，涉及网络传输与磁盘落盘，通常是整个作业中最慢的阶段。</p>
+<p>其中<strong>洗牌</strong>（shuffle）是性能关键点：它需要把数据按 key 重新分布到不同节点，涉及网络传输与磁盘落盘，通常是整个作业中最慢的阶段。</p>
 <h2 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="关键设计问题">关键设计问题<a href="#关键设计问题" class="hash-link" aria-label="关键设计问题的直接链接" title="关键设计问题的直接链接" translate="no">​</a></h2>
 <table><thead><tr><th>问题</th><th>影响</th></tr></thead><tbody><tr><td>分区键选择</td><td>决定数据倾斜程度与并行度</td></tr><tr><td>数据倾斜</td><td>少数 key 数据量过大，拖慢整个作业</td></tr><tr><td>小文件</td><td>元数据开销主导，调度开销上升</td></tr><tr><td>文件格式</td><td>列式 + 压缩显著降低 IO</td></tr><tr><td>重算能力</td><td>作业必须可重复执行且结果一致</td></tr></tbody></table>
 <h3 class="anchor anchorTargetHideOnScrollNavbar_vjPI" id="数据倾斜的应对">数据倾斜的应对<a href="#数据倾斜的应对" class="hash-link" aria-label="数据倾斜的应对的直接链接" title="数据倾斜的应对的直接链接" translate="no">​</a></h3>
