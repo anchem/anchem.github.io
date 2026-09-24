@@ -1,0 +1,21 @@
+
+=== build/ ===
+  顶层 16 项 / 共 1033 个文件（其中 479 个 html）
+  动画痕迹：「xd-body」命中 1 个文件
+  动画痕迹：「xd-outline」命中 1 个文件
+  动画痕迹：「rkc-plank」命中 7 个文件
+  动画痕迹：「turkish-get-up」命中 6 个文件
+  动画痕迹：「ExerciseAnim」命中 11 个文件
+  样例：
+    build\assets\css\styles.5b4e2113.css
+    build\assets\css\styles.5b4e2113.css
+    build\assets\js\17896441.ecdf3dbb.js
+    build\assets\js\17896441.ecdf3dbb.js
+    build\assets\js\17896441.ecdf3dbb.js
+    build\assets\js\1f391b9e.b163f369.js
+    build\assets\js\1f391b9e.b163f369.js
+    build\assets\js\1f391b9e.b163f369.js
+
+=== build_old_fp/ ===
+  顶层 16 项 / 共 1030 个文件（其中 479 个 html）
+  动画痕迹：无

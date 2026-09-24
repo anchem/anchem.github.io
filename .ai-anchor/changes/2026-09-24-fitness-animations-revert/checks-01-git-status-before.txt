@@ -1,0 +1,15 @@
+ M .ai-anchor/DECISIONS.md
+ M .ai-anchor/PROJECT.md
+ M docs/growthtree/timeline/index.md
+ M docs/growthtree/timeline/phase2/index.md
+ M docs/selfdevelop/health/sports/fitnessplan/core.md
+ M docs/selfdevelop/health/sports/fitnessplan/feet-grip.md
+ M docs/selfdevelop/health/sports/fitnessplan/functional.md
+ M docs/selfdevelop/health/sports/fitnessplan/lower-body.md
+ M docs/selfdevelop/health/sports/fitnessplan/principles.md
+ M docs/selfdevelop/health/sports/fitnessplan/upper-body.md
+ M docs/selfdevelop/health/sports/fitnessplan/weekly-plan.md
+ M src/css/custom.css
+?? .ai-anchor/changes/2026-09-24-fitness-animations/
+?? src/components/ExerciseAnim/
+?? src/theme/MDXComponents.js

@@ -1,0 +1,119 @@
+扫描 1034 个文件（已排除 node_modules / .git / .docusaurus / 构建产物目录）
+未排除 .ai-anchor 与 .workbuddy —— 但这两区不做判定，只列出
+
+=== 源码区（docs / blog / src / static / 根配置） ===
+  [0]  「ExerciseAnim」无命中
+  [0]  「ExerciseStrip」无命中
+  [0]  「--xd-」无命中
+  [0]  「MDXComponents」无命中
+
+=== 记录区（.ai-anchor/） ===
+  [8] 「ExerciseAnim」：
+        .ai-anchor/changes/2026-09-24-fitness-animations/CHANGE.md
+        .ai-anchor/changes/2026-09-24-fitness-animations/REPLY.md
+        .ai-anchor/changes/2026-09-24-fitness-animations/REVIEW.md
+        .ai-anchor/changes/2026-09-24-fitness-animations-revert/CHANGE.md
+        .ai-anchor/changes/2026-09-24-fitness-animations-revert/checks-01-git-status-before.txt
+        .ai-anchor/changes/2026-09-24-fitness-animations-revert/checks-02-git-diff-before.txt
+        .ai-anchor/changes/2026-09-24-fitness-animations-revert/checks-14-build-scan.txt
+        .ai-anchor/DECISIONS.md
+  [4] 「ExerciseStrip」：
+        .ai-anchor/changes/2026-09-24-fitness-animations/CHANGE.md
+        .ai-anchor/changes/2026-09-24-fitness-animations/REVIEW.md
+        .ai-anchor/changes/2026-09-24-fitness-animations-revert/CHANGE.md
+        .ai-anchor/changes/2026-09-24-fitness-animations-revert/checks-02-git-diff-before.txt
+  [2] 「--xd-」：
+        .ai-anchor/changes/2026-09-24-fitness-animations-revert/CHANGE.md
+        .ai-anchor/changes/2026-09-24-fitness-animations-revert/checks-02-git-diff-before.txt
+  [8] 「MDXComponents」：
+        .ai-anchor/changes/2026-09-24-fitness-animations/CHANGE.md
+        .ai-anchor/changes/2026-09-24-fitness-animations/REPLY.md
+        .ai-anchor/changes/2026-09-24-fitness-animations/REVIEW.md
+        .ai-anchor/changes/2026-09-24-fitness-animations-revert/CHANGE.md
+        .ai-anchor/changes/2026-09-24-fitness-animations-revert/checks-01-git-status-before.txt
+        .ai-anchor/changes/2026-09-24-fitness-animations-revert/checks-02-git-diff-before.txt
+        .ai-anchor/DECISIONS.md
+        .ai-anchor/PROJECT.md
+  —— 本区共 22 处，均为对已回退内容的正当引用，不计入判定
+
+=== 工作件区（.workbuddy/） ===
+  [40] 「ExerciseAnim」：
+        .workbuddy/an-compliance.js
+        .workbuddy/fp-apply.cjs
+        .workbuddy/fp-apply10.cjs
+        .workbuddy/fp-apply3.cjs
+        .workbuddy/fp-apply4.cjs
+        .workbuddy/fp-apply5.cjs
+        .workbuddy/fp-apply9.cjs
+        .workbuddy/fp-assert.cjs
+        .workbuddy/fp-diag.cjs
+        .workbuddy/fp-embed.cjs
+        .workbuddy/fp-ik.cjs
+        .workbuddy/fp-kf.cjs
+        .workbuddy/fp-probe2.cjs
+        .workbuddy/fp-probe3.cjs
+        .workbuddy/fp-solve.cjs
+        .workbuddy/memory/2026-09-24.md
+        .workbuddy/memory/MEMORY.md
+        .workbuddy/revert/backup/src/components/ExerciseAnim/engine.js
+        .workbuddy/revert/backup/src/components/ExerciseAnim/Figure.js
+        .workbuddy/revert/backup/src/components/ExerciseAnim/index.js
+        .workbuddy/revert/backup/src/components/ExerciseAnim/poses/base.js
+        .workbuddy/revert/backup/src/components/ExerciseAnim/poses/core.js
+        .workbuddy/revert/backup/src/components/ExerciseAnim/poses/functional.js
+        .workbuddy/revert/backup/src/components/ExerciseAnim/poses/index.js
+        .workbuddy/revert/backup/src/components/ExerciseAnim/poses/lower.js
+        .workbuddy/revert/backup/src/components/ExerciseAnim/poses/upper.js
+        .workbuddy/revert/backup/src/components/ExerciseAnim/Scene.js
+        .workbuddy/revert/backup/src/components/ExerciseAnim/styles.module.css
+        .workbuddy/revert/backup/src/theme/MDXComponents.js
+        .workbuddy/revert/status.txt
+        .workbuddy/rv-anchor.cjs
+        .workbuddy/rv-backup.cjs
+        .workbuddy/rv-delete.cjs
+        .workbuddy/rv-residual.cjs
+        .workbuddy/rv-scan-build.cjs
+        .workbuddy/rv-strip.cjs
+        .workbuddy/_apply10.txt
+        .workbuddy/_apply9.txt
+        .workbuddy/_probe.cjs
+        .workbuddy/_syntax.txt
+  [14] 「ExerciseStrip」：
+        .workbuddy/an-compliance.js
+        .workbuddy/fp-apply5.cjs
+        .workbuddy/fp-apply7.cjs
+        .workbuddy/fp-apply9.cjs
+        .workbuddy/fp-assert.cjs
+        .workbuddy/fp-embed.cjs
+        .workbuddy/memory/2026-09-24.md
+        .workbuddy/memory/MEMORY.md
+        .workbuddy/punct-unify.js
+        .workbuddy/revert/backup/src/components/ExerciseAnim/index.js
+        .workbuddy/revert/backup/src/theme/MDXComponents.js
+        .workbuddy/rv-anchor.cjs
+        .workbuddy/rv-residual.cjs
+        .workbuddy/rv-strip.cjs
+  [3] 「--xd-」：
+        .workbuddy/revert/backup/src/components/ExerciseAnim/styles.module.css
+        .workbuddy/rv-residual.cjs
+        .workbuddy/rv-strip.cjs
+  [15] 「MDXComponents」：
+        .workbuddy/fp-apply9.cjs
+        .workbuddy/memory/2026-09-24.md
+        .workbuddy/memory/MEMORY.md
+        .workbuddy/revert/backup/src/components/ExerciseAnim/index.js
+        .workbuddy/revert/backup/src/theme/MDXComponents.js
+        .workbuddy/revert/status.txt
+        .workbuddy/rv-anchor.cjs
+        .workbuddy/rv-backup.cjs
+        .workbuddy/rv-delete.cjs
+        .workbuddy/rv-residual.cjs
+        .workbuddy/_apply9.txt
+        .workbuddy/_syntax.txt
+        .workbuddy/__server/server.bundle.js
+        .workbuddy/__server/__server/server.bundle.js
+        .workbuddy/__server_bold/server.bundle.js
+  —— 本区共 72 处，均为对已回退内容的正当引用，不计入判定
+
+[PASS] 源码区零残留 —— 站点内容与代码中不含任何已删除动画的痕迹
+exit=0

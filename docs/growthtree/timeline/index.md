@@ -199,7 +199,7 @@ sidebar_position: 2
 更细的记录和规划，写在对应的阶段目录里：
 
 - [18个月体检记录](phase1/18th-months-examination.md)：第一阶段的发育评测，以及关于语言引导那一次的反思。
-- [升班规划](phase2/promotio-plan.md)：第二阶段，让她在混龄班再滋养一年的决定。
+- [升班规划](phase2/promotion-plan.md)：第二阶段，让她在混龄班再滋养一年的决定。
 - [布加勒斯特外派规划](phase3/study-and-live-abroad-planning.md)：第三阶段，2027–2030 的海外三年与回国衔接。
 - [6–9 岁运动安排](phase3/fitness-6-9.md)与[9–12 岁运动安排](phase3/fitness-9-12.md)：第三阶段的动作窗口与技术窗口。
 - [12–15 岁运动安排](phase4/fitness-12-15.md)、[15–18 岁运动安排](phase5/fitness-15-18.md)：后半程的两段，生长突增与独立安排。

@@ -1,0 +1,25 @@
+目录：docs\selfdevelop\cognition\thinking\criticalthinking
+文件：14 篇 md
+
+[PASS] 断言 1｜直角引号「」『』为 0（§7 中文引号用 “ ” ‘ ’）
+         14 篇正文均 0 处
+[PASS] 断言 2｜加粗定界符可用（§7：写 “**重点**” 与 `**要点**。接着`，不写 `**“重点”**` 与 `**要点。**接着`）
+         0 处
+[PASS] 断言 3｜全角双引号逐篇成对
+         共 277 对
+[PASS] 断言 4｜punct-unify 普查：0 处待改 / 0 落单 / 0 错配
+         （代码围栏、行内代码、front matter 内的 ASCII 引号按 §7 保留）
+[PASS] 断言 5｜表格单元格内不加粗（§7）
+         0 处
+[PASS] 断言 6｜正文无裸 < >（不变量 12：MDX 不炸）
+         0 处
+[PASS] 断言 7｜内链不带结尾斜杠（不变量 11）
+         0 处
+[PASS] 断言 8｜front matter 五键齐全（不变量 5）
+         键位一致
+[PASS] 断言 9｜目录含 _category_.json 且 index.md 非空壳（不变量 3）
+         14 篇 md + _category_.json
+
+9 / 9 条断言通过
+结论：合规
+exit=0

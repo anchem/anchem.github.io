@@ -1,0 +1,36 @@
+=== 普查（只读，未改动任何文件）===
+扫描文件 296 个；需要改动的 0 个；引号对 0 个
+中文内容 → 全角：0 处；英文内容 → 保留 ASCII：0 处；落单引号：0 处
+
+--- 逐文件（仅列有改动的）---
+
+--- 落单引号（未改动，需人工判断）---
+无
+
+--- 错配检测（全角引号未成对或闭在开之前）---
+docs\lifeforfun\invest\microcap-stocks-guide.md:509  闭双引号出现在开双引号之前 → 微盘普遍不分红 = 相对逆风       持有”改为“纪律化交易”
+
+--- 按规则保留 ASCII 的引号对（内容为英文，仅普查）---
+无
+
+--- 中文语境里的半角标点（仅普查，未改动）---
+docs\growthtree\classification\mentalhealth\choose-your-words.md  ?×1
+docs\lifeforfun\invest\investment-portfolio.md  (×1  )×1
+docs\lifeforfun\invest\microcap-stocks-guide.md  (×1
+docs\selfdevelop\ability\decisionmaking\index.md  )×3
+docs\selfdevelop\ability\language\expatriate\index.md  ?×8
+docs\selfdevelop\ability\language\expatriate\phase-1-learning-materials.md  ,×2  (×1
+docs\selfdevelop\ability\language\expatriate\phase-3-learning-materials.md  (×2  )×1
+docs\selfdevelop\ability\language\expatriate\phase-4-learning-materials.md  ,×2  ?×10
+docs\selfdevelop\ability\language\expatriate\phase-5-learning-materials.md  ?×1
+docs\selfdevelop\ability\language\expatriate\phase-6-learning-materials.md  ?×1
+docs\selfdevelop\cognition\learning\bloomcognitive.md  :×5
+docs\softwaremaster\develop\development\implementation\java\collections.md  )×3
+docs\softwaremaster\develop\foundation\algorithm\complexity.md  )×3
+docs\softwaremaster\develop\foundation\algorithm\data-structure.md  )×1
+docs\softwaremaster\develop\foundation\operating-system\process-and-thread.md  )×1
+docs\softwaremaster\maintenance\maintain\linux-server\cpu.md  )×3
+docs\softwaremaster\maintenance\maintain\linux-server\file-descriptor.md  ;×2
+blog\2015-09-26-professor-xie-fei-feelings.md  )×5  ,×1
+blog\2016-08-13-good-idea-but-cannot-do.md  (×1
+exit=0

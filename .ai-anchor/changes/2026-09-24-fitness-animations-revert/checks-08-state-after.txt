@@ -1,0 +1,6 @@
+ M .ai-anchor/DECISIONS.md
+ M .ai-anchor/PROJECT.md
+ M docs/growthtree/timeline/index.md
+ M docs/growthtree/timeline/phase2/index.md
+?? .ai-anchor/changes/2026-09-24-fitness-animations-revert/
+?? .ai-anchor/changes/2026-09-24-fitness-animations/

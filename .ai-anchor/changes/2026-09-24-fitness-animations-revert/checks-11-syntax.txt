@@ -1,0 +1,31 @@
+[INFO] 编译体检文件数 = 14（src/ 下 .js/.jsx）
+[INFO] 相对 import 解析成功 8 条；Docusaurus 别名 24 条（不计失败）
+[INFO]   src\components\HomepageLatestPosts\index.js:2 -> @docusaurus/Link  (Docusaurus 别名/虚拟模块，node 侧不解析)
+[INFO]   src\components\HomepageLatestPosts\index.js:3 -> @docusaurus/useDocusaurusContext  (Docusaurus 别名/虚拟模块，node 侧不解析)
+[INFO]   src\components\HomepageLatestPosts\index.js:4 -> @site/src/components/SectionHeader  (Docusaurus 别名/虚拟模块，node 侧不解析)
+[INFO]   src\components\HomepageLatestPosts\index.js:8 -> ~blog/default/blog-post-list-prop-default.json  (Docusaurus 别名/虚拟模块，node 侧不解析)
+[INFO]   src\components\HomepageShelves\index.js:2 -> @docusaurus/Link  (Docusaurus 别名/虚拟模块，node 侧不解析)
+[INFO]   src\components\HomepageShelves\index.js:3 -> @docusaurus/useDocusaurusContext  (Docusaurus 别名/虚拟模块，node 侧不解析)
+[INFO]   src\components\HomepageShelves\index.js:4 -> @site/src/components/SectionHeader  (Docusaurus 别名/虚拟模块，node 侧不解析)
+[INFO]   src\components\HomepageShelves\index.js:5 -> @site/src/config/shelves  (Docusaurus 别名/虚拟模块，node 侧不解析)
+[INFO]   src\components\HomepageThoughtsCarousel\index.js:3 -> @site/src/components/SectionHeader  (Docusaurus 别名/虚拟模块，node 侧不解析)
+[INFO]   src\components\HomepageThoughtsCarousel\index.js:4 -> @site/src/hooks/useThoughts  (Docusaurus 别名/虚拟模块，node 侧不解析)
+[INFO]   src\components\SectionHeader\index.js:2 -> @docusaurus/Link  (Docusaurus 别名/虚拟模块，node 侧不解析)
+[INFO]   src\components\SkyBackdrop\index.js:3 -> @site/src/components/SeasonDecor  (Docusaurus 别名/虚拟模块，node 侧不解析)
+[INFO]   src\components\Thoughts\index.js:3 -> @site/src/hooks/useThoughts  (Docusaurus 别名/虚拟模块，node 侧不解析)
+[INFO]   src\pages\index.js:1 -> @docusaurus/Link  (Docusaurus 别名/虚拟模块，node 侧不解析)
+[INFO]   src\pages\index.js:2 -> @theme/Layout  (Docusaurus 别名/虚拟模块，node 侧不解析)
+[INFO]   src\pages\index.js:3 -> @docusaurus/useDocusaurusContext  (Docusaurus 别名/虚拟模块，node 侧不解析)
+[INFO]   src\pages\index.js:5 -> @site/src/components/HomepageShelves  (Docusaurus 别名/虚拟模块，node 侧不解析)
+[INFO]   src\pages\index.js:6 -> @site/src/components/HomepageLatestPosts  (Docusaurus 别名/虚拟模块，node 侧不解析)
+[INFO]   src\pages\index.js:7 -> @site/src/components/HomepageThoughtsCarousel  (Docusaurus 别名/虚拟模块，node 侧不解析)
+[INFO]   src\pages\index.js:8 -> @site/src/config/shelves  (Docusaurus 别名/虚拟模块，node 侧不解析)
+[INFO]   src\pages\index.js:9 -> @site/src/components/SeasonDecor  (Docusaurus 别名/虚拟模块，node 侧不解析)
+[INFO]   src\pages\thoughts.js:2 -> @theme/Layout  (Docusaurus 别名/虚拟模块，node 侧不解析)
+[INFO]   src\pages\thoughts.js:3 -> @site/src/components/Thoughts  (Docusaurus 别名/虚拟模块，node 侧不解析)
+[INFO]   src\theme\Root.js:2 -> @site/src/components/SkyBackdrop  (Docusaurus 别名/虚拟模块，node 侧不解析)
+
+
+[PASS] fails=0 files=14
+[NOTE] 本体检只覆盖语法/编译与模块解析；MDX 编译、SSR、产物与 sitemap 均不在覆盖范围内。
+exit=0

@@ -1,0 +1,9 @@
+warning: in the working copy of '.ai-anchor/DECISIONS.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.ai-anchor/PROJECT.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/growthtree/timeline/index.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/growthtree/timeline/phase2/index.md', LF will be replaced by CRLF the next time Git touches it
+ .ai-anchor/DECISIONS.md                  | 14 ++++++++++++++
+ .ai-anchor/PROJECT.md                    | 12 +++++++++---
+ docs/growthtree/timeline/index.md        |  2 +-
+ docs/growthtree/timeline/phase2/index.md |  2 +-
+ 4 files changed, 25 insertions(+), 5 deletions(-)

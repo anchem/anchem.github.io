@@ -1,0 +1,453 @@
+warning: in the working copy of '.ai-anchor/DECISIONS.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.ai-anchor/PROJECT.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/growthtree/timeline/index.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/growthtree/timeline/phase2/index.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/selfdevelop/health/sports/fitnessplan/core.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/selfdevelop/health/sports/fitnessplan/feet-grip.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/selfdevelop/health/sports/fitnessplan/functional.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/selfdevelop/health/sports/fitnessplan/lower-body.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/selfdevelop/health/sports/fitnessplan/principles.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/selfdevelop/health/sports/fitnessplan/upper-body.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/selfdevelop/health/sports/fitnessplan/weekly-plan.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/css/custom.css', LF will be replaced by CRLF the next time Git touches it
+diff --git a/.ai-anchor/DECISIONS.md b/.ai-anchor/DECISIONS.md
+index 4336a641..d4ccc252 100644
+--- a/.ai-anchor/DECISIONS.md
++++ b/.ai-anchor/DECISIONS.md
+@@ -60,6 +60,19 @@
+ | 2026-09-23 | `girl-fitness-growth-plan` | WorkBuddy（写作、修订与执行） | 四个独立上下文的子代理，分别以**儿童成长专家／青少年体育老师／运动康复师／资深文章编辑**四种身份评审（断了上下文、换了能力档位，**仍未换厂商**，见下方备注） | 有条件通过：**11 条阻断项全部独立复核为成立、全部已改**（专家 1、老师 1、康复师 5、编辑 4），驳回 0；39 条建议项中 35 条全采、4 条部分采纳（ACWR 降格保留、家练热身按比例缩、宽表只压一张、外派不单开一节）；9 条偏离项全部已改。落点：新建 `docs/growthtree/classification/fitness/`（9 篇）与 `docs/growthtree/timeline/fitness/`（7 篇），两处导览页与两个父目录索引已互链 | 11 条阻断项**没有一条是脚本能抓的**，全是内容判断：① 「关节里疼」在位置三步法里是黄灯、在红灯清单里是停练就医，两套工具会给读者相反指令；② 缺「生长中儿童跛行 + 髋膝痛」这条儿科最经典的漏诊红线（髋的问题常只表现为膝盖疼）；③ 方案一边把「身体是自己的」写进主线、一边在选教练章节只谈专业性，教练与身体边界完全缺位；④ 6–9 岁检核清单在三处复写且条目互相打架。另有硬错一处：书包重量「体重的十分之一」与「五六公斤」自相矛盾，按后一个数字，低年级孩子会背超过安全上限近一倍。三条睡眠口径（6–13 岁 9–11 小时 vs 12–15 岁 8–10 小时）被三份评审独立命中同一处冲突，已统一为 6–12 岁 9–12 小时 / 13–18 岁 8–10 小时。**本轮再次印证：有用的不是换厂商，是评审重点写得够不够狠**——四条重点（发育事实与分期 / 训练学与排课自洽 / 红线完整性与分级可操作性 / 结构与前后不一致）对应产出 1 / 1 / 5 / 4 条阻断项 | `PROJECT.md` §10 新增第 15 条 |
+ | 2026-09-23 | `timeline-fitness-split` | WorkBuddy（结构迁移与执行） | 无独立评审——本轮的输入是**人**对目录结构的直接指示；校核以三件可复算的工具代替（内容覆盖审计 / 断言体检 / 构建 + sitemap 核对） | 通过：人指示「不要在 timeline 建 fitness 目录，按既有 timeline 规划把内容拆到各 phase 目录，缺的目录新建」，并当场拍板两个结构选择（跨阶段内容→时间轴根目录留一篇总览；phase3 保留 6–9 与 9–12 两个文件）。执行结果：旧目录 7 篇 md 再分布为 `phase3/` 2 篇、`phase4/` 1 篇、`phase5/` 1 篇、根目录 `fitness-overview.md` 1 篇；新建 `phase4`/`phase5` 两个目录并按不变量 3 补齐 `index.md`；旧目录整体移出站点（`docs/` 下已无 `fitness/`） | 一次「按既有规划还是按不变量」的分叉：既有 `phase1/2/3` 都没有 `index.md`，不变量 3 在这条线上长期未被满足——「照既有规划办」等于让新建目录继续违规。我选了**让新建目录合不变量、把既有缺口登记待办**，代价是同一层级暂时出现两种行为（点目录名：phase4/5 进落地页，phase1–3 只展开）。**这是刻意的取舍而非漏改**：在本次变更里顺手给 phase1–3 补页，等于用一个未申报的改动去掩盖另一个问题——同 §10 第 9、13 条的处置。另修一处口径：`timeline/index.md` 原写「9–11 小时」，与已统一的睡眠正本（6–12 岁 9–12 小时）不符，因该文件已在本次改动范围内而一并修正并申报 | `PROJECT.md` §10 第 15 条改写、新增第 17、18 条 |
+ | 2026-09-23 | `phase-index-backfill` | WorkBuddy（结构补齐与执行） | 无独立评审——本轮输入是**人**的三条直接指令；校核以新写的结构断言（`gf3-struct.js` 8 条，退出码为准）＋ 断言体检 ＋ 链接体检 ＋ 构建与 sitemap 代替 | 通过：① 给 `phase1`/`phase2`/`phase3` 补 `index.md`（位次 1，既有 5 篇顺延为 2..4）；② 删除 `.workbuddy/retired/timeline-fitness-20260923/` 这份可回溯副本；③ `timeline/index.md` 的 `「」` 与 front matter **裁决不修复**，该条转为长期登记 | 三条指令各自对应一处明确取舍。**① 为什么选「补页」而不是「改断言 9 的口径」**：上一轮给出过这两条路，选前者是因为新版 `phase4`/`phase5` 已经按不变量办，把标准往回改会让两处行为继续分裂。执行中撞到一件工具缺陷并如实登记：`an-compliance.js` 的 front matter 正则写作 `^---\n`，**只认 LF**；而 `18th-months-examination.md`（全文 143 处 CRLF）与 `promotio-plan.md`（11 处 CRLF）用的是 CRLF，于是断言 8 报出「无 front matter」——**比真实原因（缺 `description` / `tags` / `keywords` 三键）含糊得多**，差点把既有缺口误读成新改动引入。两条合并登记为 §10 第 19 条，工具本身不动手（同第 14 条：改检查工具须单独一轮）。**② 一条与退出码有关的新教训**：删副本时第一次调用返回 exit 1、输出与临时文件都没落地，看上去像被守卫拦了；但第二次调用实测「目标在删除前就已不存在」——**删除其实已经生效，是 shell 在命令中途被终止**。与构建那条「只看 exit 0 会被骗」是同一个陷阱的另一面：本机的长命令与递归删除**一律以文件系统实测为准，退出码不可作为判据** | `PROJECT.md` §10 第 17 条改写为已解决、第 18 条记为长期登记、新增第 19 条 |
++| 2026-09-24 | `fitness-animations` | WorkBuddy（设计、写作、执行与自检） | 独立上下文的评审子代理（换了上下文与能力档位，**仍未换厂商**；任务写死为「只读 `PROJECT.md` + `CHANGE.md` + 产物，不读对话记录」，并允许自己重跑全部断言） | **有条件通过：3 条阻断项全部独立复核为成立、全部已改**（① `src/theme/MDXComponents.js` 整表替换全站 MDX 组件表；② 映射表 53 与实际 57/55/9/17 对不上；③ `prefers-reduced-motion` 的播放按钮点不动），驳回 0；4 条建议项全采（死导入、报告接地差的口径、`Scene.js` 未申报、「深蹲」措辞）；人的裁决为本机跑不了构建就**跳过验证直接归集，构建与页面实证交 CI** | 三条阻断项里**两条我自查完全没看到**，共同点是**都不落在 12 条不变量之下**。① 组件表那条最重：我把它读成「新增两个正文标签」，实际是把 Docusaurus 的 18 项默认映射**整表抹掉**（全站 40 篇 `:::` 提示框、所有标题 `#` 锚点、正文链接的 SPA 路由），而**构建不报错、四道闸门全绿、CI 也不会红**——由评审**读源码**发现。它直接推翻了「交 CI 兜底」的可行性前提，也证明 §5「逐条对照不变量」的写法**在结构上装不下全局面**（已写进 §5 与新增 §10 第 22 条）。② 映射表那条的根因是我把映射表当「写作清单」而不是「交付契约」：`fp-assert` 一直在报 `docs-used=55 / unused=4`，我却当成「多写了 4 个备用动作」，没意识到它同时说明映射表不准。**方法论收获**：本轮把三条「只有渲染/交互才显形」的判据下放成可复算的断言——`mixPose` 单元回归 T1–T7、cycle 回路闭合、绕远路检查（后一条一次抓全 12 处等价角错误，`archer-pullup` 的手腕曾被抡到出画 `y=−27.8`）；同时**删掉了一条我自己刚加的误报检查**（「对称键与侧别键混用」跑出 121 处 FAIL，判定为正常写法、问题在引擎不在数据），教训是**断言口径要先在少量样本上试跑、再全库推广**。另：本机沙箱禁写 `node_modules/.cache`，生产构建未能执行，§4 的验收 3/4/5/9 已声明交由 CI——**这是已申报的偏离，不是「验过了」** | `PROJECT.md` §4、§7（新增「正文动画组件」行，含 swizzle 警告）、§10 第 14 条改写为已解决、第 19 条更新、新增第 20、21、22、23 条 |
++
++> **备注（不许美化）· 针对 `fitness-animations`**：本次评审换了上下文与能力档位，并在任务里
++> **明确禁止它读任何对话记录**，但同样**没有换厂商**，隔离强度与前几轮同量级。
++> 它的产出质量说明这个强度仍然有效（3 条阻断项里 2 条是我完全没看到的），
++> 但也暴露了同一件事的另一面：**它读不出「我为什么这么做」**——四份材料里「分歧点」一栏的
++> 「协作者的理由」全是空白。这不是它偷懒，是我在它读材料之前没把理由写进去，
++> 所以 `REPLY.md` 成了唯一补这一栏的地方。**下次给评审的材料应当直接包含「我为什么这么选」。**
++>
++> > **另一条与「交 CI」有关的教训**：本机跑不了构建时，「交给 CI」听起来像兜底，实际只兜住一半——
++> > CI 只在**构建失败**时红，对「构建成功但渲染行为变了」这类回归是零覆盖，本次的组件表回归正属后者。
++> > 所以「本机不构建」这个决定必须与「本机也拿不到渲染结果」一起看：**两者的合并后果是验收 3/4/5/9 全部悬空**，
++> > 而不是「由 CI 接管」。
+ 
+ > **备注（不许美化）· 针对 `human-abilities-ai-era`**：本次评审用了「换能力档位 + 断上下文」，但没有换厂商，
+ > 严格地说只满足了 `ROLES.md` 三条硬约束中的一条半。阻断项 1、2 由我独立复核后成立，
+diff --git a/.ai-anchor/PROJECT.md b/.ai-anchor/PROJECT.md
+index ec8b8998..d68cda82 100644
+--- a/.ai-anchor/PROJECT.md
++++ b/.ai-anchor/PROJECT.md
+@@ -59,9 +59,11 @@ anchem.github.io/
+ ├── src/
+ │   ├── pages/               # 首页 index.js、随想 thoughts.js、关于 about.md
+ │   ├── components/          # 首页书架、最新随笔、随想轮播、天空层、季节装饰、分节标题
++│   │   └── ExerciseAnim/    # 健身动作动画：engine / index / Figure / Scene / styles / poses
+ │   ├── config/              # homepageData.js（构建期统计）、shelves.js、prismThemes.js
+ │   ├── hooks/               # useThoughts.js
+ │   ├── theme/Root.js        # 全站背景层的挂载点
++│   ├── theme/MDXComponents.js  # 全局 MDX 组件表（swizzle 点）：登记 ExerciseAnim / ExerciseStrip
+ │   └── css/custom.css       # 色令牌与全站样式（§1 是唯一色源）
+ ├── static/                  # img/、js/、域名校验文件，原样复制进 build
+ ├── i18n/                    # zh-Hans（当前只有一种语言）
+@@ -71,6 +73,8 @@ anchem.github.io/
+ **依赖方向**：`docusaurus.config.js` → `src/config/*`（构建期注入）→ `src/components/*`（渲染期消费）；
+ `docs/` 与 `blog/` 是纯内容，只被 Docusaurus 读取，彼此之间只有链接关系，没有代码依赖。
+ **改动风险最高的是 `docusaurus.config.js` 与 `src/css/custom.css`**，一次误改会影响全站每一页。
++`src/theme/*` 下的 **swizzle 点**同理，而且更隐蔽：它导出的对象是**整表替换**默认表、不是合并，
++少铺一层 `...@theme-original/<组件>` 就会静默丢掉默认行为（详见 §7「正文动画组件」一行）。
+ 
+ ## 五、不变量清单 ★
+ 
+@@ -192,6 +196,7 @@ CI 在 ubuntu 上全新构建后经 `peaceiris/actions-gh-pages` 发到 `gh-page
+ | 中文标点 | 正文用中文全角标点；代码、路径、配置项用 ASCII 直引号 |
+ | 引号 | 按语境判，不按引号内的内容判：中文句子（含表格、提示框）里的引号一律全角 `“ ”` `‘ ’`，哪怕引号内只是一个英文词或数字；纯英文句子、行内代码、代码围栏、front matter、路径、配置项一律 ASCII `"` `'`。正文英文里的撇号（`I'm`、`can't`、`we'll`）属 ASCII，不转全角。**`「 」` 在本站只用于栏目名、专名与版本名（如 `「春晓」`、`「倚码千言」`），不用于正文引用** |
+ | 加粗 | 列表项行首字段名用加粗（如 `- **养育重心**`）；句中强调允许加粗，这是本站长文的既有做法；表格单元格内不加粗。**加粗标记的内侧不贴标点、外侧不贴文字**——CommonMark 的定界符规则会让这种加粗**整体失效**，页面上把 `**` 当普通文字显示出来（`**要点。**接着`、`掌握**“话术”**：` 都会漏出 `**`）。标点一律写在标记外：`“**重点**”`、`**要点**。接着`、`**洗牌**（shuffle）是`。校验：`node .workbuddy/check-bold-render.js docs blog src`。`bold-normalize.js` 的“只保留行首加粗”规则只适用于 `phase-*` 阶段材料，不可用来校验 docs 长文 |
++| **正文动画组件** | 正文里的 `<ExerciseAnim id="..." />`（单卡）与 `<ExerciseStrip title="..." items={[...]} />`（动画条）来自 `src/components/ExerciseAnim/`，已在 `src/theme/MDXComponents.js` 全局注册，**正文不要写 import 行**。契约：`items` 必须是 `ExerciseStrip` 的**最后一个属性**（校验脚本只解析 `items=` 之后的部分）；条内编号默认取位置，同一动作占两行时用 `{ id, badge }` 覆写；单卡可用 `name` / `dose` / `cue` 覆写数据里的默认值。注册表在 `src/components/ExerciseAnim/poses/index.js`，数据在同目录 `poses/`；`id` 写错不抛异常（抛异常会让整站构建失败），页面上出现虚线框「未注册」标记并 warn，构建前跑 `node .workbuddy/fp-assert.cjs` 会先把「正文引用的 id 是否全部注册」查一遍。**⚠️ `src/theme/MDXComponents.js` 是 swizzle 点，导出的对象会整表替换 Docusaurus 默认表**（18 项：`admonition` / `h1`–`h6` / `a` / `code` / `pre` / `ul` / `li` / `img` / `details` / `Head` / `mermaid`），**必须写 `...MDXComponents` 把默认表铺开**，否则全站提示框、标题 `#` 锚点与正文链接的 SPA 路由会一起静默失守，而构建不报错、现有闸门也查不出来（2026-09-24 实际发生过一次，由独立评审读源码发现） |
+ | 字词口径 | 中国香港 / 中国台湾 / 中国澳门，不得写成独立国家 |
+ 
+ ## 八、设计取舍记录（ADR）
+@@ -279,12 +284,17 @@ CI 在 ubuntu 上全新构建后经 `peaceiris/actions-gh-pages` 发到 `gh-page
+ | 11 | `docs/selfdevelop/health/sports/fitnessplan/` 于 2026-09-23 建立（12 篇 md ＋ `_category_.json`，覆盖现状盘点、训练总纲、下肢、上肢、核心、足踝握力、功能性、伤病预防、周计划、恢复、路线图） | 与同目录两篇既有页存在内容重叠：`sports/pushup.md` 仍是只有标题框架的空壳，`sports/runningexercise.md` 有跑步知识但缺训练计划；新导览已链接到这两页，读者可能落到空页 | 另开变更把两篇桩页写实（本轮人未授权处理，见 `changes/2026-09-23-fitness-plan/CHANGE.md` 非目标） |
+ | 12 | 同日该目录的三份评审（教练／康复师／编辑，31 条阻断项全部成立并已改）暴露出手册类长文的共性风险：**跨篇同一数字多源复写**（同一动作在三篇各写一遍完整剂量，值还不一致）与**门槛与首次剂量分散在 5 页**（风险承重页只在变更卡里申报了 2 页） | 单点改动不会同步其它页，口径会缓慢漂移；「哪一篇是正本」不明确 | 后续同类手册：处方只在首次出现的章节写全，其它章节只留内链；变更卡的「风险承重页」按实际分布申报 |
+ | 13 | 全站「以 `\|` 开头的表格行里含 `**`」约 546 行（`docs/growthtree/timeline/phase3/`、`docs/lifeforfun/invest/` 尤其密集）。它们渲染正常，但与 §7「表格单元格内不加粗」不符；`an-compliance.js` 的断言 5 只按单个目录运行，所以一直没暴露 | 规则与既有做法长期不一致：下次有人按断言 5 去校验这些目录，会拿到成片 FAIL，误以为是自己刚改坏的 | 另开变更决定口径——要么统一去掉表格内的加粗，要么修订 §7 允许表格内加粗并撤掉断言 5。**不要在别的变更里顺手改**（同第 9 条的处置） |
+-| 14 | `an-compliance.js` 的断言 6 把行首 `> ` 块引用与 `<Tabs>` 这类合法组件标签一并判为「裸 `<` `>`」；它输出的行号还是「去掉 front matter 与代码围栏之后的相对行号」，不是文件真实行号 | 既误报又定位不准。**已造成一次实际损失**：2026-09-23 为了让断言 6 通过，`fitnessplan/diagnosis.md` 里的一处 `> ` 块引用被改写成了加粗文本，而全文没有留存原文，无法按原样写回 | 另开变更修断言 6：忽略块引用标记与合法 JSX/HTML 标签，并让行号回到文件真实行号；再决定 `diagnosis.md` 那处是否写回块引用 |
++| 14 | **已解决**（2026-09-24，随 `changes/2026-09-24-fitness-animations/` 落地）：`an-compliance.js` 的断言 6 已重写——直接在原文上按行扫描，用状态机跳过跨行 JSX，并剥掉行首 `> ` 引用块标记与完整标签；行号一律取文件真实行号（原实现先折叠多行 JSX 再数行，行号整体前移，报出来的位置在正文里对不上） | 已解决：误报与定位不准同时消除；`fitnessplan` 12 篇、默认目录 14 篇均 9/9 PASS | **遗留**：修好之后原先被误报的 `> ` 块引用会放行，而 `fitnessplan/diagnosis.md` 里那处被改写成加粗文本的块引用**仍未写回**（无原文留存，本轮不擅自改）。同轮还修了断言 4 的调用方式：它原先用 `execSync` 拼字符串命令行，本机沙箱里 `spawn cmd.exe` 与 `spawn node.exe` 都返回 `EBUSY`，断言 4 一挂就把后面所有断言一起带走——已改为**同进程 `require`** 调用 |
+ | 15 | 儿童与青少年运动内容已于 2026-09-23 建立两处：`docs/growthtree/classification/fitness/`（9 篇，方法论：身体素养、五个成分、体态习惯、伤痛预防与恢复、吃与睡、心理与社交、与泰拳的结合、父母与学校）与 `docs/growthtree/timeline/`（分龄计划。**2026-09-23 当日由 `timeline/fitness/` 目录改为分阶段落位**：正文拆成 `phase3/fitness-6-9.md`、`phase3/fitness-9-12.md`、`phase4/fitness-12-15.md`、`phase5/fitness-15-18.md` 四篇，跨阶段的部分收进根目录的 `fitness-overview.md`，`phase4`/`phase5` 两个阶段目录为本次新建）；两侧互链，`classification/index.md` 与 `timeline/index.md` 各追加索引行 | 与站内既有的**成人**徒手健身手册 `selfdevelop/health/sports/fitnessplan/` 面向对象不同（一个成年、一个 6–18 岁），两处导览页已各写一句声明不可互抄；`timeline/` 的分段（4 段）与站点既有五阶段不是一一对应，对应关系写在 `fitness-overview.md` 里 | ① 本轮的四个风险判断（睡眠分段、书包重量、生长痛部位、加量单位）都已统一为单一口径，**后续若有人按旧值改写，会重新制造跨篇矛盾**；② 全篇无图无视频，动作只能靠文字描述；③ 内容里的数字性论断（初潮年龄、ACL 风险倍数、神经肌肉训练效果幅度、骨量窗口）**未做一手文献核查**，已在 `REPLY.md` 第九节记为待办 |
+ | 16 | 儿童运动方案这类内容的「风险承重页」不能只申报伤痛页。本轮立锚时把风险押在 `injury-prevention.md` 与 `phase-12-15.md`，但四份独立评审挑出的 11 条阻断项里，有 2 条来自**心理与可执行性**（「每天户外两小时」写成不可砍的硬指标；阶段衔接写成晋级闸门、会传导抢跑焦虑） | 给孩子的方案，「写得过硬」本身就是一种风险源；只盯医学红线会漏掉另一类伤害 | 后续同类内容：变更卡的「风险承重页」按实际分布申报，至少覆盖「医学红线 / 心理分寸 / 家庭可执行性」三类 |
+ | 17 | **已解决**（2026-09-23）：`phase1` / `phase2` / `phase3` 三目录已补齐 `index.md`，位次为 1，既有 5 篇顺延为 2..4；五个阶段目录行为已一致，断言 9 对三者均 PASS。落地页只写「养育重心一行 + 指针 + 本阶段运动底色」，阶段正文仍以 `timeline/index.md` 为正本 | 已解决：同一层级两种行为（点目录名，phase4/5 进落地页、phase1–3 只展开）消失 | 遗留项转到本表第 19 条（既有文章的前置键位缺口与断言 8 的判定盲区） |
+ | 18 | `docs/growthtree/timeline/index.md` 全文约 39 处使用 `「」`，与 §7「正文引用一律用 “ ”；`「」` 只用于栏目名与专名」不符；该文件同时没有 front matter（只有 `sidebar_position` 一行），断言 1 与断言 8 因此 FAIL。同一天新建的 `fitness-overview.md` 在同一目录下是合规的，形成对照 | 站内引号两套做法在这条线上仍然并存；front matter 缺键位会让搜索索引与卡片渲染行为不一致 | **人已于 2026-09-23 裁决：本轮不修复，改为长期登记项**。若要动：`punct-unify.js` 不碰 `「」`，需单独写替换；front matter 按 §7 补齐五键。**同第 9、13 条的处置：登记不动手** |
+-| 19 | `phase1` / `phase2` / `phase3` 的三篇既有文章只带 `id` / `title` / `sidebar_position`（`study-and-live-abroad-planning.md` 另有 `sidebar_label` / `description` / `tags`），**均缺 `description` / `tags` / `keywords`**，断言 8 因此 FAIL。同时 `an-compliance.js` 的 front matter 正则写作 `^---\n`，**只认 LF**；而 `18th-months-examination.md`（全文 143 处 CRLF）与 `promotio-plan.md`（11 处 CRLF）用的都是 CRLF，于是被误报成「无 front matter」，比真实原因更含糊 | 既有缺口会被误读成新改动引入；脚本误报会让人去修并不存在的问题（同第 14 条的教训） | 另开变更处理：① 给三篇补前置键位；② 让断言 8 的正则容忍 `\r?\n`——它改的是检查工具而非内容，须单独一轮，**不要在别的变更里顺手改**。另记一条相关的命名陷阱：`phase2/promotio-plan.md` 的**文件名拼写少一个 n**，而 front matter 里 `id: promotion-plan` 是对的——对外 URL 取自 `id`，所以现在的链接是好的；但**谁把这个 `id` 删掉，URL 就会跟着文件名变成 `promotio-plan`，站外深链即 404**。改不改都行，动之前先看这一条 |
++| 19 | `phase1` / `phase2` / `phase3` 的三篇既有文章只带 `id` / `title` / `sidebar_position`（`study-and-live-abroad-planning.md` 另有 `sidebar_label` / `description` / `tags`），**均缺 `description` / `tags` / `keywords`**，断言 8 因此 FAIL。同时 `an-compliance.js` 的 front matter 正则写作 `^---\n`，**只认 LF**；而 `18th-months-examination.md`（全文 143 处 CRLF）与 `promotio-plan.md`（11 处 CRLF）用的都是 CRLF，于是被误报成「无 front matter」，比真实原因更含糊 | 既有缺口会被误读成新改动引入；脚本误报会让人去修并不存在的问题（同第 14 条的教训） | 另开变更处理：① 给三篇补前置键位；② 让断言 8 的正则容忍 `\r?\n`——它改的是检查工具而非内容，须单独一轮，**不要在别的变更里顺手改**。另记一条相关的命名陷阱（2026-09-24 复核后更新）：`phase2/` 那个文件**已经改名为 `promotion-plan.md`**（文件名现已带 n，front matter `id` 也是 `promotion-plan`），但 `timeline/index.md:202` 与 `phase2/index.md:26` 两处链接还写着旧的 `promotio-plan.md`，于是成了断链——已随 `changes/2026-09-24-fitness-animations/` 一并修掉（该变更 §7-11 如实登记为**越界改动**，建议拆成独立提交）。教训：**改名之后必须跑一次全库链接体检**——`check-doc-links.js` 只认合法 `](` 语法，指向旧名的链接它会报，但**写成花括号外文字形式的链接它会当普通文字跳过且不报错** |
++
++| 20 | 健身动作动画已于 2026-09-24 落地（`changes/2026-09-24-fitness-animations/`）：`src/components/ExerciseAnim/`（引擎 + 57 条姿势数据）+ `src/theme/MDXComponents.js` + `fitnessplan` 7 篇正文里的 17 处单卡 / 9 张动画条 | 几何断言只证明「**几何合法**」，不证明「**生理正确**」；而动作画错等于给了一份错误示范，比不配图更危险 | ① 两个注册项 `planche-lean` / `pseudo-planche-pushup` 已写好但正文无入口（出处只在 `roadmap.md` 与 `diagnosis.md`，均在本轮范围外），`fp-assert.cjs` 会持续报 `WARN`，留待下一轮专项期内容；② `weekly-plan.md:120` 的「深蹲」与条内动画名「自重单腿深蹲」对不上，**可能是画错了动作**，属内容判断，请人裁决（见该变更 §7-13）；③ 57 个动作的姿势**未逐条与文字描述对照**，须人复核 |
++| 21 | **本机跑不了生产构建**：沙箱禁止写 `node_modules/.cache`（而生产构建必然要写），「改名代替删除」与纯探测两次尝试均被拒绝；Docusaurus 也没有可绕开该缓存的开关（webpack 默认缓存路径，无 env 覆盖点） | §6.2 的主判据（日志 `[SUCCESS] Generated static files` + `build/sitemap.xml` 存在）在本机**无法执行**。改用「交 CI 兜底」时要清楚：**CI 只在构建失败时红**，对渲染期才显形的静默回归完全没有覆盖 | 本机能做的最接近替代是 `.workbuddy/fp-syntax.cjs`（Babel 编译 + 相对 import/CSS 解析 + 别名与 `~` 虚拟模块白名单；25 文件 0 失败），它**不覆盖** MDX 编译、SSR、产物与 sitemap。要跑真构建时，需在设置里放行 `node_modules/.cache` 的读写 |
++| 22 | **swizzle 点是「影响面」清单的结构性盲区**：2026-09-24 的变更首版把 `src/theme/MDXComponents.js` 写成「只加两个正文标签」，实际是**整表替换**全站 MDX 组件表（影响 40 篇含 `:::` 的文档、所有标题 `#` 锚点、正文链接的 SPA 路由），而构建不报错、四道闸门全绿 | §5「影响面」逐条走 12 条不变量，**这类改动不落在任何一条之下，表里根本没有它的位置**——于是「12 条全过」被误读成「影响面已穷尽」（该回归最终由独立评审读源码发现，不是被闸门拦下的） | 后续新增或修改 `src/theme/*` 下的 swizzle 点、插件、全局 provider，**必须在变更卡里单开一行申报**，并注明「默认表/默认行为是否被保留、丢失后的表现、哪条闸门能发现」。§5 的口径也应从「逐条对照不变量」扩成「逐条对照不变量 **＋ 不在不变量之内的全局面**」 |
++| 23 | **`punct-unify.js` 原先不认识跨行标签**：多行写的 `<ExerciseStrip` 属性行里一个 `<` 都没有，而 `classify()` 的 `protect(/<[^>]*>/g)` 是逐行匹配的，抓不到续行，于是 `title="…"` 里的 ASCII 引号被误报成「待转全角」（实测一次误报 17 处、涉及 8 张动画条） | 照它报的去改，会把 **JS 字符串定界符改成全角引号、直接把组件打坏**；而「改前先跑普查、0 处才继续」这个好习惯在这里反而会推着人去改错 | **已修**（`classify()` 增加 `inTag` 状态：未闭合的 `<` 到行尾保护并置位，续行保护到闭合的 `>`）。教训：**凡按行匹配的正则，遇到「语法结构可以跨行」的语言（JSX / HTML / MDX）都要先想跨行**——同类还有 §14 断言 6 的行号问题、`check-bold-render.js` 的跨行加粗 |
+ 
+ ---
+ 
+diff --git a/docs/growthtree/timeline/index.md b/docs/growthtree/timeline/index.md
+index e1f8cc33..be6419fa 100644
+--- a/docs/growthtree/timeline/index.md
++++ b/docs/growthtree/timeline/index.md
+@@ -199,7 +199,7 @@ sidebar_position: 2
+ 更细的记录和规划，写在对应的阶段目录里：
+ 
+ - [18个月体检记录](phase1/18th-months-examination.md)：第一阶段的发育评测，以及关于语言引导那一次的反思。
+-- [升班规划](phase2/promotio-plan.md)：第二阶段，让她在混龄班再滋养一年的决定。
++- [升班规划](phase2/promotion-plan.md)：第二阶段，让她在混龄班再滋养一年的决定。
+ - [布加勒斯特外派规划](phase3/study-and-live-abroad-planning.md)：第三阶段，2027–2030 的海外三年与回国衔接。
+ - [6–9 岁运动安排](phase3/fitness-6-9.md)与[9–12 岁运动安排](phase3/fitness-9-12.md)：第三阶段的动作窗口与技术窗口。
+ - [12–15 岁运动安排](phase4/fitness-12-15.md)、[15–18 岁运动安排](phase5/fitness-15-18.md)：后半程的两段，生长突增与独立安排。
+diff --git a/docs/growthtree/timeline/phase2/index.md b/docs/growthtree/timeline/phase2/index.md
+index 41580711..51c9a154 100644
+--- a/docs/growthtree/timeline/phase2/index.md
++++ b/docs/growthtree/timeline/phase2/index.md
+@@ -23,4 +23,4 @@ keywords:
+ 
+ 这个目录放的是这一段单独展开的记录与规划：
+ 
+-- [升班规划](promotio-plan.md)：让她在混龄班再滋养一年的决定，以及这个决定背后的判断。
++- [升班规划](promotion-plan.md)：让她在混龄班再滋养一年的决定，以及这个决定背后的判断。
+diff --git a/docs/selfdevelop/health/sports/fitnessplan/core.md b/docs/selfdevelop/health/sports/fitnessplan/core.md
+index bfa171d5..ab0e6591 100644
+--- a/docs/selfdevelop/health/sports/fitnessplan/core.md
++++ b/docs/selfdevelop/health/sports/fitnessplan/core.md
+@@ -56,6 +56,8 @@ keywords: [核心训练, 抗旋转, 抗侧屈, 抗伸展, 悬垂举腿, 龙旗,
+ - 保持 20 到 30 秒，比普通平板支撑累得多
+ - 要点：不是比时间，是比张力。30 秒高质量胜过两分钟瘫着
+ 
++<ExerciseAnim id="rkc-plank" />
++
+ ## 四、抗旋转：让身体不转
+ 
+ ### 鸟狗式
+@@ -74,6 +76,8 @@ keywords: [核心训练, 抗旋转, 抗侧屈, 抗伸展, 悬垂举腿, 龙旗,
+ - 做不到就退回普通侧平板，不要靠扭腰硬撑
+ - 这个动作同时是单臂引体与偏重引体的前置
+ 
++<ExerciseAnim id="one-arm-side-plank" />
++
+ ### 吊环支撑
+ 
+ 双臂撑在吊环上，脚尖离地，保持支撑。吊环会前后摇摆，身体必须持续对抗。
+@@ -81,6 +85,8 @@ keywords: [核心训练, 抗旋转, 抗侧屈, 抗伸展, 悬垂举腿, 龙旗,
+ - 3 组 25 秒
+ - 周末在家课的首选，也是俄挺准备期的第一项
+ 
++<ExerciseAnim id="ring-support" />
++
+ ## 五、抗侧屈：让身体不折
+ 
+ ### 侧平板
+@@ -124,6 +130,12 @@ keywords: [核心训练, 抗旋转, 抗侧屈, 抗伸展, 悬垂举腿, 龙旗,
+ | 3 | 分腿龙旗 | 保持 8 秒 | 髋部位置太低 |
+ | 4 | 全龙旗 | 保持 5 秒 | 靠腰硬撑 |
+ 
++<ExerciseStrip
++  title="龙旗四级"
++  note="编号与上表行号一一对应"
++  items={['tuck-dragon-flag', 'single-leg-dragon-flag', 'straddle-dragon-flag', 'full-dragon-flag']}
++/>
++
+ - 每周不超过 2 次，每次都放在热身后、力气充沛时做
+ 
+ ## 七、十分钟核心循环
+@@ -138,6 +150,12 @@ keywords: [核心训练, 抗旋转, 抗侧屈, 抗伸展, 悬垂举腿, 龙旗,
+ | 4 | 鸟狗式 | 每侧 8 次 |
+ | 5 | 悬垂举腿 | 8 次 |
+ 
++<ExerciseStrip
++  title="十分钟核心循环"
++  note="编号与上表顺序一致"
++  items={['hollow-hold', 'dead-bug', 'side-plank', 'bird-dog', 'hanging-leg-raise']}
++/>
++
+ 这套循环动作轻，可以每天做。**高强度的龙旗与负重悬垂举腿每周不超过两次**，放在独立的核心课或下肢课后，不要和它们挤在同一天的末尾。
+ 
+ ## 八、常见错误
+diff --git a/docs/selfdevelop/health/sports/fitnessplan/feet-grip.md b/docs/selfdevelop/health/sports/fitnessplan/feet-grip.md
+index ac10de2b..c496b5c5 100644
+--- a/docs/selfdevelop/health/sports/fitnessplan/feet-grip.md
++++ b/docs/selfdevelop/health/sports/fitnessplan/feet-grip.md
+@@ -28,6 +28,8 @@ keywords: [踝关节, 足踝训练, 握力训练, 悬垂, 单腿提踵, 赤足
+ - 练习：膝盖顶墙做踝背屈，10 次一组，做 3 组
+ - 进阶：手扶墙做负重背屈，或踩在斜面上停留
+ 
++<ExerciseAnim id="knee-to-wall" />
++
+ 踝背屈不够会带来一连串问题：单腿深蹲脚跟离地、深蹲时膝盖内扣、落地不稳。练[下肢](./lower-body.md)时遇到的多数别扭，根源在这里。
+ 
+ ### 小腿与跟腱
+@@ -36,6 +38,8 @@ keywords: [踝关节, 足踝训练, 握力训练, 悬垂, 单腿提踵, 赤足
+ - 台阶提踵：脚跟下沉到低于前脚掌，加大行程
+ - 负重提踵：背包加书，或单腿完成
+ 
++<ExerciseAnim id="single-leg-calf-raise" />
++
+ 达标线是单侧 25 次。小腿是落地缓冲的第一道弹簧，篮球的落地全靠它。
+ 
+ ### 胫骨前肌
+@@ -72,6 +76,8 @@ keywords: [踝关节, 足踝训练, 握力训练, 悬垂, 单腿提踵, 赤足
+ - 单臂悬垂：目标 20 秒，这是[人旗](./upper-body.md)的资格线之一
+ - 建议：每次拉日做 3 组，每组做到接近极限前停下
+ 
++<ExerciseAnim id="hang" />
++
+ ### 厚握悬垂
+ 
+ 把毛巾搭在杠上抓着悬垂，或者用吊环。握把变粗，难度立刻上升，效果也更好。
+diff --git a/docs/selfdevelop/health/sports/fitnessplan/functional.md b/docs/selfdevelop/health/sports/fitnessplan/functional.md
+index e6166144..cc9c7cec 100644
+--- a/docs/selfdevelop/health/sports/fitnessplan/functional.md
++++ b/docs/selfdevelop/health/sports/fitnessplan/functional.md
+@@ -35,6 +35,8 @@ keywords: [功能性训练, 土耳其起立, 壶铃训练, 爬行训练, 负重
+ 
+ 然后**原路返回**，慢速逐级躺下。回落的过程与起立同样重要。
+ 
++<ExerciseAnim id="turkish-get-up" />
++
+ ### 要点与进阶
+ 
+ - 每侧 1 到 3 次，做 2 到 3 组。次数少但每次都很慢，一组大约 30 到 60 秒
+@@ -67,6 +69,8 @@ keywords: [功能性训练, 土耳其起立, 壶铃训练, 爬行训练, 负重
+ | 蜥蜴爬 | 手在身体两侧撑地，同侧手脚同步移动 | 10 米，2 到 3 组 |
+ | 向后爬 | 反向移动，对膝盖与协调是另一种刺激 | 10 米，2 组 |
+ 
++<ExerciseAnim id="bear-crawl" />
++
+ 要点：臀部不要左右摇摆太大，腰椎保持稳定。**爬行对腕背屈的负荷不小**，如果手腕撑地不适，先做前面提到的腕部准备，或改用握拳撑地。
+ 
+ 爬完肩膀会很有感觉，但记住[路线图](./roadmap.md)里的那句话：肌肉有感觉不等于练对了，判断标准是动作质量。
+@@ -80,6 +84,8 @@ keywords: [功能性训练, 土耳其起立, 壶铃训练, 爬行训练, 负重
+ - **吊环臂屈伸**：3 组 6 到 8 次，推的进阶动作，肩部力量不足时先用弹力带辅助
+ - **悬垂举腿**：见[核心](./core.md)
+ 
++<ExerciseStrip title="吊环三件：拉、撑、推" items={['ring-row', 'ring-support', 'ring-dip']} />
++
+ 如果园区或家附近有单杠、树干、爬架，偶尔爬一爬、吊一吊，比任何辅具都值。
+ 
+ ## 六、旋转与投掷
+diff --git a/docs/selfdevelop/health/sports/fitnessplan/lower-body.md b/docs/selfdevelop/health/sports/fitnessplan/lower-body.md
+index ab78b1e6..8465802d 100644
+--- a/docs/selfdevelop/health/sports/fitnessplan/lower-body.md
++++ b/docs/selfdevelop/health/sports/fitnessplan/lower-body.md
+@@ -31,6 +31,12 @@ keywords: [单腿深蹲, 保加利亚分腿蹲, 北欧腘绳肌弯举, 腿部维
+ | 5 | 自重单腿深蹲 | 每侧 3 组 5 次，不扶 | 脚跟随起、弯腰代偿 |
+ | 6 | 负重单腿深蹲 | 每侧 3 组 5 次，抱壶铃于胸前 | 负重后塌膝 |
+ 
++<ExerciseStrip
++  title="单腿深蹲六级"
++  note="编号与上表行号一一对应"
++  items={['cossack-squat', 'box-pistol', 'assisted-pistol', 'eccentric-pistol', 'pistol-squat', 'weighted-pistol']}
++/>
++
+ **退阶方式**：任何一级做不到，就退到上一级，并把量减半练两周，再去试。
+ 
+ **动作要点**：支撑腿膝盖对准第二根脚趾方向、不内扣；下蹲时不需要刻意挺直躯干，略微前倾反而更好发力；脚后跟全程贴地，贴不住说明踝背屈不够，回去练[足踝与握力](./feet-grip.md)。
+@@ -49,6 +55,8 @@ keywords: [单腿深蹲, 保加利亚分腿蹲, 北欧腘绳肌弯举, 腿部维
+ - 加负荷：抱 12 公斤壶铃于胸前，或背包负重
+ - 注意：前脚离凳子太近会让膝盖过度前移，感觉不适就往前站一点
+ 
++<ExerciseAnim id="bulgarian-split-squat" />
++
+ ### 上台阶
+ 
+ 找一个膝盖高度或略高的台阶。单腿踩上、站直、再缓慢落回。
+@@ -71,10 +79,16 @@ keywords: [单腿深蹲, 保加利亚分腿蹲, 北欧腘绳肌弯举, 腿部维
+ | 单腿髋桥 | 每侧 3 组 12 次 | 肩背靠沙发，单腿抬起，臀部发力顶起 |
+ | 哥萨克深蹲 | 每侧 2 组 15 次 | 兼顾内收肌与髋活动度 |
+ 
++<ExerciseAnim id="single-leg-rdl" />
++
++<ExerciseAnim id="single-leg-hip-bridge" />
++
+ ### 北欧腘绳肌弯举：单独说清楚
+ 
+ 跪在软垫上，脚踝压住沙发底或让同伴固定，身体像一块板一样缓慢前落，用手撑地推回。
+ 
++<ExerciseAnim id="nordic-curl" />
++
+ 它练的是腘绳肌的离心力量，而腘绳肌离心能力正是冲刺与急停时最容易拉伤的一环，所以它对跑步和篮球都值钱。**但它是本手册里负荷最猛的一个离心动作，必须按下面的规矩来。**
+ 
+ - **退阶**：双手撑地辅助，撑得越多越容易；随着能力提高把手往外移，再改为单手轻扶
+@@ -110,6 +124,8 @@ keywords: [单腿深蹲, 保加利亚分腿蹲, 北欧腘绳肌弯举, 腿部维
+ - 台阶提踵：脚跟下沉到低于前脚掌的位置，加大行程
+ - 进阶：背包负重，或单腿完成
+ 
++<ExerciseAnim id="single-leg-calf-raise" />
++
+ 按[现状盘点与目标取舍](./diagnosis.md)的基线，单侧 25 次是达标线。左右差距大就单独补弱侧。
+ 
+ ## 七、爆发力与落地控制
+@@ -125,6 +141,8 @@ keywords: [单腿深蹲, 保加利亚分腿蹲, 北欧腘绳肌弯举, 腿部维
+ | 台阶跳上 | 4 组 4 次 | 单腿或双腿，落在台阶上要稳 |
+ | 换腿分腿跳 | 3 组 6 次 | 落地缓冲，膝盖不内扣 |
+ 
++<ExerciseAnim id="squat-jump" />
++
+ 放在下肢课的最前面做，此时神经最清醒。**一旦觉得跳不高了，就停**。跳到腿软练的是耐力，还会让落地动作变形，反而危险。
+ 
+ ### 落地控制：膝盖的第一道保险
+@@ -136,6 +154,8 @@ keywords: [单腿深蹲, 保加利亚分腿蹲, 北欧腘绳肌弯举, 腿部维
+ - 全程膝盖对齐脚尖，绝不内扣；
+ - 每侧 3 组 3 次。
+ 
++<ExerciseAnim id="landing-control" />
++
+ **退阶顺序**（做不到单腿跳下时，从第一步开始）：
+ 
+ 1. 双脚落地并停住；
+diff --git a/docs/selfdevelop/health/sports/fitnessplan/principles.md b/docs/selfdevelop/health/sports/fitnessplan/principles.md
+index 6d64ba8d..04fa7e9e 100644
+--- a/docs/selfdevelop/health/sports/fitnessplan/principles.md
++++ b/docs/selfdevelop/health/sports/fitnessplan/principles.md
+@@ -81,6 +81,8 @@ keywords: [训练原则, 渐进超负荷, 训练周期, 减量周, 离心收缩,
+ - **留一到两次余力**：一组结束时，感觉还能再标准完成一两次。这个余量在英文材料里缩写为 RIR，本手册一律用中文表述。
+ - **台阶**：一个动作的难度分级。同一类动作的相邻难度之间就是一级台阶。
+ 
++<ExerciseAnim id="hip-hinge" />
++
+ ## 三、让徒手动作变重的五个杠杆
+ 
+ 这是徒手训练最核心的一节知识。想加难度，按这个顺序试。
+diff --git a/docs/selfdevelop/health/sports/fitnessplan/upper-body.md b/docs/selfdevelop/health/sports/fitnessplan/upper-body.md
+index 5ea3360e..3a306bd4 100644
+--- a/docs/selfdevelop/health/sports/fitnessplan/upper-body.md
++++ b/docs/selfdevelop/health/sports/fitnessplan/upper-body.md
+@@ -34,6 +34,12 @@ keywords: [单手俯卧撑, 单臂引体, 人旗, 俄式挺身, 引体向上, 
+ | 5 | 离心单臂俯卧撑 | 每侧 3 组 3 次，五秒下放 | 下放途中失控 |
+ | 6 | 单臂俯卧撑 | 每侧 1 到 3 次 | 骨盆旋转代偿 |
+ 
++<ExerciseStrip
++  title="推的六级台阶"
++  note="编号与上表行号一一对应"
++  items={['pushup', 'pushup-shift', 'archer-pushup', 'assisted-one-arm-pushup', 'eccentric-one-arm-pushup', 'one-arm-pushup']}
++/>
++
+ **辅助单臂俯卧撑怎么做**：一只手撑地，另一只手撑在一个可以调节高度的东西上——台阶、矮凳、篮球、吊环带。支撑物越高越容易。随着能力提高，逐级降低支撑物高度，直到只剩一张纸的厚度，那就是单臂了。
+ 
+ **动作要点**：肘部不要外张到与肩成一条直线，与躯干保持约四十五度，肩关节会安全很多；全程收紧臀部与腹部，让身体像一块板；双脚可以分得比肩略宽，允许极小的重心调整，但**不允许明显的转身借力**。
+@@ -77,6 +83,12 @@ keywords: [单手俯卧撑, 单臂引体, 人旗, 俄式挺身, 引体向上, 
+ | 3 | 分腿俄挺 | 保持 5 秒 | 腿分得不够，靠腰代偿 |
+ | 4 | 全俄挺 | 保持 3 秒 | 靠惯性冲，腰塌 |
+ 
++<ExerciseStrip
++  title="俄式挺身专项期阶梯"
++  note="编号与上表行号一一对应"
++  items={['tuck-planche', 'advanced-tuck-planche', 'straddle-planche', 'full-planche']}
++/>
++
+ 以**年**为单位推进。每一级都可能在原地停几个月，这是正常的。
+ 
+ ## 三、拉的九级台阶：从引体 5 次到单手
+@@ -95,6 +107,22 @@ keywords: [单手俯卧撑, 单臂引体, 人旗, 俄式挺身, 引体向上, 
+ | 8 | 离心单臂引体 | 每侧 3 组 2 次，五秒下放 | 顶端失控、骤降 |
+ | 9 | 单臂引体 | 每侧 1 次，离心可控 | 骨盆旋转代偿 |
+ 
++<ExerciseStrip
++  title="拉的九级台阶"
++  note="编号与上表行号一一对应；第 2、3 级是同一动作，标准不同，故显示为同一段动画"
++  items={[
++    'ring-row',
++    { id: 'pullup', badge: 2, name: '严格引体 ×10' },
++    { id: 'pullup', badge: 3, name: '严格引体 ×15' },
++    'weighted-pullup',
++    'archer-pullup',
++    'one-arm-hang',
++    'assisted-one-arm-pullup',
++    'eccentric-one-arm-pullup',
++    'one-arm-pullup',
++  ]}
++/>
++
+ 第 7 级与第 8 级是最容易被跳过、也最不该跳过的两级：从偏重引体直接跳到单臂引体，是肘内侧肌腱与肱二头肌长头腱最容易出问题的跃迁。这正是[伤病预防与红灯清单](./injury-prevention.md)里那句“所有单臂动作都从离心开始”的具体落点。
+ 
+ ### 离心类动作的总量约束
+@@ -155,6 +183,12 @@ keywords: [单手俯卧撑, 单臂引体, 人旗, 俄式挺身, 引体向上, 
+ | 4 | 分腿人旗 | 保持 8 秒 | 上身下沉、腰部塌陷 |
+ | 5 | 全人旗 | 保持 5 秒 | 靠上半身硬撑，下侧未发力 |
+ 
++<ExerciseStrip
++  title="人旗五级"
++  note="编号与上表行号一一对应"
++  items={['side-plank-leg-raise', 'hanging-side-leg-raise', 'tuck-flag', 'straddle-flag', 'full-flag']}
++/>
++
+ 前两级同时也是很好的核心训练，即使暂时不追人旗也值得练，做法见[核心](./core.md)。
+ 
+ ## 五、推拉比重
+@@ -175,6 +209,8 @@ keywords: [单手俯卧撑, 单臂引体, 人旗, 俄式挺身, 引体向上, 
+ - 肩胛俯卧撑：10 次，手臂不屈伸，只让肩胛骨滑动
+ - 胸椎旋转：每侧 8 次，跪姿一手撑地一手向天花板打开
+ 
++<ExerciseAnim id="band-external-rotation" />
++
+ 没有弹力带时，外旋可以改用侧卧小幅度外旋替代，效果差一些但能做。
+ 
+ ## 七、两套上肢课模板
+diff --git a/docs/selfdevelop/health/sports/fitnessplan/weekly-plan.md b/docs/selfdevelop/health/sports/fitnessplan/weekly-plan.md
+index 3403451f..42162d2c 100644
+--- a/docs/selfdevelop/health/sports/fitnessplan/weekly-plan.md
++++ b/docs/selfdevelop/health/sports/fitnessplan/weekly-plan.md
+@@ -120,6 +120,12 @@ keywords: [周计划, 训练日程, 最小可行训练, 减量周, 微训练, 
+ - **15 分钟巡回**：俯卧撑 10 次、深蹲 20 次、平板 30 秒、髋桥 15 次、爬行 10 米，做 3 轮
+ - **酒店能用上的东西**：毛巾卷起来做捏握（不要挂在门把上做悬垂，门把承受不住），床沿做保加利亚分腿蹲，装满水的瓶子当负重
+ 
++<ExerciseStrip
++  title="出差 15 分钟巡回"
++  note="全部复用前面章节已有的动作，编号与上一条列表的顺序一致"
++  items={['pushup', 'pistol-squat', 'rkc-plank', 'single-leg-hip-bridge', 'bear-crawl']}
++/>
++
+ 出差期间不必追求进步，保住频率就够了。
+ 
+ **下一步**：照着本页排出下周的课；哪一天练什么，回到[导览](./index.md)找对应章节；每 8 周复测后翻[路线图与常见问题](./roadmap.md)确认该进级还是退阶。
+diff --git a/src/css/custom.css b/src/css/custom.css
+index 7e816a63..918b204d 100644
+--- a/src/css/custom.css
++++ b/src/css/custom.css
+@@ -139,6 +139,25 @@ html:root {
+   /* 链接悬停色单独一档（v2 误用 -bright，2.1:1 不合格） */
+   --sand-link-hover: #0c7a52;
+ 
++  /* --- 动作动画专用四支（<ExerciseAnim> / <ExerciseStrip>） ---
++     来源：徒手健身频道 yellowdude 的视觉手法——「亮黄身体 + 深色粗描边 + 极简道具」。
++     四支各管一件事，缺一支就得在组件里写死颜色，所以必须凑齐：
++
++       --xd-body       小人的身体（近侧肢体、躯干、头）
++       --xd-body-far   远侧肢体，比身体深一档，用来区分前后
++       --xd-outline    描边与五官。它画在身体**下面**（更宽的同一笔画），
++                       所以是「一圈轮廓」而不是「外发光」
++       --xd-metal      地面线、单杠、吊柱、吊环、台阶箱等金属件
++
++     对比度不是按正文标准卡的：它是**图形**，判据是轮廓与页面底的 3:1（WCAG 非文本）。
++     浅色下 --xd-outline 压在 sunken #d3e6f4 上是 12.0:1，远高于线；
++     真正的下限是**五官压在黄身体上**：9.3:1。深色下同样是五官那一档最紧，8.3:1。
++     所以这两支的取值先按「五官在脸上读不读得清」定，再回头看轮廓。 */
++  --xd-body: #f6c62e;
++  --xd-body-far: #d9ab1f;
++  --xd-outline: #122029;
++  --xd-metal: #5f7383;
++
+   /* ==========================================================================
+      板块标识色 —— v4 起是「植物色族」的别名，不再是一组独立的色值
+      ---------------------------------------------------------------------------
+@@ -433,6 +452,16 @@ html:root[data-theme='dark'] {
+ 
+   --sand-link-hover: #b6f5d2;
+ 
++  /* --- 动作动画专用四支（夜幕版） ---
++     深色下不能沿用浅色的近黑描边：那会和 sunken #070b16 糊成一片，
++     小人的四肢就分不出层次了。所以描边改成**比页面底亮一档的藏青**，
++     于是同一套笔画在深色下读作「黄身体 + 一圈暗蓝轮廓」，仍然成立。
++     黄身体本身也不再那么刺眼（#f6c62e → #f2c53d），避免暗环境里发荧光。 */
++  --xd-body: #f2c53d;
++  --xd-body-far: #c79a26;
++  --xd-outline: #22304f;
++  --xd-metal: #7d8ca8;
++
+   /* 板块标识色不在这里给：它已经是 --sand-tint-* 的语义别名，
+      而别名在使用处解析，会自动取到下面夜色版的四支植物色。见浅色块里的说明。 */
+ 
