@@ -12,5 +12,6 @@ sidebar_position: 1
 - [人性](./humanity/index.md)：对人性、动机与行为模式的观察
 - [事业](./career/index.md)：职场与事业发展中的具体问题
 - [社会](./society/index.md)：政治、经济与法律的运行规则
+- [时间与人生意义](./timeandmeaning/index.md)：时间观的完整梳理与八套可验收的实操方法
 
 > 观点回答「怎么看」，能力回答「怎么做」。基本活动中的「做事 / 选择 / 展示」分别与[成事能力](../ability/getthingsdone/index.md)、[决策能力](../ability/decisionmaking/index.md)、[展示能力](../ability/presentation/index.md)互为表里：观点提供判据，能力提供方法。
