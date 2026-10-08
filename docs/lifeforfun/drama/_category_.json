@@ -2,7 +2,7 @@
   "position": 4,
   "label": "影视剧",
   "collapsible": true,
-  "collapsed": false,
+  "collapsed": true,
   "className": "lifeforfun",
   "customProps": {
     "description": "This description can be used in the swizzled DocCard"

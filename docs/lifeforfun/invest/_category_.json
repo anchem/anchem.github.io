@@ -2,7 +2,7 @@
   "position": 4,
   "label": "投资",
   "collapsible": true,
-  "collapsed": false,
+  "collapsed": true,
   "className": "lifeforfun",
   "customProps": {
     "description": "普通人可执行、可验证的投资策略方法：从单一策略到组合方案"

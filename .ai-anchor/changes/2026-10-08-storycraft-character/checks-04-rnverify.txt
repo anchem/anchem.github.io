@@ -1,0 +1,33 @@
+﻿=== (a) docs/ + blog/ 鍏ㄩ噺閾炬帴瑙ｆ瀽 ===
+閾炬帴鍏?853 鏉★紙鍏朵腑绔欑偣缁濆璺緞 1 鏉★級锛屽け璐?0 鏉?
+=== (b) live 婧愭枃浠堕噷鐨勬棫鍚嶆畫鐣?===
+鏃х洰褰曞悕 0 澶勬畫鐣?鏃ф竻鍗曢〉鏄惁宸茬Щ闄わ細鏄?
+=== (c) 鏂扮洰褰曠粨鏋?===
+      _category_.json
+      actions.md
+      appendix.md
+      background.md
+      checks.md
+      creativity-ai.md
+      decide.md
+      foundations.md
+      guards.md
+      index.md
+      judgment-flow.md
+      overview.md
+      pitfalls.md
+      plan.md
+      review.md
+  鈥斺€?md 14 绡囷紝鍏朵粬 1 椤?
+=== (d) 鍏抽敭鏂囦欢 ===
+  OK  搴斿瓨鍦? docs/selfdevelop/cognition/thinking/index.md
+  OK  搴斿瓨鍦? docs/selfdevelop/cognition/thinking/responsibilitycycle.md
+  OK  搴斿瓨鍦? docs/selfdevelop/cognition/thinking/criticalthinking/_category_.json
+  OK  搴斿瓨鍦? docs/selfdevelop/cognition/thinking/criticalthinking/index.md
+  OK  搴斿瓨鍦? docs/selfdevelop/cognition/thinking/criticalthinking/overview.md
+  OK  搴斾笉瀛樺湪  docs/selfdevelop/cognition/thinking/critical-thinking-playbook
+  OK  搴斾笉瀛樺湪  docs/selfdevelop/cognition/thinking/criticalthinking.md
+
+缁撹锛氬叏閮ㄩ€氳繃
+
+EXIT=0

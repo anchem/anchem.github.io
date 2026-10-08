@@ -19,5 +19,6 @@ sidebar_position: 1
 - [决策能力](../../selfdevelop/ability/decisionmaking/index.md)：在不确定中做出高质量选择
 - [管理能力](../../selfdevelop/ability/management/index.md)：帝王术、用人、资源调配
 - [思维](../../selfdevelop/cognition/thinking/index.md)：批判性思维、责任圈
+- [故事创作](../storycraft/index.md)：把作品里的人当标本拆开——原型、动机、弧线与塑造方法
 
 > 作品是镜，方法论是尺。从作品里看见人性的样貌，再回到方法论去找解释和应对——这种往返才是看剧的进阶姿势。
