@@ -95,6 +95,7 @@ const config = {
           {to: '/docs/lifeforfun',label: '为乐而生',position: 'right'},
           {to: '/blog', label: '随笔', position: 'right'},
           {to: '/thoughts', label: '随想', position: 'right'},
+          {to: '/crystals', label: '岁月结晶', position: 'right'},
           {to: '/about', label: '关于', position: 'right'}
         ],
       },
