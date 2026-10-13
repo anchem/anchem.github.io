@@ -175,3 +175,45 @@
 **未验证**：仍**未跑生产构建**（§10-21 同前）。本次改动为纯删除，未新增文件、未动配置、未改数据，故「＋1 个 html」与 `/crystals` 的 URL 计数不变，前文的三项目视验收（年份横贯线居中、左竖条与日节点对齐、<760px 可读性）仍然有效，且不再需要检查页尾那一块。
 
 **回滚**：`git checkout -- src/components/Crystals/index.js src/components/Crystals/styles.module.css`（两文件均已跟踪，逐字节可还原）。
+
+---
+
+## 全量回退（2026-10-13）
+
+**裁决来源**：作者会话内指示 —— 本页内容涉及**个人隐私泄露风险**，要求回退至该页存在之前的版本，删除全部代码、路由配置、组件引用与导航链接，并确认不影响其他页面。
+
+### 一、已执行的删除
+
+| 对象 | 处理 | 验收判据 |
+| --- | --- | --- |
+| `src/config/crystals.js` | 删除（曾被填入 30 条真实生活条目） | 工作区已不存在 |
+| `src/pages/crystals.js` | 删除 | 工作区已不存在 |
+| `src/components/Crystals/`（`index.js` ＋ `styles.module.css`） | 整个目录删除 | 工作区已不存在 |
+| `docusaurus.config.js` 的 `navbar.items` 一行「岁月结晶」 | 用**本变更之前的提交** `241b4954^` 的版本还原 | `git diff --exit-code 241b4954^ -- docusaurus.config.js` **为 0**（逐字节相同，非数行数） |
+| `build/crystals.html` | 删除（本地产物，gitignore 内） | 已不存在；`build/` 内其余页面仍残留指向 `/crystals` 的导航链接，属过期产物，下次构建整体重生成 |
+
+### 二、零影响的验证
+
+- `fp-syntax.cjs`：文件数 **17 → 14**，等于**本变更之前的基线**（MEMORY 记录为「14 文件 0 失败」）——这是文件集完全复原的硬证据；`fails=0`。
+- `check-bold-render.js docs blog src`：311 篇 **0 命中**。
+- `rn-verify.js`：870 条链接 **0 失败**。
+- 全库 Grep（排除 `node_modules`／`build`／`.workbuddy`）：`crystals` / `Crystals` / `岁月结晶` **仅剩 1 处**，即 `blog/2023-02-11-kindergarten-open-day-activities.md` 的 **tag 值**，由老提交 `47f69675` 引入，与本页无关，按「登记不动手」未动。
+- 导航项数由 8 回到 **7**。
+
+### 三、工作区回退**不等于**清除（重要）
+
+- 本变更的 4 个新文件与配置改动**已被作者在上一轮之后提交并推送**：提交 `241b4954`，`master` 与 `origin/master` 无差异。
+- `.github/workflows/deploy.yml` 在 push 到 `master` 时自动 `npm run build` 并把 `./build` 发布到 **`gh-pages` 分支**（线上域名 `codethousand.cn`）。**提交即上线**——该页当时已公网可达，`gh-pages` 分支同样留有 `crystals.html`。
+- 因此本次工作区回退**止住了后续**，但 `src/config/crystals.js` 的 253 行内容仍存在于 `origin/master` 的该提交及其父链、以及 `gh-pages` 的历史中。彻底清除需：**重写历史 ＋ 强制推送**（`git reset --soft HEAD~1` 后重建提交，或 `git filter-repo --path src/config/crystals.js --invert-paths`），必要时向 GitHub 申请清理缓存视图（force push 后旧对象仍可凭 SHA 访问一段时间）。
+- **本卡原「怎么退回去」一节已失效**：它写的是「4 个文件均为未跟踪文件 → `git clean -fd`」，前提是**尚未提交**。教训：回退前必须用 `git log`／`git status` 现场核实跟踪状态，不能沿用写卡时的判断。
+
+### 四、隐私清单（供以后新增内容页复用）
+
+本页 30 条真实条目命中的敏感类别：① 家庭称谓与孩子小名；② 具体地点（居住城市、常去餐厅／公园／商圈、旅行地）；③ 就职单位与内部获奖（含领域名）；④ 外派去向与证件成绩（如语言考试成绩）；⑤ 具体商品型号（手机／音响）；⑥ 住址与家庭生活线索。
+→ 含个人真实生活细节的页面，**提交前**先过这六类；本仓库「提交即上线」，没有「先提交再改」的中间态。
+
+### 五、未动（供作者裁决）
+
+- 变更卡与 `PROJECT.md` 第 26 条的记录**均未删除**：项目纪律是「归档完成不删」，且二者只含预览稿示例条目名，无个人数据。若作者要求连记录一并抹去，需另行指示（那会同时影响 `PROJECT.md` 与本文档）。
+- `.workbuddy/verify-crystals.cjs`、`.workbuddy/verify-crystal-preview.cjs`：为该页写的验证脚本，现已失效（所断言文件已删，跑会报错）。两者都在 gitignore 内、不入库，故**保留为追溯材料**，未删。
+- `blog/2023-02-11-kindergarten-open-day-activities.md` 的 tag 值 `岁月结晶`：老提交引入，与本次无关。
