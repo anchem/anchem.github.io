@@ -1,0 +1,74 @@
+# CHANGE —— 新增 `docs/selfdevelop/health/sports/jiujitsu-selfdefense.md`
+
+- **日期**：2026-10-20
+- **变更卡**：`2026-10-20-bjj-selfdefense-plan`
+- **车道判定**：内容变更（§6.1）。范围＝既有目录内新增 1 篇 ＋ 同目录 `index.md` 导览追加 2 行，共 **2 个文件**；不新增／移动／删除目录，不删除任何已发布内容，未触及 `docusaurus.config.js`／`sidebars.js`／`src/`／色令牌。按 §9「AI 可以自主决定」条的「在既有目录内新增文章、补 `index.md` 导览」——**无需另行请示**。
+- **授权情况**：本轮不含 §9 请示项，无待补记的会话内授权。**未执行部署**（不 push，不触发 `deploy.yml`）。
+
+## 意图
+
+作者要一份以「日常生活与出国旅行中保护自己与家人」为目标的巴西柔术长期学习方案，原则是化解冲突、撤离、避免受伤，不主动攻击；在无法脱身时保留最小限度的自卫能力。本文把这一诉求落成一条可执行路径：先修分寸与法理，再修位置与逃脱，最后才是降服；并给出四阶段门槛、周计划、伤病与卫生、旅行清单与终身积累办法。
+
+文内包含两份独立评审（教练视角／康复师视角）的处置结果，处置记录见同目录 `REVIEW-coach.md`、`REVIEW-rehab.md`、`REPLY.md`。
+
+## 范围
+
+| 文件 | 动作 | 规模 |
+| --- | --- | --- |
+| `docs/selfdevelop/health/sports/jiujitsu-selfdefense.md` | 新增 | 626 行 / 9839 汉字 |
+| `docs/selfdevelop/health/sports/index.md` | 追加 1 行收录 | ＋1 行 |
+| `.ai-anchor/changes/2026-10-20-bjj-selfdefense-plan/*` | 变更卡工作件（不入站点） | 4 个文件 |
+
+**位置选择理由**：`sports/` 目录已有「跑步运动」「力量：俯卧撑」「健身计划」三页，定义为「运动板块的运动原则与实践记录」。巴西柔术属同一板块下的长期训练实践，落在既有目录，按 §6.1 落盘门禁**不新建目录**。评审记录属工作件，按 §2「不把工作件发布到站点」留在 `.ai-anchor/changes/`。
+
+## 非目标
+
+1. **不新建目录**（`sports/jiujitsu/` 的拆章形态本轮不做；若日后单篇超 600 行再走 §6.3）。
+2. **不改** `pushup.md` 空壳与 `runningexercise.md` 缺训练计划的既有缺口（§10 第 11 条，登记不动手）。
+3. **不改** `fitnessplan/` 任何一页的剂量口径：本文只写柔术专项增量，基础力量与恢复一律内链，避免 §10 第 12 条的「跨篇同一数字多源复写」。
+4. **不做**医疗或法律意见：文内所有医学判断均指向就医，法律判断均声明以当地法律为准。
+5. **不部署**：不 push。
+
+## 验收标准
+
+1. `node .workbuddy/check-bold-render.js docs blog src` → 命中 0 篇 / 0 处。
+2. `node .workbuddy/an-compliance.js docs/selfdevelop/health/sports` → 9/9 PASS。
+3. `node .workbuddy/check-doc-links.js docs` → 0 问题。
+4. `node .workbuddy/rn-verify.js` → 0 失败。
+5. 内链逐条人工过目，均为合法 `](` 语法且目标存在。
+6. （人侧）构建后产物对账：`build/selfdevelop/health/sports/jiujitsu-selfdefense.html` 存在，另加 1 个新 tag 页（`自卫`）。
+
+## 影响面
+
+**逐条对照 §5 十二条不变量**：1–4 不涉及；5 新页五键齐全；6–7 不涉及 blog；8 不涉及色令牌；9 不涉及天空层；10 未编辑产物；11 内链无结尾斜杠；12 无裸 `<>`、表格内无裸 `|`、表格内无 admonition。
+
+**不在不变量之内的全局面**（按 §10 第 22 条单开申报）：
+
+| 面 | 是否触及 | 说明 |
+| --- | --- | --- |
+| swizzle 点 / 插件 / 全局 provider | 否 | 未新增、未修改 `src/theme/*` 与插件配置 |
+| 新增 tag 值 | 是 | 新增 `自卫` 1 个 tag 值，构建后新增 1 个 tag 落地页；复用既有 `健身` |
+| 目录与 `_category_.json` | 否 | 复用 `sports/_category_.json`，`sidebar_position: 5` 排在 `fitnessplan`（4）之后 |
+| 跨页口径 | 否 | 剂量只在本文写全，其余内链 `fitnessplan/` |
+
+## 评审与修订
+
+初稿落盘后出两份独立评审：`REVIEW-coach.md`（教练视角，12 条 ＋ 2 条保留）、`REVIEW-rehab.md`（康复视角，12 条 ＋ 2 条保留），共 28 条意见，其中 9 条判为阻断。逐条处置见 `REPLY.md`：阻断项 9 条全改；重要项 14 条采纳 13 条（C12 技术总量不采纳，理由已写明）；意见保留 4 条全采纳。
+
+修订以一次性脚本做定点替换，26 处全部断言「命中且唯一」后写盘（`applied 26/26`），另跑一次引号归一（44 对「」转 “”）。
+
+## 实测结果
+
+| 项目 | 结果 |
+| --- | --- |
+| `check-bold-render.js docs blog src` | 313 篇，0 篇 / 0 处 |
+| `an-compliance.js docs/selfdevelop/health/sports` | 8/9 PASS |
+| `check-doc-links.js docs` | 285 文件，0 问题 |
+| `rn-verify.js` | 全部通过 |
+
+## 待裁决
+
+1. **篇幅 626 行**，略超 §7「单篇正文约 600 行」的参考线（汉字 9839，低于站点既有最长篇 16073 字）。判断依据：全文是一条连续的课程线，四阶段互为前置，拆成目录后读者要在页间反复跳；因此按「参考线而非硬线」处理，维持不拆。此处与 §10 第 25 条 `practice.md`（627 行，人已裁决维持不拆）同款。若要拆，建议拆点是把「七 出国旅行」与「八 法律与分寸」独立成页，但那两节正是本方案与普通柔术教程的区别所在，拆出后主线会失去分量。
+2. **断言 8 在本目录 FAIL**，原因是 `index.md`／`pushup.md`／`runningexercise.md` 三篇既有文件无 front matter——既有缺口，按 §10 第 9／13／18／19 条纪律登记不动手。
+3. **本轮未跑生产构建**（§10 第 21 条，助手侧受限）。渲染属已申报的悬空项，需人侧构建后对账：新增 `build/selfdevelop/health/sports/jiujitsu-selfdefense.html` 与 1 个 tag 落地页（`自卫`）。
+4. **全文未使用插图**。柔术的位置与动作靠文字描述有上限，`fitnessplan/` 的先例也是纯文字，故沿用；代价已声明。
