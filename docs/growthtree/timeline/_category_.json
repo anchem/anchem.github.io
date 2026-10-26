@@ -2,7 +2,7 @@
   "position": 2,
   "label": "成长时间轴",
   "collapsible": true,
-  "collapsed": false,
+  "collapsed": true,
   "className": "growthtree",
   "customProps": {
     "description": "This description can be used in the swizzled DocCard"

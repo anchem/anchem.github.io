@@ -2,7 +2,7 @@
   "position": 2,
   "label": "运动",
   "collapsible": true,
-  "collapsed": false,
+  "collapsed": true,
   "className": "selfdevelop",
   "customProps": {
     "description": "This description can be used in the swizzled DocCard"
