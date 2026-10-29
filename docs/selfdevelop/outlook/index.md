@@ -13,5 +13,6 @@ sidebar_position: 1
 - [事业](./career/index.md)：职场与事业发展中的具体问题
 - [社会](./society/index.md)：政治、经济与法律的运行规则
 - [时间与人生意义](./timeandmeaning/index.md)：时间观的完整梳理与八套可验收的实操方法
+- [毛泽东思想](./maothought/index.md)：从《毛泽东选集》提炼的一套判断顺序——调查研究、矛盾分析、战略集中、群众路线、分清敌友，以及十四条可执行的原则
 
 > 观点回答「怎么看」，能力回答「怎么做」。基本活动中的「做事 / 选择 / 展示」分别与[成事能力](../ability/getthingsdone/index.md)、[决策能力](../ability/decisionmaking/index.md)、[展示能力](../ability/presentation/index.md)互为表里：观点提供判据，能力提供方法。
