@@ -1,0 +1,10 @@
+{
+  "position": 5,
+  "label": "安全与防身",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "selfdevelop",
+  "customProps": {
+    "description": "识别、化解与应对暴力冲突：冲突降级、防身训练与法律边界"
+  }
+}

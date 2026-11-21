@@ -52,7 +52,7 @@ anchem.github.io/
 ├── CNAME                    # 自定义域名，不可删
 ├── docs/                    # 知识库（225 篇 md）：四个板块
 │   ├── softwaremaster/      # 软件大师之路
-│   ├── selfdevelop/         # 个人成长：health / cognition / ability / outlook 四维
+│   ├── selfdevelop/         # 个人成长：health / cognition / ability / outlook 四维 + safety 专题
 │   ├── growthtree/          # 阿不成长树：classification（能力树）+ timeline（时间轴）
 │   └── lifeforfun/          # 为乐而生：music / invest / basketball / drama
 ├── blog/                    # 随笔：YYYY-MM-DD-<slug>.md + authors.yml

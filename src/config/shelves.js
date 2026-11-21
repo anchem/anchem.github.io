@@ -63,7 +63,7 @@ const SHELVES = [
     id: 'selfdevelop',
     title: '个人成长',
     short: '成长',
-    description: '健康、认知、能力与观点，记录持续精进的足迹。',
+    description: '健康、认知、能力、观点与安全，记录持续精进的足迹。',
     url: '/docs/selfdevelop',
     tint: 'pine',
     books: [
@@ -71,6 +71,7 @@ const SHELVES = [
       { label: '认知', url: '/docs/selfdevelop/cognition' },
       { label: '能力', url: '/docs/selfdevelop/ability' },
       { label: '观点', url: '/docs/selfdevelop/outlook' },
+      { label: '安全与防身', url: '/docs/selfdevelop/safety' },
     ],
   },
   {
